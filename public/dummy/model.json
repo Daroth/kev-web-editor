@@ -1,0 +1,2580 @@
+{ "eClass":"kevoree:ContainerRoot" ,
+"nodes": [
+{ "eClass":"kevoree:ContainerNode" ,
+ "name":"node1",
+ "typeDefinition":"//@typeDefinitions.20",
+ "host":"//@nodes.1",
+"components": [
+{ "eClass":"kevoree:ComponentInstance" ,
+ "name":"console2",
+ "typeDefinition":"//@typeDefinitions.10",
+"provided": [
+{ "eClass":"kevoree:Port" ,
+ "bindings": [{ "ref" : "//@mBindings.2"} ],
+ "portTypeRef":"//@typeDefinitions.10/@provided.0"}
+]
+,
+"required": [
+{ "eClass":"kevoree:Port" ,
+ "portTypeRef":"//@typeDefinitions.10/@required.0"}
+]
+}
+,
+{ "eClass":"kevoree:ComponentInstance" ,
+ "name":"input",
+ "typeDefinition":"//@typeDefinitions.15",
+"dictionary":{ "eClass":"kevoree:Dictionary" ,
+"values": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"2000",
+ "attribute":"//@typeDefinitions.15/@dictionaryType/@attributes.0"}
+]
+}
+,
+"provided": [
+]
+,
+"required": [
+{ "eClass":"kevoree:Port" ,
+ "bindings": [{ "ref" : "//@mBindings.0"} ],
+ "portTypeRef":"//@typeDefinitions.15/@required.0"}
+]
+}
+,
+{ "eClass":"kevoree:ComponentInstance" ,
+ "name":"console",
+ "typeDefinition":"//@typeDefinitions.10",
+"provided": [
+{ "eClass":"kevoree:Port" ,
+ "bindings": [{ "ref" : "//@mBindings.1"} ],
+ "portTypeRef":"//@typeDefinitions.10/@provided.0"}
+]
+,
+"required": [
+{ "eClass":"kevoree:Port" ,
+ "portTypeRef":"//@typeDefinitions.10/@required.0"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:ContainerNode" ,
+ "name":"node0",
+ "typeDefinition":"//@typeDefinitions.17",
+ "hosts": [{ "ref" : "//@nodes.0"} ],
+"components": [
+]
+}
+]
+,
+"typeDefinitions": [
+{ "eClass":"kevoree:NodeType" ,
+ "name":"StatefulJavaSENode",
+ "factoryBean":"org.kevoree.library.defaultNodeTypes.StatefulJavaSENodeFactory",
+ "bean":"org.kevoree.library.defaultNodeTypes.StatefulJavaSENode",
+ "startMethod":"startNode",
+ "stopMethod":"stopNode",
+ "updateMethod":"updateNode",
+ "deployUnits": [{ "ref" : "//@deployUnits.18"} ],
+ "superTypes": [{ "ref" : "//@typeDefinitions.20"} ],
+ "managedPrimitiveTypes": [{ "ref" : "//@adaptationPrimitiveTypes.0"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.2"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.1"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.3"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.6"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.5"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.7"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.8"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.9"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.10"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.11"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.13"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.14"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.15"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.16"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.17"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.18"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.19"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.20"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.21"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.22"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"coreLogLevel",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"logLevel",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"storageLocation",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"INFO",
+ "attribute":"//@typeDefinitions.0/@dictionaryType/@attributes.1"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"WARN",
+ "attribute":"//@typeDefinitions.0/@dictionaryType/@attributes.0"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "attribute":"//@typeDefinitions.0/@dictionaryType/@attributes.2"}
+]
+}
+,
+"managedPrimitiveTypeRefs": [
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.18"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.15"}
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"FileExplorer",
+ "factoryBean":"org.kevoree.library.ui.fileExplorer.FileExplorerFactory",
+ "bean":"org.kevoree.library.ui.fileExplorer.FileExplorer",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.21"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"basedir",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+]
+}
+,
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"fileurl",
+ "optional":"true",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.5",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+]
+}
+,
+{ "eClass":"kevoree:ChannelType" ,
+ "name":"NioFilteredChannel",
+ "factoryBean":"org.kevoree.library.nioChannel.NioFilteredChannelFactory",
+ "bean":"org.kevoree.library.nioChannel.NioFilteredChannel",
+ "startMethod":"startNio",
+ "stopMethod":"stopNio",
+ "updateMethod":"update",
+ "lowerBindings":"0",
+ "upperBindings":"0",
+ "lowerFragments":"0",
+ "upperFragments":"0",
+ "deployUnits": [{ "ref" : "//@deployUnits.29"} ],
+ "superTypes": [{ "ref" : "//@typeDefinitions.25"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"port",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"true"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"type",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=nio,oio",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"9000",
+ "attribute":"//@typeDefinitions.2/@dictionaryType/@attributes.0"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"nio",
+ "attribute":"//@typeDefinitions.2/@dictionaryType/@attributes.1"}
+]
+}
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"FakeReasoner",
+ "factoryBean":"org.kevoree.library.FakeReasonerFactory",
+ "bean":"org.kevoree.library.FakeReasoner",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "deployUnits": [{ "ref" : "//@deployUnits.27"} ],
+"required": [
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"FakeSimpleLight",
+ "factoryBean":"org.kevoree.library.FakeSimpleLightFactory",
+ "bean":"org.kevoree.library.FakeSimpleLight",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.27"} ],
+"required": [
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"toggle",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.11",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"toogle",
+ "serviceMethodName":"toggle"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"toogle",
+ "serviceMethodName":"toggle"}
+]
+}
+,
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"off",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"lightOff",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"lightOff",
+ "serviceMethodName":"process"}
+]
+}
+,
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"on",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"lightOn",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"lightOn",
+ "serviceMethodName":"process"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:MessagePortType" ,
+ "name":"org.kevoree.framework.MessagePort1363273030738",
+ "synchrone":"false",
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"url",
+ "optional":"true",
+ "state":"false",
+ "datatype":"java.lang.String",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+]
+}
+}
+,
+{ "eClass":"kevoree:ChannelType" ,
+ "name":"defMSG",
+ "factoryBean":"org.kevoree.library.defaultChannels.defMSGFactory",
+ "bean":"org.kevoree.library.defaultChannels.defMSG",
+ "startMethod":"startHello",
+ "stopMethod":"stopHello",
+ "updateMethod":"updateHello",
+ "lowerBindings":"0",
+ "upperBindings":"0",
+ "lowerFragments":"0",
+ "upperFragments":"0",
+ "deployUnits": [{ "ref" : "//@deployUnits.28"} ]}
+,
+{ "eClass":"kevoree:MessagePortType" ,
+ "name":"org.kevoree.framework.MessagePort1363273030770",
+ "synchrone":"false",
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"height",
+ "optional":"true",
+ "state":"false",
+ "datatype":"java.lang.Integer",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"bytes",
+ "optional":"true",
+ "state":"false",
+ "datatype":"byte[]",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"fps",
+ "optional":"true",
+ "state":"false",
+ "datatype":"java.lang.Integer",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"width",
+ "optional":"true",
+ "state":"false",
+ "datatype":"java.lang.Integer",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"chroma",
+ "optional":"true",
+ "state":"false",
+ "datatype":"java.lang.String",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+]
+}
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"VideoViewerImageRecorder",
+ "factoryBean":"org.kevoree.library.ui.player.VideoViewerImageRecorderFactory",
+ "bean":"org.kevoree.library.ui.player.VideoViewerImageRecorder",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.21"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"image_folder",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"FPS",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=1,10,15,24,30",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"10",
+ "attribute":"//@typeDefinitions.8/@dictionaryType/@attributes.1"}
+]
+}
+,
+"required": [
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"image",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.28",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"onReceiveImage",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"onReceiveImage",
+ "serviceMethodName":"process"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:NodeType" ,
+ "name":"PMiniCloudNode",
+ "factoryBean":"org.kevoree.library.sky.minicloud.nodeType.PMiniCloudNodeFactory",
+ "bean":"org.kevoree.library.sky.minicloud.nodeType.PMiniCloudNode",
+ "startMethod":"startNode",
+ "stopMethod":"stopNode",
+ "updateMethod":"updateNode",
+ "deployUnits": [{ "ref" : "//@deployUnits.37"} ],
+ "superTypes": [{ "ref" : "//@typeDefinitions.17"} ,
+{ "ref" : "//@typeDefinitions.20"} ],
+ "managedPrimitiveTypes": [{ "ref" : "//@adaptationPrimitiveTypes.0"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.2"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.1"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.3"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.4"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.6"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.5"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.7"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.8"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.9"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.10"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.12"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.11"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.13"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.14"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.15"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.16"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.17"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.18"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.19"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.20"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.21"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.22"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"coreLogLevel",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"DISK_SIZE",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"CPU_CORE",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"ARCH",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"VMARGS",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"RAM",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"logLevel",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"CPU_FREQUENCY",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"role",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=host,container,host/container",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"OS",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"log_folder",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"WALLCLOCKTIME",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"INFO",
+ "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.6"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"WARN",
+ "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.0"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"host/container",
+ "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.8"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"/tmp",
+ "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.10"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.3"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.5"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.2"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.7"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.9"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.1"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.11"}
+]
+}
+,
+"managedPrimitiveTypeRefs": [
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.18"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.15"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.12"}
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"FakeConsole",
+ "factoryBean":"org.kevoree.library.FakeConsoleFactory",
+ "bean":"org.kevoree.library.FakeConsole",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.27"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"singleFrame",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"true",
+ "attribute":"//@typeDefinitions.10/@dictionaryType/@attributes.0"}
+]
+}
+,
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"textEntered",
+ "optional":"true",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"showText",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"appendIncoming",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"appendIncoming",
+ "serviceMethodName":"process"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:ServicePortType" ,
+ "name":"org.kevoree.library.ToggleLightService",
+ "synchrone":"false",
+"operations": [
+{ "eClass":"kevoree:Operation" ,
+ "name":"toggle",
+ "returnType":"//@dataTypes.0",
+"parameters": [
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"BufferPage",
+ "factoryBean":"org.kevoree.library.javase.webserver.sample.BufferPageFactory",
+ "bean":"org.kevoree.library.javase.webserver.sample.BufferPage",
+ "startMethod":"startPage",
+ "stopMethod":"stopPage",
+ "updateMethod":"updatePage",
+ "deployUnits": [{ "ref" : "//@deployUnits.31"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"urlpattern",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"/",
+ "attribute":"//@typeDefinitions.12/@dictionaryType/@attributes.0"}
+]
+}
+,
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"content",
+ "optional":"false",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+,
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"forward",
+ "optional":"true",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"input",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"onMessage",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"onMessage",
+ "serviceMethodName":"process"}
+]
+}
+,
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"request",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"requestHandler",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"requestHandler",
+ "serviceMethodName":"process"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"StaticFilesPage",
+ "factoryBean":"org.kevoree.library.javase.webserver.sample.StaticFilesPageFactory",
+ "bean":"org.kevoree.library.javase.webserver.sample.StaticFilesPage",
+ "startMethod":"startPage",
+ "stopMethod":"stopPage",
+ "updateMethod":"updatePage",
+ "deployUnits": [{ "ref" : "//@deployUnits.31"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"urlpattern",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"/",
+ "attribute":"//@typeDefinitions.13/@dictionaryType/@attributes.0"}
+]
+}
+,
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"content",
+ "optional":"false",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+,
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"forward",
+ "optional":"true",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"request",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"requestHandler",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"requestHandler",
+ "serviceMethodName":"process"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:NodeType" ,
+ "name":"PJavaSENode",
+ "factoryBean":"org.kevoree.library.sky.api.nodeType.PJavaSENodeFactory",
+ "bean":"org.kevoree.library.sky.api.nodeType.PJavaSENode",
+ "startMethod":"startNode",
+ "stopMethod":"stopNode",
+ "updateMethod":"updateNode",
+ "deployUnits": [{ "ref" : "//@deployUnits.32"} ],
+ "superTypes": [{ "ref" : "//@typeDefinitions.20"} ],
+ "managedPrimitiveTypes": [{ "ref" : "//@adaptationPrimitiveTypes.0"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.1"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.2"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.3"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.5"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.6"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.7"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.8"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.9"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.10"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.11"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.13"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.14"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.15"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.16"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.17"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.18"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.19"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.20"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.21"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.22"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"DISK_SIZE",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"coreLogLevel",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"CPU_CORE",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"ARCH",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"RAM",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"logLevel",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"CPU_FREQUENCY",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"OS",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"WALLCLOCKTIME",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"INFO",
+ "attribute":"//@typeDefinitions.14/@dictionaryType/@attributes.5"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"WARN",
+ "attribute":"//@typeDefinitions.14/@dictionaryType/@attributes.1"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.14/@dictionaryType/@attributes.3"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.14/@dictionaryType/@attributes.4"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.14/@dictionaryType/@attributes.2"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.14/@dictionaryType/@attributes.6"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.14/@dictionaryType/@attributes.7"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.14/@dictionaryType/@attributes.0"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"N/A",
+ "attribute":"//@typeDefinitions.14/@dictionaryType/@attributes.8"}
+]
+}
+,
+"managedPrimitiveTypeRefs": [
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.18"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.15"}
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"CamelTimer",
+ "factoryBean":"org.kevoree.library.camel.CamelTimerFactory",
+ "bean":"org.kevoree.library.camel.CamelTimer",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.0"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"period",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"5000",
+ "attribute":"//@typeDefinitions.15/@dictionaryType/@attributes.0"}
+]
+}
+,
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"tick",
+ "optional":"true",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"HelloWorldPage",
+ "factoryBean":"org.kevoree.library.javase.webserver.sample.HelloWorldPageFactory",
+ "bean":"org.kevoree.library.javase.webserver.sample.HelloWorldPage",
+ "startMethod":"startPage",
+ "stopMethod":"stopPage",
+ "updateMethod":"updatePage",
+ "deployUnits": [{ "ref" : "//@deployUnits.31"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"urlpattern",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"/",
+ "attribute":"//@typeDefinitions.16/@dictionaryType/@attributes.0"}
+]
+}
+,
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"content",
+ "optional":"false",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+,
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"forward",
+ "optional":"true",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"request",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"requestHandler",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"requestHandler",
+ "serviceMethodName":"process"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:NodeType" ,
+ "name":"MiniCloudNode",
+ "factoryBean":"org.kevoree.library.sky.minicloud.nodeType.MiniCloudNodeFactory",
+ "bean":"org.kevoree.library.sky.minicloud.nodeType.MiniCloudNode",
+ "startMethod":"startNode",
+ "stopMethod":"stopNode",
+ "updateMethod":"updateNode",
+ "deployUnits": [{ "ref" : "//@deployUnits.37"} ],
+ "superTypes": [{ "ref" : "//@typeDefinitions.20"} ],
+ "managedPrimitiveTypes": [{ "ref" : "//@adaptationPrimitiveTypes.0"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.2"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.1"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.3"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.4"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.6"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.5"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.7"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.8"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.9"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.10"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.12"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.11"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.13"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.14"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.15"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.16"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.17"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.18"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.19"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.20"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.21"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.22"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"coreLogLevel",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"VMARGS",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"logLevel",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"role",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=host,container,host/container",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"log_folder",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"INFO",
+ "attribute":"//@typeDefinitions.17/@dictionaryType/@attributes.2"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"WARN",
+ "attribute":"//@typeDefinitions.17/@dictionaryType/@attributes.0"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"host/container",
+ "attribute":"//@typeDefinitions.17/@dictionaryType/@attributes.3"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"/tmp",
+ "attribute":"//@typeDefinitions.17/@dictionaryType/@attributes.4"}
+]
+}
+,
+"managedPrimitiveTypeRefs": [
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.18"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.15"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.12"}
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"CamelLogger",
+ "factoryBean":"org.kevoree.library.camel.CamelLoggerFactory",
+ "bean":"org.kevoree.library.camel.CamelLogger",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.0"} ],
+"required": [
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"input",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"globalInput",
+ "serviceMethodName":"process",
+ "paramTypes":"java.lang.Object,java.lang.String"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"VideoViewer",
+ "factoryBean":"org.kevoree.library.ui.player.VideoViewerFactory",
+ "bean":"org.kevoree.library.ui.player.VideoViewer",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.21"} ],
+"required": [
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"image",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.26",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"onReceiveImage",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"onReceiveImage",
+ "serviceMethodName":"process"}
+]
+}
+,
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"image_bytes",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.7",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"onReceiveImageBytes",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"onReceiveImageBytes",
+ "serviceMethodName":"process"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:NodeType" ,
+ "name":"JavaSENode",
+ "factoryBean":"org.kevoree.library.defaultNodeTypes.JavaSENodeFactory",
+ "bean":"org.kevoree.library.defaultNodeTypes.JavaSENode",
+ "startMethod":"startNode",
+ "stopMethod":"stopNode",
+ "updateMethod":"updateNode",
+ "deployUnits": [{ "ref" : "//@deployUnits.18"} ],
+ "managedPrimitiveTypes": [{ "ref" : "//@adaptationPrimitiveTypes.0"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.1"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.2"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.3"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.5"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.6"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.7"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.8"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.9"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.10"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.11"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.13"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.14"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.15"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.17"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.16"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.19"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.18"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.20"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.22"} ,
+{ "ref" : "//@adaptationPrimitiveTypes.21"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"coreLogLevel",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"logLevel",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"INFO",
+ "attribute":"//@typeDefinitions.20/@dictionaryType/@attributes.1"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"WARN",
+ "attribute":"//@typeDefinitions.20/@dictionaryType/@attributes.0"}
+]
+}
+,
+"managedPrimitiveTypeRefs": [
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.18"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveTypeRef" ,
+ "maxTime":"120000",
+ "ref":"//@adaptationPrimitiveTypes.15"}
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"URLFilter",
+ "factoryBean":"org.kevoree.library.javase.webserver.URLFilterFactory",
+ "bean":"org.kevoree.library.javase.webserver.URLFilter",
+ "startMethod":"startHandler",
+ "stopMethod":"stopHandler",
+ "updateMethod":"updateHandler",
+ "deployUnits": [{ "ref" : "//@deployUnits.31"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"urlpattern",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"/",
+ "attribute":"//@typeDefinitions.21/@dictionaryType/@attributes.0"}
+]
+}
+,
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"filtered",
+ "optional":"false",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"request",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"requestHandler",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"requestHandler",
+ "serviceMethodName":"process"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:ChannelType" ,
+ "name":"NioRoundRobin",
+ "factoryBean":"org.kevoree.library.nioChannel.NioRoundRobinFactory",
+ "bean":"org.kevoree.library.nioChannel.NioRoundRobin",
+ "startMethod":"startNio",
+ "stopMethod":"stopNio",
+ "updateMethod":"update",
+ "lowerBindings":"0",
+ "upperBindings":"0",
+ "lowerFragments":"0",
+ "upperFragments":"0",
+ "deployUnits": [{ "ref" : "//@deployUnits.29"} ],
+ "superTypes": [{ "ref" : "//@typeDefinitions.25"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"port",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"true"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"type",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=nio,oio",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"9000",
+ "attribute":"//@typeDefinitions.22/@dictionaryType/@attributes.0"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"nio",
+ "attribute":"//@typeDefinitions.22/@dictionaryType/@attributes.1"}
+]
+}
+}
+,
+{ "eClass":"kevoree:ChannelType" ,
+ "name":"defSERVICE",
+ "factoryBean":"org.kevoree.library.defaultChannels.defSERVICEFactory",
+ "bean":"org.kevoree.library.defaultChannels.defSERVICE",
+ "startMethod":"startHello",
+ "stopMethod":"stopHello",
+ "lowerBindings":"0",
+ "upperBindings":"0",
+ "lowerFragments":"0",
+ "upperFragments":"0",
+ "deployUnits": [{ "ref" : "//@deployUnits.28"} ]}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"CamelBeanTimer",
+ "factoryBean":"org.kevoree.library.camel.CamelBeanTimerFactory",
+ "bean":"org.kevoree.library.camel.CamelBeanTimer",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.0"} ],
+"required": [
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+]
+}
+,
+{ "eClass":"kevoree:ChannelType" ,
+ "name":"NioChannel",
+ "factoryBean":"org.kevoree.library.nioChannel.NioChannelFactory",
+ "bean":"org.kevoree.library.nioChannel.NioChannel",
+ "startMethod":"startNio",
+ "stopMethod":"stopNio",
+ "updateMethod":"update",
+ "lowerBindings":"0",
+ "upperBindings":"0",
+ "lowerFragments":"0",
+ "upperFragments":"0",
+ "deployUnits": [{ "ref" : "//@deployUnits.29"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"port",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"true"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"type",
+ "optional":"true",
+ "state":"false",
+ "datatype":"enum=nio,oio",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"9000",
+ "attribute":"//@typeDefinitions.25/@dictionaryType/@attributes.0"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"nio",
+ "attribute":"//@typeDefinitions.25/@dictionaryType/@attributes.1"}
+]
+}
+}
+,
+{ "eClass":"kevoree:MessagePortType" ,
+ "name":"org.kevoree.framework.MessagePort1363273030767",
+ "synchrone":"false",
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"image",
+ "optional":"true",
+ "state":"false",
+ "datatype":"java.awt.image.BufferedImage",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+]
+}
+}
+,
+{ "eClass":"kevoree:ChannelType" ,
+ "name":"CamelNettyService",
+ "factoryBean":"org.kevoree.library.camel.CamelNettyServiceFactory",
+ "bean":"org.kevoree.library.camel.CamelNettyService",
+ "startMethod":"startCamelChannel",
+ "stopMethod":"stopCamelChannel",
+ "updateMethod":"updateCamelChannel",
+ "lowerBindings":"0",
+ "upperBindings":"0",
+ "lowerFragments":"0",
+ "upperFragments":"0",
+ "deployUnits": [{ "ref" : "//@deployUnits.0"} ],
+ "superTypes": [{ "ref" : "//@typeDefinitions.32"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"port",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"true"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"10000",
+ "attribute":"//@typeDefinitions.27/@dictionaryType/@attributes.0"}
+]
+}
+}
+,
+{ "eClass":"kevoree:MessagePortType" ,
+ "name":"org.kevoree.framework.MessagePort1363273030782",
+ "synchrone":"false",
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"image",
+ "optional":"true",
+ "state":"false",
+ "datatype":"java.awt.image.BufferedImage",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+]
+}
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"FakeSimpleSwitch",
+ "factoryBean":"org.kevoree.library.FakeSimpleSwitchFactory",
+ "bean":"org.kevoree.library.FakeSimpleSwitch",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.27"} ],
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"toggle",
+ "optional":"true",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.11",
+"mappings": [
+]
+}
+,
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"off",
+ "optional":"true",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+,
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"on",
+ "optional":"true",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+]
+}
+,
+{ "eClass":"kevoree:MessagePortType" ,
+ "name":"org.kevoree.framework.MessagePort1363273119170",
+ "synchrone":"false",
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"percent",
+ "optional":"true",
+ "state":"false",
+ "datatype":"java.lang.Integer",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+]
+}
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"FakeConsoleWithStdMessage",
+ "factoryBean":"org.kevoree.library.FakeConsoleWithStdMessageFactory",
+ "bean":"org.kevoree.library.FakeConsoleWithStdMessage",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "deployUnits": [{ "ref" : "//@deployUnits.27"} ],
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"textEntered",
+ "optional":"true",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"showText",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"appendIncoming",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"appendIncoming",
+ "serviceMethodName":"process"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:ChannelType" ,
+ "name":"CamelNetty",
+ "factoryBean":"org.kevoree.library.camel.CamelNettyFactory",
+ "bean":"org.kevoree.library.camel.CamelNetty",
+ "startMethod":"startCamelChannel",
+ "stopMethod":"stopCamelChannel",
+ "updateMethod":"updateCamelChannel",
+ "lowerBindings":"0",
+ "upperBindings":"0",
+ "lowerFragments":"0",
+ "upperFragments":"0",
+ "deployUnits": [{ "ref" : "//@deployUnits.0"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"port",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"true"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"10000",
+ "attribute":"//@typeDefinitions.32/@dictionaryType/@attributes.0"}
+]
+}
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"FakeSimpleSlider",
+ "factoryBean":"org.kevoree.library.FakeSimpleSliderFactory",
+ "bean":"org.kevoree.library.FakeSimpleSlider",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.27"} ],
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"send",
+ "optional":"true",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.30",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"KevScriptEditor",
+ "factoryBean":"org.kevoree.library.ui.kevScript.KevScriptEditorFactory",
+ "bean":"org.kevoree.library.ui.kevScript.KevScriptEditor",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "deployUnits": [{ "ref" : "//@deployUnits.21"} ],
+"required": [
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"KTinyWebServer",
+ "factoryBean":"org.kevoree.library.webserver.KTinyWebServerFactory",
+ "bean":"org.kevoree.library.webserver.KTinyWebServer",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.33"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"port",
+ "optional":"false",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"timeout",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"8080",
+ "attribute":"//@typeDefinitions.35/@dictionaryType/@attributes.0"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"5000",
+ "attribute":"//@typeDefinitions.35/@dictionaryType/@attributes.1"}
+]
+}
+,
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"handler",
+ "optional":"false",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"response",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"responseHandler",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"responseHandler",
+ "serviceMethodName":"process"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"SampleFormPage",
+ "factoryBean":"org.kevoree.library.javase.webserver.sample.SampleFormPageFactory",
+ "bean":"org.kevoree.library.javase.webserver.sample.SampleFormPage",
+ "startMethod":"startPage",
+ "stopMethod":"stopPage",
+ "updateMethod":"updatePage",
+ "deployUnits": [{ "ref" : "//@deployUnits.31"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"urlpattern",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"/",
+ "attribute":"//@typeDefinitions.36/@dictionaryType/@attributes.0"}
+]
+}
+,
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"content",
+ "optional":"false",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+,
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"forward",
+ "optional":"true",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"request",
+ "optional":"false",
+ "noDependency":"false",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"requestHandler",
+ "serviceMethodName":"process"}
+,
+{ "eClass":"kevoree:PortTypeMapping" ,
+ "beanMethodName":"requestHandler",
+ "serviceMethodName":"process"}
+]
+}
+]
+}
+,
+{ "eClass":"kevoree:ChannelType" ,
+ "name":"defMSGT",
+ "factoryBean":"org.kevoree.library.defaultChannels.defMSGTFactory",
+ "bean":"org.kevoree.library.defaultChannels.defMSGT",
+ "startMethod":"startHello",
+ "stopMethod":"stopHello",
+ "updateMethod":"updateHello",
+ "lowerBindings":"0",
+ "upperBindings":"0",
+ "lowerFragments":"0",
+ "upperFragments":"0",
+ "deployUnits": [{ "ref" : "//@deployUnits.28"} ],
+ "superTypes": [{ "ref" : "//@typeDefinitions.6"} ]}
+,
+{ "eClass":"kevoree:ComponentType" ,
+ "name":"Random",
+ "factoryBean":"org.kevoree.library.RandomFactory",
+ "bean":"org.kevoree.library.Random",
+ "startMethod":"start",
+ "stopMethod":"stop",
+ "updateMethod":"update",
+ "deployUnits": [{ "ref" : "//@deployUnits.27"} ],
+"dictionaryType":{ "eClass":"kevoree:DictionaryType" ,
+"attributes": [
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"range_min",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"refresh_speed",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+,
+{ "eClass":"kevoree:DictionaryAttribute" ,
+ "name":"range_max",
+ "optional":"true",
+ "state":"false",
+ "fragmentDependant":"false"}
+]
+,
+"defaultValues": [
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"2000",
+ "attribute":"//@typeDefinitions.38/@dictionaryType/@attributes.1"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"0",
+ "attribute":"//@typeDefinitions.38/@dictionaryType/@attributes.0"}
+,
+{ "eClass":"kevoree:DictionaryValue" ,
+ "value":"50",
+ "attribute":"//@typeDefinitions.38/@dictionaryType/@attributes.2"}
+]
+}
+,
+"required": [
+{ "eClass":"kevoree:PortTypeRef" ,
+ "name":"out",
+ "optional":"true",
+ "noDependency":"true",
+ "ref":"//@typeDefinitions.40",
+"mappings": [
+]
+}
+]
+,
+"integrationPatterns": [
+]
+,
+"provided": [
+]
+}
+,
+{ "eClass":"kevoree:ChannelType" ,
+ "name":"defSERVICET",
+ "factoryBean":"org.kevoree.library.defaultChannels.defSERVICETFactory",
+ "bean":"org.kevoree.library.defaultChannels.defSERVICET",
+ "startMethod":"startHello",
+ "stopMethod":"stopHello",
+ "lowerBindings":"0",
+ "upperBindings":"0",
+ "lowerFragments":"0",
+ "upperFragments":"0",
+ "deployUnits": [{ "ref" : "//@deployUnits.28"} ],
+ "superTypes": [{ "ref" : "//@typeDefinitions.23"} ]}
+,
+{ "eClass":"kevoree:MessagePortType" ,
+ "name":"org.kevoree.framework.MessagePort",
+ "synchrone":"false"}
+]
+,
+"repositories": [
+{ "eClass":"kevoree:Repository" ,
+ "url":"http://maven.kevoree.org/release"}
+,
+{ "eClass":"kevoree:Repository" ,
+ "url":"http://repo1.maven.org/maven2"}
+,
+{ "eClass":"kevoree:Repository" ,
+ "url":"http://repo.maven.apache.org/maven2"}
+,
+{ "eClass":"kevoree:Repository" ,
+ "url":"http://repository.jetbrains.com/all"}
+,
+{ "eClass":"kevoree:Repository" ,
+ "url":"http://maven.kevoree.org/archiva/repository/snapshots/"}
+,
+{ "eClass":"kevoree:Repository" ,
+ "url":"http://maven.kevoree.org/snapshots"}
+]
+,
+"dataTypes": [
+{ "eClass":"kevoree:TypedElement" ,
+ "name":"java.lang.String"}
+]
+,
+"libraries": [
+{ "eClass":"kevoree:TypeLibrary" ,
+ "name":"Android",
+ "subTypes": [{ "ref" : "//@typeDefinitions.2"} ,
+{ "ref" : "//@typeDefinitions.25"} ,
+{ "ref" : "//@typeDefinitions.22"} ]}
+,
+{ "eClass":"kevoree:TypeLibrary" ,
+ "name":"SKY",
+ "subTypes": [{ "ref" : "//@typeDefinitions.14"} ,
+{ "ref" : "//@typeDefinitions.17"} ,
+{ "ref" : "//@typeDefinitions.9"} ]}
+,
+{ "eClass":"kevoree:TypeLibrary" ,
+ "name":"JavaSE",
+ "subTypes": [{ "ref" : "//@typeDefinitions.1"} ,
+{ "ref" : "//@typeDefinitions.0"} ,
+{ "ref" : "//@typeDefinitions.2"} ,
+{ "ref" : "//@typeDefinitions.3"} ,
+{ "ref" : "//@typeDefinitions.4"} ,
+{ "ref" : "//@typeDefinitions.6"} ,
+{ "ref" : "//@typeDefinitions.9"} ,
+{ "ref" : "//@typeDefinitions.8"} ,
+{ "ref" : "//@typeDefinitions.10"} ,
+{ "ref" : "//@typeDefinitions.12"} ,
+{ "ref" : "//@typeDefinitions.13"} ,
+{ "ref" : "//@typeDefinitions.15"} ,
+{ "ref" : "//@typeDefinitions.14"} ,
+{ "ref" : "//@typeDefinitions.16"} ,
+{ "ref" : "//@typeDefinitions.18"} ,
+{ "ref" : "//@typeDefinitions.17"} ,
+{ "ref" : "//@typeDefinitions.19"} ,
+{ "ref" : "//@typeDefinitions.20"} ,
+{ "ref" : "//@typeDefinitions.21"} ,
+{ "ref" : "//@typeDefinitions.22"} ,
+{ "ref" : "//@typeDefinitions.23"} ,
+{ "ref" : "//@typeDefinitions.24"} ,
+{ "ref" : "//@typeDefinitions.25"} ,
+{ "ref" : "//@typeDefinitions.27"} ,
+{ "ref" : "//@typeDefinitions.29"} ,
+{ "ref" : "//@typeDefinitions.31"} ,
+{ "ref" : "//@typeDefinitions.32"} ,
+{ "ref" : "//@typeDefinitions.35"} ,
+{ "ref" : "//@typeDefinitions.33"} ,
+{ "ref" : "//@typeDefinitions.34"} ,
+{ "ref" : "//@typeDefinitions.36"} ,
+{ "ref" : "//@typeDefinitions.37"} ,
+{ "ref" : "//@typeDefinitions.38"} ,
+{ "ref" : "//@typeDefinitions.39"} ]}
+]
+,
+"hubs": [
+{ "eClass":"kevoree:Channel" ,
+ "name":"logQueue",
+ "typeDefinition":"//@typeDefinitions.22",
+ "bindings": [{ "ref" : "//@mBindings.0"} ,
+{ "ref" : "//@mBindings.1"} ,
+{ "ref" : "//@mBindings.2"} ]}
+]
+,
+"mBindings": [
+{ "eClass":"kevoree:MBinding" }
+,
+{ "eClass":"kevoree:MBinding" }
+,
+{ "eClass":"kevoree:MBinding" }
+]
+,
+"deployUnits": [
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.corelibrary.javase",
+ "unitName":"org.kevoree.library.javase.camel",
+ "version":"2.0.0-SNAPSHOT",
+ "hashcode":"201303141600708",
+ "type":"jar",
+ "requiredLibs": [{ "ref" : "//@deployUnits.1"} ,
+{ "ref" : "//@deployUnits.2"} ,
+{ "ref" : "//@deployUnits.3"} ,
+{ "ref" : "//@deployUnits.4"} ,
+{ "ref" : "//@deployUnits.5"} ,
+{ "ref" : "//@deployUnits.6"} ,
+{ "ref" : "//@deployUnits.7"} ,
+{ "ref" : "//@deployUnits.8"} ,
+{ "ref" : "//@deployUnits.9"} ,
+{ "ref" : "//@deployUnits.10"} ,
+{ "ref" : "//@deployUnits.11"} ,
+{ "ref" : "//@deployUnits.12"} ,
+{ "ref" : "//@deployUnits.13"} ,
+{ "ref" : "//@deployUnits.14"} ,
+{ "ref" : "//@deployUnits.15"} ,
+{ "ref" : "//@deployUnits.16"} ,
+{ "ref" : "//@deployUnits.17"} ],
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.tools",
+ "unitName":"org.kevoree.tools.camel.framework",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.apache.camel",
+ "unitName":"camel-core",
+ "version":"2.9.2",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.scala-lang",
+ "unitName":"scala-library",
+ "version":"2.9.2",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.slf4j",
+ "unitName":"slf4j-api",
+ "version":"1.7.2",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.apache.camel",
+ "unitName":"camel-netty",
+ "version":"2.9.2",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.apache.servicemix.bundles",
+ "unitName":"org.apache.servicemix.bundles.netty",
+ "version":"3.2.6.Final_1",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.tools",
+ "unitName":"org.kevoree.tools.javase.framework",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree",
+ "unitName":"org.kevoree.framework",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree",
+ "unitName":"org.kevoree.api",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree",
+ "unitName":"org.kevoree.model",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"fr.inria.jfilter",
+ "unitName":"jfilter-library",
+ "version":"1.3-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree",
+ "unitName":"org.kevoree.model.context",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree",
+ "unitName":"org.kevoree.adaptation.model",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree",
+ "unitName":"org.kevoree.kcl",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.jetbrains.kotlin",
+ "unitName":"kotlin-stdlib",
+ "version":"0.5.162",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.jetbrains.kotlin",
+ "unitName":"kotlin-runtime",
+ "version":"0.5.162",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.tools",
+ "unitName":"org.kevoree.tools.annotation.api",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.corelibrary.javase",
+ "unitName":"org.kevoree.library.javase.javaseNode",
+ "version":"2.0.0-SNAPSHOT",
+ "hashcode":"201303141712547",
+ "type":"jar",
+ "requiredLibs": [{ "ref" : "//@deployUnits.14"} ,
+{ "ref" : "//@deployUnits.4"} ,
+{ "ref" : "//@deployUnits.3"} ,
+{ "ref" : "//@deployUnits.9"} ,
+{ "ref" : "//@deployUnits.10"} ,
+{ "ref" : "//@deployUnits.11"} ,
+{ "ref" : "//@deployUnits.12"} ,
+{ "ref" : "//@deployUnits.13"} ,
+{ "ref" : "//@deployUnits.8"} ,
+{ "ref" : "//@deployUnits.15"} ,
+{ "ref" : "//@deployUnits.16"} ,
+{ "ref" : "//@deployUnits.7"} ,
+{ "ref" : "//@deployUnits.17"} ,
+{ "ref" : "//@deployUnits.19"} ,
+{ "ref" : "//@deployUnits.20"} ],
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree",
+ "unitName":"org.kevoree.kompare",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.jgrapht",
+ "unitName":"jgrapht-jdk1.5",
+ "version":"0.7.3",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.corelibrary.javase",
+ "unitName":"org.kevoree.library.javase.swingUI",
+ "version":"2.0.0-SNAPSHOT",
+ "hashcode":"201303141557937",
+ "type":"jar",
+ "requiredLibs": [{ "ref" : "//@deployUnits.3"} ,
+{ "ref" : "//@deployUnits.4"} ,
+{ "ref" : "//@deployUnits.7"} ,
+{ "ref" : "//@deployUnits.8"} ,
+{ "ref" : "//@deployUnits.9"} ,
+{ "ref" : "//@deployUnits.10"} ,
+{ "ref" : "//@deployUnits.11"} ,
+{ "ref" : "//@deployUnits.12"} ,
+{ "ref" : "//@deployUnits.13"} ,
+{ "ref" : "//@deployUnits.14"} ,
+{ "ref" : "//@deployUnits.15"} ,
+{ "ref" : "//@deployUnits.16"} ,
+{ "ref" : "//@deployUnits.17"} ,
+{ "ref" : "//@deployUnits.22"} ,
+{ "ref" : "//@deployUnits.23"} ,
+{ "ref" : "//@deployUnits.24"} ,
+{ "ref" : "//@deployUnits.25"} ,
+{ "ref" : "//@deployUnits.26"} ],
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.extra",
+ "unitName":"org.kevoree.extra.macwidgets",
+ "version":"0.9.6",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"com.jgoodies",
+ "unitName":"forms",
+ "version":"1.2.1",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.tools",
+ "unitName":"org.kevoree.tools.marShellGUI",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.tools",
+ "unitName":"org.kevoree.tools.marShell",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.extra",
+ "unitName":"org.kevoree.extra.jsyntaxpane",
+ "version":"0.9.7",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.corelibrary.javase",
+ "unitName":"org.kevoree.library.javase.fakeDomo",
+ "version":"2.0.0-SNAPSHOT",
+ "hashcode":"201303141558100",
+ "type":"jar",
+ "requiredLibs": [{ "ref" : "//@deployUnits.21"} ,
+{ "ref" : "//@deployUnits.22"} ,
+{ "ref" : "//@deployUnits.23"} ,
+{ "ref" : "//@deployUnits.24"} ,
+{ "ref" : "//@deployUnits.25"} ,
+{ "ref" : "//@deployUnits.26"} ,
+{ "ref" : "//@deployUnits.7"} ,
+{ "ref" : "//@deployUnits.8"} ,
+{ "ref" : "//@deployUnits.9"} ,
+{ "ref" : "//@deployUnits.10"} ,
+{ "ref" : "//@deployUnits.11"} ,
+{ "ref" : "//@deployUnits.12"} ,
+{ "ref" : "//@deployUnits.13"} ,
+{ "ref" : "//@deployUnits.14"} ,
+{ "ref" : "//@deployUnits.15"} ,
+{ "ref" : "//@deployUnits.16"} ,
+{ "ref" : "//@deployUnits.3"} ,
+{ "ref" : "//@deployUnits.4"} ,
+{ "ref" : "//@deployUnits.17"} ],
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.corelibrary.javase",
+ "unitName":"org.kevoree.library.javase.defaultChannels",
+ "version":"2.0.0-SNAPSHOT",
+ "hashcode":"201303141558891",
+ "type":"jar",
+ "requiredLibs": [{ "ref" : "//@deployUnits.7"} ,
+{ "ref" : "//@deployUnits.8"} ,
+{ "ref" : "//@deployUnits.9"} ,
+{ "ref" : "//@deployUnits.10"} ,
+{ "ref" : "//@deployUnits.11"} ,
+{ "ref" : "//@deployUnits.12"} ,
+{ "ref" : "//@deployUnits.13"} ,
+{ "ref" : "//@deployUnits.14"} ,
+{ "ref" : "//@deployUnits.15"} ,
+{ "ref" : "//@deployUnits.16"} ,
+{ "ref" : "//@deployUnits.3"} ,
+{ "ref" : "//@deployUnits.4"} ,
+{ "ref" : "//@deployUnits.17"} ],
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.corelibrary.javase",
+ "unitName":"org.kevoree.library.javase.nioChannels",
+ "version":"2.0.0-SNAPSHOT",
+ "hashcode":"201303141558342",
+ "type":"jar",
+ "requiredLibs": [{ "ref" : "//@deployUnits.7"} ,
+{ "ref" : "//@deployUnits.8"} ,
+{ "ref" : "//@deployUnits.9"} ,
+{ "ref" : "//@deployUnits.10"} ,
+{ "ref" : "//@deployUnits.11"} ,
+{ "ref" : "//@deployUnits.12"} ,
+{ "ref" : "//@deployUnits.13"} ,
+{ "ref" : "//@deployUnits.14"} ,
+{ "ref" : "//@deployUnits.15"} ,
+{ "ref" : "//@deployUnits.16"} ,
+{ "ref" : "//@deployUnits.3"} ,
+{ "ref" : "//@deployUnits.4"} ,
+{ "ref" : "//@deployUnits.17"} ,
+{ "ref" : "//@deployUnits.30"} ],
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"io.netty",
+ "unitName":"netty",
+ "version":"3.4.0.Final",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.corelibrary.javase",
+ "unitName":"org.kevoree.library.javase.webserver.api",
+ "version":"2.0.0-SNAPSHOT",
+ "hashcode":"201303141559136",
+ "type":"jar",
+ "requiredLibs": [{ "ref" : "//@deployUnits.14"} ,
+{ "ref" : "//@deployUnits.15"} ,
+{ "ref" : "//@deployUnits.16"} ,
+{ "ref" : "//@deployUnits.7"} ,
+{ "ref" : "//@deployUnits.8"} ,
+{ "ref" : "//@deployUnits.9"} ,
+{ "ref" : "//@deployUnits.10"} ,
+{ "ref" : "//@deployUnits.11"} ,
+{ "ref" : "//@deployUnits.12"} ,
+{ "ref" : "//@deployUnits.13"} ,
+{ "ref" : "//@deployUnits.3"} ,
+{ "ref" : "//@deployUnits.4"} ,
+{ "ref" : "//@deployUnits.17"} ],
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.corelibrary.sky",
+ "unitName":"org.kevoree.library.sky.api",
+ "version":"2.0.0-SNAPSHOT",
+ "hashcode":"201303141601537",
+ "type":"jar",
+ "requiredLibs": [{ "ref" : "//@deployUnits.18"} ,
+{ "ref" : "//@deployUnits.14"} ,
+{ "ref" : "//@deployUnits.19"} ,
+{ "ref" : "//@deployUnits.15"} ,
+{ "ref" : "//@deployUnits.16"} ,
+{ "ref" : "//@deployUnits.31"} ,
+{ "ref" : "//@deployUnits.9"} ,
+{ "ref" : "//@deployUnits.10"} ,
+{ "ref" : "//@deployUnits.11"} ,
+{ "ref" : "//@deployUnits.12"} ,
+{ "ref" : "//@deployUnits.13"} ,
+{ "ref" : "//@deployUnits.8"} ,
+{ "ref" : "//@deployUnits.20"} ,
+{ "ref" : "//@deployUnits.4"} ,
+{ "ref" : "//@deployUnits.7"} ,
+{ "ref" : "//@deployUnits.3"} ,
+{ "ref" : "//@deployUnits.17"} ,
+{ "ref" : "//@deployUnits.33"} ,
+{ "ref" : "//@deployUnits.34"} ,
+{ "ref" : "//@deployUnits.35"} ,
+{ "ref" : "//@deployUnits.36"} ],
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.corelibrary.javase",
+ "unitName":"org.kevoree.library.javase.webserver.tjws",
+ "version":"2.0.0-SNAPSHOT",
+ "hashcode":"201303141559624",
+ "type":"jar",
+ "requiredLibs": [{ "ref" : "//@deployUnits.14"} ,
+{ "ref" : "//@deployUnits.15"} ,
+{ "ref" : "//@deployUnits.16"} ,
+{ "ref" : "//@deployUnits.31"} ,
+{ "ref" : "//@deployUnits.7"} ,
+{ "ref" : "//@deployUnits.8"} ,
+{ "ref" : "//@deployUnits.9"} ,
+{ "ref" : "//@deployUnits.10"} ,
+{ "ref" : "//@deployUnits.11"} ,
+{ "ref" : "//@deployUnits.12"} ,
+{ "ref" : "//@deployUnits.13"} ,
+{ "ref" : "//@deployUnits.3"} ,
+{ "ref" : "//@deployUnits.4"} ,
+{ "ref" : "//@deployUnits.17"} ,
+{ "ref" : "//@deployUnits.34"} ],
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"javax.servlet",
+ "unitName":"servlet-api",
+ "version":"2.5",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree",
+ "unitName":"org.kevoree.basechecker",
+ "version":"2.0.0-SNAPSHOT",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.json",
+ "unitName":"org.json",
+ "version":"chargebee-1.0",
+ "type":"jar",
+ "targetNodeType":"//@typeDefinitions.20"}
+,
+{ "eClass":"kevoree:DeployUnit" ,
+ "groupName":"org.kevoree.corelibrary.sky",
+ "unitName":"org.kevoree.library.sky.minicloud",
+ "version":"2.0.0-SNAPSHOT",
+ "hashcode":"201303141602992",
+ "type":"jar",
+ "requiredLibs": [{ "ref" : "//@deployUnits.32"} ,
+{ "ref" : "//@deployUnits.18"} ,
+{ "ref" : "//@deployUnits.14"} ,
+{ "ref" : "//@deployUnits.19"} ,
+{ "ref" : "//@deployUnits.15"} ,
+{ "ref" : "//@deployUnits.16"} ,
+{ "ref" : "//@deployUnits.33"} ,
+{ "ref" : "//@deployUnits.34"} ,
+{ "ref" : "//@deployUnits.31"} ,
+{ "ref" : "//@deployUnits.35"} ,
+{ "ref" : "//@deployUnits.9"} ,
+{ "ref" : "//@deployUnits.10"} ,
+{ "ref" : "//@deployUnits.11"} ,
+{ "ref" : "//@deployUnits.12"} ,
+{ "ref" : "//@deployUnits.13"} ,
+{ "ref" : "//@deployUnits.20"} ,
+{ "ref" : "//@deployUnits.36"} ,
+{ "ref" : "//@deployUnits.7"} ,
+{ "ref" : "//@deployUnits.8"} ,
+{ "ref" : "//@deployUnits.3"} ,
+{ "ref" : "//@deployUnits.4"} ,
+{ "ref" : "//@deployUnits.17"} ],
+ "targetNodeType":"//@typeDefinitions.20"}
+]
+,
+"nodeNetworks": [
+]
+,
+"groups": [
+]
+,
+"adaptationPrimitiveTypes": [
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"UpdateFragmentBinding"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"UpdateBinding"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"UpdateDictionaryInstance"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"RemoveThirdParty"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"RemoveNode"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"RemoveType"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"RemoveInstance"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"StartInstance"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"UpdateType"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"AddFragmentBinding"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"StartThirdParty"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"AddBinding"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"AddNode"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"RemoveBinding"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"StopInstance"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"UpdateDeployUnit"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"RemoveFragmentBinding"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"UpdateInstance"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"AddDeployUnit"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"RemoveDeployUnit"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"AddThirdParty"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"AddType"}
+,
+{ "eClass":"kevoree:AdaptationPrimitiveType" ,
+ "name":"AddInstance"}
+]
+}

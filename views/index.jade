@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  div.container-fluid.fill
+    div.row-fluid.fill
+      div#libTree.span2
+        div.well.sidebar-nav
+          ul.nav.nav-list
+            li.nav-header
+              i.icon-arrow-right.icon-white
+              | Android
+            li.lib-item(item-type='group') BasicGroup
+            li.lib-item(item-type='node') JavaSENode
+            li.lib-item(item-type='channel') BasicChannel
+            li.lib-item(item-type='component') FakeConsole
+
+          ul.nav.nav-list
+            li.nav-header
+                i.icon-arrow-right.icon-white &nbsp;
+                | JavaSE
+            li.lib-item(item-type='channel') WebSocketChannel
+            li.lib-item(item-type='group') WebSocketGroup
+            li.lib-item(item-type='node') JavaSENode
+            li.lib-item(item-type='node') NodeJSNode
+            li.lib-item(item-type='component') FakeConsole
+
+      div#editor.span10

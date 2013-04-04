@@ -1,0 +1,83 @@
+html {
+    height: 100%;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+    height: 100%;
+    /*overflow: hidden;*/
+}
+
+.container-fluid {
+    padding-right: 0;
+}
+
+.nav-header {
+    font-size: 13px;
+    color: #fff;
+}
+
+#libTree > * {
+    background-color: #3E3E3E;
+}
+
+.lib-item {
+    color: #fff;
+    padding: 5px 0px 5px 20px;
+}
+
+.lib-item [item-type='group'] {
+
+}
+
+.lib-item [item-type='channel'] {
+
+}
+
+.lib-item [item-type='node'] {
+
+}
+
+.lib-item [item-type='component'] {
+
+}
+
+.dragged {
+    padding: 5px;
+    background-color: #000;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 42;
+}
+
+.lib-item:hover {
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#editor {
+    height: 100%;
+}
+
+.fill {
+    height: 100%;
+}
+
+.sidebar-nav {
+    padding: 9px 0;
+}
+
+.navbar {
+    margin-bottom: 0;
+}
+
+@media (max-width: 980px) {
+    /* Enable use of floated navbar text */
+    .navbar-text.pull-right {
+      float: none;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+}
