@@ -24,30 +24,28 @@ body {
 
 .lib-item {
     color: #fff;
-    padding: 5px 0px 5px 20px;
+    padding: 5px 5px 5px 20px;
 }
 
-.lib-item [item-type='group'] {
-
+[data-type='group'] {
+    background: url('../img/group-ico.png') center left no-repeat;
 }
 
-.lib-item [item-type='channel'] {
-
+[data-type='channel'] {
+    background: url('../img/channel-ico.png') center left no-repeat;
 }
 
-.lib-item [item-type='node'] {
-
+[data-type='node'] {
+    background: url('../img/node-ico.png') center left no-repeat;
 }
 
-.lib-item [item-type='component'] {
-
+[data-type='component'] {
+    background: url('../img/component-ico.png') center left no-repeat;
 }
 
 .dragged {
-    padding: 5px;
-    background-color: #000;
-    color: #fff;
     font-weight: 700;
+    background-color: #3E3E3E;
     cursor: pointer;
     z-index: 42;
 }

@@ -23,8 +23,6 @@ requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
             //- init editor
             var editor = new Editor('editor');
             editor.create($('#editor').width(), $('#editor').height());
-//            editor.addLib('BasicGroup', 'group');
-            editor.addGroup('Test');
 
             // refresh editor size on window resizing
             $(window).resize(function() {
@@ -45,7 +43,6 @@ requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
             $('.lib-item').draggable({
                 helper: function() {
                     var clone = $(this).clone();
-                    clone.removeClass('lib-item');
                     clone.addClass('dragged');
                     return clone;
                 }
@@ -54,7 +51,7 @@ requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
             // drop behavior on #editor
             $('#editor').droppable({
                 drop: function(event, ui) {
-                    var type = ui.draggable.attr('item-type');
+                    var type = ui.draggable.attr('data-type');
                     var name = ui.draggable.text();
 
                     switch (type) {
