@@ -34,24 +34,10 @@ define(
 
             // init model layer (it handles all model components)
             this.modelLayer = new Kinetic.Layer({
-                x: 150,
+                x: 0,
                 y: 0
             });
             this.stage.add(this.modelLayer);
-
-            // init lib panel layer
-//            var libLayer = new Kinetic.Layer();
-//            this.libGroup = new Kinetic.Group();
-//            // add background
-//            this.libGroup.add(new Kinetic.Image({
-//                x:0,
-//                y:0,
-//                fill: '#3E3E3E',
-//                width: 150,
-//                height: height
-//            }));
-//            libLayer.add(this.libGroup);
-//            this.stage.add(libLayer);
         }
 
         Editor.prototype.addGroup = function(name) {
