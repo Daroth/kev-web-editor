@@ -16,6 +16,8 @@ define(
                 padding: 15,
                 align: 'center'
             });
+
+            this.setPopup('<p>TODO</p>');
         }
 
         return KComponent;

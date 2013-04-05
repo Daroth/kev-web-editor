@@ -2,8 +2,11 @@ define(
     ["app/entities/KEntity"],
 
     function(KEntity) {
-        // CONSTANTS
+        // PRIVATE CONSTANTS
         var STROKE = 4;
+
+        // PUBLIC CONSTANTS
+        KGroup.PLUG_NAME = 'grpPlug';
 
         // inherit from KEntity
         KGroup.prototype = new KEntity();
@@ -26,7 +29,8 @@ define(
             var plug = new Kinetic.Circle({
                 y: (circle.getRadius() / 2) + plugRadius,
                 radius: plugRadius,
-                fill: '#f1c30f'
+                fill: '#f1c30f',
+                name: KGroup.PLUG_NAME
             });
 
             var text = new Kinetic.Text({
@@ -64,33 +68,49 @@ define(
                 circle.getLayer().draw();
             });
 
-            plug.on('dragstart', function(parent, evtType, event) {
-                console.log(parent);
-                console.log(evtType);
-                console.log(event);
-            });
-
-            plug.on('dragstop', function() {
-
-            });
+//            var thisShape = this.shape;
+//            plug.on('mousedown', function() {
+//                console.log("mousedown");
+//                thisShape.setDraggable(false);
+//            });
+//
+//            plug.on('mouseup', function() {
+//                console.log("mouseip");
+//                thisShape.setDraggable(true);
+//                drawCurve({
+//                    x: plug.getAbsolutePosition().x,
+//                    y: plug.getAbsolutePosition().y
+//                }, {
+//                    x: 650,
+//                    y: 450
+//                });
+//            });
 
             //===========================
             // Private utility functions
             //===========================
-            var drawCurve = function() {
-                var canvas = this.shape.getLayer.getCanvas();
+            var shape = this.shape;
+            var drawCurve = function(origin, target) {
+                var canvas = this.wireLayer.getCanvas();
                 var context = canvas.getContext();
 
                 canvas.clear();
 
-                // draw bezier
+                // draw curve
+                // TODO
                 context.beginPath();
-                context.moveTo(bezier.start.attrs.x, bezier.start.attrs.y);
-                context.bezierCurveTo(bezier.control1.attrs.x, bezier.control1.attrs.y, bezier.control2.attrs.x, bezier.control2.attrs.y, bezier.end.attrs.x, bezier.end.attrs.y);
+                context.moveTo(origin.x, origin.y);
+                var middle = {
+                  x: target.x - origin.x,
+                  y: (target.y - origin.x) + 300
+                };
+                context.quadraticCurveTo(middle.x, middle.y, target.x, target.y);
                 context.strokeStyle = 'blue';
                 context.lineWidth = 4;
                 context.stroke();
             }
+
+            this.setPopup('<p>TODO</p>');
         }
 
         return KGroup;

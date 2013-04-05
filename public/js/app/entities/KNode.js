@@ -2,13 +2,14 @@ define(
     ["app/entities/KEntity"],
 
     function(KEntity) {
+        // PUBLIC CONSTANTS
+        KNode.NAME = 'node';
+
         KNode.prototype = new KEntity();
         KNode.prototype.constructor = KNode;
 
         function KNode(type) {
             var headerName = new Kinetic.Text({
-                x: 0,
-                y: 0,
                 text: type,
                 fontSize: 15,
                 fontFamily: 'Helvetica',
@@ -18,8 +19,6 @@ define(
             });
 
             var rect = new Kinetic.Rect({
-                x: 0,
-                y: 0,
                 stroke: '#FFF',
                 strokeWidth: 3,
                 width: headerName.getWidth(),
@@ -34,11 +33,14 @@ define(
             this.shape = new Kinetic.Group({
                 x: 100,
                 y: 100,
-                draggable: true
+                draggable: true,
+                name: KNode.NAME
             });
 
             this.shape.add(rect);
             this.shape.add(headerName);
+
+            this.setPopup('<p>TODO</p>');
         }
 
         return KNode;

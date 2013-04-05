@@ -57,6 +57,8 @@ define(
                 circle.setStrokeWidth(STROKE);
                 circle.getLayer().draw();
             });
+
+            this.setPopup('<p>TODO</p>');
         }
 
         return KChannel;

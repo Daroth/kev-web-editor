@@ -7,6 +7,10 @@ define(
     ],
 
     function (KGroup, KChannel, KComponent, KNode) {
+        // private fields
+        var currentPlug = null,
+            wireLayer;
+
         function Editor(containerID) {
             this.id = containerID;
         }
@@ -24,8 +28,6 @@ define(
             var bgImg = new Image();
             bgImg.onload = function() {
                 var background = new Kinetic.Image({
-                    x: 0,
-                    y: 0,
                     image: bgImg,
                     width: bgImg.width,
                     height: bgImg.height
@@ -38,11 +40,48 @@ define(
             this.stage.add(bgLayer);
 
             // init model layer (it handles all model components)
-            this.modelLayer = new Kinetic.Layer({
-                x: 0,
-                y: 0
-            });
+            this.modelLayer = new Kinetic.Layer();
             this.stage.add(this.modelLayer);
+
+            // init wire layer
+            wireLayer = new Kinetic.Layer();
+            this.stage.add(wireLayer);
+
+            this.stage.on('mousemove', function(evt) {
+                if (currentPlug != null) {
+                    drawWire(currentPlug, this.getMousePosition());
+                } else {
+                    wireLayer.getCanvas().clear();
+                }
+            });
+
+            this.stage.on('mousedown', function(evt) {
+                if (currentPlug == null) {
+                    var node = evt.targetNode;
+                    if (node.getName() == KGroup.PLUG_NAME) {
+                        node.getParent().setDraggable(false);
+                        currentPlug = node;
+                        currentPlug['x'] = node.getAbsolutePosition().x;
+                        currentPlug['y'] = node.getAbsolutePosition().y;
+                    }
+                }
+            });
+
+            this.stage.on('mouseup', function(evt) {
+                if (currentPlug != null) {
+                    var node = evt.targetNode;
+                    console.log(node.getParent().getName());
+                    console.log(">>> "+KNode.NAME);
+                    currentPlug.getParent().setDraggable(true);
+                    if (node.getParent().getName() == KNode.NAME) {
+                        drawWire(currentPlug, node.getAbsolutePosition());
+                        currentPlug = null;
+                        return;
+                    }
+                }
+                currentPlug = null;
+                wireLayer.getCanvas().clear();
+            });
         }
 
         /**
@@ -94,6 +133,23 @@ define(
         Editor.prototype.addJSONShape = function(json) {
             var shape = Kinetic.Node.create(json);
             this.addShape(shape);
+        }
+
+        var drawWire = function(origin, target) {
+            var canvas = wireLayer.getCanvas();
+            var context = canvas.getContext();
+
+            canvas.clear();
+
+            // draw curve
+            // TODO
+            context.beginPath();
+            context.moveTo(origin.x, origin.y);
+            context.lineTo(target.x, target.y);
+//            context.quadraticCurveTo(middle.x, middle.y, target.x, target.y);
+            context.strokeStyle = '#5aa564';
+            context.lineWidth = 4;
+            context.stroke();
         }
 
         return Editor;
