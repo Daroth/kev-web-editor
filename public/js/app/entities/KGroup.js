@@ -1,8 +1,11 @@
 define(
-    "app/entities/Group",
+    ["app/entities/KEntity"],
 
-    function () {
-        function Group(name) {
+    function(KEntity) {
+        KGroup.prototype = new KEntity();
+        KGroup.prototype.constructor = KGroup;
+
+        function KGroup(name) {
             var circle = new Kinetic.Circle({
                 radius: 55,
                 fill: 'green',
@@ -33,14 +36,8 @@ define(
             });
             this.shape.add(circle);
             this.shape.add(text);
-
-
         }
 
-        Group.prototype.getShape = function() {
-            return this.shape;
-        }
-
-        return Group;
+        return KGroup;
     }
 );

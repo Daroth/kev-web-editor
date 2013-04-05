@@ -1,7 +1,12 @@
 define(
-    ['app/entities/Group'],
+    [ // dependencies
+        'app/entities/KGroup',
+        'app/entities/KChannel',
+        'app/entities/KComponent',
+        'app/entities/KNode'
+    ],
 
-    function (Group) {
+    function (KGroup, KChannel, KComponent, KNode) {
         function Editor(containerID) {
             this.id = containerID;
         }
@@ -41,73 +46,42 @@ define(
         }
 
         Editor.prototype.addGroup = function(name) {
-            var group = new Group(name);
+            var group = new KGroup(name);
             this.addShape(group.getShape());
         }
 
-        Editor.prototype.addLib = function(name, type) {
-            var picto = getLibPicto(type);
-            var text = getLibText(name);
-
-            var group = new Kinetic.Group({
-                draggable: true
-            });
-
-            group.add(picto);
-            group.add(text);
-            group.on('mouseover', function() {
-                document.body.style.cursor = 'pointer';
-            });
-            group.on('mouseout', function() {
-                document.body.style.cursor = 'default';
-            });
-
-            this.libGroup.add(group);
-            this.libGroup.draw();
-        }
-
+        /**
+         * Create a new KComponent and adds it to the modelLayer
+         * @param name
+         */
         Editor.prototype.addComponent = function(name) {
-            console.log("Editor.prototype.addComponent not implemented yet");
+            var comp = new KComponent(name);
+            this.addShape(comp.getShape());
         }
 
+        /**
+         * Create a new KNode and adds it to the modelLayer
+         * @param name
+         */
         Editor.prototype.addNode = function(name) {
-            var headerName = new Kinetic.Text({
-                x: 100,
-                y: 100,
-                text: name,
-                fontSize: 15,
-                fontFamily: 'Helvetica',
-                fill: '#FFF',
-                padding: 15,
-                align: 'center'
-            });
-
-            var rect = new Kinetic.Rect({
-                x: 100,
-                y: 100,
-                stroke: '#FFF',
-                strokeWidth: 3,
-                width: headerName.getWidth(),
-                height: headerName.getHeight(),
-                shadowColor: 'black',
-                shadowBlur: 10,
-                shadowOffset: [5, 5],
-                shadowOpacity: 0.2,
-                cornerRadius: 10
-            });
-
-            var nodeGroup = new Kinetic.Group({
-                draggable: true
-            });
-            nodeGroup.add(rect);
-            nodeGroup.add(headerName);
-            this.addShape(nodeGroup);
+            var node = new KNode(name);
+            this.addShape(node.getShape());
         }
 
+        /**
+         * Create a new KChannel and adds it to the modelLayer
+         * @param name
+         */
         Editor.prototype.addChannel = function(name) {
-            console.log("Editor.prototype.addChannel not implemented yet");
+            var channel = new KChannel(name);
+            this.addShape(channel.getShape());
         }
 
+        /**
+         * Add the given Shape (Kinetic Shape type) to the
+         * model layer in the stage and redraw the layer
+         * @param shape
+         */
         Editor.prototype.addShape = function(shape) {
             this.modelLayer.add(shape);
             this.modelLayer.draw();
@@ -116,65 +90,6 @@ define(
         Editor.prototype.addJSONShape = function(json) {
             var shape = Kinetic.Node.create(json);
             this.addShape(shape);
-        }
-
-//====================
-// Utility functions
-//====================
-        function getLibPicto(type) {
-            // TODO maybe change this ugly switch for something nicer
-            switch (type) {
-                case 'component':
-                    return new Kinetic.Rect({
-                        x: 15,
-                        y: 15,
-                        fill: '#0d0d0d',
-                        width: 15,
-                        height: 15
-                    });
-
-                case 'node':
-                    return new Kinetic.Rect({
-                        x: 15,
-                        y: 15,
-                        fill: '#5b5b5b',
-                        width: 15,
-                        height: 15
-                    });
-
-                case 'group':
-                    return new Kinetic.Rect({
-                        x: 15,
-                        y: 15,
-                        fill: '#399342',
-                        width: 15,
-                        height: 15
-                    });
-
-                case 'channel':
-                    return new Kinetic.Rect({
-                        x: 15,
-                        y: 15,
-                        fill: '#d57129',
-                        width: 15,
-                        height: 15
-                    });
-            }
-        }
-
-        function getLibText(name) {
-            var text = new Kinetic.Text({
-                x: 30,
-                y: 5,
-                text: name,
-                fontSize: 15,
-                fontFamily: 'Helvetica',
-                fontStyle: 'bold',
-                fill: '#FFF',
-                padding: 10,
-                align: 'left'
-            });
-            return text;
         }
 
         return Editor;
