@@ -16,8 +16,8 @@ block content
 
           ul.nav.nav-list
             li.nav-header.cursor-pointer
-                i.icon-arrow-right.icon-white &nbsp;
-                | JavaSE
+              i.icon-arrow-right.icon-white &nbsp;
+              | JavaSE
             li.lib-item(data-entity='channel') WebSocketChannel
             li.lib-item(data-entity='group') WebSocketGroupMasterServer
             li.lib-item(data-entity='group') WebSocketGroup
@@ -34,4 +34,5 @@ block content
             div#popup-content
           div.modal-footer
             button.btn(data-dismiss='modal', aria-hidden='true') Close
-            button.btn.btn-primary Save changes
+            button#save.btn.btn-primary(data-dismiss='modal') Save changes
+            button#delete.btn.btn-danger(data-dismiss='modal') Delete

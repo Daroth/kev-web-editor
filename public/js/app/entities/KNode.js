@@ -40,7 +40,7 @@ define(
             this.shape.add(rect);
             this.shape.add(headerName);
 
-            this.setPopup('<p>TODO</p>');
+            this.setPopup('<p>'+type+' TODO</p>');
         }
 
         return KNode;

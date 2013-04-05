@@ -20,6 +20,13 @@ define(
                     show: true
                 });
             });
+
+            var shape = this.shape;
+            $('#delete').click(function() {
+                var stage = shape.getStage();
+                shape.remove();
+                stage.draw();
+            });
         }
 
         return KEntity;

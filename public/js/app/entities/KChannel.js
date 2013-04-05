@@ -58,7 +58,7 @@ define(
                 circle.getLayer().draw();
             });
 
-            this.setPopup('<p>TODO</p>');
+            this.setPopup('<p>'+type+' TODO</p>');
         }
 
         return KChannel;

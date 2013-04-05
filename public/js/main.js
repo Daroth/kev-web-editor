@@ -18,7 +18,7 @@ requirejs.config({
 
 // Start the main app logic.
 requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
-    function ($, jqui, _bootstrap, kinetic, Editor) {
+    function ($, jqui, _bootstrap, Kinetic, Editor) {
         $(function() {
             //- init editor
             var editor = new Editor('editor');
@@ -48,30 +48,49 @@ requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
                 }
             });
 
+            $('.lib-item').click(function() {
+                triggerEvent($(this));
+            });
+
             // drop behavior on #editor
             $('#editor').droppable({
                 drop: function(event, ui) {
-                    var entity = ui.draggable.attr('data-entity');
-                    var type = ui.draggable.text();
-
-                    switch (entity) {
-                        case 'component':
-                            editor.addComponent(type);
-                            break;
-                        case 'node':
-                            editor.addNode(type);
-                            break;
-                        case 'group':
-                            editor.addGroup(type);
-                            break;
-                        case 'channel':
-                            editor.addChannel(type);
-                            break;
-                        default:
-                            console.log("Editor drop event error: Unknown dropped item-entity");
-                            break;
-                    }
+                    triggerEvent(ui.draggable);
                 }
             });
+
+            var triggerEvent = function(libItem) {
+                var entity = libItem.attr('data-entity');
+                var type = libItem.clone()      // clone the element
+                                  .children()   // select all the children
+                                  .remove()     // remove all the children
+                                  .end()        // again go back to selected element
+                                  .text();      // get the text of element
+                var badgeCount = 1;
+
+                switch (entity) {
+                    case 'component':
+                        badgeCount = editor.addComponent(type);
+                        break;
+                    case 'node':
+                        badgeCount = editor.addNode(type);
+                        break;
+                    case 'group':
+                        badgeCount = editor.addGroup(type);
+                        break;
+                    case 'channel':
+                        badgeCount = editor.addChannel(type);
+                        break;
+                    default:
+                        console.log("Editor drop event error: Unknown dropped item-entity");
+                        return;
+                }
+                if (libItem.children().size() != 0) {
+                    libItem.children().first().text(badgeCount)
+                } else {
+                    libItem.append("<span class='badge pull-right'>"+badgeCount+"</span>")
+                }
+
+            }
         });
 });

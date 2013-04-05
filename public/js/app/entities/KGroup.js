@@ -68,49 +68,7 @@ define(
                 circle.getLayer().draw();
             });
 
-//            var thisShape = this.shape;
-//            plug.on('mousedown', function() {
-//                console.log("mousedown");
-//                thisShape.setDraggable(false);
-//            });
-//
-//            plug.on('mouseup', function() {
-//                console.log("mouseip");
-//                thisShape.setDraggable(true);
-//                drawCurve({
-//                    x: plug.getAbsolutePosition().x,
-//                    y: plug.getAbsolutePosition().y
-//                }, {
-//                    x: 650,
-//                    y: 450
-//                });
-//            });
-
-            //===========================
-            // Private utility functions
-            //===========================
-            var shape = this.shape;
-            var drawCurve = function(origin, target) {
-                var canvas = this.wireLayer.getCanvas();
-                var context = canvas.getContext();
-
-                canvas.clear();
-
-                // draw curve
-                // TODO
-                context.beginPath();
-                context.moveTo(origin.x, origin.y);
-                var middle = {
-                  x: target.x - origin.x,
-                  y: (target.y - origin.x) + 300
-                };
-                context.quadraticCurveTo(middle.x, middle.y, target.x, target.y);
-                context.strokeStyle = 'blue';
-                context.lineWidth = 4;
-                context.stroke();
-            }
-
-            this.setPopup('<p>TODO</p>');
+            this.setPopup('<p>'+type+' TODO</p>');
         }
 
         return KGroup;

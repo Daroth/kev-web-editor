@@ -17,7 +17,7 @@ define(
                 align: 'center'
             });
 
-            this.setPopup('<p>TODO</p>');
+            this.setPopup('<p>'+type+' TODO</p>');
         }
 
         return KComponent;

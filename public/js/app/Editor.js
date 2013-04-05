@@ -3,13 +3,16 @@ define(
         'app/entities/KGroup',
         'app/entities/KChannel',
         'app/entities/KComponent',
-        'app/entities/KNode'
+        'app/entities/KNode',
+        'app/entities/KWire'
     ],
 
-    function (KGroup, KChannel, KComponent, KNode) {
+    function (KGroup, KChannel, KComponent, KNode, KWire) {
         // private fields
         var currentPlug = null,
-            wireLayer;
+            tmpWireLayer,
+            persistWireLayer,
+            instanceCounter = new Array();
 
         function Editor(containerID) {
             this.id = containerID;
@@ -43,15 +46,19 @@ define(
             this.modelLayer = new Kinetic.Layer();
             this.stage.add(this.modelLayer);
 
-            // init wire layer
-            wireLayer = new Kinetic.Layer();
-            this.stage.add(wireLayer);
+            // init tmp wire layer
+            tmpWireLayer = new Kinetic.Layer();
+            this.stage.add(tmpWireLayer);
+
+            // init persistent wire layer
+            persistWireLayer = new Kinetic.Layer();
+            this.stage.add(persistWireLayer);
 
             this.stage.on('mousemove', function(evt) {
                 if (currentPlug != null) {
                     drawWire(currentPlug, this.getMousePosition());
                 } else {
-                    wireLayer.getCanvas().clear();
+                    tmpWireLayer.getCanvas().clear();
                 }
             });
 
@@ -70,17 +77,20 @@ define(
             this.stage.on('mouseup', function(evt) {
                 if (currentPlug != null) {
                     var node = evt.targetNode;
-                    console.log(node.getParent().getName());
-                    console.log(">>> "+KNode.NAME);
                     currentPlug.getParent().setDraggable(true);
                     if (node.getParent().getName() == KNode.NAME) {
-                        drawWire(currentPlug, node.getAbsolutePosition());
+                        // draw the line here
+                        var wire = new KWire(persistWireLayer);
+                        wire.setOrigin(currentPlug);
+                        wire.setTarget(node.getParent());
+                        wire.draw();
                         currentPlug = null;
+                        tmpWireLayer.getCanvas().clear();
                         return;
                     }
                 }
                 currentPlug = null;
-                wireLayer.getCanvas().clear();
+                tmpWireLayer.getCanvas().clear();
             });
         }
 
@@ -91,6 +101,9 @@ define(
         Editor.prototype.addGroup = function(type) {
             var group = new KGroup(type);
             this.addShape(group.getShape());
+
+            if (!instanceCounter[type]) instanceCounter[type] = 0;
+            return ++instanceCounter[type];
         }
 
         /**
@@ -100,6 +113,9 @@ define(
         Editor.prototype.addComponent = function(type) {
             var comp = new KComponent(type);
             this.addShape(comp.getShape());
+
+            if (!instanceCounter[type]) instanceCounter[type] = 0;
+            return ++instanceCounter[type];
         }
 
         /**
@@ -109,6 +125,9 @@ define(
         Editor.prototype.addNode = function(type) {
             var node = new KNode(type);
             this.addShape(node.getShape());
+
+            if (!instanceCounter[type]) instanceCounter[type] = 0;
+            return ++instanceCounter[type];
         }
 
         /**
@@ -118,6 +137,9 @@ define(
         Editor.prototype.addChannel = function(type) {
             var channel = new KChannel(type);
             this.addShape(channel.getShape());
+
+            if (!instanceCounter[type]) instanceCounter[type] = 0;
+            return ++instanceCounter[type];
         }
 
         /**
@@ -136,7 +158,7 @@ define(
         }
 
         var drawWire = function(origin, target) {
-            var canvas = wireLayer.getCanvas();
+            var canvas = tmpWireLayer.getCanvas();
             var context = canvas.getContext();
 
             canvas.clear();
