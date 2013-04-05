@@ -5,11 +5,11 @@ define(
         KNode.prototype = new KEntity();
         KNode.prototype.constructor = KNode;
 
-        function KNode(name) {
+        function KNode(type) {
             var headerName = new Kinetic.Text({
                 x: 0,
                 y: 0,
-                text: name,
+                text: type,
                 fontSize: 15,
                 fontFamily: 'Helvetica',
                 fill: '#FFF',

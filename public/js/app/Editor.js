@@ -45,35 +45,39 @@ define(
             this.stage.add(this.modelLayer);
         }
 
-        Editor.prototype.addGroup = function(name) {
-            var group = new KGroup(name);
+        /**
+         * Creates a new KGroup and adds it to the modelLayer
+         * @param type
+         */
+        Editor.prototype.addGroup = function(type) {
+            var group = new KGroup(type);
             this.addShape(group.getShape());
         }
 
         /**
-         * Create a new KComponent and adds it to the modelLayer
-         * @param name
+         * Creates a new KComponent and adds it to the modelLayer
+         * @param type
          */
-        Editor.prototype.addComponent = function(name) {
-            var comp = new KComponent(name);
+        Editor.prototype.addComponent = function(type) {
+            var comp = new KComponent(type);
             this.addShape(comp.getShape());
         }
 
         /**
-         * Create a new KNode and adds it to the modelLayer
-         * @param name
+         * Creates a new KNode and adds it to the modelLayer
+         * @param type
          */
-        Editor.prototype.addNode = function(name) {
-            var node = new KNode(name);
+        Editor.prototype.addNode = function(type) {
+            var node = new KNode(type);
             this.addShape(node.getShape());
         }
 
         /**
-         * Create a new KChannel and adds it to the modelLayer
-         * @param name
+         * Creates a new KChannel and adds it to the modelLayer
+         * @param type
          */
-        Editor.prototype.addChannel = function(name) {
-            var channel = new KChannel(name);
+        Editor.prototype.addChannel = function(type) {
+            var channel = new KChannel(type);
             this.addShape(channel.getShape());
         }
 

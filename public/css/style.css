@@ -27,19 +27,19 @@ body {
     padding: 5px 5px 5px 20px;
 }
 
-[data-type='group'] {
+[data-entity='group'] {
     background: url('../img/group-ico.png') center left no-repeat;
 }
 
-[data-type='channel'] {
+[data-entity='channel'] {
     background: url('../img/channel-ico.png') center left no-repeat;
 }
 
-[data-type='node'] {
+[data-entity='node'] {
     background: url('../img/node-ico.png') center left no-repeat;
 }
 
-[data-type='component'] {
+[data-entity='component'] {
     background: url('../img/component-ico.png') center left no-repeat;
 }
 
@@ -51,7 +51,8 @@ body {
 }
 
 .lib-item:hover {
-    font-weight: 700;
+    /*font-weight: 700;*/
+    background-color: #6E6E6E;
     cursor: pointer;
 }
 
@@ -61,6 +62,10 @@ body {
 
 .fill {
     height: 100%;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 .sidebar-nav {

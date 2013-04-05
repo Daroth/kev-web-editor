@@ -6,23 +6,23 @@ block content
       div#libTree.span2
         div.well.sidebar-nav
           ul.nav.nav-list
-            li.nav-header
+            li.nav-header.cursor-pointer
               i.icon-arrow-right.icon-white
               | Android
-            li.lib-item(data-type='group') BasicGroup
-            li.lib-item(data-type='node') JavaSENode
-            li.lib-item(data-type='channel') BasicChannel
-            li.lib-item(data-type='component') FakeConsole
+            li.lib-item(data-entity='group') BasicGroup
+            li.lib-item(data-entity='node') JavaSENode
+            li.lib-item(data-entity='channel') BasicChannel
+            li.lib-item(data-entity='component') FakeConsole
 
           ul.nav.nav-list
-            li.nav-header
+            li.nav-header.cursor-pointer
                 i.icon-arrow-right.icon-white &nbsp;
                 | JavaSE
-            li.lib-item(data-type='channel') WebSocketChannel
-            li.lib-item(data-type='group') WebSocketGroupMasterServer
-            li.lib-item(data-type='group') WebSocketGroup
-            li.lib-item(data-type='node') JavaSENode
-            li.lib-item(data-type='node') NodeJSNode
-            li.lib-item(data-type='component') FakeConsole
+            li.lib-item(data-entity='channel') WebSocketChannel
+            li.lib-item(data-entity='group') WebSocketGroupMasterServer
+            li.lib-item(data-entity='group') WebSocketGroup
+            li.lib-item(data-entity='node') JavaSENode
+            li.lib-item(data-entity='node') NodeJSNode
+            li.lib-item(data-entity='component') FakeConsole
 
       div#editor.span10

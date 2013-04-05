@@ -32,11 +32,11 @@ requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
             });
 
             // foldable lib-tree
-            $('.nav-list').click(function() {
-                var icon = $(this).children().first().children().first();
+            $('.nav-header').click(function() {
+                var icon = $(this).parent().children().first().children().first();
                 icon.toggleClass('icon-arrow-right');
                 icon.toggleClass('icon-arrow-down');
-                $(this).children('.lib-item').toggle('fast');
+                $(this).parent().children('.lib-item').toggle('fast');
             });
 
             // draggable item in lib-tree
@@ -51,18 +51,24 @@ requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
             // drop behavior on #editor
             $('#editor').droppable({
                 drop: function(event, ui) {
-                    var type = ui.draggable.attr('data-type');
-                    var name = ui.draggable.text();
+                    var entity = ui.draggable.attr('data-entity');
+                    var type = ui.draggable.text();
 
-                    switch (type) {
+                    switch (entity) {
                         case 'component':
-                            editor.addComponent(name);
+                            editor.addComponent(type);
                             break;
                         case 'node':
-                            editor.addNode(name);
+                            editor.addNode(type);
                             break;
                         case 'group':
-                            editor.addGroup(name);
+                            editor.addGroup(type);
+                            break;
+                        case 'channel':
+                            editor.addChannel(type);
+                            break;
+                        default:
+                            console.log("Editor drop event error: Unknown dropped item-entity");
                             break;
                     }
                 }

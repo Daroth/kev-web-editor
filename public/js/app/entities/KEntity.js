@@ -4,9 +4,7 @@
  */
 define(
     function() {
-        function KEntity(name) {
-            this.name = name;
-        }
+        function KEntity() {}
 
         KEntity.prototype.getShape = function() {
             return this.shape;
