@@ -68,27 +68,38 @@ requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
                                   .text();      // get the text of element
                 var badgeCount = 1;
 
+                var handler = {
+                    onDelete: function(count) {
+                        console.log("delete done! count = "+count);
+                        if (libItem.children().size() != 0) {
+                            libItem.children().first().text(badgeCount);
+                        } else {
+                            libItem.append("<span class='badge pull-right'>"+count+"</span>");
+                        }
+                    }
+                };
+
                 switch (entity) {
                     case 'component':
-                        badgeCount = editor.addComponent(type);
+                        badgeCount = editor.addComponent(type, handler);
                         break;
                     case 'node':
-                        badgeCount = editor.addNode(type);
+                        badgeCount = editor.addNode(type, handler);
                         break;
                     case 'group':
-                        badgeCount = editor.addGroup(type);
+                        badgeCount = editor.addGroup(type, handler);
                         break;
                     case 'channel':
-                        badgeCount = editor.addChannel(type);
+                        badgeCount = editor.addChannel(type, handler);
                         break;
                     default:
                         console.log("Editor drop event error: Unknown dropped item-entity");
                         return;
                 }
                 if (libItem.children().size() != 0) {
-                    libItem.children().first().text(badgeCount)
+                    libItem.children().first().text(badgeCount);
                 } else {
-                    libItem.append("<span class='badge pull-right'>"+badgeCount+"</span>")
+                    libItem.append("<span class='badge pull-right'>"+badgeCount+"</span>");
                 }
 
             }

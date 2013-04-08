@@ -4,24 +4,25 @@ define(
         'app/entities/KChannel',
         'app/entities/KComponent',
         'app/entities/KNode',
-        'app/entities/KWire'
+        'app/entities/KWire',
+        'app/entities/WireTable'
     ],
 
-    function (KGroup, KChannel, KComponent, KNode, KWire) {
-        // private fields
-        var currentPlug = null,
-            tmpWireLayer,
-            persistWireLayer,
-            instanceCounter = new Array();
-
+    function (KGroup, KChannel, KComponent, KNode, KWire, WireTable) {
         function Editor(containerID) {
-            this.id = containerID;
+            this._id = containerID;
+            this._instanceCounter = new Array();
+            this._currentWire = null;
+            this._wiringTask = false;
+            this._modelLayer = new Kinetic.Layer();
+            this._wireLayer = new Kinetic.Layer();
+            this._wireTable = new WireTable(this._wireLayer);
         }
 
         Editor.prototype.create = function(width, height) {
             // init stage
-            this.stage = new Kinetic.Stage({
-                container: this.id,
+            this._stage = new Kinetic.Stage({
+                container: this._id,
                 width: width,
                 height: height
             });
@@ -40,70 +41,62 @@ define(
                 bgLayer.draw();
             }
             bgImg.src = "img/background.jpg";
-            this.stage.add(bgLayer);
+            this._stage.add(bgLayer);
 
-            // init model layer (it handles all model components)
-            this.modelLayer = new Kinetic.Layer();
-            this.stage.add(this.modelLayer);
+            // add model layer to stage (layer for entities)
+            this._stage.add(this._modelLayer);
 
-            // init tmp wire layer
-            tmpWireLayer = new Kinetic.Layer();
-            this.stage.add(tmpWireLayer);
+            // add wire layer to stage
+            this._stage.add(this._wireLayer);
 
-            // init persistent wire layer
-            persistWireLayer = new Kinetic.Layer();
-            this.stage.add(persistWireLayer);
+            //===========================
+            // Event handlers
+            //===========================
+            var that = this;
 
-            this.stage.on('mousemove', function(evt) {
-                if (currentPlug != null) {
-                    drawWire(currentPlug, this.getMousePosition());
-                } else {
-                    tmpWireLayer.getCanvas().clear();
+            this._stage.on('mousemove', function() {
+                if (that._wiringTask) {
+                    that._currentWire.setTarget(that._stage.getMousePosition());
+                    that._wireTable.draw();
                 }
             });
 
-            this.stage.on('mousedown', function(evt) {
-                if (currentPlug == null) {
-                    var node = evt.targetNode;
-                    if (node.getName() == KGroup.PLUG_NAME) {
-                        node.getParent().setDraggable(false);
-                        currentPlug = node;
-                        currentPlug['x'] = node.getAbsolutePosition().x;
-                        currentPlug['y'] = node.getAbsolutePosition().y;
-                    }
+            this._stage.on('mouseup', function() {
+                if (that._wiringTask) {
+                    that._currentWire = null;
+                    that._wiringTask = false;
                 }
-            });
-
-            this.stage.on('mouseup', function(evt) {
-                if (currentPlug != null) {
-                    var node = evt.targetNode;
-                    currentPlug.getParent().setDraggable(true);
-                    if (node.getParent().getName() == KNode.NAME) {
-                        // draw the line here
-                        var wire = new KWire(persistWireLayer);
-                        wire.setOrigin(currentPlug);
-                        wire.setTarget(node.getParent());
-                        wire.draw();
-                        currentPlug = null;
-                        tmpWireLayer.getCanvas().clear();
-                        return;
-                    }
-                }
-                currentPlug = null;
-                tmpWireLayer.getCanvas().clear();
             });
         }
 
         /**
          * Creates a new KGroup and adds it to the modelLayer
          * @param type
+         * @param handler
          */
-        Editor.prototype.addGroup = function(type) {
-            var group = new KGroup(type);
-            this.addShape(group.getShape());
+        Editor.prototype.addGroup = function(type, handler) {
+            var that = this;
 
-            if (!instanceCounter[type]) instanceCounter[type] = 0;
-            return ++instanceCounter[type];
+            var group = new KGroup(type, {
+                onDelete: function() {
+                    handler.onDelete(--that._instanceCounter[type]);
+                }
+            });
+            this.addShape(group.getShape());
+            group.setWireListener({
+                onWireCreationStart: function(position) {
+                    // user starts the creation of a wire
+                    that._wiringTask = true;
+                    that._currentWire = new KWire(that._wireLayer);
+                    that._currentWire.setOrigin(position);
+                    that._currentWire.setTarget(position);
+                    that._wireTable.push(that._currentWire);
+                    group.addWire(that._currentWire);
+                }
+            });
+
+            if (!this._instanceCounter[type]) this._instanceCounter[type] = 0;
+            return ++this._instanceCounter[type];
         }
 
         /**
@@ -111,11 +104,18 @@ define(
          * @param type
          */
         Editor.prototype.addComponent = function(type) {
-            var comp = new KComponent(type);
-            this.addShape(comp.getShape());
+            var that = this;
 
-            if (!instanceCounter[type]) instanceCounter[type] = 0;
-            return ++instanceCounter[type];
+            var comp = new KComponent(type, {
+                onDelete: function() {
+                    handler.onDelete(--that._instanceCounter[type]);
+                }
+            });
+            this.addShape(comp.getShape());
+            comp.setWireListener();
+
+            if (!this._instanceCounter[type]) this._instanceCounter[type] = 0;
+            return ++this._instanceCounter[type];
         }
 
         /**
@@ -123,11 +123,28 @@ define(
          * @param type
          */
         Editor.prototype.addNode = function(type) {
-            var node = new KNode(type);
-            this.addShape(node.getShape());
+            var that = this;
 
-            if (!instanceCounter[type]) instanceCounter[type] = 0;
-            return ++instanceCounter[type];
+            var node = new KNode(type, {
+                onDelete: function() {
+                    handler.onDelete(--that._instanceCounter[type]);
+                }
+            });
+            this.addShape(node.getShape());
+            node.setWireListener({
+                onWireCreationEnd: function(position) {
+                    // user ends properly the wire task
+                    if (that._wiringTask) {
+                        that._currentWire.setTarget(position);
+                        that._wireTable.draw();
+                        that._wiringTask = false;
+                        node.addWire(that._currentWire);
+                    }
+                }
+            });
+
+            if (!this._instanceCounter[type]) this._instanceCounter[type] = 0;
+            return ++this._instanceCounter[type];
         }
 
         /**
@@ -135,43 +152,28 @@ define(
          * @param type
          */
         Editor.prototype.addChannel = function(type) {
-            var channel = new KChannel(type);
-            this.addShape(channel.getShape());
+            var that = this;
 
-            if (!instanceCounter[type]) instanceCounter[type] = 0;
-            return ++instanceCounter[type];
+            var channel = new KChannel(type, {
+                onDelete: function() {
+                    handler.onDelete(--that._instanceCounter[type]);
+                }
+            });
+            this.addShape(channel.getShape());
+            channel.setWireListener();
+
+            if (!this._instanceCounter[type]) this._instanceCounter[type] = 0;
+            return ++this._instanceCounter[type];
         }
 
         /**
-         * Add the given Shape (Kinetic Shape type) to the
+         * Add the given Shape to the
          * model layer in the stage and redraw the layer
          * @param shape
          */
         Editor.prototype.addShape = function(shape) {
-            this.modelLayer.add(shape);
-            this.modelLayer.draw();
-        }
-
-        Editor.prototype.addJSONShape = function(json) {
-            var shape = Kinetic.Node.create(json);
-            this.addShape(shape);
-        }
-
-        var drawWire = function(origin, target) {
-            var canvas = tmpWireLayer.getCanvas();
-            var context = canvas.getContext();
-
-            canvas.clear();
-
-            // draw curve
-            // TODO
-            context.beginPath();
-            context.moveTo(origin.x, origin.y);
-            context.lineTo(target.x, target.y);
-//            context.quadraticCurveTo(middle.x, middle.y, target.x, target.y);
-            context.strokeStyle = '#5aa564';
-            context.lineWidth = 4;
-            context.stroke();
+            this._modelLayer.add(shape);
+            this._modelLayer.draw();
         }
 
         return Editor;

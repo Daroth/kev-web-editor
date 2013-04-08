@@ -5,8 +5,10 @@ define(
         KComponent.prototype = new KEntity();
         KComponent.prototype.constructor = KComponent;
 
-        function KComponent(type) {
-            this.shape = new Kinetic.Text({
+        function KComponent(type, handler) {
+            KEntity.prototype.constructor.call(this, handler);
+
+            this._shape = new Kinetic.Text({
                 x: 100,
                 y: 100,
                 text: "TODO",

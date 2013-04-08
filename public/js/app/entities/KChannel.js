@@ -2,14 +2,16 @@ define(
     ["app/entities/KEntity"],
 
     function(KEntity) {
-        // CONSTANTS
+        // GLOBAL CONSTANTS
         var STROKE = 3;
 
         // inherit from KEntity
         KChannel.prototype = new KEntity();
         KChannel.prototype.constructor = KChannel;
 
-        function KChannel(type) {
+        function KChannel(type, handler) {
+            KEntity.prototype.constructor.call(this, handler);
+
             var circle = new Kinetic.Circle({
                 radius: 55,
                 fill: '#de7c37',
@@ -34,25 +36,25 @@ define(
 
             text.move(-text.getWidth()/2, -text.getHeight()/2);
 
-            this.shape = new Kinetic.Group({
+            this._shape = new Kinetic.Group({
                 x: 100,
                 y: 100,
                 draggable: true
             });
 
-            this.shape.add(circle);
-            this.shape.add(text);
+            this._shape.add(circle);
+            this._shape.add(text);
 
             //===========================
             // Event handling
             //===========================
-            this.shape.on('mouseover', function() {
+            this._shape.on('mouseover', function() {
                 document.body.style.cursor = 'pointer';
                 circle.setStrokeWidth(STROKE+1);
                 circle.getLayer().draw();
             });
 
-            this.shape.on('mouseout', function() {
+            this._shape.on('mouseout', function() {
                 document.body.style.cursor = 'default';
                 circle.setStrokeWidth(STROKE);
                 circle.getLayer().draw();
