@@ -2,6 +2,9 @@ define(
     ["app/entities/KEntity"],
 
     function(KEntity) {
+        // GLOBAL CONSTANTS
+        var STROKE = 3;
+
         KNode.prototype = new KEntity();
         KNode.prototype.constructor = KNode;
 
@@ -19,7 +22,7 @@ define(
 
             this._rect = new Kinetic.Rect({
                 stroke: '#FFF',
-                strokeWidth: 3,
+                strokeWidth: STROKE,
                 width: headerName.getWidth(),
                 height: headerName.getHeight(),
                 shadowColor: 'black',
@@ -43,15 +46,24 @@ define(
             //==========================
             var that = this;
 
+            this._shape.on('mouseover', function() {
+                document.body.style.cursor = 'pointer';
+                that._rect.setStrokeWidth(STROKE+1);
+                that._rect.getLayer().draw();
+            });
+
+            this._shape.on('mouseout', function() {
+                document.body.style.cursor = 'default';
+                that._rect.setStrokeWidth(STROKE);
+                that._rect.getLayer().draw();
+            });
+
             this._shape.on('dragmove', function() {
                 if (that._wires.length > 0) {
                     // there is plugged wires
                     // go update wiretable
                     for (var i=0; i<that._wires.length; i++) {
-                        that._wires[i].setTarget({
-                            x: that._shape.getAbsolutePosition().x + that._rect.getWidth()/2,
-                            y: that._shape.getAbsolutePosition().y + that._rect.getHeight()/4
-                        });
+                        that._wires[i].setTarget(that._computePlugPosition());
                     }
                 }
             });
@@ -65,11 +77,16 @@ define(
             var that = this;
 
             this._shape.on('mouseup', function() {
-                handler.onWireCreationEnd({
-                    x: that._shape.getAbsolutePosition().x + that._rect.getWidth()/2,
-                    y: that._shape.getAbsolutePosition().y + that._rect.getHeight()/4
-                });
+                console.log("mouse up sur le node");
+                handler.onWireCreationEnd(that._computePlugPosition());
             });
+        }
+
+        KNode.prototype._computePlugPosition = function() {
+            return {
+                x: this._shape.getAbsolutePosition().x + this._rect.getWidth()/2,
+                y: this._shape.getAbsolutePosition().y + this._rect.getHeight()/4
+            };
         }
 
         return KNode;

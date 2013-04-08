@@ -63,6 +63,8 @@ define(
 
             this._stage.on('mouseup', function() {
                 if (that._wiringTask) {
+                    // if we end up here, it means that the wiringTask ends up badly
+                    that._wireTable.pop();
                     that._currentWire = null;
                     that._wiringTask = false;
                 }
