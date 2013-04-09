@@ -1,5 +1,13 @@
 define(
     function() {
+
+        /**
+         * Holds wire refs and handle their drawing
+         * Acts like an observer (subjects are KWire): it registers itself
+         * on each added wire with push(wire) method
+         * @param layer
+         * @constructor
+         */
         function WireTable(layer) {
             this._layer = layer;
             this._wires = new Array();
@@ -26,6 +34,10 @@ define(
         }
 
         WireTable.prototype.update = function(wire) {
+            if (wire.isToRemove()) {
+                var index = this._wires.indexOf(wire);
+                this._wires.splice(index, 1);
+            }
             this.draw();
         }
 

@@ -1,18 +1,18 @@
 define(
-    ["app/entities/KEntity"],
+    ["app/presentation/UIEntity"],
 
-    function(KEntity) {
+    function(UIEntity) {
         // GLOBAL CONSTANTS
         var STROKE = 3;
 
-        KNode.prototype = new KEntity();
-        KNode.prototype.constructor = KNode;
+        UINode.prototype = new UIEntity();
+        UINode.prototype.constructor = UINode;
 
-        function KNode(type, handler) {
-            KEntity.prototype.constructor.call(this, handler);
+        function UINode(ctrl) {
+            UIEntity.prototype.constructor.call(this, ctrl.getHandler());
 
             var headerName = new Kinetic.Text({
-                text: type,
+                text: ctrl.getType(),
                 fontSize: 15,
                 fontFamily: 'Helvetica',
                 fill: '#FFF',
@@ -68,27 +68,28 @@ define(
                 }
             });
 
-            this.setPopup('<p>'+type+' TODO</p>');
+            this.setPopup('<p>'+ctrl.getType()+' TODO</p>');
         }
 
-        KNode.prototype.setWireListener = function(handler) {
-            KEntity.prototype.setWireListener.call(this, handler); // super.setWireListener(handler);
+        UINode.prototype.setWireListener = function(handler) {
+            UIEntity.prototype.setWireListener.call(this, handler); // super.setWireListener(handler);
 
             var that = this;
 
             this._shape.on('mouseup', function() {
-                console.log("mouse up sur le node");
-                handler.onWireCreationEnd(that._computePlugPosition());
+                if (handler) {
+                    handler.onWireCreationEnd(that._computePlugPosition());
+                }
             });
         }
 
-        KNode.prototype._computePlugPosition = function() {
+        UINode.prototype._computePlugPosition = function() {
             return {
                 x: this._shape.getAbsolutePosition().x + this._rect.getWidth()/2,
                 y: this._shape.getAbsolutePosition().y + this._rect.getHeight()/4
             };
         }
 
-        return KNode;
+        return UINode;
     }
 );

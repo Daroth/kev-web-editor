@@ -26,9 +26,9 @@ requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
 
             // refresh editor size on window resizing
             $(window).resize(function() {
-                editor.stage.setWidth($('#editor').width());
-                editor.stage.setHeight($('#editor').height());
-                editor.stage.draw();
+                editor.getStage().setWidth($('#editor').width());
+                editor.getStage().setHeight($('#editor').height());
+                editor.getStage().draw();
             });
 
             // foldable lib-tree
@@ -70,11 +70,10 @@ requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
 
                 var handler = {
                     onDelete: function(count) {
-                        console.log("delete done! count = "+count);
-                        if (libItem.children().size() != 0) {
-                            libItem.children().first().text(badgeCount);
+                        if (count == 0) {
+                            libItem.find('.badge').remove();
                         } else {
-                            libItem.append("<span class='badge pull-right'>"+count+"</span>");
+                            libItem.children().first().text(count);
                         }
                     }
                 };

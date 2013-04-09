@@ -5,7 +5,6 @@ block content
     div.row-fluid.fill
       div#libTree.span2
         div.well.sidebar-nav
-          //- TODO hard-coded values change that
           ul.nav.nav-list
             li.nav-header.cursor-pointer
               i.icon-arrow-right.icon-white
@@ -15,7 +14,6 @@ block content
             li.lib-item(data-entity='channel') BasicChannel
             li.lib-item(data-entity='component') FakeConsole
 
-          //- TODO hard-coded values change that
           ul.nav.nav-list
             li.nav-header.cursor-pointer
               i.icon-arrow-right.icon-white &nbsp;
@@ -28,3 +26,13 @@ block content
             li.lib-item(data-entity='component') FakeConsole
 
       div#editor.span10
+        div#popup.modal.hide.fade(tabindex='-1', role='dialog')
+          div.modal-header
+            button.close(type='button', data-dismiss='modal')
+            h3 Properties
+          div.modal-body
+            div#popup-content
+          div.modal-footer
+            button.btn(data-dismiss='modal', aria-hidden='true') Close
+            button#save.btn.btn-primary(data-dismiss='modal') Save changes
+            button#delete.btn.btn-danger(data-dismiss='modal') Delete

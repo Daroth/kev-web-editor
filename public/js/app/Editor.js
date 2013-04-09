@@ -1,14 +1,15 @@
 define(
     [ // dependencies
-        'app/entities/KGroup',
-        'app/entities/KChannel',
-        'app/entities/KComponent',
-        'app/entities/KNode',
-        'app/entities/KWire',
-        'app/entities/WireTable'
+        'app/presentation/UIGroup',
+        'app/presentation/UIChannel',
+        'app/presentation/UIComponent',
+        'app/presentation/UINode',
+        'app/presentation/UIWire',
+        'app/factory/CFactory',
+        'app/util/WireTable'
     ],
 
-    function (KGroup, KChannel, KComponent, KNode, KWire, WireTable) {
+    function (UIGroup, UIChannel, UIComponent, UINode, UIWire, CFactory, WireTable) {
         function Editor(containerID) {
             this._id = containerID;
             this._instanceCounter = new Array();
@@ -72,28 +73,29 @@ define(
         }
 
         /**
-         * Creates a new KGroup and adds it to the modelLayer
+         * Creates a new UIGroup and adds it to the modelLayer
          * @param type
          * @param handler
          */
         Editor.prototype.addGroup = function(type, handler) {
             var that = this;
 
-            var group = new KGroup(type, {
+            var group = CFactory.instance.newGroup(type, {
                 onDelete: function() {
                     handler.onDelete(--that._instanceCounter[type]);
                 }
             });
-            this.addShape(group.getShape());
-            group.setWireListener({
+
+            this.addShape(group.getUI().getShape());
+            group.getUI().setWireListener({
                 onWireCreationStart: function(position) {
                     // user starts the creation of a wire
                     that._wiringTask = true;
-                    that._currentWire = new KWire(that._wireLayer);
+                    that._currentWire = new UIWire(that._wireLayer);
                     that._currentWire.setOrigin(position);
                     that._currentWire.setTarget(position);
                     that._wireTable.push(that._currentWire);
-                    group.addWire(that._currentWire);
+                    group.getUI().addWire(that._currentWire);
                 }
             });
 
@@ -102,45 +104,47 @@ define(
         }
 
         /**
-         * Creates a new KComponent and adds it to the modelLayer
+         * Creates a new UIComponent and adds it to the modelLayer
          * @param type
+         * @param handler
          */
-        Editor.prototype.addComponent = function(type) {
+        Editor.prototype.addComponent = function(type, handler) {
             var that = this;
 
-            var comp = new KComponent(type, {
+            var comp = CFactory.instance.newComponent(type, {
                 onDelete: function() {
                     handler.onDelete(--that._instanceCounter[type]);
                 }
             });
-            this.addShape(comp.getShape());
-            comp.setWireListener();
+            this.addShape(comp.getUI().getShape());
+            comp.getUI().setWireListener();
 
             if (!this._instanceCounter[type]) this._instanceCounter[type] = 0;
             return ++this._instanceCounter[type];
         }
 
         /**
-         * Creates a new KNode and adds it to the modelLayer
+         * Creates a new UINode and adds it to the modelLayer
          * @param type
+         * @param handler
          */
-        Editor.prototype.addNode = function(type) {
+        Editor.prototype.addNode = function(type, handler) {
             var that = this;
 
-            var node = new KNode(type, {
+            var node = CFactory.instance.newNode(type, {
                 onDelete: function() {
                     handler.onDelete(--that._instanceCounter[type]);
                 }
             });
-            this.addShape(node.getShape());
-            node.setWireListener({
+            this.addShape(node.getUI().getShape());
+            node.getUI().setWireListener({
                 onWireCreationEnd: function(position) {
                     // user ends properly the wire task
                     if (that._wiringTask) {
                         that._currentWire.setTarget(position);
                         that._wireTable.draw();
                         that._wiringTask = false;
-                        node.addWire(that._currentWire);
+                        node.getUI().addWire(that._currentWire);
                     }
                 }
             });
@@ -150,19 +154,20 @@ define(
         }
 
         /**
-         * Creates a new KChannel and adds it to the modelLayer
+         * Creates a new UIChannel and adds it to the modelLayer
          * @param type
+         * @param handler
          */
-        Editor.prototype.addChannel = function(type) {
+        Editor.prototype.addChannel = function(type, handler) {
             var that = this;
 
-            var channel = new KChannel(type, {
+            var channel = CFactory.instance.newChannel(type, {
                 onDelete: function() {
                     handler.onDelete(--that._instanceCounter[type]);
                 }
             });
-            this.addShape(channel.getShape());
-            channel.setWireListener();
+            this.addShape(channel.getUI().getShape());
+            channel.getUI().setWireListener();
 
             if (!this._instanceCounter[type]) this._instanceCounter[type] = 0;
             return ++this._instanceCounter[type];
@@ -176,6 +181,10 @@ define(
         Editor.prototype.addShape = function(shape) {
             this._modelLayer.add(shape);
             this._modelLayer.draw();
+        }
+
+        Editor.prototype.getStage = function() {
+            return this._stage;
         }
 
         return Editor;

@@ -1,21 +1,19 @@
 define(
     [
-        "app/entities/KEntity",
-        "app/entities/KWire",
-        "app/entities/KNode"
+        "app/presentation/UIEntity"
     ],
 
-    function(KEntity, KWire, KNode) {
+    function(UIEntity) {
         // GLOBAL CONSTANTS
         var STROKE = 4,
             RADIUS = 10;
 
         // inherit from KEntity
-        KGroup.prototype = new KEntity();
-        KGroup.prototype.constructor = KGroup;
+        UIGroup.prototype = new UIEntity();
+        UIGroup.prototype.constructor = UIGroup;
 
-        function KGroup(type, handler) {
-            KEntity.prototype.constructor.call(this, handler);
+        function UIGroup(ctrl) {
+            UIEntity.prototype.constructor.call(this, ctrl.getHandler());
 
             var circle = new Kinetic.Circle({
                 radius: 55,
@@ -36,7 +34,7 @@ define(
             });
 
             var text = new Kinetic.Text({
-                text: type,
+                text: ctrl.getType(),
                 fontSize: 13,
                 fontFamily: 'Helvetica',
                 fill: '#FFF',
@@ -95,11 +93,11 @@ define(
             //===========================
             // Properties popup content
             //===========================
-            this.setPopup('<p>'+type+' TODO</p>');
+            this.setPopup('<p>'+ctrl.getType()+' TODO</p>');
         }
 
-        KGroup.prototype.setWireListener = function(handler) {
-            KEntity.prototype.setWireListener.call(this, handler); // like super.setWireListener(handler); in Java
+        UIGroup.prototype.setWireListener = function(handler) {
+            UIEntity.prototype.setWireListener.call(this, handler); // like super.setWireListener(handler); in Java
             var that = this;
 
             // listens to 'mousedown' events to recognize
@@ -110,7 +108,9 @@ define(
 
                 // dispatch onWireCreationStart event with the position
                 // on the plug
-                handler.onWireCreationStart(this.getAbsolutePosition());
+                if (handler) {
+                    handler.onWireCreationStart(this.getAbsolutePosition());
+                }
             });
 
             // listens to 'mouseup' events to recognize
@@ -121,7 +121,11 @@ define(
             });
         }
 
+        UIGroup.prototype._delete = function() {
+            UIEntity.prototype._delete.call(this);
+        }
 
-        return KGroup;
+
+        return UIGroup;
     }
 );

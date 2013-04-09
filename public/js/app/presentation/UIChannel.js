@@ -1,16 +1,16 @@
 define(
-    ["app/entities/KEntity"],
+    ["app/presentation/UIEntity"],
 
-    function(KEntity) {
+    function(UIEntity) {
         // GLOBAL CONSTANTS
         var STROKE = 3;
 
-        // inherit from KEntity
-        KChannel.prototype = new KEntity();
-        KChannel.prototype.constructor = KChannel;
+        // inherit from UIEntity
+        UIChannel.prototype = new UIEntity();
+        UIChannel.prototype.constructor = UIChannel;
 
-        function KChannel(type, handler) {
-            KEntity.prototype.constructor.call(this, handler);
+        function UIChannel(ctrl) {
+            UIEntity.prototype.constructor.call(this, ctrl.getHandler());
 
             var circle = new Kinetic.Circle({
                 radius: 55,
@@ -25,7 +25,7 @@ define(
             });
 
             var text = new Kinetic.Text({
-                text: type,
+                text: ctrl.getType(),
                 fontSize: 12,
                 fontFamily: 'Helvetica',
                 fontWeight: 'bold',
@@ -60,9 +60,9 @@ define(
                 circle.getLayer().draw();
             });
 
-            this.setPopup('<p>'+type+' TODO</p>');
+            this.setPopup('<p>'+ctrl.getType()+' TODO</p>');
         }
 
-        return KChannel;
+        return UIChannel;
     }
 );
