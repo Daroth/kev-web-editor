@@ -111,6 +111,12 @@ define(
         UIEditor.prototype.c2pEntityRemoved = function(entity) {
             var badgeCount = this._ctrl.getEntityCount(entity.getCtrl().getType());
 
+            if (badgeCount == 0) {
+                entity.getDOMItem().find('.badge').remove();
+            } else {
+                entity.getDOMItem().children().first().text(badgeCount);
+            }
+
             var wires = entity.getCtrl().getWires();
             for (var i=0; i < wires.length; i++) {
                 this._wireTable.remove(wires[i]);

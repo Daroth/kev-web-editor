@@ -47,6 +47,14 @@ define(
             layer.draw();
         }
 
+        UIEntity.prototype.setDOMItem = function (item) {
+            this._DOMItem = item;
+        }
+
+        UIEntity.prototype.getDOMItem = function () {
+            return this._DOMItem;
+        }
+
         return UIEntity;
     }
 );

@@ -78,7 +78,7 @@ requirejs(
                                   .end()        // again go back to selected element
                                   .text();      // get the text of element
 
-                editor.p2cAddEntity(entity, type);
+                editor.p2cAddEntity(libItem, entity, type);
                 var badgeCount = editor.getEntityCount(type);
 
                 if (libItem.children().size() != 0) {

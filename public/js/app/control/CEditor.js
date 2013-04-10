@@ -34,7 +34,7 @@ define(
             this._ui.c2pEntityRemoved(entity.getUI());
         }
 
-        CEditor.prototype.p2cAddEntity = function (entity_type, type) {
+        CEditor.prototype.p2cAddEntity = function (item, entity_type, type) {
             var entity = null;
             // circular dependency: CFactory <-> CEditor needs 'require' to get rid
             // of the 'undefined' for CFactory (http://requirejs.org/docs/api.html#circular)
@@ -61,6 +61,8 @@ define(
                     console.error("CEditor.addEntity(type): I don't know this entity type: "+entity_type);
                     return;
             }
+
+            entity.getUI().setDOMItem(item);
 
             this.addEntity(entity);
         }
