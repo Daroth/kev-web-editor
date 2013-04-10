@@ -6,9 +6,9 @@ define(
     ["jquery"],
 
     function($) {
-        function UIEntity(handler) {
-            this._handler = handler;
-            this._wires = new Array();
+        function UIEntity(ctrl) {
+            this._ctrl = ctrl;
+            this._position = {x: 0, y: 0} // default position
         }
 
         UIEntity.prototype.getShape = function() {
@@ -19,7 +19,6 @@ define(
             var that = this;
             // TODO this is not buenos
             this._shape.on('dblclick tap', function() {
-                console.log("dblclick dude : "+content);
                 $('#delete').off('click'); // get rid of old listeners on '#delete'
                 $('#delete').on('click', function() {
                     that._delete();
@@ -27,10 +26,6 @@ define(
                 $('#popup-content').html(content);
                 $('#popup').modal({ show: true });
             });
-        }
-
-        UIEntity.prototype.addWire = function(wire) {
-            this._wires.push(wire);
         }
 
         UIEntity.prototype._delete = function() {
@@ -43,10 +38,14 @@ define(
             var stage = this._shape.getStage();
             this._shape.remove();
             stage.draw();
+        }
 
-            if (this._handler && typeof (this._handler.onDelete) == typeof (Function)) {
-                this._handler.onDelete();
-            }
+        UIEntity.prototype.getPosition = function () {
+            return this._position;
+        }
+
+        UIEntity.prototype.getCtrl = function () {
+            return this._ctrl;
         }
 
         UIEntity.prototype.setWireListener = function(handler) {}

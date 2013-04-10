@@ -1,28 +1,22 @@
 define(
     [
         'app/abstraction/KNode',
-        'app/presentation/UINode'
+        'app/presentation/UINode',
+        'app/control/AController',
+        'app/util/Pooffs'
     ],
 
-    function(KNode, UINode) {
-        CNode.prototype = new KNode();
-        CNode.prototype.constructor = CNode;
+    function(KNode, UINode, AController, Pooffs) {
 
-        function CNode(type, handler) {
+        Pooffs.extends(CNode, KNode);
+        Pooffs.extends(CNode, AController);
+
+        function CNode(type) {
             // super(type)
             KNode.prototype.constructor.call(this, type);
 
             // instantiate UI
-            this._handler = handler;
             this._ui = new UINode(this);
-        }
-
-        CNode.prototype.getUI = function() {
-            return this._ui;
-        }
-
-        CNode.prototype.getHandler = function() {
-            return this._handler;
         }
 
         return CNode;

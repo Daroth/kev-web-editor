@@ -3,10 +3,9 @@ define(
 
     function(UIEntity) {
         UIComponent.prototype = new UIEntity();
-        UIComponent.prototype.constructor = UIComponent;
 
         function UIComponent(ctrl) {
-            UIEntity.prototype.constructor.call(this, ctrl.getHandler());
+            UIEntity.prototype.constructor.call(this, ctrl);
 
             this._shape = new Kinetic.Text({
                 x: 100,

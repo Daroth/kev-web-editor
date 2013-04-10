@@ -10,10 +10,10 @@ define(
 
         // inherit from KEntity
         UIGroup.prototype = new UIEntity();
-        UIGroup.prototype.constructor = UIGroup;
 
         function UIGroup(ctrl) {
-            UIEntity.prototype.constructor.call(this, ctrl.getHandler());
+            this._ctrl = ctrl;
+            UIEntity.prototype.constructor.call(this, ctrl);
 
             var circle = new Kinetic.Circle({
                 radius: 55,
@@ -71,11 +71,12 @@ define(
             });
 
             this._shape.on('dragmove', function() {
-                if (that._wires.length > 0) {
+                var wires = that._ctrl.getWires();
+                if (wires.length > 0) {
                     // there is plugged wires
                     // go update wiretable
-                    for (var i=0; i<that._wires.length; i++) {
-                        that._wires[i].setOrigin(that._plug.getAbsolutePosition());
+                    for (var i=0; i<wires.length; i++) {
+                        wires[i].setOrigin(that._ctrl);
                     }
                 }
             });
@@ -106,10 +107,9 @@ define(
                 // disable drag events on group during wire creation process
                 that._shape.setDraggable(false);
 
-                // dispatch onWireCreationStart event with the position
-                // on the plug
-                if (handler) {
-                    handler.onWireCreationStart(this.getAbsolutePosition());
+                // dispatch onWireCreationStart event with the position on the plug
+                if (handler && typeof (handler.onWireCreationStart) == typeof (Function)) {
+                    handler.onWireCreationStart(that.getPosition());
                 }
             });
 
@@ -125,6 +125,9 @@ define(
             UIEntity.prototype._delete.call(this);
         }
 
+        UIGroup.prototype.getPosition = function () {
+            return this._plug.getAbsolutePosition();
+        }
 
         return UIGroup;
     }

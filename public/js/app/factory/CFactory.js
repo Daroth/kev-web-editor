@@ -1,32 +1,54 @@
 define(
     [
+        'app/control/CEditor',
         'app/control/CGroup',
         'app/control/CChannel',
         'app/control/CNode',
-        'app/control/CComponent'
+        'app/control/CComponent',
+        'app/control/CWire'
     ],
 
-    function(CGroup, CChannel, CNode, CComponent) {
+    function (CEditor, CGroup, CChannel, CNode, CComponent, CWire) {
 
-        function CFactory() {}
+        function CFactory() {
+            if (CFactory.prototype._instance) {
+                return CFactory._instance;
+            }
+            CFactory._instance = this;
 
-        CFactory.instance = new CFactory();
-
-        CFactory.prototype.newGroup = function(type, handler) {
-            return new CGroup(type, handler);
+            return CFactory._instance;
         }
 
-        CFactory.prototype.newNode = function(type, handler) {
-            return new CNode(type, handler);
+        CFactory.getInstance = function() {
+            if (!CFactory._instance) {
+                return new CFactory();
+            }
+            return CFactory._instance;
         }
 
-        CFactory.prototype.newComponent = function(type, handler) {
-            return new CComponent(type, handler);
-        }
+        CFactory.prototype.newEditor = function (containerID) {
+            return new CEditor(containerID);
+        };
 
-        CFactory.prototype.newChannel = function(type, handler) {
-            return new CChannel(type, handler);
-        }
+        CFactory.prototype.newGroup = function (type) {
+            return new CGroup(type);
+        };
+
+        CFactory.prototype.newNode = function (type) {
+            return new CNode(type);
+        };
+
+        CFactory.prototype.newComponent = function (type) {
+            return new CComponent(type);
+        };
+
+        CFactory.prototype.newChannel = function (type) {
+            return new CChannel(type);
+        };
+
+        CFactory.prototype.newWire = function (layer) {
+            return new CWire(layer);
+        };
 
         return CFactory;
     }

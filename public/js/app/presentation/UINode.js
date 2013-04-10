@@ -6,10 +6,9 @@ define(
         var STROKE = 3;
 
         UINode.prototype = new UIEntity();
-        UINode.prototype.constructor = UINode;
 
         function UINode(ctrl) {
-            UIEntity.prototype.constructor.call(this, ctrl.getHandler());
+            UIEntity.prototype.constructor.call(this, ctrl);
 
             var headerName = new Kinetic.Text({
                 text: ctrl.getType(),
@@ -59,11 +58,12 @@ define(
             });
 
             this._shape.on('dragmove', function() {
-                if (that._wires.length > 0) {
+                var wires = that._ctrl.getWires();
+                if (wires.length > 0) {
                     // there is plugged wires
                     // go update wiretable
-                    for (var i=0; i<that._wires.length; i++) {
-                        that._wires[i].setTarget(that._computePlugPosition());
+                    for (var i=0; i<wires.length; i++) {
+                        wires[i].setTarget(that._ctrl);
                     }
                 }
             });
@@ -78,17 +78,18 @@ define(
 
             this._shape.on('mouseup', function() {
                 if (handler) {
-                    handler.onWireCreationEnd(that._computePlugPosition());
+                    handler.onWireCreationEnd(that.getPosition());
                 }
             });
         }
 
-        UINode.prototype._computePlugPosition = function() {
+        UINode.prototype.getPosition = function () {
             return {
                 x: this._shape.getAbsolutePosition().x + this._rect.getWidth()/2,
                 y: this._shape.getAbsolutePosition().y + this._rect.getHeight()/4
             };
         }
+
 
         return UINode;
     }

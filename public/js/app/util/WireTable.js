@@ -3,7 +3,7 @@ define(
 
         /**
          * Holds wire refs and handle their drawing
-         * Acts like an observer (subjects are KWire): it registers itself
+         * Acts like an observer (subjects are CWire): it registers itself
          * on each added wire with push(wire) method
          * @param layer
          * @constructor
@@ -17,6 +17,8 @@ define(
             this._wires.push(wire);
             wire.addObserver(this);
             this.draw();
+            console.log("wiretable:");
+            console.log(this._wires);
         }
 
         WireTable.prototype.pop = function() {
@@ -29,12 +31,18 @@ define(
             this._layer.getCanvas().clear();
 
             for (var i=0; i<this._wires.length; i++) {
-                this._wires[i].draw(this._layer);
+                this._wires[i].getUI().draw(this._layer);
             }
         }
 
+        WireTable.prototype.remove = function (wire) {
+            var index = this._wires.indexOf(wire);
+            this._wires.splice(index, 1);
+            this.draw();
+        }
+
         WireTable.prototype.update = function(wire) {
-            if (wire.isToRemove()) {
+            if (wire.getUI().isToRemove()) {
                 var index = this._wires.indexOf(wire);
                 this._wires.splice(index, 1);
             }

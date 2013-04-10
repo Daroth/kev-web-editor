@@ -7,10 +7,9 @@ define(
 
         // inherit from UIEntity
         UIChannel.prototype = new UIEntity();
-        UIChannel.prototype.constructor = UIChannel;
 
         function UIChannel(ctrl) {
-            UIEntity.prototype.constructor.call(this, ctrl.getHandler());
+            UIEntity.prototype.constructor.call(this, ctrl);
 
             var circle = new Kinetic.Circle({
                 radius: 55,

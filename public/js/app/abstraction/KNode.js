@@ -1,7 +1,11 @@
 define(
-    function() {
-        // private static global variable
-        KNode._COUNT = 0;
+    ['app/abstraction/KEntity'],
+
+    function(KEntity) {
+
+        KNode.ENTITY_TYPE = 'node';
+
+        KNode.prototype = new KEntity();
 
         /**
          *
@@ -9,16 +13,7 @@ define(
          * @constructor
          */
         function KNode(type) {
-            this._name = type + (KNode._COUNT++);
-            this._type = type;
-        }
-
-        KNode.prototype.getName = function() {
-            return this._name;
-        }
-
-        KNode.prototype.getType = function() {
-            return this._type;
+            KEntity.prototype.constructor.call(this, type);
         }
 
         return KNode;

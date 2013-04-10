@@ -12,23 +12,34 @@ requirejs.config({
     //never includes a ".js" extension since
     //the paths config could be for a directory.
     paths: {
-        app: '../app'
+        app: '../app',
+        abs: '../app/abstraction',
+        ui: '../app/presentation',
+        ctrl: '../app/control'
     }
 });
 
 // Start the main app logic.
-requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
-    function ($, jqui, _bootstrap, Kinetic, Editor) {
+requirejs(
+    [
+        'jquery',
+        'jquery-ui',
+        'bootstrap',
+        'kinetic',
+        'app/factory/CFactory'
+    ],
+
+    function ($, jqui, _bootstrap, Kinetic, CFactory) {
         $(function() {
             //- init editor
-            var editor = new Editor('editor');
-            editor.create($('#editor').width(), $('#editor').height());
+            var editor = CFactory.getInstance().newEditor('editor');
+            editor.getUI().create($('#editor').width(), $('#editor').height());
 
             // refresh editor size on window resizing
             $(window).resize(function() {
-                editor.getStage().setWidth($('#editor').width());
-                editor.getStage().setHeight($('#editor').height());
-                editor.getStage().draw();
+                editor.getUI().getStage().setWidth($('#editor').width());
+                editor.getUI().getStage().setHeight($('#editor').height());
+                editor.getUI().getStage().draw();
             });
 
             // foldable lib-tree
@@ -66,7 +77,6 @@ requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
                                   .remove()     // remove all the children
                                   .end()        // again go back to selected element
                                   .text();      // get the text of element
-                var badgeCount = 1;
 
                 var handler = {
                     onDelete: function(count) {
@@ -78,23 +88,9 @@ requirejs(['jquery', 'jquery-ui', 'bootstrap', 'kinetic', 'app/Editor'],
                     }
                 };
 
-                switch (entity) {
-                    case 'component':
-                        badgeCount = editor.addComponent(type, handler);
-                        break;
-                    case 'node':
-                        badgeCount = editor.addNode(type, handler);
-                        break;
-                    case 'group':
-                        badgeCount = editor.addGroup(type, handler);
-                        break;
-                    case 'channel':
-                        badgeCount = editor.addChannel(type, handler);
-                        break;
-                    default:
-                        console.log("Editor drop event error: Unknown dropped item-entity");
-                        return;
-                }
+                editor.p2cAddModule(entity, type);
+                var badgeCount = editor.getEntityCount(type);
+
                 if (libItem.children().size() != 0) {
                     libItem.children().first().text(badgeCount);
                 } else {

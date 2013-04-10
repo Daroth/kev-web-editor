@@ -1,7 +1,10 @@
 define(
-    function() {
-        // private static global variable
-        KGroup._COUNT = 0;
+    ['app/abstraction/KEntity'],
+
+    function(KEntity) {
+        KGroup.ENTITY_TYPE = 'group';
+
+        KGroup.prototype = new KEntity();
 
         /**
          *
@@ -9,16 +12,7 @@ define(
          * @constructor
          */
         function KGroup(type) {
-            this._name = type + (KGroup._COUNT++);
-            this._type = type;
-        }
-
-        KGroup.prototype.getName = function() {
-            return this._name;
-        }
-
-        KGroup.prototype.getType = function() {
-            return this._type;
+            KEntity.prototype.constructor.call(this, type);
         }
 
         return KGroup;

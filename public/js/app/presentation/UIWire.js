@@ -1,44 +1,39 @@
 define(
     function() {
-        function UIWire(layer) {
+        function UIWire(ctrl, layer) {
+            this._ctrl = ctrl;
             this._layer = layer;
-            this._origin = {x: 0, y: 0};
-            this._target = {x: 0, y: 0};
+            this._origin = null;
+            this._target = null;
             this._doRemove = false;
         }
 
-        UIWire.prototype.setOrigin = function(position) {
-            this._origin = position;
-            this._notifyObserver();
+        UIWire.prototype.setOrigin = function(entityUI) {
+            this._origin = entityUI;
+            this._ctrl._notifyObserver();
         }
 
-        UIWire.prototype.setTarget = function(position) {
-            this._target = position;
-            this._notifyObserver();
+        UIWire.prototype.setTarget = function(entityUI) {
+            this._target = entityUI;
+            this._ctrl._notifyObserver();
         }
 
         UIWire.prototype.draw = function() {
+            var origin = (this._origin) ? this._origin.getPosition() : {x: 0, y: 0};
+            var target = (this._target) ? this._target.getPosition() : {x: 0, y: 0};
+
             var canvas = this._layer.getCanvas();
             var context = canvas.getContext();
 
             // draw curve
             context.beginPath();
-            context.moveTo(this._origin.x, this._origin.y);
+            context.moveTo(origin.x, origin.y);
             var middle = this._computeMiddlePoint();
-            context.quadraticCurveTo(middle.x, middle.y, this._target.x, this._target.y);
+            context.quadraticCurveTo(middle.x, middle.y, target.x, target.y);
             context.strokeStyle = '#5aa564';
             context.lineWidth = 5;
             context.stroke();
-        }
-
-        UIWire.prototype._notifyObserver = function() {
-            if (this._observer) {
-                this._observer.update(this);
-            }
-        }
-
-        UIWire.prototype.addObserver = function(observer) {
-            this._observer = observer;
+            console.log("draw end");
         }
 
         UIWire.prototype.remove = function() {
@@ -50,10 +45,13 @@ define(
         }
 
         UIWire.prototype._computeMiddlePoint = function() {
-            var ox = this._origin.x,
-                oy = this._origin.y,
-                tx = this._target.x,
-                ty = this._target.y;
+            var origin = (this._origin) ? this._origin.getPosition() : {x: 0, y: 0};
+            var target = (this._target) ? this._target.getPosition() : {x: 0, y: 0};
+
+            var ox = origin.x,
+                oy = origin.y,
+                tx = target.x,
+                ty = target.y;
 
             var middleX, middleY;
 
@@ -66,6 +64,14 @@ define(
                 x: middleX,
                 y: middleY
             }
+        }
+
+        UIWire.prototype.setTargetPoint = function (point) {
+            this._target = {
+                getPosition: function () {
+                    return point;
+                }
+            };
         }
 
         return UIWire;

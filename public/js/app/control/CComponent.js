@@ -1,28 +1,22 @@
 define(
     [
         'app/abstraction/KComponent',
-        'app/presentation/UIComponent'
+        'app/presentation/UIComponent',
+        'app/control/AController',
+        'app/util/Pooffs'
     ],
 
-    function(KComponent, UIComponent) {
-        CComponent.prototype = new KComponent();
-        CComponent.prototype.constructor = CComponent;
+    function(KComponent, UIComponent, AController, Pooffs) {
 
-        function CComponent(type, handler) {
+        Pooffs.extends(CComponent, KComponent);
+        Pooffs.extends(CComponent, AController);
+
+        function CComponent(type) {
             // super(type)
             KComponent.prototype.constructor.call(this, type);
 
             // instantiate UI
-            this._handler = handler;
             this._ui = new UIComponent(this);
-        }
-
-        CComponent.prototype.getUI = function() {
-            return this._ui;
-        }
-
-        CComponent.prototype.getHandler = function() {
-            return this._handler;
         }
 
         return CComponent;
