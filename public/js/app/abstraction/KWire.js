@@ -19,10 +19,12 @@ define(
             return this._target;
         }
 
-//        KWire.prototype.disconnect = function() {
-//            if (this._origin) this._origin.wireDisconnected(this);
-//            if (this._target) this._target.wireDisconnected(this);
-//        }
+        KWire.prototype.disconnect = function() {
+            if (this._origin) this._origin.disconnectWire(this);
+            if (this._target) this._target.disconnectWire(this);
+            this._origin = null;
+            this._target = null;
+        }
 
         return KWire;
     }

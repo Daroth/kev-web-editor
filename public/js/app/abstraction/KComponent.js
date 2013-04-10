@@ -7,13 +7,8 @@ define(
 
         KComponent.prototype = new KEntity();
 
-        /**
-         *
-         * @param type
-         * @constructor
-         */
-        function KComponent(type) {
-            KEntity.prototype.constructor.call(this, type);
+        function KComponent(editor, type) {
+            KEntity.prototype.constructor.call(this, editor, type);
         }
 
         return KComponent;

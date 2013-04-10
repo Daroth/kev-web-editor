@@ -9,11 +9,12 @@ define(
 
         /**
          *
+         * @param editor
          * @param type
          * @constructor
          */
-        function KNode(type) {
-            KEntity.prototype.constructor.call(this, type);
+        function KNode(editor, type) {
+            KEntity.prototype.constructor.call(this, editor, type);
         }
 
         return KNode;

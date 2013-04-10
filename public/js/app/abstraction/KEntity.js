@@ -2,7 +2,8 @@ define(
     function() {
         KEntity._COUNT = 0;
 
-        function KEntity(type) {
+        function KEntity(editor, type) {
+            this._editor = editor;
             this._type = type;
             this._name = type + KEntity._COUNT++;
             this._wires = new Array();
@@ -16,6 +17,10 @@ define(
             return this._type;
         }
 
+        KEntity.prototype.getEditor = function () {
+            return this._editor;
+        }
+
         KEntity.prototype.getWires = function() {
             return this._wires;
         }
@@ -26,13 +31,21 @@ define(
             }
         }
 
-        KEntity.prototype.removeWire = function (wire) {
+        KEntity.prototype.removeMe = function () {
+            this.getEditor().removeEntity(this);
+            this.clearWires();
+        }
+
+        KEntity.prototype.disconnectWire = function (wire) {
             var index = this._wires.indexOf(wire);
             this._wires.splice(index, 1);
         }
 
         KEntity.prototype.clearWires = function () {
-            this._wires = new Array();
+            var wires = this._wires.slice(0); // clone wires array
+            for (var i=0; i<wires.length; i++) {
+                wires[i].disconnect(); // tell each wire to disconnect
+            }
         }
 
         return KEntity;

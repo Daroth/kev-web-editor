@@ -21,23 +21,11 @@ define(
             this._shape.on('dblclick tap', function() {
                 $('#delete').off('click'); // get rid of old listeners on '#delete'
                 $('#delete').on('click', function() {
-                    that._delete();
+                    that._ctrl.p2cRemoveEntity();
                 });
                 $('#popup-content').html(content);
                 $('#popup').modal({ show: true });
             });
-        }
-
-        UIEntity.prototype._delete = function() {
-            if (this._wires > 0) {
-                for (var i=0; i<this._wires.length; i++) {
-                    this._wires[i].remove();
-                }
-            }
-
-            var stage = this._shape.getStage();
-            this._shape.remove();
-            stage.draw();
         }
 
         UIEntity.prototype.getPosition = function () {
@@ -49,6 +37,15 @@ define(
         }
 
         UIEntity.prototype.setWireListener = function(handler) {}
+
+        UIEntity.prototype.c2pRemoveEntity = function () {
+            // retrieve this shape's layer
+            var layer = this._shape.getLayer();
+            // remove shape from layer
+            this._shape.remove();
+            // redraw the layer
+            layer.draw();
+        }
 
         return UIEntity;
     }

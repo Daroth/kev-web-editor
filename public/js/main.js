@@ -39,7 +39,7 @@ requirejs(
             $(window).resize(function() {
                 editor.getUI().getStage().setWidth($('#editor').width());
                 editor.getUI().getStage().setHeight($('#editor').height());
-                editor.getUI().getStage().draw();
+                editor.getUI().draw();
             });
 
             // foldable lib-tree
@@ -78,17 +78,7 @@ requirejs(
                                   .end()        // again go back to selected element
                                   .text();      // get the text of element
 
-                var handler = {
-                    onDelete: function(count) {
-                        if (count == 0) {
-                            libItem.find('.badge').remove();
-                        } else {
-                            libItem.children().first().text(count);
-                        }
-                    }
-                };
-
-                editor.p2cAddModule(entity, type);
+                editor.p2cAddEntity(entity, type);
                 var badgeCount = editor.getEntityCount(type);
 
                 if (libItem.children().size() != 0) {

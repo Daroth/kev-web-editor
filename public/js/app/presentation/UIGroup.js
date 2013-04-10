@@ -121,10 +121,6 @@ define(
             });
         }
 
-        UIGroup.prototype._delete = function() {
-            UIEntity.prototype._delete.call(this);
-        }
-
         UIGroup.prototype.getPosition = function () {
             return this._plug.getAbsolutePosition();
         }

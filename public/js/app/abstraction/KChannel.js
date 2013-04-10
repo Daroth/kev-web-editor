@@ -7,13 +7,8 @@ define(
 
         KChannel.prototype = new KEntity();
 
-        /**
-         *
-         * @param type
-         * @constructor
-         */
-        function KChannel(type) {
-            KEntity.prototype.constructor.call(this, type);
+        function KChannel(editor, type) {
+            KEntity.prototype.constructor.call(this, editor, type);
         }
 
         return KChannel;

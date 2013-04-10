@@ -22,17 +22,19 @@ define(
             this._ui = new UIEditor(this, containerID);
         }
 
+        // Override KEditor.addEntity(KEntity)
         CEditor.prototype.addEntity = function (entity) {
             KEditor.prototype.addEntity.call(this, entity); // super.addEntity(type)
             this._ui.c2pEntityAdded(entity.getUI());
         }
 
+        // Override KEditor.removeEntity(KEntity)
         CEditor.prototype.removeEntity = function (entity) {
             KEditor.prototype.removeEntity.call(this, entity); // super.addEntity(type)
             this._ui.c2pEntityRemoved(entity.getUI());
         }
 
-        CEditor.prototype.p2cAddModule = function (entity_type, type) {
+        CEditor.prototype.p2cAddEntity = function (entity_type, type) {
             var entity = null;
             // circular dependency: CFactory <-> CEditor needs 'require' to get rid
             // of the 'undefined' for CFactory (http://requirejs.org/docs/api.html#circular)
@@ -40,19 +42,19 @@ define(
 
             switch (entity_type) {
                 case KGroup.ENTITY_TYPE:
-                    entity = factory.newGroup(type);
+                    entity = factory.newGroup(this, type);
                     break;
 
                 case KComponent.ENTITY_TYPE:
-                    entity = factory.newComponent(type);
+                    entity = factory.newComponent(this, type);
                     break;
 
                 case KChannel.ENTITY_TYPE:
-                    entity = factory.newChannel(type);
+                    entity = factory.newChannel(this, type);
                     break;
 
                 case KNode.ENTITY_TYPE:
-                    entity = factory.newNode(type);
+                    entity = factory.newNode(this, type);
                     break;
 
                 default:

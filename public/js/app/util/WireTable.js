@@ -17,8 +17,6 @@ define(
             this._wires.push(wire);
             wire.addObserver(this);
             this.draw();
-            console.log("wiretable:");
-            console.log(this._wires);
         }
 
         WireTable.prototype.pop = function() {

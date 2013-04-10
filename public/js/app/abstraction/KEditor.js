@@ -7,13 +7,20 @@ define(
 
         KEditor.prototype.addEntity = function(entity) {
             this._entities.push(entity);
+
+            // update typeCounter
             if (!this._typeCounter[entity.getType()]) this._typeCounter[entity.getType()] = 0;
             this._typeCounter[entity.getType()]++;
         }
 
         KEditor.prototype.removeEntity = function(entity) {
             var index = this._entities.indexOf(entity);
-            this._entities.splice(index, 1);
+            if (index != -1) {
+                this._entities.splice(index, 1);
+
+                // update typeCounter
+                this._typeCounter[entity.getType()]--;
+            }
         }
 
         KEditor.prototype.getEntities = function() {

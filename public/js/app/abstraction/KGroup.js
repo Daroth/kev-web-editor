@@ -6,13 +6,8 @@ define(
 
         KGroup.prototype = new KEntity();
 
-        /**
-         *
-         * @param type
-         * @constructor
-         */
-        function KGroup(type) {
-            KEntity.prototype.constructor.call(this, type);
+        function KGroup(editor, type) {
+            KEntity.prototype.constructor.call(this, editor, type);
         }
 
         return KGroup;

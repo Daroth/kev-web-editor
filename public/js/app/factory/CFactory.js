@@ -30,20 +30,20 @@ define(
             return new CEditor(containerID);
         };
 
-        CFactory.prototype.newGroup = function (type) {
-            return new CGroup(type);
+        CFactory.prototype.newGroup = function (editor, type) {
+            return new CGroup(editor, type);
         };
 
-        CFactory.prototype.newNode = function (type) {
-            return new CNode(type);
+        CFactory.prototype.newNode = function (editor, type) {
+            return new CNode(editor, type);
         };
 
-        CFactory.prototype.newComponent = function (type) {
-            return new CComponent(type);
+        CFactory.prototype.newComponent = function (editor, type) {
+            return new CComponent(editor, type);
         };
 
-        CFactory.prototype.newChannel = function (type) {
-            return new CChannel(type);
+        CFactory.prototype.newChannel = function (editor, type) {
+            return new CChannel(editor, type);
         };
 
         CFactory.prototype.newWire = function (layer) {

@@ -33,7 +33,6 @@ define(
             context.strokeStyle = '#5aa564';
             context.lineWidth = 5;
             context.stroke();
-            console.log("draw end");
         }
 
         UIWire.prototype.remove = function() {

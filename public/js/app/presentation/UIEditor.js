@@ -14,7 +14,6 @@ define(
         function UIEditor(ctrl, containerID) {
             this._ctrl = ctrl;
             this._id = containerID;
-            this._instanceCounter = new Array();
             this._currentWire = null;
             this._wiringTask = false;
             this._modelLayer = new Kinetic.Layer();
@@ -59,7 +58,6 @@ define(
 
             this._stage.on('mousemove', function() {
                 if (that._wiringTask) {
-                    console.log("mouse move");
                     that._currentWire.getUI().setTargetPoint(that._stage.getMousePosition());
                     that._wireTable.draw();
                 }
@@ -103,14 +101,21 @@ define(
             });
         }
 
+        /**
+         * Called by the controller of this UI when it has allowed
+         * the entity (given in parameter) to be removed.
+         * When this method is called, the editor does not contain
+         * this entity anymore
+         * @param entity the removed entity
+         */
         UIEditor.prototype.c2pEntityRemoved = function(entity) {
-            entity.getShape().remove();
+            var badgeCount = this._ctrl.getEntityCount(entity.getCtrl().getType());
 
-            var wires = entity.getWires();
-            for (var i=0; i<wires.length; i++) {
+            var wires = entity.getCtrl().getWires();
+            for (var i=0; i < wires.length; i++) {
                 this._wireTable.remove(wires[i]);
             }
-            entity.clearWires();
+            this._wireTable.draw();
         }
 
         /**
@@ -125,6 +130,11 @@ define(
 
         UIEditor.prototype.getStage = function() {
             return this._stage;
+        }
+
+        UIEditor.prototype.draw = function () {
+            this._stage.draw();
+            this._wireTable.draw();
         }
 
         return UIEditor;
