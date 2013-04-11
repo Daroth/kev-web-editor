@@ -13,7 +13,7 @@ define(
         function UINode(ctrl) {
             UIEntity.prototype.constructor.call(this, ctrl);
 
-            var headerName = new Kinetic.Text({
+            this._headerName = new Kinetic.Text({
                 text: ctrl.getType(),
                 fontSize: 15,
                 fontFamily: 'Helvetica',
@@ -22,11 +22,13 @@ define(
                 align: 'center'
             });
 
+            this._width = this._headerName.getWidth();
+
             this._rect = new Kinetic.Rect({
                 stroke: DEFAULT_STROKE_COLOR,
                 strokeWidth: STROKE,
-                width: headerName.getWidth(),
-                height: headerName.getHeight(),
+                width: this._width,
+                height: this._headerName.getHeight(),
                 shadowColor: 'black',
                 shadowBlur: 10,
                 shadowOffset: [5, 5],
@@ -35,13 +37,11 @@ define(
             });
 
             this._shape = new Kinetic.Group({
-                x: 100,
-                y: 100,
                 draggable: true
             });
 
             this._shape.add(this._rect);
-            this._shape.add(headerName);
+            this._shape.add(this._headerName);
 
             //==========================
             // Event handling
@@ -79,6 +79,28 @@ define(
                 x: this._shape.getAbsolutePosition().x + this._rect.getWidth()/2,
                 y: this._shape.getAbsolutePosition().y + this._rect.getHeight()/4
             };
+        }
+
+        UINode.prototype.c2pAddChild = function (entity) {
+            var entityShape = entity.getShape();
+            console.log(entityShape);
+
+            var currentW = this._rect.getWidth();
+            var currentH = this._rect.getHeight();
+
+            if (this._ctrl.getChildren().length > 0) {
+                this._rect.setWidth(this._width + 50);
+            } else {
+                this._rect.setWidth(this._width);
+            }
+            this._rect.setHeight(currentH + entity._rect.getHeight() + 50);
+
+            this._headerName.setOffset(-25, 0);
+            
+
+            entityShape.setPosition(25, currentH + 25);
+            this._shape.add(entityShape);
+            this._shape.getLayer().draw();
         }
 
         UINode.prototype.c2pDropPossible = function () {

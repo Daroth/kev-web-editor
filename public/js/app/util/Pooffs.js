@@ -17,7 +17,7 @@ define(
          * @param child
          * @param parent
          */
-        Pooffs.extends = function(child, parent) {
+        Pooffs.extends = function (child, parent) {
             for (var attr in parent.prototype) {
                 child.prototype[attr] = parent.prototype[attr];
             }

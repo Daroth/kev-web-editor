@@ -84,8 +84,12 @@ define(
             $('.lib-item').draggable({
                 helper: function() {
                     // the div dragged is a clone of the selected
-                    // div for the drag
-                    var clone = $(this).clone();
+                    // div for the drag without the badge if it exists
+                    var clone = $(this)
+                        .clone()    // clone the element
+                        .children() // select all the children
+                        .remove()   // remove all the children
+                        .end();     // again go back to selected element
                     clone.addClass('dragged');
                     return clone;
                 },
@@ -99,25 +103,26 @@ define(
                 $(this).tooltip({
                     selector: $(this),
                     placement: 'bottom',
-                    title: "You have to drag'n'drop component in Node in order to add them to the model"
+                    title: "You have to drop this element in a Node"
                 });
                 $(this).tooltip('show');
             });
 
-            $('.lib-item').click(function() {
-                triggerEvent($(this));
-            });
-
             // drop behavior on #editor
             $('#editor').droppable({
-                drop: function(event, ui) {
-                    triggerEvent(ui.draggable);
+                drop: function() {
+                    that._ctrl.p2cEntityDropped();
                 },
                 over: function(event, ui) {
-                    console.log("over");
-                    that._ctrl.p2cEntityDraggedOver(ui.draggable.attr('data-entity'));
+                    var entity = ui.draggable.attr('data-entity');
+                    var type = ui.draggable.clone()      // clone the element
+                        .children()                 // select all the children
+                        .remove()                   // remove all the children
+                        .end()                      // again go back to selected element
+                        .text();
+                    that._ctrl.p2cEntityDraggedOver(ui.draggable, entity, type);
                 },
-                out: function (event, ui) {
+                out: function () {
                     that._ctrl.p2cEntityDraggedOut();
                 }
             });
@@ -130,7 +135,6 @@ define(
                     .end()                      // again go back to selected element
                     .text();                    // get the text of element
 
-                that._ctrl.p2cAddEntity(libItem, entity, type);
                 var badgeCount = that._ctrl.getEntityCount(type);
 
                 if (libItem.children().size() != 0) {

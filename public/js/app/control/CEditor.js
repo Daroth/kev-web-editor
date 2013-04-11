@@ -23,6 +23,7 @@ define(
 
             this._ui = new UIEditor(this, containerID);
             this._currentWire = null;
+            this._draggedEntity = null;
         }
 
         // Override KEditor.addEntity(KEntity)
@@ -37,27 +38,34 @@ define(
             this._ui.c2pEntityRemoved(entity.getUI());
         }
 
-        CEditor.prototype.p2cAddEntity = function (item, entity_type, type, position) {
-            var entity = null;
-            // circular dependency: CFactory <-> CEditor needs 'require' to get rid
-            // of the 'undefined' for CFactory (http://requirejs.org/docs/api.html#circular)
+        CEditor.prototype.p2cEntityDropped = function () {
+            if (this._draggedEntity) {
+                // really adding the entity to the editor model
+                this.addEntity(this._draggedEntity);
+
+                // forget about the draggedEntity, it has already been added
+                this._draggedEntity = null;
+            }
+        }
+
+        CEditor.prototype.p2cEntityDraggedOver = function (libItem, entity_type, type) {
             var factory = require('app/factory/CFactory').getInstance();
 
             switch (entity_type) {
                 case KGroup.ENTITY_TYPE:
-                    entity = factory.newGroup(this, type);
+                    this._draggedEntity = factory.newGroup(this, type);
                     break;
 
                 case KChannel.ENTITY_TYPE:
-                    entity = factory.newChannel(this, type);
+                    this._draggedEntity = factory.newChannel(this, type);
                     break;
 
                 case KNode.ENTITY_TYPE:
-                    entity = factory.newNode(this, type);
+                    this._draggedEntity = factory.newNode(this, type);
                     break;
 
                 case KComponent.ENTITY_TYPE:
-                    entity = factory.newComponent(this, type);
+                    this._draggedEntity = factory.newComponent(this, type);
                     break;
 
                 default:
@@ -65,21 +73,11 @@ define(
                     return;
             }
 
-            // giving to the entity UI the DOM item that triggered
-            // its creation in order to display an instance counter
-            // for each entity_type
-            entity.getUI().setDOMItem(item);
-
-            // really adding the entity to the editor model
-            this.addEntity(entity);
-        }
-
-        CEditor.prototype.p2cEntityDraggedOver = function (entity_type) {
-            this._currentDraggedEntityType = entity_type;
+            this._draggedEntity.getUI().setDOMItem(libItem);
         }
 
         CEditor.prototype.p2cEntityDraggedOut = function () {
-            this._currentDraggedEntityType = null;
+            this._draggedEntity = null;
         }
 
         // Override KEditor.update(entity)
@@ -91,15 +89,16 @@ define(
             if (this._currentWire) {
                 this.abortWireCreationTask();
             }
-
-            this._currentDraggedEntityType = null;
-
         }
 
         CEditor.prototype.p2cMouseMove = function (position) {
             if (this._currentWire) {
                 this._ui.c2pUpdateWire(this._currentWire.getUI(), position);
             }
+        }
+
+        CEditor.prototype.getDraggedEntity = function () {
+            return this._draggedEntity;
         }
 
         CEditor.prototype.getCurrentWire = function () {
@@ -118,6 +117,10 @@ define(
 
         CEditor.prototype.endWireCreationTask = function () {
             this._currentWire = null;
+        }
+
+        CEditor.prototype.consumeDraggedEntity = function () {
+            this._draggedEntity = null;
         }
 
         return CEditor;

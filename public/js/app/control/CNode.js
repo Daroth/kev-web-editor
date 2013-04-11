@@ -33,6 +33,24 @@ define(
                     this.addWire(wire);
                     this.getEditor().endWireCreationTask(wire);
                 }
+            } else {
+                var draggedEntity = this.getEditor().getDraggedEntity();
+                if (draggedEntity) {
+                    // user is over the shape and he drops an entity
+                    if (this.isValidChildEntity(draggedEntity)) {
+                        // this entity is valid and can be added to this node
+                        this.getEditor().consumeDraggedEntity(); // I'm in charge of adding this to the model
+                        this.addChild(draggedEntity);
+                    } else {
+                        // this entity is not valid and can't be added to this node
+                        console.log("this is not possible mate, I cannot add a "+draggedEntity.getEntityType()+" to a Node sorry");
+                        return;
+                    }
+
+                } else {
+                    // user is just overing the shape
+                    this._ui.c2pPointerOverShape();
+                }
             }
         }
 
@@ -58,9 +76,10 @@ define(
                     this._ui.c2pDropImpossible();
                 }
             } else {
-                if (this.getEditor()._currentDraggedEntityType) {
+                var draggedEntity = this.getEditor().getDraggedEntity();
+                if (draggedEntity) {
                     // user is over the shape and he is dragging an entity
-                    if (this.getEditor()._currentDraggedEntityType == 'node' || this.getEditor()._currentDraggedEntityType == 'component') {
+                    if (this.isValidChildEntity(draggedEntity)) {
                         this._ui.c2pDropPossible();
                     } else {
                         this._ui.c2pDropImpossible();
@@ -70,6 +89,20 @@ define(
                     // user is just overing the shape
                     this._ui.c2pPointerOverShape();
                 }
+            }
+        }
+
+        // Override KNode.addChild(KNode || KComponent)
+        CNode.prototype.addChild = function (entity) {
+            var success = KNode.prototype.addChild.call(this, entity);
+            if (success) {
+                // success
+                console.log("SUCCESS");
+                this._ui.c2pAddChild(entity.getUI());
+            } else {
+                console.log("fuck me");
+                // error, 'entity' is not a KNode or a KComponent
+                // TODO
             }
         }
 
