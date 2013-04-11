@@ -3,7 +3,10 @@ define(
 
     function(UIEntity) {
         // GLOBAL CONSTANTS
-        var STROKE = 3;
+        var STROKE = 3,
+            DEFAULT_STROKE_COLOR = '#FFF',
+            KO_STROKE_COLOR = '#F00',
+            OK_STROKE_COLOR = '#0F0';
 
         UINode.prototype = new UIEntity();
 
@@ -20,7 +23,7 @@ define(
             });
 
             this._rect = new Kinetic.Rect({
-                stroke: '#FFF',
+                stroke: DEFAULT_STROKE_COLOR,
                 strokeWidth: STROKE,
                 width: headerName.getWidth(),
                 height: headerName.getHeight(),
@@ -46,14 +49,13 @@ define(
             var that = this;
 
             this._shape.on('mouseover', function() {
-                document.body.style.cursor = 'pointer';
-                that._rect.setStrokeWidth(STROKE+1);
-                that._rect.getLayer().draw();
+                that._ctrl.p2cMouseOver();
             });
 
             this._shape.on('mouseout', function() {
                 document.body.style.cursor = 'default';
                 that._rect.setStrokeWidth(STROKE);
+                that._rect.setStroke(DEFAULT_STROKE_COLOR);
                 that._rect.getLayer().draw();
             });
 
@@ -79,6 +81,25 @@ define(
             };
         }
 
+        UINode.prototype.c2pDropPossible = function () {
+            document.body.style.cursor = 'pointer';
+            this._rect.setStrokeWidth(STROKE+1);
+            this._rect.setStroke(OK_STROKE_COLOR);
+            this._rect.getLayer().draw();
+        }
+
+        UINode.prototype.c2pDropImpossible = function () {
+            document.body.style.cursor = 'pointer';
+            this._rect.setStrokeWidth(STROKE+1);
+            this._rect.setStroke(KO_STROKE_COLOR);
+            this._rect.getLayer().draw();
+        }
+
+        UINode.prototype.c2pPointerOverShape = function () {
+            document.body.style.cursor = 'pointer';
+            this._rect.setStrokeWidth(STROKE+1);
+            this._rect.getLayer().draw();
+        }
 
         return UINode;
     }

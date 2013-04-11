@@ -1,9 +1,10 @@
 define(
     [   // dependencies
+        'jquery',
         'app/presentation/widget/WireLayer'
     ],
 
-    function (WireLayer) {
+    function ($, WireLayer) {
 
         function UIEditor(ctrl, containerID) {
             this._ctrl = ctrl;
@@ -29,7 +30,8 @@ define(
                 var background = new Kinetic.Image({
                     image: bgImg,
                     width: bgImg.width,
-                    height: bgImg.height
+                    height: bgImg.height,
+                    name: "datBackground"
                 });
                 bgLayer.add(background);
                 bgLayer.setZIndex(0);
@@ -56,9 +58,91 @@ define(
             this._stage.on('mouseup', function() {
                 that._ctrl.p2cMouseUp(this.getPointerPosition());
             });
+
+            this._registerCallbacks();
+        }
+
+        UIEditor.prototype._registerCallbacks = function () {
+            var that = this;
+
+            // refresh editor size on window resizing
+            $(window).resize(function() {
+                that._stage.setWidth($('#'+that._id).width());
+                that._stage.setHeight($('#'+that._id).height());
+                that._stage.draw();
+            });
+
+            // foldable lib-tree
+            $('.nav-header').click(function() {
+                var icon = $(this).parent().children().first().children().first();
+                icon.toggleClass('icon-arrow-right');
+                icon.toggleClass('icon-arrow-down');
+                $(this).parent().children('.lib-item').toggle('fast');
+            });
+
+            // draggable item in lib-tree
+            $('.lib-item').draggable({
+                helper: function() {
+                    // the div dragged is a clone of the selected
+                    // div for the drag
+                    var clone = $(this).clone();
+                    clone.addClass('dragged');
+                    return clone;
+                },
+                cursor: 'move',
+                cursorAt: {
+                    top: -5 // offset mouse cursor over the dragged item
+                }
+            });
+
+            $(".lib-item[data-entity='component']").hover(function () {
+                $(this).tooltip({
+                    selector: $(this),
+                    placement: 'bottom',
+                    title: "You have to drag'n'drop component in Node in order to add them to the model"
+                });
+                $(this).tooltip('show');
+            });
+
+            $('.lib-item').click(function() {
+                triggerEvent($(this));
+            });
+
+            // drop behavior on #editor
+            $('#editor').droppable({
+                drop: function(event, ui) {
+                    triggerEvent(ui.draggable);
+                },
+                over: function(event, ui) {
+                    console.log("over");
+                    that._ctrl.p2cEntityDraggedOver(ui.draggable.attr('data-entity'));
+                },
+                out: function (event, ui) {
+                    that._ctrl.p2cEntityDraggedOut();
+                }
+            });
+
+            var triggerEvent = function(libItem) {
+                var entity = libItem.attr('data-entity');
+                var type = libItem.clone()      // clone the element
+                    .children()                 // select all the children
+                    .remove()                   // remove all the children
+                    .end()                      // again go back to selected element
+                    .text();                    // get the text of element
+
+                that._ctrl.p2cAddEntity(libItem, entity, type);
+                var badgeCount = that._ctrl.getEntityCount(type);
+
+                if (libItem.children().size() != 0) {
+                    libItem.children().first().text(badgeCount);
+                } else {
+                    libItem.append("<span class='badge pull-right'>"+badgeCount+"</span>");
+                }
+            }
         }
 
         UIEditor.prototype.c2pEntityAdded = function(entity) {
+            if (this._stage.getPointerPosition()) entity.getShape().setPosition(this._stage.getPointerPosition());
             this.addShape(entity.getShape());
             entity.ready();
         }

@@ -46,6 +46,33 @@ define(
             }
         }
 
+        CNode.prototype.p2cMouseOver = function () {
+            var wire = this.getEditor().getCurrentWire();
+            if (wire) {
+                // there is a wire task in progress
+                if (wire.getOrigin().getEntityType() == KGroup.ENTITY_TYPE) {
+                    // connection can be made
+                    this._ui.c2pDropPossible();
+                } else {
+                    // connection cannot be made
+                    this._ui.c2pDropImpossible();
+                }
+            } else {
+                if (this.getEditor()._currentDraggedEntityType) {
+                    // user is over the shape and he is dragging an entity
+                    if (this.getEditor()._currentDraggedEntityType == 'node' || this.getEditor()._currentDraggedEntityType == 'component') {
+                        this._ui.c2pDropPossible();
+                    } else {
+                        this._ui.c2pDropImpossible();
+                    }
+
+                } else {
+                    // user is just overing the shape
+                    this._ui.c2pPointerOverShape();
+                }
+            }
+        }
+
         return CNode;
     }
 );

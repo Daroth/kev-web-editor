@@ -37,7 +37,7 @@ define(
             this._ui.c2pEntityRemoved(entity.getUI());
         }
 
-        CEditor.prototype.p2cAddEntity = function (item, entity_type, type) {
+        CEditor.prototype.p2cAddEntity = function (item, entity_type, type, position) {
             var entity = null;
             // circular dependency: CFactory <-> CEditor needs 'require' to get rid
             // of the 'undefined' for CFactory (http://requirejs.org/docs/api.html#circular)
@@ -48,16 +48,16 @@ define(
                     entity = factory.newGroup(this, type);
                     break;
 
-                case KComponent.ENTITY_TYPE:
-                    entity = factory.newComponent(this, type);
-                    break;
-
                 case KChannel.ENTITY_TYPE:
                     entity = factory.newChannel(this, type);
                     break;
 
                 case KNode.ENTITY_TYPE:
                     entity = factory.newNode(this, type);
+                    break;
+
+                case KComponent.ENTITY_TYPE:
+                    entity = factory.newComponent(this, type);
                     break;
 
                 default:
@@ -74,6 +74,14 @@ define(
             this.addEntity(entity);
         }
 
+        CEditor.prototype.p2cEntityDraggedOver = function (entity_type) {
+            this._currentDraggedEntityType = entity_type;
+        }
+
+        CEditor.prototype.p2cEntityDraggedOut = function () {
+            this._currentDraggedEntityType = null;
+        }
+
         // Override KEditor.update(entity)
         CEditor.prototype.update = function (entity) {
             this._ui.c2pEntityUpdated(entity.getUI());
@@ -83,6 +91,9 @@ define(
             if (this._currentWire) {
                 this.abortWireCreationTask();
             }
+
+            this._currentDraggedEntityType = null;
+
         }
 
         CEditor.prototype.p2cMouseMove = function (position) {
@@ -101,14 +112,12 @@ define(
         }
 
         CEditor.prototype.abortWireCreationTask = function () {
-            console.log("abortWireCreationTask");
             this._currentWire.disconnect();
             this._currentWire = null;
         }
 
         CEditor.prototype.endWireCreationTask = function () {
             this._currentWire = null;
-            console.log("endWireCreationTask");
         }
 
         return CEditor;

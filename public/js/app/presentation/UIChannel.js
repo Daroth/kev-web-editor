@@ -4,7 +4,10 @@ define(
     function(UIEntity) {
         // GLOBAL CONSTANTS
         var STROKE = 3,
-            RADIUS = 45;
+            RADIUS = 45,
+            DEFAULT_STROKE_COLOR = 'white',
+            KO_STROKE_COLOR = 'red',
+            OK_STROKE_COLOR = 'green';
 
         // inherit from UIEntity
         UIChannel.prototype = new UIEntity();
@@ -12,10 +15,10 @@ define(
         function UIChannel(ctrl) {
             UIEntity.prototype.constructor.call(this, ctrl);
 
-            var circle = new Kinetic.Circle({
+            this._circle = new Kinetic.Circle({
                 radius: RADIUS,
                 fill: '#de7c37',
-                stroke: 'white',
+                stroke: DEFAULT_STROKE_COLOR,
                 strokeWidth: STROKE,
                 shadowColor: 'black',
                 shadowBlur: 10,
@@ -31,7 +34,7 @@ define(
                 fontWeight: 'bold',
                 fill: '#FFF',
                 align: 'center',
-                width: circle.getWidth()
+                width: this._circle.getWidth()
             });
 
             text.move(-text.getWidth()/2, -text.getHeight()/2);
@@ -42,25 +45,45 @@ define(
                 draggable: true
             });
 
-            this._shape.add(circle);
+            this._shape.add(this._circle);
             this._shape.add(text);
 
             //===========================
             // Event handling
             //===========================
+            var that = this;
             this._shape.on('mouseover', function() {
-                document.body.style.cursor = 'pointer';
-                circle.setStrokeWidth(STROKE+1);
-                circle.getLayer().draw();
+                that._ctrl.p2cMouseOver();
             });
 
             this._shape.on('mouseout', function() {
                 document.body.style.cursor = 'default';
-                circle.setStrokeWidth(STROKE);
-                circle.getLayer().draw();
+                that._circle.setStrokeWidth(STROKE);
+                that._circle.setStroke(DEFAULT_STROKE_COLOR);
+                that._circle.getLayer().draw();
             });
 
             this.setPopup('<p>'+ctrl.getType()+' TODO</p>');
+        }
+
+        UIChannel.prototype.c2pDropPossible = function () {
+            document.body.style.cursor = 'pointer';
+            this._circle.setStrokeWidth(STROKE+1);
+            this._circle.setStroke(OK_STROKE_COLOR);
+            this._circle.getLayer().draw();
+        }
+
+        UIChannel.prototype.c2pDropImpossible = function () {
+            document.body.style.cursor = 'pointer';
+            this._circle.setStrokeWidth(STROKE+1);
+            this._circle.setStroke(KO_STROKE_COLOR);
+            this._circle.getLayer().draw();
+        }
+
+        UIChannel.prototype.c2pPointerOverShape = function () {
+            document.body.style.cursor = 'pointer';
+            this._circle.setStrokeWidth(STROKE+1);
+            this._circle.getLayer().draw();
         }
 
         return UIChannel;
