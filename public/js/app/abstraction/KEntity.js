@@ -1,5 +1,9 @@
 define(
-    function() {
+    [
+        'require'
+    ],
+
+    function(require) {
         KEntity._COUNT = 0;
 
         function KEntity(editor, type) {
@@ -29,6 +33,13 @@ define(
             if (this._wires.indexOf(wire) == -1) { // do not duplicate wire in array
                 this._wires.push(wire);
             }
+        }
+
+        KEntity.prototype.createWire = function () {
+            var wire = require('app/factory/CFactory').getInstance().newWire();
+            wire.setOrigin(this);
+            this.addWire(wire);
+            return wire;
         }
 
         KEntity.prototype.removeMe = function () {

@@ -13,6 +13,8 @@ define(
     ],
 
     function (Pooffs, KEditor, KGroup, KComponent, KChannel, KNode, AController, UIEditor, CFactory, require) {
+        var COUNT = 0;
+
         Pooffs.extends(CEditor, KEditor);
         Pooffs.extends(CEditor, AController);
 
@@ -20,6 +22,7 @@ define(
             KEditor.prototype.constructor.call(this); // KEditor.super();
 
             this._ui = new UIEditor(this, containerID);
+            this._currentWire = null;
         }
 
         // Override KEditor.addEntity(KEntity)
@@ -62,9 +65,50 @@ define(
                     return;
             }
 
+            // giving to the entity UI the DOM item that triggered
+            // its creation in order to display an instance counter
+            // for each entity_type
             entity.getUI().setDOMItem(item);
 
+            // really adding the entity to the editor model
             this.addEntity(entity);
+        }
+
+        // Override KEditor.update(entity)
+        CEditor.prototype.update = function (entity) {
+            this._ui.c2pEntityUpdated(entity.getUI());
+        }
+
+        CEditor.prototype.p2cMouseUp = function (position) {
+            if (this._currentWire) {
+                this.abortWireCreationTask();
+            }
+        }
+
+        CEditor.prototype.p2cMouseMove = function (position) {
+            if (this._currentWire) {
+                this._ui.c2pUpdateWire(this._currentWire.getUI(), position);
+            }
+        }
+
+        CEditor.prototype.getCurrentWire = function () {
+            return this._currentWire;
+        }
+
+        CEditor.prototype.startWireCreationTask = function (wire) {
+            this._currentWire = wire;
+            this._ui.c2pWireAdded(wire.getUI());
+        }
+
+        CEditor.prototype.abortWireCreationTask = function () {
+            console.log("abortWireCreationTask");
+            this._currentWire.disconnect();
+            this._currentWire = null;
+        }
+
+        CEditor.prototype.endWireCreationTask = function () {
+            this._currentWire = null;
+            console.log("endWireCreationTask");
         }
 
         return CEditor;

@@ -1,24 +1,17 @@
 define(
     [   // dependencies
-        'require',
-        'app/presentation/UIGroup',
-        'app/presentation/UIChannel',
-        'app/presentation/UIComponent',
-        'app/presentation/UINode',
-        'app/presentation/UIWire',
-        'app/util/WireTable'
+        'app/presentation/widget/WireLayer'
     ],
 
-    function (require, UIGroup, UIChannel, UIComponent, UINode, UIWire, WireTable) {
+    function (WireLayer) {
 
         function UIEditor(ctrl, containerID) {
             this._ctrl = ctrl;
             this._id = containerID;
             this._currentWire = null;
-            this._wiringTask = false;
+            this._wires = new Array();
             this._modelLayer = new Kinetic.Layer();
-            this._wireLayer = new Kinetic.Layer();
-            this._wireTable = new WireTable(this._wireLayer);
+            this._wireLayer = new WireLayer();
         }
 
         UIEditor.prototype.create = function(width, height) {
@@ -49,7 +42,7 @@ define(
             this._stage.add(this._modelLayer);
 
             // add wire layer to stage
-            this._stage.add(this._wireLayer);
+            this._stage.add(this._wireLayer.getKineticLayer());
 
             //===========================
             // Event handlers
@@ -57,48 +50,17 @@ define(
             var that = this;
 
             this._stage.on('mousemove', function() {
-                if (that._wiringTask) {
-                    that._currentWire.getUI().setTargetPoint(that._stage.getMousePosition());
-                    that._wireTable.draw();
-                }
+                that._ctrl.p2cMouseMove(this.getPointerPosition());
             });
 
             this._stage.on('mouseup', function() {
-                if (that._wiringTask) {
-                    // if we end up here, it means that the wiringTask ends up badly
-                    that._wireTable.pop();
-                    that._currentWire = null;
-                    that._wiringTask = false;
-                }
+                that._ctrl.p2cMouseUp(this.getPointerPosition());
             });
         }
 
         UIEditor.prototype.c2pEntityAdded = function(entity) {
-            var that = this;
-
             this.addShape(entity.getShape());
-
-            entity.setWireListener({
-                onWireCreationStart: function(position) {
-                    // user starts the creation of a wire
-                    that._currentWire = require('app/factory/CFactory').getInstance().newWire(that._wireLayer);
-                    that._currentWire.setOrigin(entity.getCtrl());
-                    that._currentWire.getUI().setTargetPoint(position);
-                    that._wireTable.push(that._currentWire);
-                    entity.getCtrl().addWire(that._currentWire);
-                    that._wiringTask = true;
-                },
-
-                onWireCreationEnd: function(position) {
-                    // user ends properly the wire task
-                    if (that._wiringTask) {
-                        that._currentWire.setTarget(entity.getCtrl());
-                        that._wireTable.draw();
-                        that._wiringTask = false;
-                        entity.getCtrl().addWire(that._currentWire);
-                    }
-                }
-            });
+            entity.ready();
         }
 
         /**
@@ -119,9 +81,26 @@ define(
 
             var wires = entity.getCtrl().getWires();
             for (var i=0; i < wires.length; i++) {
-                this._wireTable.remove(wires[i]);
+                this._wires.splice(this._wires.indexOf(wires[i]), 1);
             }
-            this._wireTable.draw();
+        }
+
+        UIEditor.prototype.c2pUpdateWire = function (wire, position) {
+            wire.setTargetPoint(position);
+            this._wireLayer.draw();
+        }
+
+        UIEditor.prototype.getWiresLayer = function () {
+            return this._wireLayer;
+        }
+
+        UIEditor.prototype.c2pEntityUpdated = function (entity) {
+            this._stage.draw();
+            this._wireLayer.draw();
+        }
+
+        UIEditor.prototype.c2pWireAdded = function (wire) {
+            this._wireLayer.add(wire);
         }
 
         /**
@@ -129,18 +108,18 @@ define(
          * model layer in the stage and redraw the layer
          * @param shape
          */
-        UIEditor.prototype.addShape = function(shape) {
+        UIEditor.prototype.addShape = function (shape) {
             this._modelLayer.add(shape);
             this._modelLayer.draw();
         }
 
-        UIEditor.prototype.getStage = function() {
+        UIEditor.prototype.getStage = function () {
             return this._stage;
         }
 
         UIEditor.prototype.draw = function () {
             this._stage.draw();
-            this._wireTable.draw();
+            this._wireLayer.draw();
         }
 
         return UIEditor;

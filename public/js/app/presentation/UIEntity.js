@@ -36,8 +36,6 @@ define(
             return this._ctrl;
         }
 
-        UIEntity.prototype.setWireListener = function(handler) {}
-
         UIEntity.prototype.c2pRemoveEntity = function () {
             // retrieve this shape's layer
             var layer = this._shape.getLayer();
@@ -54,6 +52,17 @@ define(
         UIEntity.prototype.getDOMItem = function () {
             return this._DOMItem;
         }
+
+        /**
+         * Called when this entity's shape has been added to the stage
+         * and so you can use KineticJS methods such as :
+         * getLayer(), getStage() etc..
+         *
+         * TODO change that and give stage to each entity UI ?
+         */
+        UIEntity.prototype.ready = function() {}
+
+        UIEntity.prototype.c2pWireCreationStarted = function (wire) {}
 
         return UIEntity;
     }

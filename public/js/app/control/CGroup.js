@@ -21,6 +21,28 @@ define(
             this._ui = new UIGroup(this);
         }
 
+        // Override CEntity.p2cMouseDown()
+        CGroup.prototype.p2cMouseDown = function (position) {
+            // user starts the creation of a wire
+            var wire = this.createWire();
+
+            // tell editor that we have started a new wire task
+            this.getEditor().startWireCreationTask(wire);
+
+            // give the ui the newly created wire's UI
+            this._ui.c2pWireCreationStarted(wire.getUI());
+        }
+
+        CGroup.prototype.p2cDragMove = function () {
+            var wires = this.getWires();
+            if (wires.length > 0) {
+                // there is plugged wires
+                for (var i=0; i<wires.length; i++) {
+                    wires[i].setOrigin(this);
+                }
+            }
+        }
+
         return CGroup;
     }
 );

@@ -7,14 +7,12 @@ define(
 
         KNode.prototype = new KEntity();
 
-        /**
-         *
-         * @param editor
-         * @param type
-         * @constructor
-         */
         function KNode(editor, type) {
             KEntity.prototype.constructor.call(this, editor, type);
+        }
+
+        KNode.prototype.getEntityType = function () {
+            return KNode.ENTITY_TYPE;
         }
 
         return KNode;

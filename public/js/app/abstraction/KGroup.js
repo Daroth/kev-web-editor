@@ -10,6 +10,10 @@ define(
             KEntity.prototype.constructor.call(this, editor, type);
         }
 
+        KGroup.prototype.getEntityType = function () {
+            return KGroup.ENTITY_TYPE;
+        }
+
         return KGroup;
     }
 );

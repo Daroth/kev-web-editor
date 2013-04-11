@@ -1,46 +1,45 @@
 define(
-    function() {
-        function UIWire(ctrl, layer) {
+    [
+        'app/util/Observable'
+    ],
+
+    function(Observable) {
+        UIWire.prototype = new Observable();
+
+        // GLOBAL CONSTANTS
+        var HEX_COLOR = '5aa564';
+
+        function UIWire(ctrl) {
             this._ctrl = ctrl;
-            this._layer = layer;
             this._origin = null;
             this._target = null;
-            this._doRemove = false;
+            this._removable = false;
         }
 
         UIWire.prototype.setOrigin = function(entityUI) {
             this._origin = entityUI;
-            this._ctrl._notifyObserver();
+            this.notifyObservers();
         }
 
         UIWire.prototype.setTarget = function(entityUI) {
             this._target = entityUI;
-            this._ctrl._notifyObserver();
+            this.notifyObservers();
         }
 
-        UIWire.prototype.draw = function() {
+        UIWire.prototype.draw = function(layer) {
             var origin = (this._origin) ? this._origin.getPosition() : {x: 0, y: 0};
             var target = (this._target) ? this._target.getPosition() : {x: 0, y: 0};
 
-            var canvas = this._layer.getCanvas();
+            var canvas = layer.getCanvas();
             var context = canvas.getContext();
-
-            // draw curve
             context.beginPath();
             context.moveTo(origin.x, origin.y);
             var middle = this._computeMiddlePoint();
             context.quadraticCurveTo(middle.x, middle.y, target.x, target.y);
-            context.strokeStyle = '#5aa564';
+            context.strokeStyle = '#'+HEX_COLOR;
             context.lineWidth = 5;
             context.stroke();
-        }
-
-        UIWire.prototype.remove = function() {
-            this._doRemove = true;
-        }
-
-        UIWire.prototype.isToRemove = function() {
-            return this._doRemove;
+            context.closePath();
         }
 
         UIWire.prototype._computeMiddlePoint = function() {
@@ -65,12 +64,23 @@ define(
             }
         }
 
+        UIWire.prototype.remove = function () {
+            console.log("remove in UIWire");
+            this._removable = true;
+            this.notifyObservers();
+        }
+
+        UIWire.prototype.isRemovable = function () {
+            return this._removable;
+        }
+
         UIWire.prototype.setTargetPoint = function (point) {
             this._target = {
                 getPosition: function () {
                     return point;
                 }
             };
+            this.notifyObservers();
         }
 
         return UIWire;

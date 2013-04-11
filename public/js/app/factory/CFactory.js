@@ -46,8 +46,8 @@ define(
             return new CChannel(editor, type);
         };
 
-        CFactory.prototype.newWire = function (layer) {
-            return new CWire(layer);
+        CFactory.prototype.newWire = function () {
+            return new CWire();
         };
 
         return CFactory;

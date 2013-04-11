@@ -11,6 +11,10 @@ define(
             KEntity.prototype.constructor.call(this, editor, type);
         }
 
+        KChannel.prototype.getEntityType = function () {
+            return KChannel.ENTITY_TYPE;
+        }
+
         return KChannel;
     }
 );

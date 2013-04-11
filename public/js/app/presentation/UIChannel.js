@@ -3,7 +3,8 @@ define(
 
     function(UIEntity) {
         // GLOBAL CONSTANTS
-        var STROKE = 3;
+        var STROKE = 3,
+            RADIUS = 45;
 
         // inherit from UIEntity
         UIChannel.prototype = new UIEntity();
@@ -12,7 +13,7 @@ define(
             UIEntity.prototype.constructor.call(this, ctrl);
 
             var circle = new Kinetic.Circle({
-                radius: 55,
+                radius: RADIUS,
                 fill: '#de7c37',
                 stroke: 'white',
                 strokeWidth: STROKE,

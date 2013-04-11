@@ -3,24 +3,20 @@ define(
         'app/abstraction/KWire',
         'app/presentation/UIWire',
         'app/control/AController',
-        'app/util/Pooffs',
-        'app/util/Observable'
+        'app/util/Pooffs'
     ],
 
-    function(KWire, UIWire, AController, Pooffs, Observable) {
+    function(KWire, UIWire, AController, Pooffs) {
 
         Pooffs.extends(CWire, KWire);
-        Pooffs.extends(CWire, Observable);
         Pooffs.extends(CWire, AController);
 
-        function CWire(layer) {
+        function CWire() {
             // KWire.super()
             KWire.prototype.constructor.call(this);
-            // Observable.super()
-            Observable.prototype.constructor.call(this);
 
             // instantiate ui
-            this._ui = new UIWire(this, layer);
+            this._ui = new UIWire(this);
         }
 
         // Override KWire.setOrigin(KEntity)
@@ -33,6 +29,13 @@ define(
         CWire.prototype.setTarget = function(entity) {
             KWire.prototype.setTarget.call(this, entity);
             this._ui.setTarget(entity.getUI());
+        }
+
+        // Override KWire.disconnect()
+        CWire.prototype.disconnect = function () {
+            console.log("disconnect in controller");
+            KWire.prototype.disconnect.call(this);
+            this._ui.remove();
         }
 
         return CWire;

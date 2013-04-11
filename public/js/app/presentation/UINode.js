@@ -58,28 +58,17 @@ define(
             });
 
             this._shape.on('dragmove', function() {
-                var wires = that._ctrl.getWires();
-                if (wires.length > 0) {
-                    // there is plugged wires
-                    // go update wiretable
-                    for (var i=0; i<wires.length; i++) {
-                        wires[i].setTarget(that._ctrl);
-                    }
-                }
+                that._ctrl.p2cDragMove();
             });
 
             this.setPopup('<p>'+ctrl.getType()+' TODO</p>');
         }
 
-        UINode.prototype.setWireListener = function(handler) {
-            UIEntity.prototype.setWireListener.call(this, handler); // super.setWireListener(handler);
-
+        UINode.prototype.ready = function() {
             var that = this;
 
             this._shape.on('mouseup', function() {
-                if (handler) {
-                    handler.onWireCreationEnd(that.getPosition());
-                }
+                that._ctrl.p2cMouseUp(this.getStage().getPointerPosition());
             });
         }
 

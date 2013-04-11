@@ -71,14 +71,7 @@ define(
             });
 
             this._shape.on('dragmove', function() {
-                var wires = that._ctrl.getWires();
-                if (wires.length > 0) {
-                    // there is plugged wires
-                    // go update wiretable
-                    for (var i=0; i<wires.length; i++) {
-                        wires[i].setOrigin(that._ctrl);
-                    }
-                }
+                that._ctrl.p2cDragMove();
             });
 
             this._plug.on('mouseover', function() {
@@ -97,8 +90,15 @@ define(
             this.setPopup('<p>'+ctrl.getType()+' TODO</p>');
         }
 
-        UIGroup.prototype.setWireListener = function(handler) {
-            UIEntity.prototype.setWireListener.call(this, handler); // like super.setWireListener(handler); in Java
+        // Override UIEntity.c2pWireCreationStarted(UIWire)
+        UIGroup.prototype.c2pWireCreationStarted = function (wire) {
+            var wiresLayer = this._ctrl.getEditor().getUI().getWiresLayer();
+            wire.setTargetPoint(this.getPosition());
+            wiresLayer.draw();
+        }
+
+
+        UIGroup.prototype.ready = function () {
             var that = this;
 
             // listens to 'mousedown' events to recognize
@@ -106,11 +106,8 @@ define(
             this._plug.on('mousedown', function() {
                 // disable drag events on group during wire creation process
                 that._shape.setDraggable(false);
-
-                // dispatch onWireCreationStart event with the position on the plug
-                if (handler && typeof (handler.onWireCreationStart) == typeof (Function)) {
-                    handler.onWireCreationStart(that.getPosition());
-                }
+                // dispatch user's mousedown event to controller
+                that._ctrl.p2cMouseDown(that._shape.getStage().getPointerPosition());
             });
 
             // listens to 'mouseup' events to recognize
@@ -118,6 +115,13 @@ define(
             that._shape.getStage().on('mouseup', function() {
                 // re-enable drag events on group
                 that._shape.setDraggable(true);
+
+                // dispatch user's mouseup event to controller
+                that._ctrl.p2cMouseUp(this.getPointerPosition());
+            });
+
+            this._shape.getStage().on('mousemove', function () {
+                that._ctrl.p2cMouseMove(this.getPointerPosition());
             });
         }
 

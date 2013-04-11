@@ -10,7 +10,7 @@ define(
             }
         }
 
-        Observable.prototype._notifyObserver = function() {
+        Observable.prototype.notifyObservers = function() {
             if (this._observers && this._observers.length > 0) {
                 for (var i=0; i<this._observers.length; i++) {
                     if (this._observers[i].update) {
