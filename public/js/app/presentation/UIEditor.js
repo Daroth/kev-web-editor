@@ -110,8 +110,20 @@ define(
 
             // drop behavior on #editor
             $('#editor').droppable({
-                drop: function() {
+                drop: function(event, ui) {
                     that._ctrl.p2cEntityDropped();
+                    var type = ui.draggable.clone()      // clone the element
+                        .children()                 // select all the children
+                        .remove()                   // remove all the children
+                        .end()                      // again go back to selected element
+                        .text();
+                    var badgeCount = that._ctrl.getEntityCount(type);
+
+                    if (ui.draggable.children().size() != 0) {
+                        ui.draggable.children().first().text(badgeCount);
+                    } else {
+                        ui.draggable.append("<span class='badge pull-right'>"+badgeCount+"</span>");
+                    }
                 },
                 over: function(event, ui) {
                     var entity = ui.draggable.attr('data-entity');
@@ -126,23 +138,6 @@ define(
                     that._ctrl.p2cEntityDraggedOut();
                 }
             });
-
-            var triggerEvent = function(libItem) {
-                var entity = libItem.attr('data-entity');
-                var type = libItem.clone()      // clone the element
-                    .children()                 // select all the children
-                    .remove()                   // remove all the children
-                    .end()                      // again go back to selected element
-                    .text();                    // get the text of element
-
-                var badgeCount = that._ctrl.getEntityCount(type);
-
-                if (libItem.children().size() != 0) {
-                    libItem.children().first().text(badgeCount);
-                } else {
-                    libItem.append("<span class='badge pull-right'>"+badgeCount+"</span>");
-                }
-            }
         }
 
         UIEditor.prototype.c2pEntityAdded = function(entity) {
