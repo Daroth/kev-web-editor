@@ -1,10 +1,9 @@
 define(
     [   // dependencies
-        'jquery',
         'app/presentation/widget/WireLayer'
     ],
 
-    function ($, WireLayer) {
+    function (WireLayer) {
 
         function UIEditor(ctrl, containerID) {
             this._ctrl = ctrl;
@@ -30,8 +29,7 @@ define(
                 var background = new Kinetic.Image({
                     image: bgImg,
                     width: bgImg.width,
-                    height: bgImg.height,
-                    name: "datBackground"
+                    height: bgImg.height
                 });
                 bgLayer.add(background);
                 bgLayer.setZIndex(0);

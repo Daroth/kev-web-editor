@@ -87,7 +87,7 @@ define(
             //===========================
             // Properties popup content
             //===========================
-            this.setPopup('<p>'+ctrl.getType()+' TODO</p>');
+            this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
         }
 
         // Override UIEntity.c2pWireCreationStarted(UIWire)
@@ -120,7 +120,7 @@ define(
                 that._ctrl.p2cMouseUp(this.getPointerPosition());
             });
 
-            this._shape.getStage().on('mousemove', function () {
+            that._shape.getStage().on('mouseup', function () {
                 that._ctrl.p2cMouseMove(this.getPointerPosition());
             });
         }

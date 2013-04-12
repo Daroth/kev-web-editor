@@ -18,7 +18,23 @@ define(
                 align: 'center'
             });
 
-            this.setPopup('<p>'+ctrl.getType()+' TODO</p>');
+            this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
+        }
+
+        UIComponent.prototype.getWidth = function () {
+            return this._shape.getWidth();
+        }
+
+        UIComponent.prototype.getHeight = function () {
+            return this._shape.getHeight();
+        }
+
+        UIComponent.prototype.setWidth = function (width) {
+            this._shape.setWidth(width);
+        }
+
+        UIComponent.prototype.setHeight = function (height) {
+            this._shape.setHeight(height);
         }
 
         return UIComponent;

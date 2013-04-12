@@ -3,7 +3,15 @@ requirejs.config({
     baseUrl: 'js/lib',
     shim: {
         // specify dependency with jQuery for bootstrap
-        'bootstrap':{deps: ['jquery']}
+        'jquery-ui': {
+            deps: ['jquery']
+        },
+        'bootstrap': {
+            deps: ['jquery']
+        },
+        'app/presentation/UIEditor': {
+            deps: ['jquery-ui', 'bootstrap']
+        }
     },
     //except, if the module ID starts with "app",
     //load it from the js/app directory. paths
@@ -11,7 +19,7 @@ requirejs.config({
     //never includes a ".js" extension since
     //the paths config could be for a directory.
     paths: {
-        app: '../app'
+        app: '../app/'
     }
 });
 
@@ -30,6 +38,15 @@ requirejs(
             //- init editor
             var editor = CFactory.getInstance().newEditor('editor');
             editor.getUI().create($('#editor').width(), $('#editor').height());
+
+            $('#save').click(function () {
+                var serializedStage = editor.getUI().getStage().toJSON();
+                console.log(serializedStage);
+            });
+
+            $('#save-kevs').click(function () {
+
+            });
         });
 
         return {};

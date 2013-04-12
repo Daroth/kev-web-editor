@@ -18,7 +18,10 @@ define(
         UIEntity.prototype.setPopup = function(content) {
             var that = this;
             // TODO this is not buenos
-            this._shape.on('dblclick tap', function() {
+            this._shape.on('dblclick tap', function(e) {
+                // prevent children from getting the event too
+                e.cancelBubble = true;
+
                 $('#delete').off('click'); // get rid of old listeners on '#delete'
                 $('#delete').on('click', function() {
                     that._ctrl.p2cRemoveEntity();
@@ -63,6 +66,10 @@ define(
         UIEntity.prototype.ready = function() {}
 
         UIEntity.prototype.c2pWireCreationStarted = function (wire) {}
+
+        UIEntity.prototype.getWidth = function () {}
+
+        UIEntity.prototype.getHeight = function () {}
 
         return UIEntity;
     }

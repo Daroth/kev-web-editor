@@ -63,7 +63,7 @@ define(
                 that._circle.getLayer().draw();
             });
 
-            this.setPopup('<p>'+ctrl.getType()+' TODO</p>');
+            this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
         }
 
         UIChannel.prototype.c2pDropPossible = function () {

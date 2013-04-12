@@ -13,8 +13,6 @@ define(
     ],
 
     function (Pooffs, KEditor, KGroup, KComponent, KChannel, KNode, AController, UIEditor, CFactory, require) {
-        var COUNT = 0;
-
         Pooffs.extends(CEditor, KEditor);
         Pooffs.extends(CEditor, AController);
 
@@ -99,6 +97,10 @@ define(
 
         CEditor.prototype.getDraggedEntity = function () {
             return this._draggedEntity;
+        }
+
+        CEditor.prototype.setDraggedEntity = function (entity) {
+            this._draggedEntity = entity;
         }
 
         CEditor.prototype.getCurrentWire = function () {
