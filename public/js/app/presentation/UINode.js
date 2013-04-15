@@ -52,6 +52,7 @@ define(
             // Event handling
             //==========================
             var that = this;
+            this._mouseUpEvent = null;
 
             this._shape.on('mouseover', function() {
                 that._ctrl.p2cMouseOver();
@@ -72,38 +73,40 @@ define(
         }
 
         UINode.prototype.ready = function() {
-            UIEntity.prototype.ready.call(this);
-            var that = this;
+            if (!this._isReady) {
+                var that = this;
 
-            this._shape.off('mouseup');
-            this._shape.on('mouseup', function(e) {
-                if (that._ctrl.getParent()) e.cancelBubble = true;
+                this._shape.on('mouseup', function(event) {
+                    that._mouseUpEvent = event;
+                    that._ctrl.p2cMouseUp(this.getStage().getPointerPosition());
+                });
 
-                that._ctrl.p2cMouseUp(this.getStage().getPointerPosition());
-            });
+                this._dragstartEvent = null;
+                this._shape.on('dragstart', function(event) {
+                    that._dragstartEvent = event;
 
-            this._shape.off('dragstart');
-            this._shape.on('dragstart', function(e) {
-                // prevent parent from getting the event too
-                console.log(that._ctrl.getParent());
-                if (that._ctrl.getParent()) e.cancelBubble = true;
+                    this.setZIndex(0); // this is mandatory, otherwise you won't get 'mouseup' events on previously added shapes
+                    that._ctrl.p2cDragStart();
 
-                that._ctrl.p2cDragStart();
-            });
+                    // prevent parent from getting the event too
+                    if (that._ctrl.getParent()) event.cancelBubble = true;
+                });
 
-            this._shape.off('dragend');
-            this._shape.on('dragend', function(e) {
-                // prevent parent from getting the event too
-                if (that._ctrl.getParent()) e.cancelBubble = true;
+                this._shape.on('dragend', function(e) {
+                    that._ctrl.p2cDragEnd();
 
-                that._ctrl.p2cDragEnd();
-            });
+                    // prevent parent from getting the event too
+                    if (that._ctrl.getParent()) e.cancelBubble = true;
+                });
+
+                this._isReady = true;
+            }
         }
 
         UINode.prototype.getPosition = function () {
             return {
-                x: this._shape.getAbsolutePosition().x + this.getWidth()/2,
-                y: this._shape.getAbsolutePosition().y + this.getHeight()/4
+                x: this._shape.getAbsolutePosition().x + 10 - this._shape.getOffset().x,
+                y: this._shape.getAbsolutePosition().y + 10 - this._shape.getOffset().y
             };
         }
 
@@ -111,9 +114,16 @@ define(
             // reset entity old position and offset to fit in its new container
             entity.getShape().setPosition(0, 0);
             entity.getShape().setOffset(0, 0);
+
+            // remove entity's shape from its container if any
+            entity.getShape().remove();
+            // add entity's shape to this node group
             this._shape.add(entity.getShape());
+
+            // tell the entity that it has been init well
             entity.ready();
 
+            // ask parent to redraw itself
             var parent = this._ctrl.getParent();
             if (parent) parent.getUI().redrawParent();
 
@@ -137,6 +147,12 @@ define(
         UINode.prototype.c2pChildRemoved = function (entity) {
             console.log("graphically removed child", entity);
 
+            entity.getShape().remove();
+            if (this._dragstartEvent) {
+                this._shape.getLayer().add(entity.getShape());
+                entity.getShape().fire('dragstart');
+                this._dragstartEvent = null;
+            }
             this._shape.getLayer().draw();
 
             if (this._ctrl.getParent()) {
@@ -155,6 +171,14 @@ define(
 
             if (this._ctrl.getParent()) {
                 this._ctrl.getParent().getUI().redrawParent();
+            }
+        }
+
+        UINode.prototype.c2pWireCreated = function (wire) {
+            if (this._mouseUpEvent) {
+                this._mouseUpEvent.cancelBubble = true;
+
+                this._mouseUpEvent = null;
             }
         }
 

@@ -99,30 +99,34 @@ define(
 
 
         UIGroup.prototype.ready = function () {
-            var that = this;
+            if (!this._isReady) {
+                var that = this;
 
-            // listens to 'mousedown' events to recognize
-            // initiation of wire drawing
-            this._plug.on('mousedown', function() {
-                // disable drag events on group during wire creation process
-                that._shape.setDraggable(false);
-                // dispatch user's mousedown event to controller
-                that._ctrl.p2cMouseDown(that._shape.getStage().getPointerPosition());
-            });
+                // listens to 'mousedown' events to recognize
+                // initiation of wire drawing
+                this._plug.on('mousedown', function() {
+                    // disable drag events on group during wire creation process
+                    that._shape.setDraggable(false);
+                    // dispatch user's mousedown event to controller
+                    that._ctrl.p2cMouseDown(that._shape.getStage().getPointerPosition());
+                });
 
-            // listens to 'mouseup' events to recognize
-            // the end of a wire drawing
-            that._shape.getStage().on('mouseup', function() {
-                // re-enable drag events on group
-                that._shape.setDraggable(true);
+                // listens to 'mouseup' events to recognize
+                // the end of a wire drawing
+                that._shape.getStage().on('mouseup', function() {
+                    // re-enable drag events on group
+                    that._shape.setDraggable(true);
 
-                // dispatch user's mouseup event to controller
-                that._ctrl.p2cMouseUp(this.getPointerPosition());
-            });
+                    // dispatch user's mouseup event to controller
+                    that._ctrl.p2cMouseUp(this.getPointerPosition());
+                });
 
-            that._shape.getStage().on('mouseup', function () {
-                that._ctrl.p2cMouseMove(this.getPointerPosition());
-            });
+                that._shape.getStage().on('mouseup', function () {
+                    that._ctrl.p2cMouseMove(this.getPointerPosition());
+                });
+
+                this._isReady = true;
+            }
         }
 
         UIGroup.prototype.getPosition = function () {

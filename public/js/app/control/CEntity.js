@@ -3,7 +3,7 @@ define(
         function CEntity() {}
 
         CEntity.prototype.p2cRemoveEntity = function () {
-            this.removeMe();
+            this.remove();
             this._ui.c2pRemoveEntity();
         }
 

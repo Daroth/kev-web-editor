@@ -29,8 +29,10 @@ define(
                     this._children.push(entity);
                     entity.setParent(this);
                 }
+                console.log("(add) KNode "+this.getName(), this._children);
                 return true;
             }
+            console.log("(add) KNode "+this.getName(), this._children);
             return false;
         }
 
@@ -42,8 +44,9 @@ define(
             var index = this._children.indexOf(entity);
             if (index != -1) {
                 this._children.splice(index, 1);
-                entity.setParent(null);
+                entity.setParent(null); // TODO changethat; this is ugly, cause if you add before removing, you got a null on parent
             }
+            console.log("(del) KNode "+this.getName(), this._children);
         }
 
         KNode.prototype.isValidChildEntity = function (entity) {
@@ -61,6 +64,23 @@ define(
 
         KNode.prototype.hasChildren = function () {
             return this._children.length > 0;
+        }
+
+        // Override KEntity.remove()
+        KNode.prototype.remove = function () {
+            KEntity.prototype.remove.call(this);
+
+            // tell my parent that I'm gone *sob*
+            if (this._parent) {
+                this._parent.removeChild(this);
+            }
+
+            // tell my children to kill themselves x.x
+            for (var i = 0; i < this._children.length; i++) {
+                this._children[i].remove();
+            }
+
+            this._children = new Array(); // reset my children :'(
         }
 
         /**

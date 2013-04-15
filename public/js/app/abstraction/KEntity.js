@@ -42,7 +42,7 @@ define(
             return wire;
         }
 
-        KEntity.prototype.removeMe = function () {
+        KEntity.prototype.remove = function () {
             this.getEditor().removeEntity(this);
             this.clearWires();
         }

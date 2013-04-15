@@ -9,6 +9,7 @@ define(
         function UIEntity(ctrl) {
             this._ctrl = ctrl;
             this._position = {x: 0, y: 0} // default position
+            this._isReady = false;
         }
 
         UIEntity.prototype.getShape = function() {
@@ -64,6 +65,10 @@ define(
          * TODO change that and give stage to each entity UI ?
          */
         UIEntity.prototype.ready = function() {}
+
+        UIEntity.prototype.isReady = function() {
+            return this._isReady;
+        }
 
         UIEntity.prototype.c2pWireCreationStarted = function (wire) {}
 

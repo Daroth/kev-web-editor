@@ -34,6 +34,7 @@ define(
                     wire.setTarget(this);
                     this.addWire(wire);
                     this.getEditor().endWireCreationTask(wire);
+                    this._ui.c2pWireCreated(wire.getUI());
                 }
             } else if (!this._isDragged) {
                 var draggedEntity = this.getEditor().getDraggedEntity();
@@ -57,6 +58,13 @@ define(
                     this._ui.c2pPointerOverShape();
                 }
             }
+        }
+
+        // Override KNode.remove()
+        CNode.prototype.remove = function () {
+            KNode.prototype.remove.call(this);
+            this._ui.getShape().remove();
+            this._ui.redrawParent();
         }
 
         CNode.prototype.p2cDragMove = function () {
@@ -85,7 +93,7 @@ define(
         }
 
         CNode.prototype.p2cDragEnd = function () {
-            console.log("drag end"+this.getName());
+            console.log("drag end "+this.getName());
             this.getEditor().consumeDraggedEntity();
             this._isDragged = false;
         }
@@ -104,7 +112,6 @@ define(
             } else if (!this._isDragged) {
                 var draggedEntity = this.getEditor().getDraggedEntity();
                 if (draggedEntity) {
-                    console.log("mouse over dragged entity ", draggedEntity.getName());
                     // user is over the shape and he is dragging an entity
                     if (this.isValidChildEntity(draggedEntity)) {
                         this._ui.c2pDropPossible();
