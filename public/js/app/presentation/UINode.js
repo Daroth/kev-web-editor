@@ -183,40 +183,47 @@ define(
         }
 
         UINode.prototype._draw = function () {
+            var width = this._headerName.getWidth(),
+                height = this._headerName.getHeight();
+
+            if (this._ctrl.getParent()) {
+                var parent = this._ctrl.getParent().getUI();
+                var offset = parent.getChildOffset(this);
+                this._shape.setOffset(-offset.x, -offset.y);
+
+                width = parent.getWidth() - CHILD_X_PADDING;
+            }
+
             if (this._ctrl.hasChildren()) {
                 var maxChildrenWidth = 0;
                 var childrenHeight = 0;
                 var children = this._ctrl.getChildren();
+                // find the widest children in this node and compute the whole height
                 for (var i=0; i < children.length; i++) {
                     var entity = children[i].getUI();
                     if (entity.getWidth() > maxChildrenWidth) maxChildrenWidth = entity.getWidth();
                     childrenHeight += entity.getHeight() + CHILD_Y_PADDING;
                 }
 
+                // resize children if necessary
                 for (var i=0; i < children.length; i++) {
                     var entity = children[i].getUI();
-                    if (entity.getWidth() != maxChildrenWidth) {
+                    if (maxChildrenWidth < width) {
+                        // parent herited width
+                        entity.setWidth(this.getWidth() - CHILD_X_PADDING);
+                    } else {
+                        // entity width is set to the one of its widest brother
+                        width = maxChildrenWidth + CHILD_X_PADDING;
                         entity.setWidth(maxChildrenWidth);
-                        entity._headerName.move(CHILD_X_PADDING/2, 0);
                     }
                 }
-
-                this._rect.setWidth(maxChildrenWidth + CHILD_X_PADDING);
-                this._rect.setHeight(childrenHeight + this._headerName.getHeight());
-
-            } else {
-                this._rect.setWidth(this._headerName.getWidth());
-                this._rect.setHeight(this._headerName.getHeight());
+                // height is always the children's height sum + headerName's height
+                height = childrenHeight + this._headerName.getHeight();
             }
 
-            if (this._ctrl.getParent()) {
-                var parent = this._ctrl.getParent().getUI();
-                var offset = parent.getChildOffset(this);
-
-                this._shape.setOffset(-offset.x, -offset.y);
-            }
-
-            this._headerName.setOffset(this.getWidth()/2 - this._headerName/2, 0);
+            this._rect.setWidth(width);
+            this._rect.setHeight(height);
+            this._headerName.setOffset(- (width/2 - this._headerName.getWidth()/2), 0);
         }
 
         UINode.prototype.getWidth = function () {
