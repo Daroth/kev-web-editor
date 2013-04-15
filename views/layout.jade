@@ -32,8 +32,23 @@ html
                   b.caret
                 ul.dropdown-menu
                   li
+                    a#open(href="#") Open
                     a#save(href='#') Save
                     a#save-kevs(href='#') Save as KevScript
 
     //- Left panel
     block content
+
+    //- Hidden content
+    div#save-popup.modal.hide.fade(tabindex='-1', role='dialog')
+      div.modal-header
+        button.close(type='button', data-dismiss='modal') &times;
+        h3 Save model
+      div.modal-body
+        input#filename(type='text')
+        p#save-popup-content
+      div.modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Close
+        button#save-model.btn.btn-primary(data-dismiss='modal') Save
+    div.hide
+      input#file(type='file') Open model from file

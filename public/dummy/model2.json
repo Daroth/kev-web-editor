@@ -1,0 +1,22 @@
+{
+    "groups" : [
+        {
+            "name": "bg0",
+            "type": "BasicGroup",
+            "nodes" : [
+                {
+                    
+                },
+                {}
+            ]
+        },
+        {
+            "name": "wsg1",
+            "type": "WebSocketGroup",
+            "nodes" : [
+                {},
+                {}
+            ]
+        }
+    ]
+}

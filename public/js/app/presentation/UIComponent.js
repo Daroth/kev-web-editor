@@ -2,9 +2,7 @@ define(
     ["app/presentation/UIEntity"],
 
     function(UIEntity) {
-        var DEFAULT_STROKE_COLOR = "white",
-            CHILD_Y_PADDING = 15,
-            CHILD_X_PADDING = 50;
+        var DEFAULT_STROKE_COLOR = "white";
 
         UIComponent.prototype = new UIEntity();
 
@@ -76,13 +74,13 @@ define(
 
             for (var i=0; i < children.length; i++) {
                 if (child === children[i].getUI()) {
-                    return { x: CHILD_X_PADDING/2, y: y_offset };
+                    return { x: UIEntity.CHILD_X_PADDING/2, y: y_offset };
                 } else {
-                    y_offset += children[i].getUI().getHeight() + CHILD_Y_PADDING;
+                    y_offset += children[i].getUI().getHeight() + UIEntity.CHILD_Y_PADDING;
                 }
             }
 
-            return { x: CHILD_X_PADDING/2, y: y_offset };
+            return { x: UIEntity.CHILD_X_PADDING/2, y: y_offset };
         }
 
         UIComponent.prototype.getHeader = function () {

@@ -28,7 +28,7 @@ block content
       div#editor.span10
         div#popup.modal.hide.fade(tabindex='-1', role='dialog')
           div.modal-header
-            button.close(type='button', data-dismiss='modal')
+            button.close(type='button', data-dismiss='modal') &times;
             h3 Properties
           div.modal-body
             div#popup-content
@@ -36,3 +36,5 @@ block content
             button.btn(data-dismiss='modal', aria-hidden='true') Close
             button#save.btn.btn-primary(data-dismiss='modal') Save changes
             button#delete.btn.btn-danger(data-dismiss='modal') Delete
+
+block save-popup

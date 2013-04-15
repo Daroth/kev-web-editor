@@ -6,9 +6,7 @@ define(
         var STROKE = 3,
             DEFAULT_STROKE_COLOR = '#FFF',
             KO_STROKE_COLOR = '#F00',
-            OK_STROKE_COLOR = '#0F0',
-            CHILD_Y_PADDING = 15,
-            CHILD_X_PADDING = 50;
+            OK_STROKE_COLOR = '#0F0';
 
         UINode.prototype = new UIEntity();
 
@@ -191,7 +189,7 @@ define(
                 var offset = parent.getChildOffset(this);
                 this._shape.setOffset(-offset.x, -offset.y);
 
-                width = parent.getWidth() - CHILD_X_PADDING;
+                width = parent.getWidth() - UIEntity.CHILD_X_PADDING;
             }
 
             if (this._ctrl.hasChildren()) {
@@ -202,7 +200,7 @@ define(
                 for (var i=0; i < children.length; i++) {
                     var entity = children[i].getUI();
                     if (entity.getWidth() > maxChildrenWidth) maxChildrenWidth = entity.getWidth();
-                    childrenHeight += entity.getHeight() + CHILD_Y_PADDING;
+                    childrenHeight += entity.getHeight() + UIEntity.CHILD_Y_PADDING;
                 }
 
                 // resize children if necessary
@@ -210,10 +208,10 @@ define(
                     var entity = children[i].getUI();
                     if (maxChildrenWidth < width) {
                         // parent herited width
-                        entity.setWidth(this.getWidth() - CHILD_X_PADDING);
+                        entity.setWidth(this.getWidth() - UIEntity.CHILD_X_PADDING);
                     } else {
                         // entity width is set to the one of its widest brother
-                        width = maxChildrenWidth + CHILD_X_PADDING;
+                        width = maxChildrenWidth + UIEntity.CHILD_X_PADDING;
                         entity.setWidth(maxChildrenWidth);
                     }
                 }
@@ -248,13 +246,13 @@ define(
 
             for (var i=0; i < children.length; i++) {
                 if (child === children[i].getUI()) {
-                    return { x: CHILD_X_PADDING/2, y: y_offset };
+                    return { x: UIEntity.CHILD_X_PADDING/2, y: y_offset };
                 } else {
-                    y_offset += children[i].getUI().getHeight() + CHILD_Y_PADDING;
+                    y_offset += children[i].getUI().getHeight() + UIEntity.CHILD_Y_PADDING;
                 }
             }
 
-            return { x: CHILD_X_PADDING/2, y: y_offset };
+            return { x: UIEntity.CHILD_X_PADDING/2, y: y_offset };
         }
 
         UINode.prototype.getHeader = function () {

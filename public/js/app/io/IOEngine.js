@@ -1,0 +1,33 @@
+define(
+    [
+        'app/abstraction/KEditor',
+        'app/factory/CFactory',
+        'app/util/Config'
+    ],
+
+    function (KEditor, CFactory, Config) {
+
+        function IOEngine () {}
+
+        // static method load(fromJsonModel)
+        IOEngine.load = function (model) {
+            console.log("patate");
+            var editor = CFactory.getInstance().newEditor(Config.CONTAINER_ID);
+
+            console.log(model);
+
+            for (var i=0; i < model.groups.length; i++) {
+                console.log(model.groups[i]);
+            }
+
+            return editor;
+        }
+
+        // static method save()
+        IOEngine.save = function (editor) {
+            return JSON.stringify(editor.getEntities());
+        }
+
+        return IOEngine;
+    }
+);

@@ -97,6 +97,11 @@ define(
             return maxDepth;
         }
 
+        KNode.prototype.toJSON = function () {
+            delete this._children;
+            return this;
+        }
+
         return KNode;
     }
 );

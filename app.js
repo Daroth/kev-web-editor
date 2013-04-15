@@ -24,9 +24,10 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
-if ('development' == app.get('env')) {
+app.configure('development', function(){
     app.use(express.errorHandler());
-}
+    app.locals.pretty = true;
+});
 
 app.get('/', routes.index);
 
