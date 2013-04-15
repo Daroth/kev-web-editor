@@ -12,7 +12,7 @@ define(
             UIEntity.prototype.constructor.call(this, ctrl);
 
             this._headerName = new Kinetic.Text({
-                text: ctrl.getName(),
+                text: ctrl.getName() + " : " + ctrl.getType(),
                 fontSize: 15,
                 fontFamily: 'Helvetica',
                 fill: '#FFF',
@@ -83,6 +83,10 @@ define(
             }
 
             return { x: CHILD_X_PADDING/2, y: y_offset };
+        }
+
+        UIComponent.prototype.getHeader = function () {
+            return this._headerName;
         }
 
         return UIComponent;

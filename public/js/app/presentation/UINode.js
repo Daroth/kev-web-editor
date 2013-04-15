@@ -183,8 +183,8 @@ define(
         }
 
         UINode.prototype._draw = function () {
-            var width = this._headerName.getWidth(),
-                height = this._headerName.getHeight();
+            var width = this.getHeader().getWidth(),
+                height = this.getHeader().getHeight();
 
             if (this._ctrl.getParent()) {
                 var parent = this._ctrl.getParent().getUI();
@@ -218,12 +218,12 @@ define(
                     }
                 }
                 // height is always the children's height sum + headerName's height
-                height = childrenHeight + this._headerName.getHeight();
+                height = childrenHeight + this.getHeader().getHeight();
             }
 
             this._rect.setWidth(width);
             this._rect.setHeight(height);
-            this._headerName.setOffset(- (width/2 - this._headerName.getWidth()/2), 0);
+            this.getHeader().setOffset(- (width/2 - this.getHeader().getWidth()/2), 0);
         }
 
         UINode.prototype.getWidth = function () {
@@ -244,7 +244,7 @@ define(
 
         UINode.prototype.getChildOffset = function (child) {
             var children = this._ctrl.getChildren();
-            var y_offset = this._headerName.getHeight();
+            var y_offset = this.getHeader().getHeight();
 
             for (var i=0; i < children.length; i++) {
                 if (child === children[i].getUI()) {
@@ -255,6 +255,10 @@ define(
             }
 
             return { x: CHILD_X_PADDING/2, y: y_offset };
+        }
+
+        UINode.prototype.getHeader = function () {
+            return this._headerName;
         }
 
         return UINode;

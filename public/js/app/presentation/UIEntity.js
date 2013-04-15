@@ -1,11 +1,18 @@
 /*
  * Super class for all UI Entities in Editor
  * Defines the global behavior for this type
+ * This should be considered as an Abstract Class
  */
 define(
     ["jquery"],
 
     function($) {
+        /**
+         * You shouldn't use this object directly, it should be considered
+         * as an abstract object that facilitate the work in sub-classes
+         * @param ctrl
+         * @constructor
+         */
         function UIEntity(ctrl) {
             this._ctrl = ctrl;
             this._position = {x: 0, y: 0} // default position
@@ -72,9 +79,24 @@ define(
 
         UIEntity.prototype.c2pWireCreationStarted = function (wire) {}
 
-        UIEntity.prototype.getWidth = function () {}
+        /**
+         * Do not rely on that, in KineticJS, groups do not have
+         * width & height defined, so you MUST override this method
+         * @returns {number} the width of this shape
+         */
+        UIEntity.prototype.getWidth = function () {
+            // do not rely on that, in KineticJS, groups do not have
+            // width & height defined, so you MUST override this method
+            return this._shape.getWidth();
+        }
 
-        UIEntity.prototype.getHeight = function () {}
+        /**
+         * Do width & height defined, so you MUST override this method
+         * @returns {number} the height of this shape
+         */
+        UIEntity.prototype.getHeight = function () {
+            return this._shape.getHeight();
+        }
 
         return UIEntity;
     }
