@@ -11,6 +11,8 @@ define(
             KEntity.prototype.constructor.call(this, editor, type);
 
             this._parent = null;
+            this._inputs = new Array();
+            this._outputs = new Array();
         }
 
         KComponent.prototype.getEntityType = function () {
@@ -31,6 +33,14 @@ define(
 
         KComponent.prototype.getChildren = function () {
             return [];
+        }
+
+        KComponent.prototype.getInputs = function () {
+            return this._inputs;
+        }
+
+        KComponent.prototype.getOutputs = function () {
+            return this._outputs;
         }
 
         return KComponent;

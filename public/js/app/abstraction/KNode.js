@@ -29,10 +29,8 @@ define(
                     this._children.push(entity);
                     entity.setParent(this);
                 }
-                console.log("(add) KNode "+this.getName(), this._children);
                 return true;
             }
-            console.log("(add) KNode "+this.getName(), this._children);
             return false;
         }
 
@@ -46,7 +44,6 @@ define(
                 this._children.splice(index, 1);
                 entity.setParent(null); // TODO changethat; this is ugly, cause if you add before removing, you got a null on parent
             }
-            console.log("(del) KNode "+this.getName(), this._children);
         }
 
         KNode.prototype.isValidChildEntity = function (entity) {

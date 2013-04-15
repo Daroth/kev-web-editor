@@ -33,7 +33,6 @@ define(
 
         // Override KWire.disconnect()
         CWire.prototype.disconnect = function () {
-            console.log("disconnect in controller");
             KWire.prototype.disconnect.call(this);
             this._ui.remove();
         }
