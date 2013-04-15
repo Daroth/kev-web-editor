@@ -82,7 +82,6 @@ define(
         }
 
         CNode.prototype.p2cDragStart = function () {
-            console.log("drag start "+this.getName());
             if (this.getParent()) {
                 this.getParent().removeChild(this);
             }
@@ -91,7 +90,6 @@ define(
         }
 
         CNode.prototype.p2cDragEnd = function () {
-            console.log("drag end "+this.getName());
             this.getEditor().consumeDraggedEntity();
             this._isDragged = false;
         }
@@ -126,7 +124,6 @@ define(
 
         // Override KNode.addChild(KNode || KComponent)
         CNode.prototype.addChild = function (entity) {
-            console.log("add child");
             var success = KNode.prototype.addChild.call(this, entity);
             if (success) {
                 // success

@@ -145,8 +145,6 @@ define(
         }
 
         UINode.prototype.c2pChildRemoved = function (entity) {
-            console.log("graphically removed child", entity);
-
             entity.getShape().remove();
             if (this._dragstartEvent) {
                 this._shape.getLayer().add(entity.getShape());
