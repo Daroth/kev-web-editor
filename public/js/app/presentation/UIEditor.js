@@ -119,7 +119,7 @@ define(
 
                     if (ui.draggable.children().size() != 0) {
                         ui.draggable.children().first().text(badgeCount);
-                    } else {
+                    } else if (badgeCount != 0) {
                         ui.draggable.append("<span class='badge pull-right'>"+badgeCount+"</span>");
                     }
                 },
@@ -142,6 +142,11 @@ define(
             if (this._stage.getPointerPosition()) entity.getShape().setPosition(this._stage.getPointerPosition());
             this.addShape(entity.getShape());
             entity.ready();
+        }
+
+        UIEditor.prototype.c2pDropImpossible = function (entity) {
+            entity.getDOMItem().effect('highlight', {color: '#f00'}, 500);
+            entity.getDOMItem().tooltip('show');
         }
 
         /**

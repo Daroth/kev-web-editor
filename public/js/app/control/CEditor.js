@@ -37,11 +37,15 @@ define(
         }
 
         CEditor.prototype.p2cEntityDropped = function () {
-            if (this._draggedEntity) {
+            if (this._draggedEntity && this._draggedEntity.getEntityType() != KComponent.ENTITY_TYPE) {
                 // really adding the entity to the editor model
                 this.addEntity(this._draggedEntity);
 
                 // forget about the draggedEntity, it has already been added
+                this._draggedEntity = null;
+
+            } else if (this._draggedEntity) {
+                this._ui.c2pDropImpossible(this._draggedEntity.getUI());
                 this._draggedEntity = null;
             }
         }
