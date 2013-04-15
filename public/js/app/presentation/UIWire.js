@@ -65,7 +65,6 @@ define(
         }
 
         UIWire.prototype.remove = function () {
-            console.log("remove in UIWire");
             this._removable = true;
             this.notifyObservers();
         }
@@ -81,6 +80,10 @@ define(
                 }
             };
             this.notifyObservers();
+        }
+
+        UIWire.prototype.getCtrl = function () {
+            return this._ctrl;
         }
 
         return UIWire;

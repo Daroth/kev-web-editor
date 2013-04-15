@@ -175,6 +175,8 @@ define(
         }
 
         UINode.prototype.c2pWireCreated = function (wire) {
+            wire.getCtrl().getOrigin().getUI().getShape().setDraggable(true);
+
             if (this._mouseUpEvent) {
                 this._mouseUpEvent.cancelBubble = true;
 

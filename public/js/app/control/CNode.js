@@ -25,7 +25,6 @@ define(
 
         // Override CNode.p2cMouseUp(position)
         CNode.prototype.p2cMouseUp = function (position) {
-            console.log("mouse up on "+this.getName());
             var wire = this.getEditor().getCurrentWire();
             if (wire) {
                 // there is a wire task in progress
@@ -39,7 +38,6 @@ define(
             } else if (!this._isDragged) {
                 var draggedEntity = this.getEditor().getDraggedEntity();
                 if (draggedEntity) {
-                    console.log("mouse up dragged entity ", draggedEntity.getName());
                     // user is over the shape and he drops an entity
                     if (this.isValidChildEntity(draggedEntity)) {
                         // this entity is valid and can be added to this node

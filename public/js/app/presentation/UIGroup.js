@@ -111,16 +111,6 @@ define(
                     that._ctrl.p2cMouseDown(that._shape.getStage().getPointerPosition());
                 });
 
-                // listens to 'mouseup' events to recognize
-                // the end of a wire drawing
-                that._shape.getStage().on('mouseup', function() {
-                    // re-enable drag events on group
-                    that._shape.setDraggable(true);
-
-                    // dispatch user's mouseup event to controller
-                    that._ctrl.p2cMouseUp(this.getPointerPosition());
-                });
-
                 that._shape.getStage().on('mouseup', function () {
                     that._ctrl.p2cMouseMove(this.getPointerPosition());
                 });
