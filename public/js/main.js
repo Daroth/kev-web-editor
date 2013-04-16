@@ -78,7 +78,8 @@ requirejs(
             $('#save').click(function () {
                 var serializedStage = editor.getUI().getStage().toJSON();
 
-                console.log(IOEngine.save(editor));
+                var json = IOEngine.save(editor);
+                console.log(json);
 
                 $('#filename').val('/foo/bar/model.kvm');
                 $('#save-popup-content').html(

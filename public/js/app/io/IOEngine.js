@@ -2,10 +2,11 @@ define(
     [
         'abstraction/KEditor',
         'factory/CFactory',
-        'util/Config'
+        'util/Config',
+        'cereal'
     ],
 
-    function (KEditor, CFactory, Config) {
+    function (KEditor, CFactory, Config, Cereal) {
 
         function IOEngine () {}
 
@@ -15,7 +16,7 @@ define(
             var editor = CFactory.getInstance().newEditor(Config.CONTAINER_ID);
 
             console.log(model);
-
+            // TODO
             for (var i=0; i < model.groups.length; i++) {
                 console.log(model.groups[i]);
             }
@@ -25,7 +26,8 @@ define(
 
         // static method save()
         IOEngine.save = function (editor) {
-            return JSON.stringify(editor.getEntities());
+            // TODO
+            return "not implemented yet";
         }
 
         return IOEngine;

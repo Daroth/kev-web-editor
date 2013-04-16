@@ -14,6 +14,8 @@ define(
         /**
          * UINestableEntity as to be considered as an Abstract Class (no direct instantiation please)
          * This class defines a bunch of behaviors for nestable entities (like UINode and UIComponent)
+         * in order for them to draw their content properly and react to events accordingly whether
+         * they are children/parents whatever
          *
          * @param ctrl
          * @constructor
