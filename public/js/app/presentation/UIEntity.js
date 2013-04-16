@@ -7,10 +7,6 @@ define(
     ["jquery"],
 
     function($) {
-        // STATIC CONSTANTS
-        UIEntity.CHILD_X_PADDING = 40;
-        UIEntity.CHILD_Y_PADDING = 15;
-
         /**
          * You shouldn't use this object directly, it should be considered
          * as an abstract object that facilitate the work in sub-classes

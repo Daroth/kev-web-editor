@@ -4,18 +4,18 @@ define(
         'abstraction/KGroup',
         'presentation/UINode',
         'control/AController',
-        'control/CEntity',
+        'control/CNestableEntity',
         'util/Pooffs'
     ],
 
-    function(KNode, KGroup, UINode, AController, CEntity, Pooffs) {
+    function(KNode, KGroup, UINode, AController, CNestableEntity, Pooffs) {
 
         Pooffs.extends(CNode, KNode);
         Pooffs.extends(CNode, AController);
-        Pooffs.extends(CNode, CEntity);
+        Pooffs.extends(CNode, CNestableEntity);
 
         function CNode(editor, type) {
-            // super(type)
+            // KNode.super(type)
             KNode.prototype.constructor.call(this, editor, type);
 
             // instantiate UI
@@ -53,26 +53,25 @@ define(
 
                 } else {
                     // user is just overing the shape
-                    this._ui.c2pPointerOverShape();
+                    this._ui.c2pMouseOver();
                 }
             }
         }
 
-        // Override CEntity.remove()
+        // Override CNestableEntity.remove()
         CNode.prototype.remove = function () {
             KNode.prototype.remove.call(this);
             this._ui.redrawParent();
         }
 
+        // Override CNestableEntity.p2cMouseOut()
+        CNode.prototype.p2cMouseOut = function () {
+            this._ui.c2pMouseOut();
+        }
+
+        // Override CNestableEntity.p2cDragMove()
         CNode.prototype.p2cDragMove = function () {
-            // change wires state in order for them to update their display
-            var wires = this.getWires();
-            if (wires.length > 0) {
-                // there is plugged wires
-                for (var i=0; i<wires.length; i++) {
-                    wires[i].setTarget(this);
-                }
-            }
+            CNestableEntity.prototype.p2cDragMove.call(this); // super();
 
             // tell children to do the same
             var children = this.getChildren();
@@ -87,19 +86,7 @@ define(
             this._ui.c2pChildRemoved(child.getUI());
         }
 
-        CNode.prototype.p2cDragStart = function () {
-            if (this.getParent()) {
-                this.getParent().removeChild(this);
-            }
-            this._isDragged = true;
-            this.getEditor().setDraggedEntity(this);
-        }
-
-        CNode.prototype.p2cDragEnd = function () {
-            this.getEditor().consumeDraggedEntity();
-            this._isDragged = false;
-        }
-
+        // Override CNestableEntity.p2cMouseOver()
         CNode.prototype.p2cMouseOver = function () {
             var wire = this.getEditor().getCurrentWire();
             if (wire) {
@@ -123,7 +110,7 @@ define(
 
                 } else {
                     // user is just overing the shape
-                    this._ui.c2pPointerOverShape();
+                    this._ui.c2pMouseOver();
                 }
             }
         }

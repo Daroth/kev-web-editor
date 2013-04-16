@@ -1,108 +1,30 @@
 define(
-    ["presentation/UIEntity"],
+    [
+        'presentation/UINestableEntity',
+        'util/Pooffs'
+    ],
 
-    function(UIEntity) {
+    function(UINestableEntity, Pooffs) {
         // GLOBAL CONSTANTS
         var STROKE = 3,
             DEFAULT_STROKE_COLOR = '#FFF',
             KO_STROKE_COLOR = '#F00',
             OK_STROKE_COLOR = '#0F0';
 
-        UINode.prototype = new UIEntity();
+        Pooffs.extends(UINode, UINestableEntity);
 
         function UINode(ctrl) {
-            UIEntity.prototype.constructor.call(this, ctrl);
+            UINestableEntity.prototype.constructor.call(this, ctrl);
 
-            this._headerName = new Kinetic.Text({
-                text: ctrl.getName()+" : "+ctrl.getType(),
-                fontSize: 15,
-                fontFamily: 'Helvetica',
-                fill: '#FFF',
-                padding: 15,
-                align: 'center'
-            });
-
-            var that = this;
-            this._rect = new Kinetic.Rect({
-                stroke: DEFAULT_STROKE_COLOR,
-                strokeWidth: STROKE,
-                width: that._headerName.getWidth(),
-                height: that._headerName.getHeight(),
-                shadowColor: 'black',
-                shadowBlur: 10,
-                shadowOffset: [5, 5],
-                shadowOpacity: 0.2,
-                cornerRadius: 10,
-                drawFunc: function (canvas) {
-                    that._draw();
-                    this.drawFunc(canvas);
-                }
-            });
-
-            this._shape = new Kinetic.Group({
-                draggable: true
-            });
-
-            this._shape.add(this._rect);
-            this._shape.add(this._headerName);
-
-            //==========================
-            // Event handling
-            //==========================
-            var that = this;
-            this._mouseUpEvent = null;
-
-            this._shape.on('mouseover', function() {
-                that._ctrl.p2cMouseOver();
-            });
-
-            this._shape.on('mouseout', function() {
-                document.body.style.cursor = 'default';
-                that._rect.setStrokeWidth(STROKE);
-                that._rect.setStroke(DEFAULT_STROKE_COLOR);
-                that._rect.getLayer().draw();
-            });
-
-            this._shape.on('dragmove', function(e) {
-                that._ctrl.p2cDragMove();
-            });
+            this._rect.setStroke(DEFAULT_STROKE_COLOR);
+            this._rect.setStrokeWidth(STROKE);
+            this._rect.setShadowColor('black');
+            this._rect.setShadowBlur(10);
+            this._rect.setShadowOffset([5, 5]);
+            this._rect.setShadowOpacity(0.2);
+            this._rect.setCornerRadius(10);
 
             this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
-        }
-
-        UINode.prototype.ready = function() {
-            if (!this._isReady) {
-                var that = this;
-
-                this._shape.on('mouseup', function(event) {
-                    that._mouseUpEvent = event;
-                    that._ctrl.p2cMouseUp(this.getStage().getPointerPosition());
-                });
-
-                this._shape.on('dragstart', function(event) {
-                    this.setZIndex(0); // this is mandatory, otherwise you won't get 'mouseup' events on previously added shapes
-                    that._ctrl.p2cDragStart();
-
-                    // prevent parent from getting the event too
-                    if (that._ctrl.getParent()) event.cancelBubble = true;
-                });
-
-                this._shape.on('dragend', function(e) {
-                    that._ctrl.p2cDragEnd();
-
-                    // prevent parent from getting the event too
-                    if (that._ctrl.getParent()) e.cancelBubble = true;
-                });
-
-                this._isReady = true;
-            }
-        }
-
-        UINode.prototype.getPosition = function () {
-            return {
-                x: this._shape.getAbsolutePosition().x + 10 - this._shape.getOffset().x,
-                y: this._shape.getAbsolutePosition().y + 10 - this._shape.getOffset().y
-            };
         }
 
         UINode.prototype.c2pAddChild = function (entity) {
@@ -123,6 +45,14 @@ define(
             if (parent) parent.getUI().redrawParent();
 
             this._shape.getLayer().draw();
+        }
+
+        // override UINestableEntity.c2pMouseOut()
+        UINode.prototype.c2pMouseOut = function () {
+            document.body.style.cursor = 'default';
+            this._rect.setStrokeWidth(STROKE);
+            this._rect.setStroke(DEFAULT_STROKE_COLOR);
+            this._rect.getLayer().draw();
         }
 
         UINode.prototype.c2pDropPossible = function () {
@@ -154,7 +84,8 @@ define(
             }
         }
 
-        UINode.prototype.c2pPointerOverShape = function () {
+        // override UINestableEntity.c2pMouseOver()
+        UINode.prototype.c2pMouseOver = function () {
             document.body.style.cursor = 'pointer';
             this._rect.setStrokeWidth(STROKE+1);
             this._rect.getLayer().draw();
@@ -174,12 +105,14 @@ define(
             wire.getCtrl().getOrigin().getUI().getShape().setDraggable(true);
 
             if (this._mouseUpEvent) {
+                console.log("mouse up event is not undefined");
                 this._mouseUpEvent.cancelBubble = true;
 
                 this._mouseUpEvent = null;
             }
         }
 
+        // Override UINestableEntity._draw()
         UINode.prototype._draw = function () {
             var width = this.getHeader().getWidth(),
                 height = this.getHeader().getHeight();
@@ -189,7 +122,7 @@ define(
                 var offset = parent.getChildOffset(this);
                 this._shape.setOffset(-offset.x, -offset.y);
 
-                width = parent.getWidth() - UIEntity.CHILD_X_PADDING;
+                width = parent.getWidth() - UINestableEntity.CHILD_X_PADDING;
             }
 
             if (this._ctrl.hasChildren()) {
@@ -200,7 +133,7 @@ define(
                 for (var i=0; i < children.length; i++) {
                     var entity = children[i].getUI();
                     if (entity.getWidth() > maxChildrenWidth) maxChildrenWidth = entity.getWidth();
-                    childrenHeight += entity.getHeight() + UIEntity.CHILD_Y_PADDING;
+                    childrenHeight += entity.getHeight() + UINestableEntity.CHILD_Y_PADDING;
                 }
 
                 // resize children if necessary
@@ -208,10 +141,10 @@ define(
                     var entity = children[i].getUI();
                     if (maxChildrenWidth < width) {
                         // parent herited width
-                        entity.setWidth(this.getWidth() - UIEntity.CHILD_X_PADDING);
+                        entity.setWidth(this.getWidth() - UINestableEntity.CHILD_X_PADDING);
                     } else {
                         // entity width is set to the one of its widest brother
-                        width = maxChildrenWidth + UIEntity.CHILD_X_PADDING;
+                        width = maxChildrenWidth + UINestableEntity.CHILD_X_PADDING;
                         entity.setWidth(maxChildrenWidth);
                     }
                 }
@@ -222,41 +155,6 @@ define(
             this._rect.setWidth(width);
             this._rect.setHeight(height);
             this.getHeader().setOffset(- (width/2 - this.getHeader().getWidth()/2), 0);
-        }
-
-        UINode.prototype.getWidth = function () {
-            return this._rect.getWidth();
-        }
-
-        UINode.prototype.getHeight = function () {
-            return this._rect.getHeight();
-        }
-
-        UINode.prototype.setWidth = function (width) {
-            this._rect.setWidth(width);
-        }
-
-        UINode.prototype.setHeight = function (height) {
-            this._rect.setHeight(height);
-        }
-
-        UINode.prototype.getChildOffset = function (child) {
-            var children = this._ctrl.getChildren();
-            var y_offset = this.getHeader().getHeight();
-
-            for (var i=0; i < children.length; i++) {
-                if (child === children[i].getUI()) {
-                    return { x: UIEntity.CHILD_X_PADDING/2, y: y_offset };
-                } else {
-                    y_offset += children[i].getUI().getHeight() + UIEntity.CHILD_Y_PADDING;
-                }
-            }
-
-            return { x: UIEntity.CHILD_X_PADDING/2, y: y_offset };
-        }
-
-        UINode.prototype.getHeader = function () {
-            return this._headerName;
         }
 
         return UINode;
