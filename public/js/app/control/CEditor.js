@@ -1,14 +1,14 @@
 define(
     [
-        'app/util/Pooffs',
-        'app/abstraction/KEditor',
-        'app/abstraction/KGroup',
-        'app/abstraction/KComponent',
-        'app/abstraction/KChannel',
-        'app/abstraction/KNode',
-        'app/control/AController',
-        'app/presentation/UIEditor',
-        'app/factory/CFactory',
+        'util/Pooffs',
+        'abstraction/KEditor',
+        'abstraction/KGroup',
+        'abstraction/KComponent',
+        'abstraction/KChannel',
+        'abstraction/KNode',
+        'control/AController',
+        'presentation/UIEditor',
+        'factory/CFactory',
         'require'
     ],
 
@@ -51,7 +51,7 @@ define(
         }
 
         CEditor.prototype.p2cEntityDraggedOver = function (libItem, entity_type, type) {
-            var factory = require('app/factory/CFactory').getInstance();
+            var factory = require('factory/CFactory').getInstance();
 
             switch (entity_type) {
                 case KGroup.ENTITY_TYPE:
@@ -121,6 +121,7 @@ define(
         }
 
         CEditor.prototype.abortWireCreationTask = function () {
+            this._currentWire.getOrigin().getUI().getShape().setDraggable(true);
             this._currentWire.disconnect();
             this._currentWire = null;
         }

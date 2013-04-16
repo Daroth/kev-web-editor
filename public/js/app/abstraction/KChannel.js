@@ -1,5 +1,5 @@
 define(
-    ['app/abstraction/KEntity'],
+    ['abstraction/KEntity'],
 
     function(KEntity) {
 

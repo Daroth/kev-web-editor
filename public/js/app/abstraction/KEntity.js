@@ -36,7 +36,7 @@ define(
         }
 
         KEntity.prototype.createWire = function () {
-            var wire = require('app/factory/CFactory').getInstance().newWire();
+            var wire = require('factory/CFactory').getInstance().newWire();
             wire.setOrigin(this);
             this.addWire(wire);
             return wire;

@@ -1,9 +1,9 @@
 define(
     [
-        'app/abstraction/KWire',
-        'app/presentation/UIWire',
-        'app/control/AController',
-        'app/util/Pooffs'
+        'abstraction/KWire',
+        'presentation/UIWire',
+        'control/AController',
+        'util/Pooffs'
     ],
 
     function(KWire, UIWire, AController, Pooffs) {

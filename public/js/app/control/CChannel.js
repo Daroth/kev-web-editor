@@ -1,11 +1,11 @@
 define(
     [
-        'app/abstraction/KChannel',
-        'app/abstraction/KComponent',
-        'app/presentation/UIChannel',
-        'app/control/AController',
-        'app/control/CEntity',
-        'app/util/Pooffs'
+        'abstraction/KChannel',
+        'abstraction/KComponent',
+        'presentation/UIChannel',
+        'control/AController',
+        'control/CEntity',
+        'util/Pooffs'
     ],
 
     function(KChannel, KComponent, UIChannel, AController, CEntity, Pooffs) {

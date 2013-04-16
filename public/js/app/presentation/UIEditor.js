@@ -1,6 +1,6 @@
 define(
     [   // dependencies
-        'app/presentation/widget/WireLayer'
+        'presentation/widget/WireLayer'
     ],
 
     function (WireLayer) {

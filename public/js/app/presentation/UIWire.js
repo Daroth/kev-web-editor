@@ -1,6 +1,6 @@
 define(
     [
-        'app/util/Observable'
+        'util/Observable'
     ],
 
     function(Observable) {

@@ -1,5 +1,5 @@
 define(
-    ["app/presentation/UIEntity"],
+    ["presentation/UIEntity"],
 
     function(UIEntity) {
         var DEFAULT_STROKE_COLOR = "white";

@@ -1,8 +1,8 @@
 define(
     [
-        'app/abstraction/KEditor',
-        'app/factory/CFactory',
-        'app/util/Config'
+        'abstraction/KEditor',
+        'factory/CFactory',
+        'util/Config'
     ],
 
     function (KEditor, CFactory, Config) {

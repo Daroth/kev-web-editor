@@ -1,10 +1,10 @@
 define(
     [
-        'app/abstraction/KGroup',
-        'app/presentation/UIGroup',
-        'app/control/AController',
-        'app/control/CEntity',
-        'app/util/Pooffs'
+        'abstraction/KGroup',
+        'presentation/UIGroup',
+        'control/AController',
+        'control/CEntity',
+        'util/Pooffs'
     ],
 
     function(KGroup, UIGroup, AController, CEntity, Pooffs) {

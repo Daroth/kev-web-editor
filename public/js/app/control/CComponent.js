@@ -1,10 +1,10 @@
 define(
     [
-        'app/abstraction/KComponent',
-        'app/presentation/UIComponent',
-        'app/control/AController',
-        'app/control/CEntity',
-        'app/util/Pooffs'
+        'abstraction/KComponent',
+        'presentation/UIComponent',
+        'control/AController',
+        'control/CEntity',
+        'util/Pooffs'
     ],
 
     function(KComponent, UIComponent, AController, CEntity, Pooffs) {

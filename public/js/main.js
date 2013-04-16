@@ -19,7 +19,13 @@ requirejs.config({
     //never includes a ".js" extension since
     //the paths config could be for a directory.
     paths: {
-        app: '../app'
+        app: '../app',
+        abstraction: '../app/abstraction',
+        control: '../app/control',
+        presentation: '../app/presentation',
+        factory: '../app/factory',
+        io: '../app/io',
+        util: '../app/util'
     }
 });
 
@@ -30,9 +36,9 @@ requirejs(
         'jquery-ui',
         'bootstrap',
         'kinetic',
-        'app/factory/CFactory',
-        'app/util/Config',
-        'app/io/IOEngine'
+        'factory/CFactory',
+        'util/Config',
+        'io/IOEngine'
     ],
 
     function ($, jqui, _bootstrap, Kinetic, CFactory, Config, IOEngine) {

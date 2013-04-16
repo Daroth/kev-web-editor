@@ -1,6 +1,6 @@
 define(
     [
-        "app/presentation/UIEntity"
+        "presentation/UIEntity"
     ],
 
     function(UIEntity) {

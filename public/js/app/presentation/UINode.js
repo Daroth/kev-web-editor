@@ -1,5 +1,5 @@
 define(
-    ["app/presentation/UIEntity"],
+    ["presentation/UIEntity"],
 
     function(UIEntity) {
         // GLOBAL CONSTANTS
@@ -79,10 +79,7 @@ define(
                     that._ctrl.p2cMouseUp(this.getStage().getPointerPosition());
                 });
 
-                this._dragstartEvent = null;
                 this._shape.on('dragstart', function(event) {
-                    that._dragstartEvent = event;
-
                     this.setZIndex(0); // this is mandatory, otherwise you won't get 'mouseup' events on previously added shapes
                     that._ctrl.p2cDragStart();
 
@@ -143,15 +140,16 @@ define(
         }
 
         UINode.prototype.c2pChildRemoved = function (entity) {
-            entity.getShape().remove();
-            if (this._dragstartEvent) {
-                this._shape.getLayer().add(entity.getShape());
-                entity.getShape().fire('dragstart');
-                this._dragstartEvent = null;
-            }
-            this._shape.getLayer().draw();
+            var absPosition = entity.getShape().getAbsolutePosition();
+            entity.getShape().remove(); // remove the shape from its group
+            this._shape.getLayer().add(entity.getShape()); // add shape to modelLayer
+            entity.getShape().setPosition(absPosition); // prevent shape from "jumping" from 0,0 to current pointer position
+                                                        // by re-assigning its old absolute position in the new layer
+            entity.getShape().fire('dragstart'); // fire a 'dragstart' event again to let the shape follows pointer
+            this._shape.getLayer().draw(); // redraw layer
 
             if (this._ctrl.getParent()) {
+                // tell parents to redraw themselves
                 this._ctrl.getParent().getUI().getShape().getLayer().draw();
             }
         }
@@ -163,7 +161,9 @@ define(
         }
 
         UINode.prototype.redrawParent = function () {
-            this._shape.getLayer().draw();
+            if (this._shape && this._shape.getLayer()) {
+                this._shape.getLayer().draw();
+            }
 
             if (this._ctrl.getParent()) {
                 this._ctrl.getParent().getUI().redrawParent();

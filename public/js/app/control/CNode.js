@@ -1,11 +1,11 @@
 define(
     [
-        'app/abstraction/KNode',
-        'app/abstraction/KGroup',
-        'app/presentation/UINode',
-        'app/control/AController',
-        'app/control/CEntity',
-        'app/util/Pooffs'
+        'abstraction/KNode',
+        'abstraction/KGroup',
+        'presentation/UINode',
+        'control/AController',
+        'control/CEntity',
+        'util/Pooffs'
     ],
 
     function(KNode, KGroup, UINode, AController, CEntity, Pooffs) {
@@ -58,20 +58,26 @@ define(
             }
         }
 
-        // Override KNode.remove()
+        // Override CEntity.remove()
         CNode.prototype.remove = function () {
             KNode.prototype.remove.call(this);
-            this._ui.getShape().remove();
             this._ui.redrawParent();
         }
 
         CNode.prototype.p2cDragMove = function () {
+            // change wires state in order for them to update their display
             var wires = this.getWires();
             if (wires.length > 0) {
                 // there is plugged wires
                 for (var i=0; i<wires.length; i++) {
                     wires[i].setTarget(this);
                 }
+            }
+
+            // tell children to do the same
+            var children = this.getChildren();
+            for (var i=0; i < children.length; i++) {
+                children[i].p2cDragMove();
             }
         }
 

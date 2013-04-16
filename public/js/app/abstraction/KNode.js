@@ -1,8 +1,8 @@
 define(
     [
-        'app/abstraction/KEntity',
-        'app/abstraction/KComponent',
-        'app/util/Pooffs'
+        'abstraction/KEntity',
+        'abstraction/KComponent',
+        'util/Pooffs'
     ],
 
     function(KEntity, KComponent, Pooffs) {

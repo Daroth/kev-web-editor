@@ -1,6 +1,6 @@
 define(
     [
-        'app/util/Observer'
+        'util/Observer'
     ],
 
     function(Observer) {
