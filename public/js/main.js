@@ -3,14 +3,8 @@ requirejs.config({
     baseUrl: 'js/lib',
     shim: {
         // specify dependency with jQuery for bootstrap
-        'jquery-ui': {
-            deps: ['jquery']
-        },
         'bootstrap': {
             deps: ['jquery']
-        },
-        'app/presentation/UIEditor': {
-            deps: ['jquery-ui', 'bootstrap']
         }
     },
     //except, if the module ID starts with "app",
