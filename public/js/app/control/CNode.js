@@ -28,11 +28,12 @@ define(
             var wire = this.getEditor().getCurrentWire();
             if (wire) {
                 // there is a wire task in progress
-                if (wire.getOrigin().getEntityType() == KGroup.ENTITY_TYPE) {
+                var origin = wire.getOrigin();
+                if (typeof (origin.getEntityType) == 'function' && origin.getEntityType() == KGroup.ENTITY_TYPE) {
                     // we are good to go
                     wire.setTarget(this);
                     this.addWire(wire);
-                    this.getEditor().endWireCreationTask(wire);
+                    this.getEditor().endWireCreationTask();
                     this._ui.c2pWireCreated(wire.getUI());
                 }
             } else if (!this._isDragged) {
@@ -69,17 +70,6 @@ define(
             this._ui.c2pMouseOut();
         }
 
-        // Override CNestableEntity.p2cDragMove()
-        CNode.prototype.p2cDragMove = function () {
-            CNestableEntity.prototype.p2cDragMove.call(this); // super();
-
-            // tell children to do the same
-            var children = this.getChildren();
-            for (var i=0; i < children.length; i++) {
-                children[i].p2cDragMove();
-            }
-        }
-
         // Override KNode.removeChild(entity)
         CNode.prototype.removeChild = function (child) {
             KNode.prototype.removeChild.call(this, child);
@@ -91,7 +81,8 @@ define(
             var wire = this.getEditor().getCurrentWire();
             if (wire) {
                 // there is a wire task in progress
-                if (wire.getOrigin().getEntityType() == KGroup.ENTITY_TYPE) {
+                var origin = wire.getOrigin();
+                if (typeof (origin.getEntityType) == 'function' && origin.getEntityType() == KGroup.ENTITY_TYPE) {
                     // connection can be made
                     this._ui.c2pDropPossible();
                 } else {

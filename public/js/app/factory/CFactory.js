@@ -1,14 +1,16 @@
 define(
     [
-        'app/control/CEditor',
-        'app/control/CGroup',
-        'app/control/CChannel',
-        'app/control/CNode',
-        'app/control/CComponent',
-        'app/control/CWire'
+        'control/CEditor',
+        'control/CGroup',
+        'control/CChannel',
+        'control/CNode',
+        'control/CComponent',
+        'control/CWire',
+        'control/CInputPort',
+        'control/COutputPort'
     ],
 
-    function (CEditor, CGroup, CChannel, CNode, CComponent, CWire) {
+    function (CEditor, CGroup, CChannel, CNode, CComponent, CWire, CInputPort, COutputPort) {
 
         function CFactory() {
             if (CFactory.prototype._instance) {
@@ -46,8 +48,16 @@ define(
             return new CChannel(editor, type);
         };
 
-        CFactory.prototype.newWire = function () {
-            return new CWire();
+        CFactory.prototype.newWire = function (origin) {
+            return new CWire(origin);
+        };
+
+        CFactory.prototype.newInputPort = function (component) {
+            return new CInputPort(component);
+        };
+
+        CFactory.prototype.newOutputPort = function (component) {
+            return new COutputPort(component);
         };
 
         return CFactory;

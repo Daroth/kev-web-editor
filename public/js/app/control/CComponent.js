@@ -31,14 +31,6 @@ define(
             this._ui.c2pMouseOut();
         }
 
-        // Override CNestableEntity.p2cDragMove()
-        CComponent.prototype.p2cDragMove = function () {
-            CNestableEntity.prototype.p2cDragMove.call(this); // super();
-
-            // tell inputs/outputs to do the same
-            // TODO
-        }
-
         return CComponent;
     }
 );

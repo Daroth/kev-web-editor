@@ -13,7 +13,9 @@ define(
 
         CEntity.prototype.p2cMouseMove = function (position) {}
 
-        CEntity.prototype.p2cDragMove = function () {}
+        CEntity.prototype.p2cDragMove = function () {
+            this.getEditor().getUI().getWiresLayer().update();
+        }
 
         return CEntity;
     }

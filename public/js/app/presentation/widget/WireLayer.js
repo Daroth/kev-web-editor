@@ -40,7 +40,7 @@ define(
         }
 
         WireLayer.prototype.update = function (wire) {
-            if (wire.isRemovable()) this.remove(wire);
+            if (wire && wire.isRemovable()) this.remove(wire);
             else this.draw();
         }
 

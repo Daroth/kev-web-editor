@@ -11,9 +11,9 @@ define(
         Pooffs.extends(CWire, KWire);
         Pooffs.extends(CWire, AController);
 
-        function CWire() {
+        function CWire(origin) {
             // KWire.super()
-            KWire.prototype.constructor.call(this);
+            KWire.prototype.constructor.call(this, origin);
 
             // instantiate ui
             this._ui = new UIWire(this);

@@ -13,9 +13,34 @@ define(
         function UIComponent(ctrl) {
             UINestableEntity.prototype.constructor.call(this, ctrl);
 
+            this._headerName.setText(
+                ctrl.getName()
+                + "\n"
+                + ctrl.getType()
+            );
+            this._headerName.setPadding(8);
+
             this._rect.setFill('black');
             this._rect.setStroke(DEFAULT_STROKE_COLOR);
             this._rect.setStrokeWidth(STROKE);
+
+            var that = this;
+
+            var inputs = ctrl.getInputs();
+            for (var i=0; i < inputs.length; i++) {
+                var port = inputs[i].getUI().getShape();
+                port.setX(port.getRadius() + 10);
+                port.setY(that._rect.getHeight() / 2);
+                this._shape.add(port);
+            }
+
+            var outputs = ctrl.getOutputs();
+            for (var i=0; i < outputs.length; i++) {
+                var port = outputs[i].getUI().getShape();
+                port.setX(that._rect.getWidth() - port.getRadius() - 10);
+                port.setY(that._rect.getHeight() / 2);
+                this._shape.add(port);
+            }
 
             this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
         }
@@ -27,6 +52,20 @@ define(
                 var offset = parent.getChildOffset(this);
 
                 this._shape.setOffset(-offset.x, -offset.y);
+            }
+
+            this._rect.setHeight(this._headerName.getHeight());
+
+            var inputs = this._ctrl.getInputs();
+            for (var i=0; i < inputs.length; i++) {
+                var port = inputs[i].getUI().getShape();
+                port.setPosition(port.getRadius() + 10, this._rect.getHeight() / 2);
+            }
+
+            var outputs = this._ctrl.getOutputs();
+            for (var i=0; i < outputs.length; i++) {
+                var port = outputs[i].getUI().getShape();
+                port.setPosition(this._rect.getWidth() - port.getRadius() - 10, this._rect.getHeight() / 2);
             }
 
             this._headerName.setOffset(- (this.getWidth()/2 - this._headerName.getWidth()/2), 0);

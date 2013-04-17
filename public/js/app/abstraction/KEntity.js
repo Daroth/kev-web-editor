@@ -1,8 +1,4 @@
 define(
-    [
-        'require'
-    ],
-
     function(require) {
         KEntity._COUNT = 0;
 
@@ -36,8 +32,7 @@ define(
         }
 
         KEntity.prototype.createWire = function () {
-            var wire = require('factory/CFactory').getInstance().newWire();
-            wire.setOrigin(this);
+            var wire = require('factory/CFactory').getInstance().newWire(this);
             this.addWire(wire);
             return wire;
         }
@@ -47,7 +42,7 @@ define(
             this.clearWires();
         }
 
-        KEntity.prototype.disconnectWire = function (wire) {
+        KEntity.prototype.disconnect = function (wire) {
             var index = this._wires.indexOf(wire);
             this._wires.splice(index, 1);
         }

@@ -25,7 +25,8 @@ define(
             var wire = this.getEditor().getCurrentWire();
             if (wire) {
                 // there is a wire task in progress
-                if (wire.getOrigin().getEntityType() == KComponent.ENTITY_TYPE) {
+                var origin = wire.getOrigin();
+                if (typeof (origin.getEntityType) != 'function') { // TODO -> THIS IS FREAKING UGLY: CHANGETHAT
                     // connection can be made
                     this._ui.c2pDropPossible();
                 } else {
@@ -35,6 +36,37 @@ define(
             } else {
                 // user is just overing the shape
                 this._ui.c2pPointerOverShape();
+            }
+        }
+
+        CChannel.prototype.p2cMouseUp = function () {
+            var wire = this.getEditor().getCurrentWire();
+            if (wire) {
+                // there is a wire task in progress
+                var origin = wire.getOrigin();
+                if (typeof (origin.getEntityType) != 'function') { // TODO -> THIS IS FREAKING UGLY: CHANGETHAT
+                    // we are good to go
+                    wire.setTarget(this);
+                    this.addWire(wire);
+                    this.getEditor().endWireCreationTask();
+                    this._ui.c2pWireCreated(wire.getUI());
+                } else {
+                    // connection cannot be made
+                    this._ui.c2pDropImpossible();
+                }
+            } else {
+                // user is just overing the shape
+                this._ui.c2pPointerOverShape();
+            }
+        }
+
+        CChannel.prototype.p2cDragMove = function () {
+            var wires = this.getWires();
+            for (var i=0; i < wires.length; i++) {
+                // there is plugged wires
+                for (var i=0; i<wires.length; i++) {
+                    wires[i].setTarget(this);
+                }
             }
         }
 

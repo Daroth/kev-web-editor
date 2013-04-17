@@ -33,16 +33,6 @@ define(
             this._ui.c2pWireCreationStarted(wire.getUI());
         }
 
-        CGroup.prototype.p2cDragMove = function () {
-            var wires = this.getWires();
-            if (wires.length > 0) {
-                // there is plugged wires
-                for (var i=0; i<wires.length; i++) {
-                    wires[i].setOrigin(this);
-                }
-            }
-        }
-
         return CGroup;
     }
 );

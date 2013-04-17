@@ -1,4 +1,4 @@
-define(
+ define(
     [
         "presentation/UIEntity"
     ],
@@ -22,7 +22,7 @@ define(
                 strokeWidth: STROKE,
                 shadowColor: 'black',
                 shadowBlur: 10,
-                shadowOffset: [5, 5],
+                shadowOffset: 5,
                 shadowOpacity: 0.2,
                 opacity: 0.6
             });

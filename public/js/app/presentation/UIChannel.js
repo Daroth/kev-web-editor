@@ -40,8 +40,6 @@ define(
             text.move(-text.getWidth()/2, -text.getHeight()/2);
 
             this._shape = new Kinetic.Group({
-                x: 100,
-                y: 100,
                 draggable: true
             });
 
@@ -63,7 +61,23 @@ define(
                 that._circle.getLayer().draw();
             });
 
+            this._shape.on('mouseup', function () {
+                that._ctrl.p2cMouseUp();
+            });
+
+            this._shape.on('dragmove', function () {
+                that._ctrl.p2cDragMove();
+            });
+
             this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
+        }
+
+        // Override UIEntity.getPosition()
+        UIChannel.prototype.getPosition = function () {
+            return {
+                x: this._circle.getAbsolutePosition().x,
+                y: this._circle.getAbsolutePosition().y - RADIUS/2
+            };
         }
 
         UIChannel.prototype.c2pDropPossible = function () {
@@ -84,6 +98,10 @@ define(
             document.body.style.cursor = 'pointer';
             this._circle.setStrokeWidth(STROKE+1);
             this._circle.getLayer().draw();
+        }
+
+        UIChannel.prototype.c2pWireCreated = function (wire) {
+            wire.getCtrl().getOrigin().getComponent().getUI().setDraggable(true, true, true);
         }
 
         return UIChannel;

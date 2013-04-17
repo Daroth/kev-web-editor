@@ -2,8 +2,7 @@ define(
     [
         'abstraction/KEditor',
         'factory/CFactory',
-        'util/Config',
-        'cereal'
+        'util/Config'
     ],
 
     function (KEditor, CFactory, Config, Cereal) {

@@ -23,6 +23,24 @@ define(
             }
         }
 
+        /**
+         * Returns the given object's class name or undefined if none found
+         * @param obj class instance
+         * @returns {String} Given object's class name
+         */
+        Pooffs.objectClass = function (obj) {
+            if (obj && obj.constructor && obj.constructor.toString) {
+                var arr = obj.constructor.toString().match(
+                    /function\s*(\w+)/);
+
+                if (arr && arr.length == 2) {
+                    return arr[1];
+                }
+            }
+
+            return undefined;
+        }
+
         return Pooffs;
     }
 );

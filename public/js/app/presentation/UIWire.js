@@ -7,11 +7,13 @@ define(
         UIWire.prototype = new Observable();
 
         // GLOBAL CONSTANTS
-        var HEX_COLOR = '5aa564';
+        var DEFAULT_COLOR = '#5aa564';
 
-        function UIWire(ctrl) {
+        function UIWire(ctrl, color) {
             this._ctrl = ctrl;
-            this._origin = null;
+            this._color = (color) ? color : DEFAULT_COLOR;
+
+            this._origin = ctrl.getOrigin().getUI();
             this._target = null;
             this._removable = false;
         }
@@ -36,8 +38,9 @@ define(
             context.moveTo(origin.x, origin.y);
             var middle = this._computeMiddlePoint();
             context.quadraticCurveTo(middle.x, middle.y, target.x, target.y);
-            context.strokeStyle = '#'+HEX_COLOR;
+            context.strokeStyle = this._color;
             context.lineWidth = 5;
+            context.globalAlpha = 0.6;
             context.stroke();
             context.closePath();
         }
@@ -84,6 +87,10 @@ define(
 
         UIWire.prototype.getCtrl = function () {
             return this._ctrl;
+        }
+
+        UIWire.prototype.setColor = function (color) {
+            this._color = color;
         }
 
         return UIWire;

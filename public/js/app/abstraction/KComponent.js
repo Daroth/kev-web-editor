@@ -1,18 +1,25 @@
 define(
-    ['abstraction/KEntity'],
+    [
+        'abstraction/KEntity',
+        'control/CInputPort',
+        'control/COutputPort',
+        'util/Pooffs'
+    ],
 
-    function(KEntity) {
+    function(KEntity, CInputPort, COutputPort, Pooffs) {
 
         KComponent.ENTITY_TYPE = 'component';
 
-        KComponent.prototype = new KEntity();
+        Pooffs.extends(KComponent, KEntity);
 
         function KComponent(editor, type) {
             KEntity.prototype.constructor.call(this, editor, type);
 
             this._parent = null;
-            this._inputs = new Array();
-            this._outputs = new Array();
+            this._inputs = new Array(/* KPort */);
+            this._inputs.push(new CInputPort(this));
+            this._outputs = new Array(/* KPort */);
+            this._outputs.push(new COutputPort(this));
         }
 
         KComponent.prototype.getEntityType = function () {
@@ -25,6 +32,18 @@ define(
 
         KComponent.prototype.setParent = function (node) {
             this._parent = node;
+        }
+
+        KComponent.prototype.disconnectPort = function (/* KPort */ port) {
+            var index = this._inputs.indexOf(port);
+            if (index == -1) {
+                index = this._outputs.indexOf(port);
+                if (index != -1) {
+                    this._outputs.slice(index, 1);
+                }
+            } else {
+                this._inputs.slice(index, 1);
+            }
         }
 
         KComponent.prototype.hasChildren = function () {

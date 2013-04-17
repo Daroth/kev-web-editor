@@ -1,10 +1,11 @@
 define(
     [
         'presentation/UIEntity',
+        'presentation/UIInputPort',
         'util/Pooffs'
     ],
 
-    function (UIEntity, Pooffs) {
+    function (UIEntity, UIInputPort, Pooffs) {
         Pooffs.extends(UINestableEntity, UIEntity);
 
         // static constants
@@ -80,7 +81,10 @@ define(
                 });
 
                 this._shape.on('dragstart', function(event) {
-                    this.setZIndex(0); // this is mandatory, otherwise you won't get 'mouseup' events on previously added shapes
+                    console.log("drag start UINestable");
+                    this.setZIndex(0); // this is mandatory,
+                                       // otherwise you won't get 'mouseup' events on previously added shapes
+                                       // meaning that you won't be able to drag'n'drop UINestableEntity (in|out)side each other
                     that._ctrl.p2cDragStart();
 
                     // prevent parent from getting the event too

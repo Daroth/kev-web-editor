@@ -15,7 +15,6 @@ define(
          */
         function UIEntity(ctrl) {
             this._ctrl = ctrl;
-            this._position = {x: 0, y: 0} // default position
             this._isReady = false;
         }
 
@@ -39,8 +38,14 @@ define(
             });
         }
 
+        /**
+         * Returns the absolute position of this entity shape in the stage
+         * Sub-classes should override this method and give their own definition
+         * of getPosition()
+         * @returns {{x: number, y: number}}
+         */
         UIEntity.prototype.getPosition = function () {
-            return this._position;
+            return {x: 0, y: 0}; // default position
         }
 
         UIEntity.prototype.getCtrl = function () {
@@ -85,8 +90,6 @@ define(
          * @returns {number} the width of this shape
          */
         UIEntity.prototype.getWidth = function () {
-            // do not rely on that, in KineticJS, groups do not have
-            // width & height defined, so you MUST override this method
             return this._shape.getWidth();
         }
 
@@ -96,6 +99,33 @@ define(
          */
         UIEntity.prototype.getHeight = function () {
             return this._shape.getHeight();
+        }
+
+        /**
+         * Set this entity's shape draggable or not. If the 'parentsToo' given parameter is true,
+         * then its parents draggable state will also be changed. Otherwise, just
+         * this shape draggable state will be updated. Same for 'childrenToo', that will change
+         * the draggable state of this entity's children if set to true
+         * @param isDraggable {boolean}
+         * @param parentsToo {boolean}
+         * @param childrenToo {boolean}
+         */
+        UIEntity.prototype.setDraggable = function (isDraggable, parentsToo, childrenToo) {
+            // set this entity's shape draggable state
+            this._shape.setDraggable(isDraggable);
+
+            // check for parents flag
+            if (parentsToo && this._ctrl.getParent && this._ctrl.getParent()) {
+                this._ctrl.getParent().getUI().setDraggable(isDraggable, true, false);
+            }
+
+            // check for children flag
+            if (childrenToo && this._ctrl.getChildren) {
+                var children = this._ctrl.getChildren();
+                for (var i=0; i < children.length; i++) {
+                    children[i].getUI().setDraggable(isDraggable, false, true);
+                }
+            }
         }
 
         return UIEntity;

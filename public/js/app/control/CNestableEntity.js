@@ -14,17 +14,6 @@ define(
         CNestableEntity.prototype.p2cMouseOver = function () {}
         CNestableEntity.prototype.p2cMouseOut = function () {}
 
-        CNestableEntity.prototype.p2cDragMove = function () {
-            // change wires state in order for them to update their display
-            var wires = this.getWires();
-            if (wires.length > 0) {
-                // there is plugged wires
-                for (var i=0; i<wires.length; i++) {
-                    wires[i].setTarget(this);
-                }
-            }
-        }
-
         CNestableEntity.prototype.p2cDragStart = function () {
             if (this.getParent()) {
                 this.getParent().removeChild(this);

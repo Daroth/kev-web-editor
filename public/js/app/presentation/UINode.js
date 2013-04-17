@@ -105,7 +105,6 @@ define(
             wire.getCtrl().getOrigin().getUI().getShape().setDraggable(true);
 
             if (this._mouseUpEvent) {
-                console.log("mouse up event is not undefined");
                 this._mouseUpEvent.cancelBubble = true;
 
                 this._mouseUpEvent = null;

@@ -121,7 +121,7 @@ define(
         }
 
         CEditor.prototype.abortWireCreationTask = function () {
-            this._currentWire.getOrigin().getUI().getShape().setDraggable(true);
+            this._currentWire.getOrigin().getUI().setDraggable(true, true, true);
             this._currentWire.disconnect();
             this._currentWire = null;
         }
