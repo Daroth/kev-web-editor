@@ -5,7 +5,7 @@ define(
         'util/Config'
     ],
 
-    function (KEditor, CFactory, Config, Cereal) {
+    function (KEditor, CFactory, Config) {
 
         function IOEngine () {}
 
@@ -22,7 +22,7 @@ define(
         // static method save()
         IOEngine.save = function (editor) {
             // TODO
-            console.warn("IOEngine.save(KEditor): not implemented yet");
+            console.warn("IOEngone.save(KEditor): not implemented yet");
             return "";
         }
 

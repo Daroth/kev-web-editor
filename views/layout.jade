@@ -35,11 +35,19 @@ html
                     a#open(href="#") Open
                     a#save(href='#') Save
                     a#save-kevs(href='#') Save as KevScript
+              li.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown') Edit&nbsp;
+                  b.caret
+                ul.dropdown-menu
+                  li
+                    a#settings(href="#") Settings
 
     //- Left panel
     block content
 
     //- Hidden content
+    //- ===============
+    //- SAVE POPUP
     div#save-popup.modal.hide.fade(tabindex='-1', role='dialog')
       div.modal-header
         button.close(type='button', data-dismiss='modal') &times;
@@ -50,5 +58,20 @@ html
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
         button#save-model.btn.btn-primary(data-dismiss='modal') Save
+    //- ===============
+
+    //- ===============
+    //- SETTINGS POPUP
+    div#settings-popup.modal.hide.fade(tabindex='-1', role='dialog')
+      div.modal-header
+        button.close(type='button', data-dismiss='modal') &times;
+        h3 Editor settings
+      div.modal-body
+        p TODO
+      div.modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Close
+        button#save-model.btn.btn-primary(data-dismiss='modal') Save
+    //- ===============
+
     div.hide
       input#file(type='file') Open model from file

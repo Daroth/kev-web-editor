@@ -91,6 +91,10 @@ requirejs(
                 // prevent default href="#"
                 return false;
             });
+
+            $('#settings').click(function () {
+                $('#settings-popup').modal({ show: true });
+            });
         });
 
         return {};
