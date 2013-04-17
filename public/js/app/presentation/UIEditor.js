@@ -1,9 +1,14 @@
 define(
     [   // dependencies
-        'presentation/widget/WireLayer'
+        'presentation/widget/WireLayer',
+        'bootstrap/modal',
+        'jquery',
+        'jqueryui/droppable',
+        'jqueryui/draggable',
+        'jqueryui/effect-highlight'
     ],
 
-    function (WireLayer) {
+    function (WireLayer, _bootstrap, $) {
 
         function UIEditor(ctrl, containerID) {
             this._ctrl = ctrl;

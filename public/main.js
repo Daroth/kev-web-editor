@@ -1,13 +1,21 @@
+define([ 'jquery', './transition' ], function ( jQuery ) {
 requirejs.config({
     //By default load any module IDs from js/lib
     baseUrl: 'js/lib',
+    shim: {
+        // specify dependency with jQuery for bootstrap
+        "jquery-ui": {
+            exports: "$",
+            deps: ['jquery']
+        },
+        'bootstrap': ['jquery']
+    },
     //except, if the module ID starts with "app",
     //load it from the js/app directory. paths
     //config is relative to the baseUrl, and
     //never includes a ".js" extension since
     //the paths config could be for a directory.
     paths: {
-        bootstrap: 'bootstrap/src',
         app: '../app',
         abstraction: '../app/abstraction',
         control: '../app/control',
@@ -22,17 +30,15 @@ requirejs.config({
 define(
     [
         'jquery',
+        'jquery-ui',
+        'bootstrap',
         'kinetic',
         'factory/CFactory',
         'util/Config',
-        'io/IOEngine',
-        'bootstrap/tooltip',
-        'bootstrap/modal',
-        'bootstrap/collapse',
-        'bootstrap/dropdown',
+        'io/IOEngine'
     ],
 
-    function ($, Kinetic, CFactory, Config, IOEngine, _bootstrap) {
+    function ($, _$, _bootstrap, Kinetic, CFactory, Config, IOEngine) {
         $(function() {
             //- init editor
             var editor = CFactory.getInstance().newEditor(Config.CONTAINER_ID);
@@ -97,3 +103,4 @@ define(
         return {};
     }
 );
+});
