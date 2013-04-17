@@ -17,9 +17,7 @@ define(
 
             this._parent = null;
             this._inputs = new Array(/* KPort */);
-            this._inputs.push(new CInputPort(this));
             this._outputs = new Array(/* KPort */);
-            this._outputs.push(new COutputPort(this));
         }
 
         KComponent.prototype.getEntityType = function () {
