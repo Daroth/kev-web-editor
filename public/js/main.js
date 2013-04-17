@@ -30,6 +30,7 @@ define(
         'bootstrap/modal',
         'bootstrap/collapse',
         'bootstrap/dropdown',
+        'bootstrap/alert'
     ],
 
     function ($, Kinetic, CFactory, Config, IOEngine, _bootstrap) {
@@ -57,10 +58,21 @@ define(
                 }
                 var fReader = new FileReader();
                 fReader.onload = function (event) {
+                    // retrieve data from selected file
                     var data = event.target.result;
-                    var model = JSON.parse(data);
-                    console.log("Model \""+file.name+"\" loaded successfully", model);
-                    editor = IOEngine.load(model);
+                    try {
+                        // parse data to JSON
+                        var model = JSON.parse(data);
+
+                        console.log("Model \""+file.name+"\" loaded successfully", model);
+                        editor = IOEngine.load(model);
+
+                    } catch (err) {
+                        var errorMsg = "Unable to read model from \""+file.name+"\" file. Model is supposed to be in JSON";
+                        console.error(errorMsg);
+                        $('#alert-content').text(errorMsg);
+                        $('#alert').addClass('in');
+                    }
                 }
                 fReader.readAsText(file);
             });
@@ -72,11 +84,13 @@ define(
                 var json = IOEngine.save(editor);
                 console.log(json);
 
-                $('#filename').val('/foo/bar/model.kvm');
-                $('#save-popup-content').html(
-                    '<p>'+serializedStage+'</p>'
-                );
-                $('#save-popup').modal({ show: true });
+                setTimeout(function () {
+                    $('#filename').val('/foo/bar/model.kvm');
+                    $('#save-popup-content').html(
+                        '<p>'+serializedStage+'</p>'
+                    );
+                    $('#save-popup').modal({ show: true });
+                }, 300);
 
                 // prevent default href="#"
                 return false;

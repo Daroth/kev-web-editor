@@ -15,6 +15,7 @@ define(
 
         KInputPort.prototype.createWire = function () {
             var wire = require('factory/CFactory').getInstance().newWire(this);
+            this._component.addWire(wire);
             return wire;
         }
 

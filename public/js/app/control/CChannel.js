@@ -45,6 +45,7 @@ define(
                 // there is a wire task in progress
                 var origin = wire.getOrigin();
                 if (typeof (origin.getEntityType) != 'function') { // TODO -> THIS IS FREAKING UGLY: CHANGETHAT
+                                                                   // TODO because this is my way of checking if origin is a Port or a Group...
                     // we are good to go
                     wire.setTarget(this);
                     this.addWire(wire);

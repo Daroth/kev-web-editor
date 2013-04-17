@@ -14,7 +14,6 @@ define(
             this._ctrl = ctrl;
             this._id = containerID;
             this._currentWire = null;
-            this._wires = new Array();
             this._modelLayer = new Kinetic.Layer();
             this._wireLayer = new WireLayer();
         }
@@ -73,6 +72,7 @@ define(
                 that._stage.setWidth($('#'+that._id).width());
                 that._stage.setHeight($('#'+that._id).height());
                 that._stage.draw();
+                that._wireLayer.update();
             });
 
             // foldable lib-tree
@@ -102,13 +102,15 @@ define(
                 }
             });
 
-            $(".lib-item[data-entity='component']").hover(function () {
-                $(this).tooltip({
-                    selector: $(this),
-                    placement: 'bottom',
-                    title: "You have to drop this element in a Node"
-                });
-                $(this).tooltip('show');
+            $(".lib-item[data-entity='component']").tooltip({
+                selector: $(this),
+                placement: 'bottom',
+                title: "You have to drop this element in a Node",
+                trigger: 'hover',
+                delay: {
+                    show: 500,
+                    hide: 0
+                }
             });
 
             // drop behavior on #editor
@@ -168,11 +170,6 @@ define(
                 entity.getDOMItem().find('.badge').remove();
             } else {
                 entity.getDOMItem().children().first().text(badgeCount);
-            }
-
-            var wires = entity.getCtrl().getWires();
-            for (var i=0; i < wires.length; i++) {
-                this._wires.splice(this._wires.indexOf(wires[i]), 1);
             }
         }
 

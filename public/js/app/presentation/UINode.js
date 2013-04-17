@@ -91,16 +91,6 @@ define(
             this._rect.getLayer().draw();
         }
 
-        UINode.prototype.redrawParent = function () {
-            if (this._shape && this._shape.getLayer()) {
-                this._shape.getLayer().draw();
-            }
-
-            if (this._ctrl.getParent()) {
-                this._ctrl.getParent().getUI().redrawParent();
-            }
-        }
-
         UINode.prototype.c2pWireCreated = function (wire) {
             wire.getCtrl().getOrigin().getUI().getShape().setDraggable(true);
 

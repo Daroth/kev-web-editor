@@ -27,6 +27,13 @@ define(
             this._isDragged = false;
         }
 
+        CNestableEntity.prototype.p2cRemoveEntity = function () {
+            if (this.getParent()) {
+                this.getParent().removeChild(this);
+            }
+            CEntity.prototype.p2cRemoveEntity.call(this);
+        }
+
         return CNestableEntity;
     }
 );

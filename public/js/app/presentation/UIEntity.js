@@ -53,12 +53,14 @@ define(
         }
 
         UIEntity.prototype.c2pRemoveEntity = function () {
+            console.log("UIEntity c2pRemoveEntity start");
             // retrieve this shape's layer
             var layer = this._shape.getLayer();
             // remove shape from layer
             this._shape.remove();
             // redraw the layer
             layer.draw();
+            console.log("UIEntity c2pRemoveEntity done");
         }
 
         UIEntity.prototype.setDOMItem = function (item) {

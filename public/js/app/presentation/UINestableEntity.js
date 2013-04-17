@@ -131,6 +131,24 @@ define(
             this._rect.getLayer().draw();
         }
 
+        UINestableEntity.prototype.c2pRemoveEntity = function () {
+            UIEntity.prototype.c2pRemoveEntity.call(this);
+            if (this._ctrl.getParent()) {
+                console.log(this._ctrl.getParent().getChildren());
+                this._ctrl.getParent().getUI().redrawParent();
+            }
+        }
+
+        UINestableEntity.prototype.redrawParent = function () {
+            if (this._shape && this._shape.getLayer()) {
+                this._shape.getLayer().draw();
+            }
+
+            if (this._ctrl.getParent()) {
+                this._ctrl.getParent().getUI().redrawParent();
+            }
+        }
+
         UINestableEntity.prototype._draw = function () {
             console.log("UINestableEntity _draw()");
         }

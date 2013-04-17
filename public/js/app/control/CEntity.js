@@ -3,8 +3,10 @@ define(
         function CEntity() {}
 
         CEntity.prototype.p2cRemoveEntity = function () {
+            console.log("CEntity p2cRemoveEntity start");
             this.remove();
             this._ui.c2pRemoveEntity();
+            console.log("CEntity p2cRemoveEntity done");
         }
 
         CEntity.prototype.p2cMouseDown = function (position) {}
