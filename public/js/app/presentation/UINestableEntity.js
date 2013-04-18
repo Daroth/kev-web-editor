@@ -81,14 +81,7 @@ define(
                 });
 
                 this._shape.on('dragstart', function(event) {
-                    console.log("drag start UINestable");
-                    this.setZIndex(0); // this is mandatory,
-                                       // otherwise you won't get 'mouseup' events on previously added shapes
-                                       // meaning that you won't be able to drag'n'drop UINestableEntity (in|out)side each other
-                    that._ctrl.p2cDragStart();
-
-                    // prevent parent from getting the event too
-                    if (that._ctrl.getParent()) event.cancelBubble = true;
+                    that._dragStartHandler(event);
                 });
 
                 this._shape.on('dragend', function(e) {
@@ -100,6 +93,16 @@ define(
 
                 this._isReady = true;
             }
+        }
+
+        UINestableEntity.prototype._dragStartHandler = function (event) {
+            this._shape.setZIndex(0); // this is mandatory,
+            // otherwise you won't get 'mouseup' events on previously added shapes
+            // meaning that you won't be able to drag'n'drop UINestableEntity (in|out)side each other
+            this._ctrl.p2cDragStart();
+
+            // prevent parent from getting the event too
+            if (this._ctrl.getParent()) event.cancelBubble = true;
         }
 
         UINestableEntity.prototype.getChildOffset = function (child) {
@@ -121,26 +124,18 @@ define(
             document.body.style.cursor = 'default';
             this._rect.setStrokeWidth(1);
             this._rect.setStroke('white');
-            this._rect.getLayer().draw();
+            this._shape.getLayer().draw();
         }
 
         UINestableEntity.prototype.c2pMouseOver = function () {
             document.body.style.cursor = 'pointer';
             this._rect.setStrokeWidth(2);
             this._rect.setStroke('#ccc');
-            this._rect.getLayer().draw();
-        }
-
-        UINestableEntity.prototype.c2pRemoveEntity = function () {
-            UIEntity.prototype.c2pRemoveEntity.call(this);
-            if (this._ctrl.getParent()) {
-                console.log(this._ctrl.getParent().getChildren());
-                this._ctrl.getParent().getUI().redrawParent();
-            }
+            this._shape.getLayer().draw();
         }
 
         UINestableEntity.prototype.redrawParent = function () {
-            if (this._shape && this._shape.getLayer()) {
+            if (this._shape && this._shape.getParent() && this._shape.getLayer()) {
                 this._shape.getLayer().draw();
             }
 
@@ -149,9 +144,7 @@ define(
             }
         }
 
-        UINestableEntity.prototype._draw = function () {
-            console.log("UINestableEntity _draw()");
-        }
+        UINestableEntity.prototype._draw = function () {}
 
         UINestableEntity.prototype.getPosition = function () {
             return {

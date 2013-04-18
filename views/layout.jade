@@ -41,6 +41,7 @@ html
                 ul.dropdown-menu
                   li
                     a#settings(href="#") Settings
+                    a#debug(href="#") Open debug
 
     //- Left panel
     block content
@@ -50,7 +51,7 @@ html
     //- SAVE POPUP
     div#save-popup.modal.hide.fade(tabindex='-1', role='dialog')
       div.modal-header
-        button.close(type='button', data-dismiss='modal') &times;
+        button.close(href='#', type='button', data-dismiss='modal') &times;
         h3 Save model
       div.modal-body
         input#filename(type='text')
@@ -64,13 +65,21 @@ html
     //- SETTINGS POPUP
     div#settings-popup.modal.hide.fade(tabindex='-1', role='dialog')
       div.modal-header
-        button.close(type='button', data-dismiss='modal') &times;
+        button.close(href='#', type='button', data-dismiss='modal') &times;
         h3 Editor settings
       div.modal-body
         p TODO
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
         button#save-model.btn.btn-primary(data-dismiss='modal') Save
+    //- ===============
+
+    //- ===============
+    //- DEBUG ALERT
+    div#debug-alert.alert.alert-warn.alert-block.fade.shadow
+      button.close(href='#', type='button') &times;
+      h4 Debug logger
+      p#debug-alert-content Nothing logged yet
     //- ===============
 
     //- ===============

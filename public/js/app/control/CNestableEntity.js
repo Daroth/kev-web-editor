@@ -7,31 +7,29 @@ define(
     function (CEntity, Pooffs) {
         Pooffs.extends(CNestableEntity, CEntity);
 
-        function CNestableEntity() {
-            CEntity.prototype.constructor.call(this);
+        function CNestableEntity(editor, type) {
+            // CEntity.super(editor, type)
+            CEntity.prototype.constructor.call(this, editor, type);
         }
 
         CNestableEntity.prototype.p2cMouseOver = function () {}
         CNestableEntity.prototype.p2cMouseOut = function () {}
 
         CNestableEntity.prototype.p2cDragStart = function () {
-            if (this.getParent()) {
-                this.getParent().removeChild(this);
+            var parent = this.getParent();
+            if (parent) {
+                parent.removeChild(this);
+                parent.getUI().c2pChildDragStarted(this.getUI());
             }
             this._isDragged = true;
             this.getEditor().setDraggedEntity(this);
         }
 
         CNestableEntity.prototype.p2cDragEnd = function () {
-            this.getEditor().consumeDraggedEntity();
-            this._isDragged = false;
-        }
-
-        CNestableEntity.prototype.p2cRemoveEntity = function () {
-            if (this.getParent()) {
-                this.getParent().removeChild(this);
+            if (this.getEditor().getDraggedEntity()) {
+                this.getEditor().consumeDraggedEntity();
             }
-            CEntity.prototype.p2cRemoveEntity.call(this);
+            this._isDragged = false;
         }
 
         return CNestableEntity;

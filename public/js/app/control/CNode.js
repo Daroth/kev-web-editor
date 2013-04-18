@@ -18,6 +18,9 @@ define(
             // KNode.super(type)
             KNode.prototype.constructor.call(this, editor, type);
 
+            // CNestableEntity.super(editor, type)
+            CNestableEntity.prototype.constructor.call(this, editor, type);
+
             // instantiate UI
             this._ui = new UINode(this);
             this._isDragged = false;
@@ -62,6 +65,7 @@ define(
         // Override CNestableEntity.remove()
         CNode.prototype.remove = function () {
             KNode.prototype.remove.call(this);
+            CNestableEntity.prototype.remove.call(this);
             this._ui.redrawParent();
         }
 

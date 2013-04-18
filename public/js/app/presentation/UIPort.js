@@ -28,6 +28,7 @@ define(
             });
 
             this._shape.on('mousedown', function () {
+                console.log("mouse down Port");
                 that._ctrl.p2cMouseDown();
             });
         }

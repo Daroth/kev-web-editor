@@ -17,6 +17,9 @@ define(
             // KChannel.super(type)
             KChannel.prototype.constructor.call(this, editor, type);
 
+            // CEntity.super(editor, type)
+            CEntity.prototype.constructor.call(this, editor, type);
+
             // instantiate UI
             this._ui = new UIChannel(this);
         }

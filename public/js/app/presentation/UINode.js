@@ -70,18 +70,21 @@ define(
         }
 
         UINode.prototype.c2pChildRemoved = function (entity) {
-            var absPosition = entity.getShape().getAbsolutePosition();
-            entity.getShape().remove(); // remove the shape from its group
-            this._shape.getLayer().add(entity.getShape()); // add shape to modelLayer
-            entity.getShape().setPosition(absPosition); // prevent shape from "jumping" from 0,0 to current pointer position
-                                                        // by re-assigning its old absolute position in the new layer
-            entity.getShape().fire('dragstart'); // fire a 'dragstart' event again to let the shape follows pointer
-            this._shape.getLayer().draw(); // redraw layer
-
             if (this._ctrl.getParent()) {
                 // tell parents to redraw themselves
-                this._ctrl.getParent().getUI().getShape().getLayer().draw();
+                this._ctrl.getParent().getUI().redrawParent();
             }
+        }
+
+        UINode.prototype.c2pChildDragStarted = function (entity) {
+            var shape = entity.getShape();
+            var absPosition = shape.getAbsolutePosition();
+            shape.remove(); // remove the shape from its group
+            this._shape.getLayer().add(shape); // add shape to modelLayer
+            shape.setPosition(absPosition); // prevent shape from "jumping" from 0,0 to current pointer position
+                                            // by re-assigning its old absolute position in the new layer
+            shape.fire('dragstart'); // fire a 'dragstart' to let the shape follow the pointer (mouse)
+            this._shape.getLayer().draw(); // redraw layer
         }
 
         // override UINestableEntity.c2pMouseOver()
@@ -118,7 +121,7 @@ define(
                 var maxChildrenWidth = 0;
                 var childrenHeight = 0;
                 var children = this._ctrl.getChildren();
-                // find the widest children in this node and compute the whole height
+                // find the widest children in this node, plus compute the whole height
                 for (var i=0; i < children.length; i++) {
                     var entity = children[i].getUI();
                     if (entity.getWidth() > maxChildrenWidth) maxChildrenWidth = entity.getWidth();
@@ -137,7 +140,7 @@ define(
                         entity.setWidth(maxChildrenWidth);
                     }
                 }
-                // height is always the children's height sum + headerName's height
+                // height is the children's height sum + header height
                 height = childrenHeight + this.getHeader().getHeight();
             }
 

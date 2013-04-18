@@ -61,6 +61,14 @@ body {
     height: 100%;
 }
 
+#debug-alert {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 42;
+}
+
 .fill {
     height: 100%;
 }
@@ -99,6 +107,14 @@ body {
 .under {
     position : absolute;
     z-index: 1;
+}
+
+div.shadow {
+    -moz-box-shadow: 3px 3px 4px #666;
+    -webkit-box-shadow: 3px 3px 4px #666;
+    box-shadow: 3px 3px 4px #666;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#666666')";
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#666666');
 }
 
 @media (max-width: 980px) {

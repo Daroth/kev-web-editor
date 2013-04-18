@@ -76,7 +76,7 @@ define(
             document.body.style.cursor = 'default';
             this._rect.setStrokeWidth(STROKE);
             this._rect.setStroke(DEFAULT_STROKE_COLOR);
-            this._rect.getLayer().draw();
+            if (this._shape.getParent()) this._shape.getLayer().draw();
         }
 
         return UIComponent;

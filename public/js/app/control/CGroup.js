@@ -14,8 +14,11 @@ define(
         Pooffs.extends(CGroup, CEntity);
 
         function CGroup(editor, type) {
-            // super(type)
+            // KGroup.super(type)
             KGroup.prototype.constructor.call(this, editor, type);
+
+            // CEntity.super(editor, type)
+            CEntity.prototype.constructor.call(this, editor, type);
 
             // instantiate UI
             this._ui = new UIGroup(this);

@@ -27,7 +27,7 @@ define(
         // Override KEditor.addEntity(KEntity)
         CEditor.prototype.addEntity = function (entity) {
             KEditor.prototype.addEntity.call(this, entity); // super.addEntity(type)
-            this._ui.c2pEntityAdded(entity.getUI());
+            this._ui.c2pEntityAdded(entity.getUI())
         }
 
         // Override KEditor.removeEntity(KEntity)

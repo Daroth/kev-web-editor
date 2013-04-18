@@ -42,9 +42,6 @@ define(
             // opens file chooser when "open" menu item is clicked
             $('#open').click(function () {
                 $('#file').trigger('click');
-
-                // prevent default href="#"
-                return false;
             });
 
             $('#file').change(function () {
@@ -91,20 +88,23 @@ define(
                     );
                     $('#save-popup').modal({ show: true });
                 }, 300);
-
-                // prevent default href="#"
-                return false;
             });
 
             $('#save-kevs').click(function () {
+                console.warn("SaveAsKevs: not implemented yet");
 
-
-                // prevent default href="#"
-                return false;
             });
 
             $('#settings').click(function () {
                 $('#settings-popup').modal({ show: true });
+            });
+
+            $('#debug').click(function () {
+                $('#debug-alert').addClass('in');
+            });
+
+            $('.close').click(function () {
+                $(this).parent().removeClass('in');
             });
         });
 
