@@ -60,15 +60,20 @@ define(
                     try {
                         // parse data to JSON
                         var model = JSON.parse(data);
-
-                        console.log("Model \""+file.name+"\" loaded successfully", model);
                         editor = IOEngine.load(model);
+                        $('#alert-content').text("Model \""+file.name+"\" loaded successfully");
+                        $('#alert').addClass('alert-success in');
+                        setTimeout(function () {
+                            $('#alert').removeClass('alert-success in');
+                        }, 5000);
 
                     } catch (err) {
                         var errorMsg = "Unable to read model from \""+file.name+"\" file. Model is supposed to be in JSON";
-                        console.error(errorMsg);
                         $('#alert-content').text(errorMsg);
-                        $('#alert').addClass('in');
+                        $('#alert').addClass('alert-error in');
+                        setTimeout(function () {
+                            $('#alert').removeClass('alert-error in');
+                        }, 5000);
                     }
                 }
                 fReader.readAsText(file);
