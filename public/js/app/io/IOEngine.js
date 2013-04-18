@@ -14,7 +14,12 @@ define(
             var editor = CFactory.getInstance().newEditor(Config.CONTAINER_ID);
 
             console.log(model);
-            // TODO
+            if (model.eClass == "kevoree:ContainerRoot") {
+
+
+            } else {
+                throw new SyntaxError("Unable to read model: model.eClass != kevoree:ContainerRoot");
+            }
 
             return editor;
         }
@@ -22,7 +27,7 @@ define(
         // static method save()
         IOEngine.save = function (editor) {
             // TODO
-            console.warn("IOEngone.save(KEditor): not implemented yet");
+            console.warn("IOEngine.save(KEditor): not implemented yet");
             return "";
         }
 
