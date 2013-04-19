@@ -31,6 +31,17 @@ define(
 
         }
 
+        KEditor.prototype.clear = function () {
+            var entities = this._entities.slice(0); // clone entities array
+
+            for (var i=0; i < entities.length; i++) {
+                entities[i].remove();
+            }
+
+            this._entities = [];
+            this._typeCounter = [];
+        }
+
         /**
          * Returns the current count of that precise type in the model
          * @param type specific type of entity

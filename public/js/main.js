@@ -33,6 +33,7 @@ define(
         'command/SettingsCommand',
         'command/DebugCommand',
         'command/MergeDefaultLibraryCommand',
+        'command/ClearCommand',
         'bootstrap/tooltip',
         'bootstrap/modal',
         'bootstrap/collapse',
@@ -42,6 +43,7 @@ define(
 
     function ($, Kinetic, CFactory, Config, IOEngine,
               SaveCommand, SaveAsKevsCommand, LoadCommand, SettingsCommand, DebugCommand, MergeDefaultLibraryCommand,
+              ClearCommand,
               _bootstrap) {
         // document.onload
         $(function() {
@@ -62,7 +64,7 @@ define(
             });
 
             // ========================================
-            // Listeners that trigger XXXCommand.execute()
+            // Listeners that trigger XXXCommand.execute(...)
             $('#save').click(function () {
                 var cmd = new SaveCommand();
                 cmd.execute(editor);
@@ -81,6 +83,11 @@ define(
             $('#debug').click(function () {
                 var cmd = new DebugCommand();
                 cmd.execute();
+            });
+
+            $('#clear').click(function () {
+                var cmd = new ClearCommand();
+                cmd.execute(editor);
             });
 
             $('.model-load-corelib').click(function () {

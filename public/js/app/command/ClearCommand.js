@@ -3,7 +3,7 @@ define(
         function ClearCommand() {}
 
         ClearCommand.prototype.execute = function (editor) {
-            // TODO
+            editor.clear();
         }
 
         return ClearCommand;
