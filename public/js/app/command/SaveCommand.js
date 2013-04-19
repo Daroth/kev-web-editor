@@ -14,9 +14,7 @@ define(
 
             setTimeout(function () {
                 $('#filename').val('/foo/bar/model.kvm');
-                $('#save-popup-content').html(
-                    '<p>'+serializedStage+'</p>'
-                );
+                $('#save-popup-content').text("TODO");
                 $('#save-popup').modal({ show: true });
             }, 300);
         }
