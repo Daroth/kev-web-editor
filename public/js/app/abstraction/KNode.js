@@ -7,7 +7,7 @@ define(
 
     function(KEntity, KComponent, Pooffs) {
 
-        KNode.ENTITY_TYPE = 'node';
+        KNode.ENTITY_TYPE = 'NodeType';
 
         Pooffs.extends(KNode, KEntity);
 

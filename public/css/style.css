@@ -6,7 +6,6 @@ body {
 	margin: 0;
 	padding: 0;
     height: 100%;
-    /*overflow: hidden;*/
 }
 
 .container-fluid {
@@ -18,7 +17,7 @@ body {
     color: #fff;
 }
 
-#libTree > * {
+#lib-tree > * {
     background-color: #3E3E3E;
 }
 
@@ -27,19 +26,19 @@ body {
     padding: 5px 5px 5px 20px;
 }
 
-[data-entity='group'] {
+[data-entity='GroupType'] {
     background: url('../img/group-ico.png') center left no-repeat;
 }
 
-[data-entity='channel'] {
+[data-entity='ChannelType'] {
     background: url('../img/channel-ico.png') center left no-repeat;
 }
 
-[data-entity='node'] {
+[data-entity='NodeType'] {
     background: url('../img/node-ico.png') center left no-repeat;
 }
 
-[data-entity='component'] {
+[data-entity='ComponentType'] {
     background: url('../img/component-ico.png') center left no-repeat;
 }
 
@@ -48,6 +47,11 @@ body {
     background-color: #3E3E3E;
     cursor: pointer;
     z-index: 42;
+}
+
+.lib-tree-info {
+    padding: 15px;
+    color: #fff;
 }
 
 .lib-item:hover {

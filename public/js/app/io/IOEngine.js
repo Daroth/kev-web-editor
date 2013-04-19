@@ -14,7 +14,7 @@ define(
             var editor = CFactory.getInstance().newEditor(Config.CONTAINER_ID);
 
             console.log(model);
-            if (model.eClass == "kevoree:ContainerRoot") {
+            if (model.eClass == "org.kevoree:ContainerRoot") {
 
 
             } else {

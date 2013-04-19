@@ -2,7 +2,7 @@ define(
     ['abstraction/KEntity'],
 
     function(KEntity) {
-        KGroup.ENTITY_TYPE = 'group';
+        KGroup.ENTITY_TYPE = 'GroupType';
 
         KGroup.prototype = new KEntity();
 

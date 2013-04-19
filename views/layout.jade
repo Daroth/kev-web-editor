@@ -39,15 +39,25 @@ html
                 a.dropdown-toggle(href='#', data-toggle='dropdown') Model&nbsp;
                   b.caret
                 ul.dropdown-menu
-                  li
-                    a#model-load-corelib(href="#") Load Core Library
+                  li: a#clear(href='#') Clear
+                  li.dropdown-submenu
+                    a(href='#') Load Core Library
+                    ul.dropdown-menu
+                      li: a.model-load-corelib(href='#', data-lib='all') All
+                      li: a.model-load-corelib(href='#', data-lib='android') Android
+                      li: a.model-load-corelib(href='#', data-lib='arduino') Arduino
+                      li: a.model-load-corelib(href='#', data-lib='daum') DAUM
+                      li: a.model-load-corelib(href='#', data-lib='javase') JavaSE
+                      li: a.model-load-corelib(href='#', data-lib='sky') Sky
+                      li: a.model-load-corelib(href='#', data-lib='webserver') WebServer
+
               li.dropdown
                 a.dropdown-toggle(href='#', data-toggle='dropdown') Edit&nbsp;
                   b.caret
                 ul.dropdown-menu
                   li
                     a#settings(href="#") Settings
-                    a#debug(href="#") Open debug
+                    a#debug(href="#") Toggle debug
 
     //- Left panel
     block content

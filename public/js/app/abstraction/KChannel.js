@@ -3,7 +3,7 @@ define(
 
     function(KEntity) {
 
-        KChannel.ENTITY_TYPE = 'channel';
+        KChannel.ENTITY_TYPE = 'ChannelType';
 
         KChannel.prototype = new KEntity();
 

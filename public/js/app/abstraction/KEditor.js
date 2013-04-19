@@ -27,6 +27,10 @@ define(
             return this._entities;
         }
 
+        KEditor.prototype.addLibrary = function (name, components) {
+
+        }
+
         /**
          * Returns the current count of that precise type in the model
          * @param type specific type of entity

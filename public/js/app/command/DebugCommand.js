@@ -6,7 +6,7 @@ define(
         function DebugCommand () {}
 
         DebugCommand.prototype.execute = function () {
-            $('#debug-alert').addClass('in');
+            $('#debug-alert').toggleClass('in');
         }
 
         return DebugCommand;

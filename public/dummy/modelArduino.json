@@ -1,0 +1,2239 @@
+{ "eClass":"org.kevoree:ContainerRoot" ,
+    "typeDefinitions": [
+        { "eClass":"org.kevoree:NodeType" ,
+            "name":"StatefulJavaSENode",
+            "factoryBean":"org.kevoree.library.defaultNodeTypes.StatefulJavaSENodeFactory",
+            "bean":"org.kevoree.library.defaultNodeTypes.StatefulJavaSENode",
+            "deployUnits": ["//@deployUnits.0"],
+            "superTypes": ["typeDefinitions[JavaSENode]"],
+            "managedPrimitiveTypes": ["adaptationPrimitiveTypes[UpdateFragmentBinding]",
+                "adaptationPrimitiveTypes[UpdateBinding]",
+                "adaptationPrimitiveTypes[UpdateDictionaryInstance]",
+                "adaptationPrimitiveTypes[RemoveThirdParty]",
+                "adaptationPrimitiveTypes[RemoveType]",
+                "adaptationPrimitiveTypes[RemoveInstance]",
+                "adaptationPrimitiveTypes[StartInstance]",
+                "adaptationPrimitiveTypes[UpdateType]",
+                "adaptationPrimitiveTypes[AddFragmentBinding]",
+                "adaptationPrimitiveTypes[StartThirdParty]",
+                "adaptationPrimitiveTypes[AddBinding]",
+                "adaptationPrimitiveTypes[RemoveBinding]",
+                "adaptationPrimitiveTypes[StopInstance]",
+                "adaptationPrimitiveTypes[UpdateDeployUnit]",
+                "adaptationPrimitiveTypes[RemoveFragmentBinding]",
+                "adaptationPrimitiveTypes[UpdateInstance]",
+                "adaptationPrimitiveTypes[AddDeployUnit]",
+                "adaptationPrimitiveTypes[RemoveDeployUnit]",
+                "adaptationPrimitiveTypes[AddThirdParty]",
+                "adaptationPrimitiveTypes[AddType]",
+                "adaptationPrimitiveTypes[AddInstance]"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"coreLogLevel",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"logLevel",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"storageLocation",
+                        "optional":true,
+                        "state":false,
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"INFO",
+                        "attribute":"//@typeDefinitions.0/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"WARN",
+                        "attribute":"//@typeDefinitions.0/@dictionaryType/@attributes.0"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "attribute":"//@typeDefinitions.0/@dictionaryType/@attributes.2"}
+                ]
+            }
+            ,
+            "managedPrimitiveTypeRefs": [
+                { "eClass":"org.kevoree:AdaptationPrimitiveTypeRef" ,
+                    "maxTime":"120000",
+                    "ref":"adaptationPrimitiveTypes[AddDeployUnit]"}
+                ,
+                { "eClass":"org.kevoree:AdaptationPrimitiveTypeRef" ,
+                    "maxTime":"120000",
+                    "ref":"adaptationPrimitiveTypes[UpdateDeployUnit]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"TempBrickSensor",
+            "factoryBean":"org.kevoree.library.sensors.TempBrickSensorFactory",
+            "bean":"org.kevoree.library.sensors.TempBrickSensor",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"apin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.1/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.1/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"value",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ChannelType" ,
+            "name":"defMSG",
+            "factoryBean":"org.kevoree.library.defaultChannels.defMSGFactory",
+            "bean":"org.kevoree.library.defaultChannels.defMSG",
+            "lowerBindings":"0",
+            "upperBindings":"0",
+            "lowerFragments":"0",
+            "upperFragments":"0",
+            "deployUnits": ["//@deployUnits.16"]}
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"UltraSonicRange",
+            "factoryBean":"org.kevoree.library.sensors.UltraSonicRangeFactory",
+            "bean":"org.kevoree.library.sensors.UltraSonicRange",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"dpin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.3/@dictionaryType/@attributes.0"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.3/@dictionaryType/@attributes.1"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"range",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:NodeType" ,
+            "name":"ArduinoWirelessNode",
+            "factoryBean":"org.kevoree.library.arduinoNodeType.ArduinoWirelessNodeFactory",
+            "bean":"org.kevoree.library.arduinoNodeType.ArduinoWirelessNode",
+            "deployUnits": ["//@deployUnits.32"],
+            "superTypes": ["typeDefinitions[ArduinoNode]"],
+            "managedPrimitiveTypes": ["adaptationPrimitiveTypes[UpdateBinding]",
+                "adaptationPrimitiveTypes[UpdateDictionaryInstance]",
+                "adaptationPrimitiveTypes[RemoveType]",
+                "adaptationPrimitiveTypes[RemoveInstance]",
+                "adaptationPrimitiveTypes[StartInstance]",
+                "adaptationPrimitiveTypes[UpdateType]",
+                "adaptationPrimitiveTypes[AddFragmentBinding]",
+                "adaptationPrimitiveTypes[StartThirdParty]",
+                "adaptationPrimitiveTypes[AddBinding]",
+                "adaptationPrimitiveTypes[RemoveBinding]",
+                "adaptationPrimitiveTypes[StopInstance]",
+                "adaptationPrimitiveTypes[UpdateDeployUnit]",
+                "adaptationPrimitiveTypes[RemoveFragmentBinding]",
+                "adaptationPrimitiveTypes[UpdateInstance]",
+                "adaptationPrimitiveTypes[AddDeployUnit]",
+                "adaptationPrimitiveTypes[RemoveDeployUnit]",
+                "adaptationPrimitiveTypes[AddThirdParty]",
+                "adaptationPrimitiveTypes[AddType]",
+                "adaptationPrimitiveTypes[AddInstance]"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"pmem",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=eeprom,sd",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"psize",
+                        "optional":true,
+                        "state":false,
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"incremental",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=true,false",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"timeout",
+                        "optional":false,
+                        "state":false,
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"boardTypeName",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=atmega328",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"atmega328",
+                        "attribute":"//@typeDefinitions.4/@dictionaryType/@attributes.4"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"true",
+                        "attribute":"//@typeDefinitions.4/@dictionaryType/@attributes.2"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"eeprom",
+                        "attribute":"//@typeDefinitions.4/@dictionaryType/@attributes.0"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"MAX",
+                        "attribute":"//@typeDefinitions.4/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"60",
+                        "attribute":"//@typeDefinitions.4/@dictionaryType/@attributes.3"}
+                ]
+            }
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"DigitalTone",
+            "factoryBean":"org.kevoree.library.sensors.DigitalToneFactory",
+            "bean":"org.kevoree.library.sensors.DigitalTone",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"pin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"freq",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Integer",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.5/@dictionaryType/@attributes.0"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"500",
+                        "attribute":"//@typeDefinitions.5/@dictionaryType/@attributes.1"}
+                ]
+            }
+            ,
+            "provided": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"toggle",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerToggle",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerToggle",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"off",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerOff",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerOff",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"on",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerOn",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerOn",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"BaliseHommeMort",
+            "factoryBean":"org.kevoree.library.sensors.BaliseHommeMortFactory",
+            "bean":"org.kevoree.library.sensors.BaliseHommeMort",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"trigger_prealarme",
+                        "optional":false,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"trigger_alarme",
+                        "optional":false,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"sensibilite",
+                        "optional":false,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.6/@dictionaryType/@attributes.2"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"23",
+                        "attribute":"//@typeDefinitions.6/@dictionaryType/@attributes.0"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"35",
+                        "attribute":"//@typeDefinitions.6/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"5",
+                        "attribute":"//@typeDefinitions.6/@dictionaryType/@attributes.3"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"prealarme",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"alarme",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+            ,
+            "provided": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"yaw",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"yaw",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"yaw",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"roll",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"roll",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"roll",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"pitch",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"pitch",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"pitch",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"temperature",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"temp",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"temp",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"TempSensor",
+            "factoryBean":"org.kevoree.library.sensors.TempSensorFactory",
+            "bean":"org.kevoree.library.sensors.TempSensor",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"pin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.7/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.7/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"temp",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:GroupType" ,
+            "name":"NanoRestGroup",
+            "factoryBean":"org.kevoree.library.nanohttp.NanoRestGroupFactory",
+            "bean":"org.kevoree.library.nanohttp.NanoRestGroup",
+            "deployUnits": ["//@deployUnits.41"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"port",
+                        "optional":true,
+                        "state":false,
+                        "fragmentDependant":true}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"ip",
+                        "optional":true,
+                        "state":false,
+                        "fragmentDependant":true}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"8000",
+                        "attribute":"//@typeDefinitions.8/@dictionaryType/@attributes.0"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0.0.0.0",
+                        "attribute":"//@typeDefinitions.8/@dictionaryType/@attributes.1"}
+                ]
+            }
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"PWMServo",
+            "factoryBean":"org.kevoree.library.sensors.PWMServoFactory",
+            "bean":"org.kevoree.library.sensors.PWMServo",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"pin",
+                        "optional":false,
+                        "state":false,
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "attribute":"//@typeDefinitions.9/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "provided": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"input",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"inputPort",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"inputPort",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"FlexSensor",
+            "factoryBean":"org.kevoree.library.sensors.FlexSensorFactory",
+            "bean":"org.kevoree.library.sensors.FlexSensor",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"pin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.10/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.10/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"out",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"PushButton",
+            "factoryBean":"org.kevoree.library.sensors.PushButtonFactory",
+            "bean":"org.kevoree.library.sensors.PushButton",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"pin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.11/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.11/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"click",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"release",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"AutoNormalizer",
+            "factoryBean":"org.kevoree.library.sensors.AutoNormalizerFactory",
+            "bean":"org.kevoree.library.sensors.AutoNormalizer",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"inverted",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.12/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"norm",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+            ,
+            "provided": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"input",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerPort",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerPort",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ChannelType" ,
+            "name":"SerialCT",
+            "factoryBean":"org.kevoree.library.channels.SerialCTFactory",
+            "bean":"org.kevoree.library.channels.SerialCT",
+            "lowerBindings":"0",
+            "upperBindings":"0",
+            "lowerFragments":"0",
+            "upperFragments":"0",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"serialport",
+                        "optional":true,
+                        "state":false,
+                        "fragmentDependant":true}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"*",
+                        "attribute":"//@typeDefinitions.13/@dictionaryType/@attributes.0"}
+                ]
+            }
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"IMUSensor",
+            "factoryBean":"org.kevoree.library.sensors.IMUSensorFactory",
+            "bean":"org.kevoree.library.sensors.IMUSensor",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.14/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"yaw",
+                    "optional":true,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"roll",
+                    "optional":true,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"acceleration",
+                    "optional":true,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"pitch",
+                    "optional":true,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"GpsI2C",
+            "factoryBean":"org.kevoree.library.sensors.GpsI2CFactory",
+            "bean":"org.kevoree.library.sensors.GpsI2C",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.15/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"gpsADR",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:NodeType" ,
+            "name":"JavaSENode",
+            "factoryBean":"org.kevoree.library.defaultNodeTypes.JavaSENodeFactory",
+            "bean":"org.kevoree.library.defaultNodeTypes.JavaSENode",
+            "deployUnits": ["//@deployUnits.0"],
+            "managedPrimitiveTypes": ["adaptationPrimitiveTypes[UpdateFragmentBinding]",
+                "adaptationPrimitiveTypes[UpdateBinding]",
+                "adaptationPrimitiveTypes[UpdateDictionaryInstance]",
+                "adaptationPrimitiveTypes[RemoveThirdParty]",
+                "adaptationPrimitiveTypes[RemoveType]",
+                "adaptationPrimitiveTypes[RemoveInstance]",
+                "adaptationPrimitiveTypes[StartInstance]",
+                "adaptationPrimitiveTypes[UpdateType]",
+                "adaptationPrimitiveTypes[AddFragmentBinding]",
+                "adaptationPrimitiveTypes[StartThirdParty]",
+                "adaptationPrimitiveTypes[AddBinding]",
+                "adaptationPrimitiveTypes[RemoveBinding]",
+                "adaptationPrimitiveTypes[StopInstance]",
+                "adaptationPrimitiveTypes[UpdateDeployUnit]",
+                "adaptationPrimitiveTypes[RemoveFragmentBinding]",
+                "adaptationPrimitiveTypes[UpdateInstance]",
+                "adaptationPrimitiveTypes[AddDeployUnit]",
+                "adaptationPrimitiveTypes[RemoveDeployUnit]",
+                "adaptationPrimitiveTypes[AddThirdParty]",
+                "adaptationPrimitiveTypes[AddType]",
+                "adaptationPrimitiveTypes[AddInstance]"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"coreLogLevel",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"logLevel",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"INFO",
+                        "attribute":"//@typeDefinitions.16/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"WARN",
+                        "attribute":"//@typeDefinitions.16/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "managedPrimitiveTypeRefs": [
+                { "eClass":"org.kevoree:AdaptationPrimitiveTypeRef" ,
+                    "maxTime":"120000",
+                    "ref":"adaptationPrimitiveTypes[AddDeployUnit]"}
+                ,
+                { "eClass":"org.kevoree:AdaptationPrimitiveTypeRef" ,
+                    "maxTime":"120000",
+                    "ref":"adaptationPrimitiveTypes[UpdateDeployUnit]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"TempSensorInfrared",
+            "factoryBean":"org.kevoree.library.sensors.TempSensorInfraredFactory",
+            "bean":"org.kevoree.library.sensors.TempSensorInfrared",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.17/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"temp",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"PolarHeartRateMonitor",
+            "factoryBean":"org.kevoree.library.sensors.PolarHeartRateMonitorFactory",
+            "bean":"org.kevoree.library.sensors.PolarHeartRateMonitor",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.18/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"heartRate",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"LCDDisplay",
+            "factoryBean":"org.kevoree.library.sensors.LCDDisplayFactory",
+            "bean":"org.kevoree.library.sensors.LCDDisplay",
+            "deployUnits": ["//@deployUnits.16"],
+            "provided": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"input",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"inputPort",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"inputPort",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"DigitalLight",
+            "factoryBean":"org.kevoree.library.sensors.DigitalLightFactory",
+            "bean":"org.kevoree.library.sensors.DigitalLight",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"pin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.20/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "provided": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"flash",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerflashled",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerflashled",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"toggle",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerToggle",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerToggle",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"off",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerOff",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerOff",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"on",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerOn",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerOn",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"RotationSensor",
+            "factoryBean":"org.kevoree.library.sensors.RotationSensorFactory",
+            "bean":"org.kevoree.library.sensors.RotationSensor",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"pin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.21/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.21/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"value",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"Timer",
+            "factoryBean":"org.kevoree.library.sensors.TimerFactory",
+            "bean":"org.kevoree.library.sensors.Timer",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.22/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"tick",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ChannelType" ,
+            "name":"RF433CT",
+            "factoryBean":"org.kevoree.library.channels.RF433CTFactory",
+            "bean":"org.kevoree.library.channels.RF433CT",
+            "lowerBindings":"0",
+            "upperBindings":"0",
+            "lowerFragments":"0",
+            "upperFragments":"0",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"rxpin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"txpin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.23/@dictionaryType/@attributes.0"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.23/@dictionaryType/@attributes.1"}
+                ]
+            }
+        }
+        ,
+        { "eClass":"org.kevoree:GroupType" ,
+            "name":"ArduinoSerialDelegation",
+            "factoryBean":"org.kevoree.library.arduino.groupType.ArduinoSerialDelegationFactory",
+            "bean":"org.kevoree.library.arduino.groupType.ArduinoSerialDelegation",
+            "deployUnits": ["//@deployUnits.43",
+                "//@deployUnits.44"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"serialport",
+                        "optional":false,
+                        "state":false,
+                        "fragmentDependant":true}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"*",
+                        "attribute":"//@typeDefinitions.24/@dictionaryType/@attributes.0"}
+                ]
+            }
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"DMXLight",
+            "factoryBean":"org.kevoree.library.sensors.DMXLightFactory",
+            "bean":"org.kevoree.library.sensors.DMXLight",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"dpin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.25/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "provided": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"red",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerRed",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerRed",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"blue",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerBlue",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerBlue",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"green",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerGreen",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerGreen",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"intensity",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerOn",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerOn",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"DualMotor",
+            "factoryBean":"org.kevoree.library.sensors.DualMotorFactory",
+            "bean":"org.kevoree.library.sensors.DualMotor",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"I1Bpin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"I1pin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"I2Bpin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"I2pin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"MAB",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"MA",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"7",
+                        "attribute":"//@typeDefinitions.26/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"6",
+                        "attribute":"//@typeDefinitions.26/@dictionaryType/@attributes.3"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"4",
+                        "attribute":"//@typeDefinitions.26/@dictionaryType/@attributes.0"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"3",
+                        "attribute":"//@typeDefinitions.26/@dictionaryType/@attributes.2"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"10",
+                        "attribute":"//@typeDefinitions.26/@dictionaryType/@attributes.5"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"9",
+                        "attribute":"//@typeDefinitions.26/@dictionaryType/@attributes.4"}
+                ]
+            }
+            ,
+            "provided": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"turnLeft",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"turnLeft",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"turnLeft",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"stop",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"stopPort",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"stopPort",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"goBack",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"goBack",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"goBack",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"turnRight",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"turnRight",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"turnRight",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"goFront",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"goFront",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"goFront",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"LevelDetector",
+            "factoryBean":"org.kevoree.library.sensors.LevelDetectorFactory",
+            "bean":"org.kevoree.library.sensors.LevelDetector",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"level",
+                        "optional":false,
+                        "state":false,
+                        "datatype":"raw=java.lang.Integer",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"avgnb",
+                        "optional":false,
+                        "state":false,
+                        "datatype":"raw=java.lang.Integer",
+                        "fragmentDependant":false}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"high",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+                ,
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"low",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+            ,
+            "provided": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"input",
+                    "optional":false,
+                    "noDependency":false,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
+                    "mappings": [
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerInput",
+                            "serviceMethodName":"process"}
+                        ,
+                        { "eClass":"org.kevoree:PortTypeMapping" ,
+                            "beanMethodName":"triggerInput",
+                            "serviceMethodName":"process"}
+                    ]
+                }
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"CurrentSensor",
+            "factoryBean":"org.kevoree.library.sensors.CurrentSensorFactory",
+            "bean":"org.kevoree.library.sensors.CurrentSensor",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"pin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.28/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.28/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"currentW",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:NodeType" ,
+            "name":"ArduinoNode",
+            "factoryBean":"org.kevoree.library.arduinoNodeType.ArduinoNodeFactory",
+            "bean":"org.kevoree.library.arduinoNodeType.ArduinoNode",
+            "deployUnits": ["//@deployUnits.32"],
+            "managedPrimitiveTypes": ["adaptationPrimitiveTypes[UpdateBinding]",
+                "adaptationPrimitiveTypes[UpdateDictionaryInstance]",
+                "adaptationPrimitiveTypes[RemoveType]",
+                "adaptationPrimitiveTypes[RemoveInstance]",
+                "adaptationPrimitiveTypes[StartInstance]",
+                "adaptationPrimitiveTypes[UpdateType]",
+                "adaptationPrimitiveTypes[AddFragmentBinding]",
+                "adaptationPrimitiveTypes[StartThirdParty]",
+                "adaptationPrimitiveTypes[AddBinding]",
+                "adaptationPrimitiveTypes[RemoveBinding]",
+                "adaptationPrimitiveTypes[StopInstance]",
+                "adaptationPrimitiveTypes[UpdateDeployUnit]",
+                "adaptationPrimitiveTypes[RemoveFragmentBinding]",
+                "adaptationPrimitiveTypes[UpdateInstance]",
+                "adaptationPrimitiveTypes[AddDeployUnit]",
+                "adaptationPrimitiveTypes[RemoveDeployUnit]",
+                "adaptationPrimitiveTypes[AddThirdParty]",
+                "adaptationPrimitiveTypes[AddType]",
+                "adaptationPrimitiveTypes[AddInstance]"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"pmem",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=eeprom,sd",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"psize",
+                        "optional":true,
+                        "state":false,
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"incremental",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=true,false",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"boardTypeName",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=uno,atmega328,mega2560",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"uno",
+                        "attribute":"//@typeDefinitions.29/@dictionaryType/@attributes.3"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"true",
+                        "attribute":"//@typeDefinitions.29/@dictionaryType/@attributes.2"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"eeprom",
+                        "attribute":"//@typeDefinitions.29/@dictionaryType/@attributes.0"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"MAX",
+                        "attribute":"//@typeDefinitions.29/@dictionaryType/@attributes.1"}
+                ]
+            }
+        }
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"LightSensor",
+            "factoryBean":"org.kevoree.library.sensors.LightSensorFactory",
+            "bean":"org.kevoree.library.sensors.LightSensor",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"pin",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"enum=0,1,2,3,4,5",
+                        "fragmentDependant":false}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.30/@dictionaryType/@attributes.1"}
+                    ,
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"0",
+                        "attribute":"//@typeDefinitions.30/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"light",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+        ,
+        { "eClass":"org.kevoree:MessagePortType" ,
+            "name":"org.kevoree.framework.MessagePort",
+            "synchrone":false}
+        ,
+        { "eClass":"org.kevoree:ComponentType" ,
+            "name":"GasSensor",
+            "factoryBean":"org.kevoree.library.sensors.GasSensorFactory",
+            "bean":"org.kevoree.library.sensors.GasSensor",
+            "deployUnits": ["//@deployUnits.16"],
+            "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
+                "attributes": [
+                    { "eClass":"org.kevoree:DictionaryAttribute" ,
+                        "name":"period",
+                        "optional":true,
+                        "state":false,
+                        "datatype":"raw=java.lang.Long",
+                        "fragmentDependant":false}
+                ]
+                ,
+                "defaultValues": [
+                    { "eClass":"org.kevoree:DictionaryValue" ,
+                        "value":"1000",
+                        "attribute":"//@typeDefinitions.32/@dictionaryType/@attributes.0"}
+                ]
+            }
+            ,
+            "required": [
+                { "eClass":"org.kevoree:PortTypeRef" ,
+                    "name":"temp",
+                    "optional":false,
+                    "noDependency":true,
+                    "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
+            ]
+        }
+    ]
+    ,
+    "repositories": [
+        { "eClass":"org.kevoree:Repository" ,
+            "url":"http://maven.kevoree.org/release"}
+        ,
+        { "eClass":"org.kevoree:Repository" ,
+            "url":"http://repo.maven.apache.org/maven2"}
+        ,
+        { "eClass":"org.kevoree:Repository" ,
+            "url":"http://repository.jetbrains.com/all"}
+        ,
+        { "eClass":"org.kevoree:Repository" ,
+            "url":"http://maven.kevoree.org/archiva/repository/snapshots/"}
+        ,
+        { "eClass":"org.kevoree:Repository" ,
+            "url":"http://maven.kevoree.org/snapshots"}
+    ]
+    ,
+    "libraries": [
+        { "eClass":"org.kevoree:TypeLibrary" ,
+            "name":"Android",
+            "subTypes": ["typeDefinitions[NanoRestGroup]"]}
+        ,
+        { "eClass":"org.kevoree:TypeLibrary" ,
+            "name":"Arduino",
+            "subTypes": ["typeDefinitions[TempBrickSensor]",
+                "typeDefinitions[defMSG]",
+                "typeDefinitions[UltraSonicRange]",
+                "typeDefinitions[ArduinoWirelessNode]",
+                "typeDefinitions[DigitalTone]",
+                "typeDefinitions[BaliseHommeMort]",
+                "typeDefinitions[TempSensor]",
+                "typeDefinitions[PWMServo]",
+                "typeDefinitions[FlexSensor]",
+                "typeDefinitions[AutoNormalizer]",
+                "typeDefinitions[PushButton]",
+                "typeDefinitions[SerialCT]",
+                "typeDefinitions[IMUSensor]",
+                "typeDefinitions[GpsI2C]",
+                "typeDefinitions[TempSensorInfrared]",
+                "typeDefinitions[PolarHeartRateMonitor]",
+                "typeDefinitions[LCDDisplay]",
+                "typeDefinitions[DigitalLight]",
+                "typeDefinitions[RotationSensor]",
+                "typeDefinitions[Timer]",
+                "typeDefinitions[DMXLight]",
+                "typeDefinitions[RF433CT]",
+                "typeDefinitions[ArduinoSerialDelegation]",
+                "typeDefinitions[DualMotor]",
+                "typeDefinitions[LevelDetector]",
+                "typeDefinitions[CurrentSensor]",
+                "typeDefinitions[ArduinoNode]",
+                "typeDefinitions[LightSensor]",
+                "typeDefinitions[GasSensor]"]}
+        ,
+        { "eClass":"org.kevoree:TypeLibrary" ,
+            "name":"JavaSE",
+            "subTypes": ["typeDefinitions[StatefulJavaSENode]",
+                "typeDefinitions[NanoRestGroup]",
+                "typeDefinitions[JavaSENode]"]}
+    ]
+    ,
+    "deployUnits": [
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.corelibrary.javase",
+            "unitName":"org.kevoree.library.javase.javaseNode",
+            "version":"2.0.0-SNAPSHOT",
+            "hashcode":"201304191226965",
+            "type":"jar",
+            "requiredLibs": ["//@deployUnits.1",
+                "//@deployUnits.2",
+                "//@deployUnits.3",
+                "//@deployUnits.4",
+                "//@deployUnits.5",
+                "//@deployUnits.6",
+                "//@deployUnits.7",
+                "//@deployUnits.8",
+                "//@deployUnits.9",
+                "//@deployUnits.10",
+                "//@deployUnits.11",
+                "//@deployUnits.12",
+                "//@deployUnits.13",
+                "//@deployUnits.14",
+                "//@deployUnits.15"],
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.kcl",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.slf4j",
+            "unitName":"slf4j-api",
+            "version":"1.7.2",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.kompare",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.api",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.model",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"fr.inria.jfilter",
+            "unitName":"jfilter-library",
+            "version":"1.3",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"com.google.code.gson",
+            "unitName":"gson",
+            "version":"2.2.2",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.model.context",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.adaptation.model",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.framework",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.jgrapht",
+            "unitName":"jgrapht-jdk1.5",
+            "version":"0.7.3",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.jetbrains.kotlin",
+            "unitName":"kotlin-stdlib",
+            "version":"0.5.429",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.jetbrains.kotlin",
+            "unitName":"kotlin-runtime",
+            "version":"0.5.429",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.tools",
+            "unitName":"org.kevoree.tools.javase.framework",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.tools",
+            "unitName":"org.kevoree.tools.annotation.api",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.corelibrary.arduino",
+            "unitName":"org.kevoree.library.arduino.components",
+            "version":"2.0.0-SNAPSHOT",
+            "hashcode":"201304191232325",
+            "type":"jar",
+            "requiredLibs": ["//@deployUnits.17",
+                "//@deployUnits.18",
+                "//@deployUnits.19",
+                "//@deployUnits.20",
+                "//@deployUnits.21",
+                "//@deployUnits.22",
+                "//@deployUnits.23",
+                "//@deployUnits.24",
+                "//@deployUnits.25",
+                "//@deployUnits.26",
+                "//@deployUnits.27",
+                "//@deployUnits.28",
+                "//@deployUnits.29",
+                "//@deployUnits.30",
+                "//@deployUnits.31"],
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.tools",
+            "unitName":"org.kevoree.tools.arduino.framework",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.tools",
+            "unitName":"org.kevoree.tools.javase.framework",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.slf4j",
+            "unitName":"slf4j-api",
+            "version":"1.7.2",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.framework",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.api",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.model",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"fr.inria.jfilter",
+            "unitName":"jfilter-library",
+            "version":"1.3",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"com.google.code.gson",
+            "unitName":"gson",
+            "version":"2.2.2",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.model.context",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.adaptation.model",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.kcl",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.jetbrains.kotlin",
+            "unitName":"kotlin-stdlib",
+            "version":"0.5.429",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.jetbrains.kotlin",
+            "unitName":"kotlin-runtime",
+            "version":"0.5.429",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.tools",
+            "unitName":"org.kevoree.tools.annotation.api",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.scala-lang",
+            "unitName":"scala-library",
+            "version":"2.9.2",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.corelibrary.arduino",
+            "unitName":"org.kevoree.library.arduino.nodeType",
+            "version":"2.0.0-SNAPSHOT",
+            "hashcode":"201304191231503",
+            "type":"jar",
+            "requiredLibs": ["//@deployUnits.21",
+                "//@deployUnits.25",
+                "//@deployUnits.19",
+                "//@deployUnits.28",
+                "//@deployUnits.29",
+                "//@deployUnits.22",
+                "//@deployUnits.23",
+                "//@deployUnits.24",
+                "//@deployUnits.26",
+                "//@deployUnits.18",
+                "//@deployUnits.27",
+                "//@deployUnits.17",
+                "//@deployUnits.20",
+                "//@deployUnits.30",
+                "//@deployUnits.31",
+                "//@deployUnits.33",
+                "//@deployUnits.34",
+                "//@deployUnits.35",
+                "//@deployUnits.36",
+                "//@deployUnits.37",
+                "//@deployUnits.38",
+                "//@deployUnits.39",
+                "//@deployUnits.40"],
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.kompare",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.jgrapht",
+            "unitName":"jgrapht-jdk1.5",
+            "version":"0.7.3",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.tools",
+            "unitName":"org.kevoree.tools.marShellTransform",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.tools",
+            "unitName":"org.kevoree.tools.marShell",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree",
+            "unitName":"org.kevoree.merger",
+            "version":"2.0.0-SNAPSHOT",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.extra",
+            "unitName":"org.kevoree.extra.kserial",
+            "version":"1.7",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"net.java.dev.jna",
+            "unitName":"jna",
+            "version":"3.3.0",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.extra",
+            "unitName":"org.kevoree.extra.fota.api",
+            "version":"1.2",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.corelibrary.javase",
+            "unitName":"org.kevoree.library.javase.nanohttp",
+            "version":"2.0.0-SNAPSHOT",
+            "hashcode":"201304191228738",
+            "type":"jar",
+            "requiredLibs": ["//@deployUnits.14",
+                "//@deployUnits.10",
+                "//@deployUnits.4",
+                "//@deployUnits.5",
+                "//@deployUnits.6",
+                "//@deployUnits.7",
+                "//@deployUnits.8",
+                "//@deployUnits.9",
+                "//@deployUnits.1",
+                "//@deployUnits.12",
+                "//@deployUnits.13",
+                "//@deployUnits.2",
+                "//@deployUnits.15",
+                "//@deployUnits.42"],
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.scala-lang",
+            "unitName":"scala-library",
+            "version":"2.9.2",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.corelibrary.arduino",
+            "unitName":"org.kevoree.library.arduino.groupType",
+            "version":"2.0.0-SNAPSHOT",
+            "hashcode":"201304191232648",
+            "type":"jar",
+            "requiredLibs": ["//@deployUnits.18",
+                "//@deployUnits.19",
+                "//@deployUnits.38",
+                "//@deployUnits.39",
+                "//@deployUnits.20",
+                "//@deployUnits.21",
+                "//@deployUnits.22",
+                "//@deployUnits.23",
+                "//@deployUnits.24",
+                "//@deployUnits.25",
+                "//@deployUnits.26",
+                "//@deployUnits.27",
+                "//@deployUnits.28",
+                "//@deployUnits.29",
+                "//@deployUnits.30",
+                "//@deployUnits.31"],
+            "targetNodeType":"typeDefinitions[JavaSENode]"}
+        ,
+        { "eClass":"org.kevoree:DeployUnit" ,
+            "groupName":"org.kevoree.corelibrary.arduino",
+            "unitName":"org.kevoree.library.arduino.groupType",
+            "version":"2.0.0-SNAPSHOT",
+            "hashcode":"201304191232648",
+            "type":"jar",
+            "targetNodeType":"typeDefinitions[ArduinoNode]"}
+    ]
+    ,
+    "adaptationPrimitiveTypes": [
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"UpdateFragmentBinding"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"UpdateDictionaryInstance"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"UpdateBinding"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"RemoveThirdParty"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"RemoveInstance"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"RemoveType"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"StartInstance"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"UpdateType"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"AddFragmentBinding"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"StartThirdParty"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"AddBinding"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"RemoveBinding"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"StopInstance"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"UpdateDeployUnit"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"RemoveFragmentBinding"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"UpdateInstance"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"AddDeployUnit"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"RemoveDeployUnit"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"AddThirdParty"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"AddType"}
+        ,
+        { "eClass":"org.kevoree:AdaptationPrimitiveType" ,
+            "name":"AddInstance"}
+    ]
+}

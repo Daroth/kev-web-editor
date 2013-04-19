@@ -8,7 +8,7 @@ define(
 
     function(KEntity, CInputPort, COutputPort, Pooffs) {
 
-        KComponent.ENTITY_TYPE = 'component';
+        KComponent.ENTITY_TYPE = 'ComponentType';
 
         Pooffs.extends(KComponent, KEntity);
 

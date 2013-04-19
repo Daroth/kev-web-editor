@@ -1,14 +1,13 @@
 define(
     [
         'jquery',
-        'io/IOEngine'
+        'io/IOEngine',
+        'util/ModelHelper'
     ],
-    function ($, IOEngine) {
-        function LoadCommand () {
-            this._editor = null;
-        }
+    function ($, IOEngine, ModelHelper) {
+        function LoadCommand () {}
 
-        LoadCommand.prototype.execute = function () {
+        LoadCommand.prototype.execute = function (editor) {
             // opens file selector
             $('#file').trigger('click');
 
@@ -29,7 +28,10 @@ define(
                     try {
                         // parse data to JSON
                         var model = JSON.parse(data);
-                        this._editor = IOEngine.load(model);
+                        //this._editor = IOEngine.load(model);
+                        var modelHelper = new ModelHelper();
+                        modelHelper.loadFromJSON(model, editor);
+
                         $('#alert-content').text("Model \""+file.name+"\" loaded successfully");
                         $('#alert').addClass('alert-success in');
                         setTimeout(function () {
@@ -46,10 +48,6 @@ define(
                 }
                 fReader.readAsText(file);
             });
-        }
-
-        LoadCommand.prototype.setEditor = function (editor) {
-            this._editor = editor;
         }
 
         return LoadCommand;

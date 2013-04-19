@@ -9,6 +9,8 @@ define(
     ],
 
     function (WireLayer, _bootstrap, $) {
+        var NAMESPACE = '.uieditor';
+
 
         function UIEditor(ctrl, containerID) {
             this._ctrl = ctrl;
@@ -67,8 +69,12 @@ define(
         UIEditor.prototype._registerCallbacks = function () {
             var that = this;
 
+            // unregister listeners before
+            $(window).off(NAMESPACE);
+            $('.nav-header').off(NAMESPACE);
+
             // refresh editor size on window resizing
-            $(window).resize(function() {
+            $(window).on('resize'+NAMESPACE, function() {
                 that._stage.setWidth($('#'+that._id).width());
                 that._stage.setHeight($('#'+that._id).height());
                 that._stage.draw();
@@ -76,7 +82,7 @@ define(
             });
 
             // foldable lib-tree
-            $('.nav-header').click(function() {
+            $('.nav-header').on('click'+NAMESPACE, function() {
                 var icon = $(this).parent().children().first().children().first();
                 icon.toggleClass('icon-arrow-right');
                 icon.toggleClass('icon-arrow-down');
@@ -102,7 +108,7 @@ define(
                 }
             });
 
-            $(".lib-item[data-entity='component']").tooltip({
+            $(".lib-item[data-entity='ComponentType']").tooltip({
                 selector: $(this),
                 placement: 'bottom',
                 title: "You have to drop this element in a Node",
@@ -189,6 +195,26 @@ define(
 
         UIEditor.prototype.c2pWireAdded = function (wire) {
             this._wireLayer.add(wire);
+        }
+
+        UIEditor.prototype.c2pAddLibrary = function (name, components) {
+            var libItems = "";
+            for (var i=0; i < components.length; i++) {
+                libItems += "<li class='lib-item' data-entity='"+components[i].type+"'>"+components[i].name+"</li>";
+            }
+
+            var htmlContent =
+                "<ul class='nav nav-list'>" +
+                    "<li class='nav-header cursor-pointer'>" +
+                    "<i class='icon-arrow-right icon-white'></i>"+
+                    name+
+                    "</li>"+
+                    libItems+
+                    "</ul>";
+
+            $('#lib-tree .lib-tree-info').remove();
+            $('#lib-tree').children().append(htmlContent);
+            this._registerCallbacks();
         }
 
         /**

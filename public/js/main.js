@@ -52,8 +52,7 @@ define(
             // opens file chooser when "load" menu item is clicked
             $('#load').click(function () {
                 var cmd = new LoadCommand();
-                cmd.setEditor(editor);
-                cmd.execute();
+                cmd.execute(editor);
             });
 
             $('.close').click(function () {
@@ -66,8 +65,7 @@ define(
             // Listeners that trigger XXXCommand.execute()
             $('#save').click(function () {
                 var cmd = new SaveCommand();
-                cmd.setEditor(editor);
-                cmd.execute();
+                cmd.execute(editor);
             });
 
             $('#save-kevs').click(function () {
@@ -85,10 +83,9 @@ define(
                 cmd.execute();
             });
 
-            $('#model-load-corelib').click(function () {
+            $('.model-load-corelib').click(function () {
                 var cmd = new MergeDefaultLibraryCommand();
-                cmd.setEditor(editor);
-                cmd.execute();
+                cmd.execute($(this).attr('data-lib'), editor);
             });
             // END Listeners that trigger Cmd.execute()
             // ========================================

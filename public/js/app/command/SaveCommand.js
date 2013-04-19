@@ -4,14 +4,12 @@ define(
         'io/IOEngine'
     ],
     function ($, IOEngine) {
-        function SaveCommand () {
-            this._editor = null;
-        }
+        function SaveCommand () {}
 
-        SaveCommand.prototype.execute = function () {
-            var serializedStage = this._editor.getUI().getStage().toJSON();
+        SaveCommand.prototype.execute = function (editor) {
+            var serializedStage = editor.getUI().getStage().toJSON();
 
-            var json = IOEngine.save(this._editor);
+            var json = IOEngine.save(editor);
             console.log(json);
 
             setTimeout(function () {
@@ -21,10 +19,6 @@ define(
                 );
                 $('#save-popup').modal({ show: true });
             }, 300);
-        }
-
-        SaveCommand.prototype.setEditor = function (editor) {
-            this._editor = editor;
         }
 
         return SaveCommand;
