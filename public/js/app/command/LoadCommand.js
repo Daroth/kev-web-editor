@@ -2,9 +2,10 @@ define(
     [
         'jquery',
         'io/IOEngine',
-        'util/ModelHelper'
+        'util/ModelHelper',
+        'util/AlertPopupHelper'
     ],
-    function ($, IOEngine, ModelHelper) {
+    function ($, IOEngine, ModelHelper, AlertPopupHelper) {
         function LoadCommand () {}
 
         LoadCommand.prototype.execute = function (editor) {
@@ -32,18 +33,14 @@ define(
                         var modelHelper = new ModelHelper();
                         modelHelper.loadFromJSON(model, editor);
 
-                        $('#alert-content').text("Model \""+file.name+"\" loaded successfully");
-                        $('#alert').addClass('alert-success in');
-                        setTimeout(function () {
-                            $('#alert').removeClass('alert-success in');
-                        }, 5000);
+                        AlertPopupHelper.setText("Model \""+file.name+"\" loaded successfully");
+                        AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
+                        AlertPopupHelper.show(5000);
 
                     } catch (err) {
-                        $('#alert-content').text(err.message);
-                        $('#alert').addClass('alert-error in');
-                        setTimeout(function () {
-                            $('#alert').removeClass('alert-error in');
-                        }, 5000);
+                        AlertPopupHelper.setText(err.message);
+                        AlertPopupHelper.setType(AlertPopupHelper.ERROR);
+                        AlertPopupHelper.show(5000);
                     }
                 }
                 fReader.readAsText(file);
