@@ -4,28 +4,32 @@ define(
         function ModelHelper () {}
 
         ModelHelper.prototype.loadFromJSON = function (jsonModel, editor) {
-            // model retrieved successfully from server in JSON
-            var libraries = [];
-            for (var i=0; i < jsonModel.libraries.length; i++) {
-                libraries.push({
-                    name: jsonModel.libraries[i].name,
-                    components: isolateSubTypes(jsonModel.libraries[i])
-                });
-            }
+            try {
+                // model retrieved successfully from server in JSON
+                var libraries = [];
+                for (var i=0; i < jsonModel.libraries.length; i++) {
+                    libraries.push({
+                        name: jsonModel.libraries[i].name,
+                        components: isolateSubTypes(jsonModel.libraries[i])
+                    });
+                }
 
-            var typeDefs = [];
-            for (var i=0; i < jsonModel.typeDefinitions.length; i++) {
-                var name = jsonModel.typeDefinitions[i].name;
-                typeDefs[name] = {
-                    name: name,
-                    type: isolateEClassName(jsonModel.typeDefinitions[i].eClass)
-                };
-            }
+                var typeDefs = [];
+                for (var i=0; i < jsonModel.typeDefinitions.length; i++) {
+                    var name = jsonModel.typeDefinitions[i].name;
+                    typeDefs[name] = {
+                        name: name,
+                        type: isolateEClassName(jsonModel.typeDefinitions[i].eClass)
+                    };
+                }
 
-            computeLibrariesWithComponents(libraries, typeDefs);
+                computeLibrariesWithComponents(libraries, typeDefs);
 
-            for (var i=0; i < libraries.length; i++) {
-                editor.addLibrary(libraries[i].name, libraries[i].components);
+                for (var i=0; i < libraries.length; i++) {
+                    editor.addLibrary(libraries[i].name, libraries[i].components);
+                }
+            } catch (err) {
+                throw new Error("Unable to load model. Corrupted file ?");
             }
         }
 

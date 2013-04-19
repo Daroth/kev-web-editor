@@ -8,6 +8,10 @@ exports.merge = function(req, res) {
             res.sendfile('public/dummy/modelAll.json');
             break;
 
+        case 'android':
+            res.sendfile('public/dummy/modelAndroid.json');
+            break;
+
         case 'javase':
             res.sendfile('public/dummy/modelJavaSE.json');
             break;
