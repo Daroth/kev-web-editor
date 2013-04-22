@@ -103,12 +103,6 @@ define(
             }
         }
 
-        // Override KEditor.addLibrary(name, components)
-        CEditor.prototype.addLibrary = function (name, components) {
-            KEditor.prototype.addLibrary.call(this, name, components); // super(name, components)
-            this._ui.c2pAddLibrary(name, components);
-        }
-
         CEditor.prototype.getDraggedEntity = function () {
             return this._draggedEntity;
         }

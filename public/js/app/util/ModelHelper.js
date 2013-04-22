@@ -1,11 +1,19 @@
 define(
-    function () {
+    [
+        'abstraction/KComponent'
+    ],
+
+    function (KComponent) {
 
         function ModelHelper () {}
 
+        /**
+         * Inflates given Editor with data found in the given JSON model
+         * @param jsonModel
+         * @param editor
+         */
         ModelHelper.prototype.loadFromJSON = function (jsonModel, editor) {
             try {
-                // model retrieved successfully from server in JSON
                 var libraries = [];
                 for (var i=0; i < jsonModel.libraries.length; i++) {
                     libraries.push({
@@ -17,10 +25,12 @@ define(
                 var typeDefs = [];
                 for (var i=0; i < jsonModel.typeDefinitions.length; i++) {
                     var name = jsonModel.typeDefinitions[i].name;
-                    typeDefs[name] = {
-                        name: name,
-                        type: isolateEClassName(jsonModel.typeDefinitions[i].eClass)
-                    };
+                    var type = isolateEClassName(jsonModel.typeDefinitions[i].eClass);
+                    typeDefs[name] = { name: name, type: type };
+                    if (type == KComponent.ENTITY_TYPE) {
+                        typeDefs[name]['required'] = jsonModel.typeDefinitions[i].required;
+                        typeDefs[name]['provided'] = jsonModel.typeDefinitions[i].provided;
+                    }
                 }
 
                 computeLibrariesWithComponents(libraries, typeDefs);

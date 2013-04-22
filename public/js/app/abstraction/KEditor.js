@@ -3,6 +3,7 @@ define(
         function KEditor() {
             this._entities = new Array();
             this._typeCounter = new Array();
+            this._libraries = new Array();
         }
 
         KEditor.prototype.addEntity = function(entity) {
@@ -23,12 +24,12 @@ define(
             }
         }
 
-        KEditor.prototype.getEntities = function() {
-            return this._entities;
+        KEditor.prototype.addLibrary = function (name, components) {
+            this._libraries[name] = components;
         }
 
-        KEditor.prototype.addLibrary = function (name, components) {
-
+        KEditor.prototype.getLibraries = function () {
+            return this._libraries;
         }
 
         KEditor.prototype.clear = function () {

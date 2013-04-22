@@ -12,7 +12,7 @@ define(
 
         Pooffs.extends(KComponent, KEntity);
 
-        function KComponent(editor, type) {
+        function KComponent(editor, type, inputs, outputs) {
             KEntity.prototype.constructor.call(this, editor, type);
 
             this._parent = null;
@@ -58,6 +58,20 @@ define(
 
         KComponent.prototype.getOutputs = function () {
             return this._outputs;
+        }
+
+        KComponent.prototype.addInput = function (input) {
+            var index = this._inputs.indexOf(input);
+            if (index == -1) { // do not duplicate inputs in components
+                this._inputs.push(input);
+            }
+        }
+
+        KComponent.prototype.addOutput = function (output) {
+            var index = this._inputs.indexOf(output);
+            if (index == -1) { // do not duplicate outputs in components
+                this._inputs.push(output);
+            }
         }
 
         return KComponent;

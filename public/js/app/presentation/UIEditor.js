@@ -18,6 +18,7 @@ define(
             this._currentWire = null;
             this._modelLayer = new Kinetic.Layer();
             this._wireLayer = new WireLayer();
+            this._libHeaders = new Array();
         }
 
         UIEditor.prototype.create = function(width, height) {
@@ -197,23 +198,37 @@ define(
             this._wireLayer.add(wire);
         }
 
-        UIEditor.prototype.c2pAddLibrary = function (name, components) {
+        UIEditor.prototype.inflateLibTree = function () {
+            $('.lib-tree-info').remove();
+
+            var libz = this._ctrl.getLibraries();
+
+            var libTree = "";
             var libItems = "";
-            for (var i=0; i < components.length; i++) {
-                libItems += "<li class='lib-item' data-entity='"+components[i].type+"'>"+components[i].name+"</li>";
+            for (var name in libz) {
+                if (Object.prototype.hasOwnProperty.call(libz, name)) {
+                    var compz = libz[name];
+                    for (var compIndex=0; compIndex < compz.length; compIndex++) {
+                        var comp = compz[compIndex];
+                        libItems += "<li class='lib-item' data-entity='"+comp.type+"'>"+comp.name+"</li>";
+                    }
+
+                    var htmlContent =
+                        "<ul class='nav nav-list'>" +
+                            "<li class='nav-header cursor-pointer'>" +
+                            "<i class='icon-arrow-right icon-white'></i>"+
+                            name+
+                            "</li>"+
+                            libItems+
+                            "</ul>";
+
+                    libTree += htmlContent;
+                    libItems = htmlContent = "";
+                }
             }
 
-            var htmlContent =
-                "<ul class='nav nav-list'>" +
-                    "<li class='nav-header cursor-pointer'>" +
-                    "<i class='icon-arrow-right icon-white'></i>"+
-                    name+
-                    "</li>"+
-                    libItems+
-                    "</ul>";
+            $('#lib-tree-content').html(libTree);
 
-            $('#lib-tree .lib-tree-info').remove();
-            $('#lib-tree').children().append(htmlContent);
             this._registerCallbacks();
         }
 

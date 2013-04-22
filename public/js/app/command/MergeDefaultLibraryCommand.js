@@ -21,6 +21,7 @@ define(
                     // create a model helper to handle jsonModel parsing
                     var modelHelper = new ModelHelper();
                     modelHelper.loadFromJSON(jsonModel, editor);
+                    editor.getUI().inflateLibTree();
 
                     // update headsup for user
                     AlertPopupHelper.setText("Core library ("+lib+") loaded successfully");
