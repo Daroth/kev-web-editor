@@ -30,7 +30,11 @@ define(
                 fontFamily: 'Helvetica',
                 fill: '#FFF',
                 padding: 15,
-                align: 'center'
+                align: 'center',
+                drawFunc: function (canvas) {
+                    that._drawHeader();
+                    this.drawFunc(canvas);
+                }
             });
 
             var that = this;
@@ -69,6 +73,10 @@ define(
             this._shape.on('dragmove', function(e) {
                 that._ctrl.p2cDragMove();
             });
+        }
+
+        UINestableEntity.prototype._drawHeader = function () {
+            this._headerName.setText(this._ctrl.getName() + ' : ' + this._ctrl.getType());
         }
 
         UINestableEntity.prototype.ready = function() {

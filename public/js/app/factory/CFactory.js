@@ -52,12 +52,12 @@ define(
             return new CWire(origin);
         };
 
-        CFactory.prototype.newInputPort = function () {
-            return new CInputPort();
+        CFactory.prototype.newInputPort = function (name) {
+            return new CInputPort(name);
         };
 
-        CFactory.prototype.newOutputPort = function () {
-            return new COutputPort();
+        CFactory.prototype.newOutputPort = function (name) {
+            return new COutputPort(name);
         };
 
         return CFactory;

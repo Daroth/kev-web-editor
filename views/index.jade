@@ -25,15 +25,21 @@ block content
 
         div#editor.under
 
-  div#popup.modal.hide.fade(tabindex='-1', role='dialog')
+  //- ==========================
+  //- Properties popup template
+  //- ==========================
+  div#prop-popup.modal.hide.fade(tabindex='-1', role='dialog')
     div.modal-header
       button.close(type='button', data-dismiss='modal') &times;
-      h3 Properties
+      h3 Properties -
+        span#prop-popup-subtitle
     div.modal-body
-      div#popup-content
+      div
+        input#prop-popup-name(type='text', placeholder='Name')
+      div#prop-popup-content
     div.modal-footer
       button.btn(data-dismiss='modal', aria-hidden='true') Close
-      button#save.btn.btn-primary(data-dismiss='modal') Save changes
-      button#delete.btn.btn-danger(data-dismiss='modal') Delete
+      button#prop-popup-save.btn.btn-primary(data-dismiss='modal') Save changes
+      button#prop-popup-delete.btn.btn-danger(data-dismiss='modal') Delete
 
 block save-popup

@@ -15,11 +15,11 @@ define(
         Pooffs.extends(CNode, CNestableEntity);
 
         function CNode(editor, type) {
-            // KNode.super(type)
-            KNode.prototype.constructor.call(this, editor, type);
-
             // CNestableEntity.super(editor, type)
             CNestableEntity.prototype.constructor.call(this, editor, type);
+
+            // KNode.super(type)
+            KNode.prototype.constructor.call(this, editor, type);
 
             // instantiate UI
             this._ui = new UINode(this);

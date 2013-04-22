@@ -11,9 +11,8 @@ define(
         Pooffs.extends(CInputPort, CPort);
         Pooffs.extends(CInputPort, KInputPort);
 
-        function CInputPort () {
-            CPort.prototype.constructor.call(this);
-            KInputPort.prototype.constructor.call(this);
+        function CInputPort (name) {
+            CPort.prototype.constructor.call(this, name);
 
             // instantiate ui
             this._ui = new UIInputPort(this);

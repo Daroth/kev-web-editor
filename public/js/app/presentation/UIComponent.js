@@ -47,6 +47,13 @@ define(
             this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
         }
 
+        UIComponent.prototype._drawHeader = function () {
+            this._headerName.setText(
+                this._ctrl.getName() +
+                "\n" +
+                this._ctrl.getType());
+        }
+
         // Override UINestableEntity._draw()
         UIComponent.prototype._draw = function () {
             if (this._ctrl.getParent()) {

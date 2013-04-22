@@ -24,17 +24,26 @@ define(
 
         UIEntity.prototype.setPopup = function(content) {
             var that = this;
-            // TODO this is not buenos
+            this._shape.off('dblclick tap');
             this._shape.on('dblclick tap', function(e) {
                 // prevent children from getting the event too
                 e.cancelBubble = true;
 
-                $('#delete').off('click'); // get rid of old listeners on '#delete'
-                $('#delete').on('click', function() {
+                $('#prop-popup-delete').off('click'); // get rid of old listeners on '#delete'
+                $('#prop-popup-delete').on('click', function() {
                     that._ctrl.p2cRemoveEntity();
                 });
-                $('#popup-content').html(content);
-                $('#popup').modal({ show: true });
+
+                $('#prop-popup-save').off('click');
+                $('#prop-popup-save').on('click', function () {
+                    var name = $('#prop-popup-name').val();
+                    that._ctrl.p2cSaveProperties(name);
+                });
+
+                $('#prop-popup-subtitle').html(that._ctrl.getEntityType());
+                $('#prop-popup-name').val(that._ctrl.getName());
+                $('#prop-popup-content').html(content);
+                $('#prop-popup').modal({ show: true });
             });
         }
 

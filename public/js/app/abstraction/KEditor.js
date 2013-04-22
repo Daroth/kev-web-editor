@@ -24,6 +24,18 @@ define(
             }
         }
 
+        KEditor.prototype.addNestableEntity = function (entity) {
+            // update typeCounter
+            if (!this._typeCounter[entity.getType()]) this._typeCounter[entity.getType()] = 0;
+            this._typeCounter[entity.getType()]++;
+        }
+
+        KEditor.prototype.removeNestableEntity = function (entity) {
+            // update typeCounter
+            // update typeCounter
+            this._typeCounter[entity.getType()]--;
+        }
+
         KEditor.prototype.addLibrary = function (name, components) {
             this._libraries[name] = components;
         }

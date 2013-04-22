@@ -13,6 +13,10 @@ define(
             return this._name;
         }
 
+        KEntity.prototype.setName = function(name) {
+            this._name = name;
+        }
+
         KEntity.prototype.getType = function() {
             return this._type;
         }

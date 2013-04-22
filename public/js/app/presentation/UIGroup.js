@@ -87,7 +87,7 @@
             //===========================
             // Properties popup content
             //===========================
-            this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
+            this.setPopup();
         }
 
         // Override UIEntity.c2pWireCreationStarted(UIWire)

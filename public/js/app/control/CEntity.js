@@ -31,6 +31,10 @@ define(
             this._ui.c2pRemoveEntity();
         }
 
+        CEntity.prototype.p2cSaveProperties = function (name) {
+            this.setName(name);
+        }
+
         return CEntity;
     }
 );

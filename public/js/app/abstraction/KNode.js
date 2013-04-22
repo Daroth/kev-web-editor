@@ -6,6 +6,7 @@ define(
     ],
 
     function(KEntity, KComponent, Pooffs) {
+        var COUNT = 0;
 
         KNode.ENTITY_TYPE = 'NodeType';
 
@@ -16,6 +17,7 @@ define(
 
             this._parent = null;
             this._children = new Array();
+            this._name = 'node'+ COUNT++;
         }
 
         KNode.prototype.getEntityType = function () {
@@ -28,6 +30,7 @@ define(
                 if (index == -1) { // do not duplicate instances inside array
                     this._children.push(entity);
                     entity.setParent(this);
+                    this.getEditor().addNestableEntity(entity);
                 }
                 return true;
             }
@@ -43,6 +46,8 @@ define(
             if (index != -1) {
                 this._children.splice(index, 1);
                 entity.setParent(null); // TODO changethat; this is ugly, cause if you add before removing, you got a null on parent
+                // update typeCounter
+                this.getEditor().removeNestableEntity(entity);
             }
         }
 

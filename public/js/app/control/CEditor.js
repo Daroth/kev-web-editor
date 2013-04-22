@@ -72,18 +72,14 @@ define(
                         var inputs = [], outputs = [];
                         for (var i=0; i < compz.length; i++) {
                             if (compz[i].name == name) {
-                                if (compz[i].required) {
-                                    for (var j=0; j < compz[i].required.length; j++) {
-                                        inputs.push(factory.newInputPort());
-                                        console.log("new input port added to comp");
-                                    }
+                                var required = (compz[i].required) ? compz[i].required : [];
+                                var provided = (compz[i].provided) ? compz[i].provided : [];
+                                for (var j=0; j < required.length; j++) {
+                                    inputs.push(factory.newInputPort(required[j].name));
                                 }
 
-                                if (compz[i].provided) {
-                                    for (var j=0; j < compz[i].provided.length; j++) {
-                                        outputs.push(factory.newOutputPort());
-                                        console.log("new output port added to comp");
-                                    }
+                                for (var j=0; j < provided.length; j++) {
+                                    outputs.push(factory.newOutputPort(provided[j].name));
                                 }
                             }
                         }
