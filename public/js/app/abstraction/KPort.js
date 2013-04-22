@@ -4,12 +4,10 @@ define(
         /**
          * This should be considered as an abstract class
          *
-         * @param component
          * @constructor
          */
-        function KPort (/* KComponent */ component) {
-            this._component = component;
-
+        function KPort () {
+            this._component = null;
             this._channel = null;
         }
 
@@ -28,6 +26,10 @@ define(
 
         KPort.prototype.getComponent = function () {
             return this._component;
+        }
+
+        KPort.prototype.setComponent = function (comp) {
+            this._component = comp;
         }
 
         return KPort;

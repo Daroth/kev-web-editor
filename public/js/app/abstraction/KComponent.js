@@ -12,12 +12,14 @@ define(
 
         Pooffs.extends(KComponent, KEntity);
 
-        function KComponent(editor, type, inputs, outputs) {
+        function KComponent(editor, type, ins, outs) {
             KEntity.prototype.constructor.call(this, editor, type);
 
             this._parent = null;
-            this._inputs = new Array(/* KPort */);
-            this._outputs = new Array(/* KPort */);
+            this._inputs = (ins) ? ins : [];
+            this._outputs = (outs) ? outs : [];
+            for (var i=0; i < this._inputs.length; i++) this._inputs[i].setComponent(this);
+            for (var i=0; i < this._outputs.length; i++) this._outputs[i].setComponent(this);
         }
 
         KComponent.prototype.getEntityType = function () {
@@ -58,20 +60,6 @@ define(
 
         KComponent.prototype.getOutputs = function () {
             return this._outputs;
-        }
-
-        KComponent.prototype.addInput = function (input) {
-            var index = this._inputs.indexOf(input);
-            if (index == -1) { // do not duplicate inputs in components
-                this._inputs.push(input);
-            }
-        }
-
-        KComponent.prototype.addOutput = function (output) {
-            var index = this._inputs.indexOf(output);
-            if (index == -1) { // do not duplicate outputs in components
-                this._inputs.push(output);
-            }
         }
 
         return KComponent;

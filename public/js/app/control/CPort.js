@@ -11,8 +11,8 @@ define(
         Pooffs.extends(CPort, KPort);
         Pooffs.extends(CPort, AController);
 
-        function CPort(/* CComponent */ component) {
-            KPort.prototype.constructor.call(this, component);
+        function CPort() {
+            KPort.prototype.constructor.call(this);
         }
 
         CPort.prototype.p2cMouseDown = function () {

@@ -50,32 +50,53 @@ define(
             }
         }
 
-        CEditor.prototype.p2cEntityDraggedOver = function (libItem, entity_type, type) {
-            var factory = require('factory/CFactory').getInstance();
+        CEditor.prototype.p2cEntityDraggedOver = function (libItem, entity_type, env, name) {
+            if (!this._draggedEntity) {
+                var factory = require('factory/CFactory').getInstance();
 
-            switch (entity_type) {
-                case KGroup.ENTITY_TYPE:
-                    this._draggedEntity = factory.newGroup(this, type);
-                    break;
+                switch (entity_type) {
+                    case KGroup.ENTITY_TYPE:
+                        this._draggedEntity = factory.newGroup(this, name);
+                        break;
 
-                case KChannel.ENTITY_TYPE:
-                    this._draggedEntity = factory.newChannel(this, type);
-                    break;
+                    case KChannel.ENTITY_TYPE:
+                        this._draggedEntity = factory.newChannel(this, name);
+                        break;
 
-                case KNode.ENTITY_TYPE:
-                    this._draggedEntity = factory.newNode(this, type);
-                    break;
+                    case KNode.ENTITY_TYPE:
+                        this._draggedEntity = factory.newNode(this, name);
+                        break;
 
-                case KComponent.ENTITY_TYPE:
-                    this._draggedEntity = factory.newComponent(this, type);
-                    break;
+                    case KComponent.ENTITY_TYPE:
+                        var compz = this.getLibraries()[env];
+                        var inputs = [], outputs = [];
+                        for (var i=0; i < compz.length; i++) {
+                            if (compz[i].name == name) {
+                                if (compz[i].required) {
+                                    for (var j=0; j < compz[i].required.length; j++) {
+                                        inputs.push(factory.newInputPort());
+                                        console.log("new input port added to comp");
+                                    }
+                                }
 
-                default:
-                    console.error("CEditor.addEntity(type): I don't know this entity type: "+entity_type);
-                    return;
+                                if (compz[i].provided) {
+                                    for (var j=0; j < compz[i].provided.length; j++) {
+                                        outputs.push(factory.newOutputPort());
+                                        console.log("new output port added to comp");
+                                    }
+                                }
+                            }
+                        }
+                        this._draggedEntity = factory.newComponent(this, name, inputs, outputs);
+                        break;
+
+                    default:
+                        console.error("CEditor.addEntity(type): I don't know this entity type: "+entity_type);
+                        return;
+                }
+
+                this._draggedEntity.getUI().setDOMItem(libItem);
             }
-
-            this._draggedEntity.getUI().setDOMItem(libItem);
         }
 
         CEditor.prototype.p2cEntityDraggedOut = function () {

@@ -42,6 +42,8 @@ define(
                 this._shape.add(port);
             }
 
+            console.log("Component UI done constructed toussah");
+
             this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
         }
 

@@ -11,8 +11,9 @@ define(
         Pooffs.extends(COutputPort, CPort);
         Pooffs.extends(COutputPort, KOutputPort);
 
-        function COutputPort (component) {
-            CPort.prototype.constructor.call(this, component);
+        function COutputPort () {
+            CPort.prototype.constructor.call(this);
+            KOutputPort.prototype.constructor.call(this);
 
             // instantiate ui
             this._ui = new UIOutputPort(this);

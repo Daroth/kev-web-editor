@@ -124,12 +124,12 @@ define(
             $('#editor').droppable({
                 drop: function(event, ui) {
                     that._ctrl.p2cEntityDropped();
-                    var type = ui.draggable.clone()      // clone the element
+                    var name = ui.draggable.clone() // clone the element
                         .children()                 // select all the children
                         .remove()                   // remove all the children
                         .end()                      // again go back to selected element
                         .text();
-                    var badgeCount = that._ctrl.getEntityCount(type);
+                    var badgeCount = that._ctrl.getEntityCount(name);
 
                     if (ui.draggable.children().size() != 0) {
                         ui.draggable.children().first().text(badgeCount);
@@ -139,12 +139,13 @@ define(
                 },
                 over: function(event, ui) {
                     var entity = ui.draggable.attr('data-entity');
-                    var type = ui.draggable.clone()      // clone the element
+                    var env = ui.draggable.attr('data-env');
+                    var name = ui.draggable.clone() // clone the element
                         .children()                 // select all the children
                         .remove()                   // remove all the children
                         .end()                      // again go back to selected element
                         .text();
-                    that._ctrl.p2cEntityDraggedOver(ui.draggable, entity, type);
+                    that._ctrl.p2cEntityDraggedOver(ui.draggable, entity, env, name);
                 },
                 out: function () {
                     that._ctrl.p2cEntityDraggedOut();
@@ -210,7 +211,7 @@ define(
                     var compz = libz[name];
                     for (var compIndex=0; compIndex < compz.length; compIndex++) {
                         var comp = compz[compIndex];
-                        libItems += "<li class='lib-item' data-entity='"+comp.type+"'>"+comp.name+"</li>";
+                        libItems += "<li class='lib-item' data-entity='"+comp.type+"' data-env='"+name+"'>"+comp.name+"</li>";
                     }
 
                     var htmlContent =

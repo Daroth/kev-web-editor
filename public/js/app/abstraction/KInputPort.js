@@ -9,8 +9,8 @@ define(
 
         Pooffs.extends(KInputPort, KPort);
 
-        function KInputPort (/* KComponent */ component) {
-            KPort.prototype.constructor.call(this, component);
+        function KInputPort () {
+            KPort.prototype.constructor.call(this);
         }
 
         KInputPort.prototype.createWire = function () {

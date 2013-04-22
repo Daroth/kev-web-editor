@@ -13,12 +13,15 @@ define(
         Pooffs.extends(CComponent, AController);
         Pooffs.extends(CComponent, CNestableEntity);
 
-        function CComponent(editor, type) {
+        function CComponent(editor, type, ins, outs) {
             // super(type)
             KComponent.prototype.constructor.call(this, editor, type);
 
             // CNestableEntity.super(editor, type)
             CNestableEntity.prototype.constructor.call(this, editor, type);
+
+            // KComponent.super(editor, type, ins, outs)
+            KComponent.prototype.constructor.call(this, editor, type, ins, outs);
 
             // instantiate UI
             this._ui = new UIComponent(this);
