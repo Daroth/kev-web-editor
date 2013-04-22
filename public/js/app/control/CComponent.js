@@ -44,6 +44,13 @@ define(
             this._ui.c2pMouseOut();
         }
 
+        // Override CNestableEntity.remove()
+        CComponent.prototype.remove = function () {
+            KComponent.prototype.remove.call(this);
+            CNestableEntity.prototype.remove.call(this);
+            this._ui.redrawParent();
+        }
+
         // Override CNestableEntity.p2cDragEnd
         CComponent.prototype.p2cDragEnd = function () {
             if (!this.getParent()) {

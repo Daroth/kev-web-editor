@@ -33,11 +33,22 @@ define(
                 // there is a wire task in progress
                 var origin = wire.getOrigin();
                 if (typeof (origin.getEntityType) == 'function' && origin.getEntityType() == KGroup.ENTITY_TYPE) {
-                    // we are good to go
-                    wire.setTarget(this);
-                    this.addWire(wire);
-                    this.getEditor().endWireCreationTask();
-                    this._ui.c2pWireCreated(wire.getUI());
+                    var alreadyConnected = false;
+                    for (var i=0; i < origin.getWires().length; i++) {
+                        var wire = origin.getWires()[i];
+                        if (wire.getTarget() && wire.getTarget() == this) alreadyConnected = true;
+                    }
+                    if (!alreadyConnected) {
+                        // we are good to go
+                        wire.setTarget(this);
+                        this.addWire(wire);
+                        this.getEditor().endWireCreationTask();
+                        this._ui.c2pWireCreated(wire.getUI());
+                    } else {
+                        // connection cannot be made
+                        this._ui.c2pDropImpossible();
+                        this.getEditor().abortWireCreationTask();
+                    }
                 }
             } else if (!this._isDragged) {
                 var draggedEntity = this.getEditor().getDraggedEntity();
@@ -87,8 +98,18 @@ define(
                 // there is a wire task in progress
                 var origin = wire.getOrigin();
                 if (typeof (origin.getEntityType) == 'function' && origin.getEntityType() == KGroup.ENTITY_TYPE) {
-                    // connection can be made
-                    this._ui.c2pDropPossible();
+                    // connection could be made if origin is not already connected to this node
+                    var alreadyConnected = false;
+                    for (var i=0; i < origin.getWires().length; i++) {
+                        var wire = origin.getWires()[i];
+                        if (wire.getTarget() && wire.getTarget() == this) alreadyConnected = true;
+                    }
+                    if (!alreadyConnected) {
+                        this._ui.c2pDropPossible();
+                    } else {
+                        // connection cannot be made
+                        this._ui.c2pDropImpossible();
+                    }
                 } else {
                     // connection cannot be made
                     this._ui.c2pDropImpossible();

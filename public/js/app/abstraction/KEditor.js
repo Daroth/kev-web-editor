@@ -43,6 +43,10 @@ define(
             this._typeCounter = [];
         }
 
+        KEditor.prototype.getEntities = function () {
+            return this._entities;
+        }
+
         /**
          * Returns the current count of that precise type in the model
          * @param type specific type of entity

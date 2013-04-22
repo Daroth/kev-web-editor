@@ -46,6 +46,16 @@ define(
             }
         }
 
+        // Override KEntity.remove()
+        KComponent.prototype.remove = function () {
+            KEntity.prototype.remove.call(this);
+
+            // tell my parent that I'm gone *sob*
+            if (this._parent) {
+                this._parent.removeChild(this);
+            }
+        }
+
         KComponent.prototype.hasChildren = function () {
             return false;
         }

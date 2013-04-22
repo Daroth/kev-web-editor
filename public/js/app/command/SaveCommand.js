@@ -9,6 +9,7 @@ define(
         SaveCommand.prototype.execute = function (editor) {
             var serializedStage = editor.getUI().getStage().toJSON();
 
+            console.log(editor.getEntities());
             var json = IOEngine.save(editor);
             console.log(json);
 
