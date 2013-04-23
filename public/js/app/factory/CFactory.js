@@ -40,8 +40,8 @@ define(
             return new CNode(editor, type);
         };
 
-        CFactory.prototype.newComponent = function (editor, type, inputs, outputs) {
-            return new CComponent(editor, type, inputs, outputs);
+        CFactory.prototype.newComponent = function (editor, type) {
+            return new CComponent(editor, type);
         };
 
         CFactory.prototype.newChannel = function (editor, type) {

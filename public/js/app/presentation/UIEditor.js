@@ -1,6 +1,7 @@
 define(
     [   // dependencies
         'presentation/widget/WireLayer',
+        'util/ModelHelper',
         'bootstrap/modal',
         'jquery',
         'jqueryui/droppable',
@@ -8,7 +9,7 @@ define(
         'jqueryui/effect-highlight'
     ],
 
-    function (WireLayer, _bootstrap, $) {
+    function (WireLayer, ModelHelper, _bootstrap, $) {
         var NAMESPACE = '.uieditor';
 
 
@@ -18,7 +19,7 @@ define(
             this._currentWire = null;
             this._modelLayer = new Kinetic.Layer();
             this._wireLayer = new WireLayer();
-            this._libHeaders = new Array();
+            this._modelHelper = new ModelHelper();
         }
 
         UIEditor.prototype.create = function(width, height) {
@@ -42,7 +43,7 @@ define(
                 bgLayer.setZIndex(0);
                 bgLayer.draw();
             }
-            bgImg.src = "img/background.jpg";
+            bgImg.src = "/img/background.jpg";
             this._stage.add(bgLayer);
 
             // add model layer to stage (layer for entities)
@@ -199,33 +200,31 @@ define(
             this._wireLayer.add(wire);
         }
 
-        UIEditor.prototype.inflateLibTree = function () {
+        UIEditor.prototype.c2pInflateLibTree = function () {
             $('.lib-tree-info').remove();
 
-            var libz = this._ctrl.getLibraries();
+            var libz = this._modelHelper.getLibraries(this._ctrl.getModel());
 
             var libTree = "";
             var libItems = "";
-            for (var name in libz) {
-                if (Object.prototype.hasOwnProperty.call(libz, name)) {
-                    var compz = libz[name];
-                    for (var compIndex=0; compIndex < compz.length; compIndex++) {
-                        var comp = compz[compIndex];
-                        libItems += "<li class='lib-item' data-entity='"+comp.type+"' data-env='"+name+"'>"+comp.name+"</li>";
-                    }
-
-                    var htmlContent =
-                        "<ul class='nav nav-list'>" +
-                            "<li class='nav-header cursor-pointer'>" +
-                            "<i class='icon-arrow-right icon-white'></i>"+
-                            name+
-                            "</li>"+
-                            libItems+
-                            "</ul>";
-
-                    libTree += htmlContent;
-                    libItems = htmlContent = "";
+            for (var i=0; i < libz.length; i++) {
+                var compz = libz[i].components;
+                for (var compIndex=0; compIndex < compz.length; compIndex++) {
+                    var comp = compz[compIndex];
+                    libItems += "<li class='lib-item' data-entity='"+comp.type+"' data-env='"+libz[i].name+"'>"+comp.name+"</li>";
                 }
+
+                var htmlContent =
+                    "<ul class='nav nav-list'>" +
+                        "<li class='nav-header cursor-pointer'>" +
+                        "<i class='icon-arrow-right icon-white'></i>"+
+                        libz[i].name+
+                        "</li>"+
+                        libItems+
+                        "</ul>";
+
+                libTree += htmlContent;
+                libItems = htmlContent = "";
             }
 
             $('#lib-tree-content').html(libTree);

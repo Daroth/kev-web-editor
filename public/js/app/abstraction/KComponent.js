@@ -12,12 +12,12 @@ define(
 
         Pooffs.extends(KComponent, KEntity);
 
-        function KComponent(editor, type, ins, outs) {
+        function KComponent(editor, type) {
             KEntity.prototype.constructor.call(this, editor, type);
 
             this._parent = null;
-            this._inputs = (ins) ? ins : [];
-            this._outputs = (outs) ? outs : [];
+            this._inputs = [];
+            this._outputs = [];
             for (var i=0; i < this._inputs.length; i++) this._inputs[i].setComponent(this);
             for (var i=0; i < this._outputs.length; i++) this._outputs[i].setComponent(this);
         }

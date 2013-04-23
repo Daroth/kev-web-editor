@@ -27,11 +27,7 @@ define(
                     // retrieve data from selected file
                     var data = event.target.result;
                     try {
-                        // parse data to JSON
-                        var model = JSON.parse(data);
-                        //this._editor = IOEngine.load(model);
-                        var modelHelper = new ModelHelper();
-                        modelHelper.loadFromJSON(model, editor);
+                        editor.setModel(JSON.parse(data));
 
                         AlertPopupHelper.setText("Model \""+file.name+"\" loaded successfully");
                         AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);

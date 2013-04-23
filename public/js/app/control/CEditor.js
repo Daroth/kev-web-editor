@@ -9,10 +9,11 @@ define(
         'control/AController',
         'presentation/UIEditor',
         'factory/CFactory',
+        'util/ModelHelper',
         'require'
     ],
 
-    function (Pooffs, KEditor, KGroup, KComponent, KChannel, KNode, AController, UIEditor, CFactory, require) {
+    function (Pooffs, KEditor, KGroup, KComponent, KChannel, KNode, AController, UIEditor, CFactory, ModelHelper, require) {
         Pooffs.extends(CEditor, KEditor);
         Pooffs.extends(CEditor, AController);
 
@@ -22,6 +23,7 @@ define(
             this._ui = new UIEditor(this, containerID);
             this._currentWire = null;
             this._draggedEntity = null;
+            this._modelHelper = new ModelHelper();
         }
 
         // Override KEditor.addEntity(KEntity)
@@ -53,6 +55,8 @@ define(
         CEditor.prototype.p2cEntityDraggedOver = function (libItem, entity_type, env, name) {
             if (!this._draggedEntity) {
                 var factory = require('factory/CFactory').getInstance();
+                var component = this._modelHelper.getComponent(this.getModel(), env, name);
+                console.log("dragged comp:", component);
 
                 switch (entity_type) {
                     case KGroup.ENTITY_TYPE:
@@ -68,22 +72,7 @@ define(
                         break;
 
                     case KComponent.ENTITY_TYPE:
-                        var compz = this.getLibraries()[env];
-                        var inputs = [], outputs = [];
-                        for (var i=0; i < compz.length; i++) {
-                            if (compz[i].name == name) {
-                                var required = (compz[i].required) ? compz[i].required : [];
-                                var provided = (compz[i].provided) ? compz[i].provided : [];
-                                for (var j=0; j < required.length; j++) {
-                                    inputs.push(factory.newInputPort(required[j].name));
-                                }
-
-                                for (var j=0; j < provided.length; j++) {
-                                    outputs.push(factory.newOutputPort(provided[j].name));
-                                }
-                            }
-                        }
-                        this._draggedEntity = factory.newComponent(this, name, inputs, outputs);
+                        this._draggedEntity = factory.newComponent(this, name);
                         break;
 
                     default:
@@ -118,6 +107,12 @@ define(
             if (this._currentWire) {
                 this._ui.c2pUpdateWire(this._currentWire.getUI(), position);
             }
+        }
+
+        // Override KEditor.setModel(model)
+        CEditor.prototype.setModel = function (model) {
+            KEditor.prototype.setModel.call(this, model);
+            this._ui.c2pInflateLibTree();
         }
 
         CEditor.prototype.getDraggedEntity = function () {

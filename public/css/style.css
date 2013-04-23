@@ -77,6 +77,13 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+.fade {
+    z-index: -42;
+}
+
+.fade.in {
     z-index: 42;
 }
 

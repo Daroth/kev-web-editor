@@ -3,7 +3,6 @@ define(
         function KEditor() {
             this._entities = new Array();
             this._typeCounter = new Array();
-            this._libraries = new Array();
         }
 
         KEditor.prototype.addEntity = function(entity) {
@@ -36,14 +35,6 @@ define(
             this._typeCounter[entity.getType()]--;
         }
 
-        KEditor.prototype.addLibrary = function (name, components) {
-            this._libraries[name] = components;
-        }
-
-        KEditor.prototype.getLibraries = function () {
-            return this._libraries;
-        }
-
         KEditor.prototype.clear = function () {
             var entities = this._entities.slice(0); // clone entities array
 
@@ -57,6 +48,14 @@ define(
 
         KEditor.prototype.getEntities = function () {
             return this._entities;
+        }
+
+        KEditor.prototype.setModel = function (model) {
+            this._model = model;
+        }
+
+        KEditor.prototype.getModel = function () {
+            return this._model;
         }
 
         /**
