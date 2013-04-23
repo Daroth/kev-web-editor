@@ -4,6 +4,14 @@ block content
   div.container-fluid.fill
     div.row-fluid.fill
       div#lib-tree.span2
+        div#lib-tree-settings.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            img(src='/img/settings.png')
+          ul.dropdown-menu(role='menu')
+            li: a#lib-tree-settings-fold(href='#') Fold all
+            li: a#lib-tree-settings-unfold(href='#') Unfold All
+            li.divider
+            li: a(href='#') Foo bar
         input#lib-tree-search(type='text', placeholder='Search field...')
         div#lib-tree-content.sidebar-nav
           p.lib-tree-info

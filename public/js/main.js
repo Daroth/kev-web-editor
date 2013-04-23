@@ -77,6 +77,28 @@ define(
                 });
             });
 
+            $('#lib-tree-settings-fold').click(function () {
+                $('.nav-header').each(function (index) {
+                    var icon = $(this).children().first();
+                    if (icon.hasClass('icon-arrow-right')) {
+                        $(this).siblings().hide('fast');
+                        icon.removeClass('icon-arrow-right');
+                        icon.addClass('icon-arrow-down');
+                    }
+                });
+            });
+
+            $('#lib-tree-settings-unfold').click(function () {
+                $('.nav-header').each(function (index) {
+                    var icon = $(this).children().first();
+                    if (icon.hasClass('icon-arrow-down')) {
+                        $(this).siblings().show('fast');
+                        icon.addClass('icon-arrow-right');
+                        icon.removeClass('icon-arrow-down');
+                    }
+                });
+            });
+
             // ========================================
             // Listeners that trigger XXXCommand.execute(...)
             $('#save').click(function () {

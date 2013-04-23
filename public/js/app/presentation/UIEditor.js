@@ -86,9 +86,15 @@ define(
             // foldable lib-tree
             $('.nav-header').on('click'+NAMESPACE, function() {
                 var icon = $(this).parent().children().first().children().first();
+                if (icon.hasClass('icon-arrow-right')) {
+                    // all items are showed, hide them
+                    $(this).siblings().hide('fast');
+                } else {
+                    // all items are hidden, reveal them
+                    $(this).siblings().show('fast');
+                }
                 icon.toggleClass('icon-arrow-right');
                 icon.toggleClass('icon-arrow-down');
-                $(this).parent().children('.lib-item').toggle('fast');
             });
 
             // draggable item in lib-tree
