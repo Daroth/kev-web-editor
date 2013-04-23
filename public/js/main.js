@@ -46,6 +46,8 @@ define(
               SaveCommand, SaveAsKevsCommand, LoadCommand, SettingsCommand, DebugCommand, MergeDefaultLibraryCommand,
               ClearCommand,
               _bootstrap) {
+        var libTreeFold = false;
+
         // document.onload
         $(function() {
             //- init editor
@@ -68,6 +70,8 @@ define(
                 $('.lib-item').filter(function (index) {
                     var itemName = $(this).text().toLowerCase();
                     var searchVal = $('#lib-tree-search').val().toLowerCase();
+                    // TODO change hide/show with my own CSS class to ensure
+                    // that fold/unfold will not interfer with search
                     if (itemName.search(searchVal) == -1) {
                         $(this).hide();
                     } else {
@@ -77,26 +81,30 @@ define(
                 });
             });
 
-            $('#lib-tree-settings-fold').click(function () {
-                $('.nav-header').each(function (index) {
-                    var icon = $(this).children().first();
-                    if (icon.hasClass('icon-arrow-right')) {
-                        $(this).siblings().hide('fast');
-                        icon.removeClass('icon-arrow-right');
-                        icon.addClass('icon-arrow-down');
-                    }
-                });
-            });
-
-            $('#lib-tree-settings-unfold').click(function () {
-                $('.nav-header').each(function (index) {
-                    var icon = $(this).children().first();
-                    if (icon.hasClass('icon-arrow-down')) {
-                        $(this).siblings().show('fast');
-                        icon.addClass('icon-arrow-right');
-                        icon.removeClass('icon-arrow-down');
-                    }
-                });
+            $('#lib-tree-settings-toggle-fold').click(function () {
+                if (libTreeFold) {
+                    // unfold libtree
+                    $('.nav-header').each(function (index) {
+                        var icon = $(this).children().first();
+                        if (icon.hasClass('icon-arrow-down')) {
+                            $(this).siblings().show('fast');
+                            icon.addClass('icon-arrow-right');
+                            icon.removeClass('icon-arrow-down');
+                        }
+                    });
+                    libTreeFold = false;
+                } else {
+                    // fold libtree
+                    $('.nav-header').each(function (index) {
+                        var icon = $(this).children().first();
+                        if (icon.hasClass('icon-arrow-right')) {
+                            $(this).siblings().hide('fast');
+                            icon.removeClass('icon-arrow-right');
+                            icon.addClass('icon-arrow-down');
+                        }
+                    });
+                    libTreeFold = true;
+                }
             });
 
             // ========================================
