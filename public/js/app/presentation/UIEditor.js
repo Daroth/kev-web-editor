@@ -13,7 +13,8 @@ define(
     function (WireLayer, ModelHelper, _bootstrap, $) {
         var NAMESPACE = '.uieditor',
             libTreeFolded = false,
-            displayableItems = [];
+            displayableItems = [],
+            displayableSubTrees = [];
 
 
         function UIEditor(ctrl, containerID) {
@@ -90,11 +91,13 @@ define(
                 var icon = $(this).parent().children().first().children().first();
                 if (icon.hasClass('icon-arrow-right')) {
                     // all items are showed, hide them
+                    displayableSubTrees[$(this).text()] = false;
                     $(this).siblings().hide('fast');
                     icon.removeClass('icon-arrow-right');
                     icon.addClass('icon-arrow-down');
                 } else {
                     // all items are hidden, reveal them
+                    displayableSubTrees[$(this).text()] = true;
                     showLibTreeItems($(this), icon);
                 }
             });
@@ -108,7 +111,7 @@ define(
                     if (itemName.search(searchVal) == -1) {
                         $(this).hide();
                     } else {
-                        if (displayableItems[$(this).attr('data-entity')]) {
+                        if (displayableItems[$(this).attr('data-entity')] && displayableSubTrees[$(this).attr('data-env')]) {
                             $(this).show();
                         }
                     }
@@ -134,7 +137,9 @@ define(
                     // show 'type'
                     displayableItems[entity] = true;
                     $('.lib-item[data-entity='+entity+']').each(function () {
-                        $(this).show('fast');
+                        if (displayableSubTrees[$(this).attr('data-env')]) {
+                            $(this).show('fast');
+                        }
                     });
                 } else {
                     // hide 'type'
@@ -152,6 +157,7 @@ define(
                     $('.nav-header').each(function (index) {
                         var icon = $(this).children().first();
                         if (icon.hasClass('icon-arrow-down')) {
+                            displayableSubTrees[$(this).text()] = true;
                             showLibTreeItems($(this), icon);
                         }
                     });
@@ -161,6 +167,7 @@ define(
                     $('.nav-header').each(function (index) {
                         var icon = $(this).children().first();
                         if (icon.hasClass('icon-arrow-right')) {
+                            displayableSubTrees[$(this).text()] = false;
                             $(this).siblings().hide('fast');
                             icon.removeClass('icon-arrow-right');
                             icon.addClass('icon-arrow-down');
@@ -303,6 +310,7 @@ define(
                         "</li>"+
                         libItems+
                         "</ul>";
+                displayableSubTrees[libz[i].name] = true;
 
                 libTree += htmlContent;
                 libItems = htmlContent = "";
@@ -338,7 +346,7 @@ define(
         //==========================
         function showLibTreeItems(elem, icon) {
             elem.siblings().each(function () {
-                if (displayableItems[$(this).attr('data-entity')]) {
+                if (displayableItems[$(this).attr('data-entity')] && displayableSubTrees[$(this).attr('data-env')]) {
                     $(this).show('fast');
                 }
             });
