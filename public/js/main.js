@@ -38,7 +38,8 @@ define(
         'bootstrap/modal',
         'bootstrap/collapse',
         'bootstrap/dropdown',
-        'bootstrap/alert'
+        'bootstrap/alert',
+        'bootstrap/popover'
     ],
 
     function ($, Kinetic, CFactory, Config, IOEngine,
@@ -61,6 +62,19 @@ define(
                 // global behavior for alerts : close will remove 'in' class
                 // in order for them to properly hide (with the CSS3 magic)
                 $(this).parent().removeClass('in');
+            });
+
+            $('#lib-tree-search').keyup(function () {
+                $('.lib-item').filter(function (index) {
+                    var itemName = $(this).text().toLowerCase();
+                    var searchVal = $('#lib-tree-search').val().toLowerCase();
+                    if (itemName.search(searchVal) == -1) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                    console.log(itemName, searchVal);
+                });
             });
 
             // ========================================
@@ -96,8 +110,6 @@ define(
             });
             // END Listeners that trigger Cmd.execute()
             // ========================================
-
-
         });
 
         return {};

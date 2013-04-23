@@ -4,7 +4,8 @@ block content
   div.container-fluid.fill
     div.row-fluid.fill
       div#lib-tree.span2
-        div#lib-tree-content.well.sidebar-nav
+        input#lib-tree-search(type='text', placeholder='Search field...')
+        div#lib-tree-content.sidebar-nav
           p.lib-tree-info
             strong To load libraries:
             br
@@ -41,5 +42,3 @@ block content
       button.btn(data-dismiss='modal', aria-hidden='true') Close
       button#prop-popup-save.btn.btn-primary(data-dismiss='modal') Save changes
       button#prop-popup-delete.btn.btn-danger(data-dismiss='modal') Delete
-
-block save-popup
