@@ -6,7 +6,8 @@ define(
         'jquery',
         'jqueryui/droppable',
         'jqueryui/draggable',
-        'jqueryui/effect-highlight'
+        'jqueryui/effect-highlight',
+        'tinysort'
     ],
 
     function (WireLayer, ModelHelper, _bootstrap, $) {
@@ -89,12 +90,14 @@ define(
                 if (icon.hasClass('icon-arrow-right')) {
                     // all items are showed, hide them
                     $(this).siblings().hide('fast');
+                    icon.removeClass('icon-arrow-right');
+                    icon.addClass('icon-arrow-down');
                 } else {
                     // all items are hidden, reveal them
                     $(this).siblings().show('fast');
+                    icon.addClass('icon-arrow-right');
+                    icon.removeClass('icon-arrow-down');
                 }
-                icon.toggleClass('icon-arrow-right');
-                icon.toggleClass('icon-arrow-down');
             });
 
             // draggable item in lib-tree
@@ -116,6 +119,7 @@ define(
                 }
             });
 
+            // tooltip on ComponentType
             $(".lib-item[data-entity='ComponentType']").tooltip({
                 selector: $(this),
                 placement: 'bottom',
@@ -234,6 +238,7 @@ define(
             }
 
             $('#lib-tree-content').html(libTree);
+            $('.nav-list, .lib-item').tsort();
 
             this._registerCallbacks();
         }

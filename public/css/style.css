@@ -31,8 +31,11 @@ body {
 }
 
 #lib-tree .dropdown-menu {
-    min-width: 0;
     font-size: 12px;
+}
+
+#lib-tree-settings .checkbox {
+    margin: 0;
 }
 
 #lib-tree .dropdown-menu > li > a {

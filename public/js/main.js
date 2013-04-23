@@ -81,6 +81,29 @@ define(
                 });
             });
 
+            $('[id^=lib-tree-settings-filter-]').click(function () {
+                var cb = $(this).children('.checkbox').first();
+                cb.prop('checked', !cb.prop('checked'));
+                cb.trigger('click');
+                return false;
+            });
+
+            $('[id^=lib-tree-settings-filter-] .checkbox').click(function () {
+                var isChecked = !$(this).prop('checked');
+                var entity = $(this).val();
+                if (isChecked) {
+                    // show 'type'
+                    $('.lib-item[data-entity='+entity+']').each(function (index) {
+                        $(this).show('fast');
+                    });
+                } else {
+                    // hide 'type'
+                    $('.lib-item[data-entity='+entity+']').each(function (index) {
+                        $(this).hide('fast');
+                    });
+                }
+            });
+
             $('#lib-tree-settings-toggle-fold').click(function () {
                 if (libTreeFold) {
                     // unfold libtree

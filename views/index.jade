@@ -10,7 +10,14 @@ block content
           ul.dropdown-menu(role='menu')
             li: a#lib-tree-settings-toggle-fold(href='#') Toggle Fold
             li.divider
-            li: a(href='#') Foo bar
+            li: a#lib-tree-settings-filter-nodes(href='#') Nodes
+              input.checkbox.pull-right(type='checkbox', value='NodeType', checked='true')
+            li: a#lib-tree-settings-filter-components(href='#') Components
+              input.checkbox.pull-right(type='checkbox', value='ComponentType', checked='true')
+            li: a#lib-tree-settings-filter-groups(href='#') Groups
+              input.checkbox.pull-right(type='checkbox', value='GroupType', checked='true')
+            li: a#lib-tree-settings-filter-channels(href='#') Channels
+              input.checkbox.pull-right(type='checkbox', value='ChannelType', checked='true')
         input#lib-tree-search(type='text', placeholder='Search field...')
         div#lib-tree-content.sidebar-nav
           p.lib-tree-info
