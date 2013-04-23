@@ -11,7 +11,9 @@ define(
     ],
 
     function (WireLayer, ModelHelper, _bootstrap, $) {
-        var NAMESPACE = '.uieditor';
+        var NAMESPACE = '.uieditor',
+            libTreeFolded = false,
+            displayableItems = [];
 
 
         function UIEditor(ctrl, containerID) {
@@ -74,8 +76,6 @@ define(
 
             // unregister listeners before
             $(window).off(NAMESPACE);
-            $('.nav-header').off(NAMESPACE);
-
             // refresh editor size on window resizing
             $(window).on('resize'+NAMESPACE, function() {
                 that._stage.setWidth($('#'+that._id).width());
@@ -85,6 +85,7 @@ define(
             });
 
             // foldable lib-tree
+            $('.nav-header').off(NAMESPACE);
             $('.nav-header').on('click'+NAMESPACE, function() {
                 var icon = $(this).parent().children().first().children().first();
                 if (icon.hasClass('icon-arrow-right')) {
@@ -94,9 +95,78 @@ define(
                     icon.addClass('icon-arrow-down');
                 } else {
                     // all items are hidden, reveal them
-                    $(this).siblings().show('fast');
-                    icon.addClass('icon-arrow-right');
-                    icon.removeClass('icon-arrow-down');
+                    showLibTreeItems($(this), icon);
+                }
+            });
+
+            // search field
+            $('#lib-tree-search').off(NAMESPACE);
+            $('#lib-tree-search').on('keyup'+NAMESPACE, function () {
+                $('.lib-item').filter(function () {
+                    var itemName = $(this).text().toLowerCase();
+                    var searchVal = $('#lib-tree-search').val().toLowerCase();
+                    if (itemName.search(searchVal) == -1) {
+                        $(this).hide();
+                    } else {
+                        if (displayableItems[$(this).attr('data-entity')]) {
+                            $(this).show();
+                        }
+                    }
+                });
+            });
+
+            // convenient handler for checkbox checking while link are clicked
+            // in lib-tree-settings menu
+            $('[id^=lib-tree-settings-filter-]').off(NAMESPACE);
+            $('[id^=lib-tree-settings-filter-]').on('click'+NAMESPACE, function () {
+                var cb = $(this).children('.checkbox').first();
+                cb.prop('checked', !cb.prop('checked'));
+                cb.trigger('click');
+                return false;
+            });
+
+            // filtering libtree items according to their types
+            $('[id^=lib-tree-settings-filter-] .checkbox').off(NAMESPACE);
+            $('[id^=lib-tree-settings-filter-] .checkbox').on('click'+NAMESPACE, function () {
+                var isChecked = !$(this).prop('checked');
+                var entity = $(this).val();
+                if (isChecked) {
+                    // show 'type'
+                    displayableItems[entity] = true;
+                    $('.lib-item[data-entity='+entity+']').each(function () {
+                        $(this).show('fast');
+                    });
+                } else {
+                    // hide 'type'
+                    displayableItems[entity] = false;
+                    $('.lib-item[data-entity='+entity+']').each(function () {
+                        $(this).hide('fast');
+                    });
+                }
+            });
+
+            $('#lib-tree-settings-toggle-fold').off(NAMESPACE);
+            $('#lib-tree-settings-toggle-fold').on('click'+NAMESPACE, function () {
+                if (libTreeFolded) {
+                    // unfold libtree
+                    $('.nav-header').each(function (index) {
+                        var icon = $(this).children().first();
+                        if (icon.hasClass('icon-arrow-down')) {
+                            showLibTreeItems($(this), icon);
+                        }
+                    });
+                    libTreeFolded = false;
+                } else {
+                    // fold libtree
+                    $('.nav-header').each(function (index) {
+                        var icon = $(this).children().first();
+                        if (icon.hasClass('icon-arrow-right')) {
+                            $(this).siblings().hide('fast');
+                            icon.removeClass('icon-arrow-right');
+                            icon.addClass('icon-arrow-down');
+                        }
+                    });
+                    libTreeFolded = true;
                 }
             });
 
@@ -222,6 +292,7 @@ define(
                 for (var compIndex=0; compIndex < compz.length; compIndex++) {
                     var comp = compz[compIndex];
                     libItems += "<li class='lib-item' data-entity='"+comp.type+"' data-env='"+libz[i].name+"'>"+comp.name+"</li>";
+                    displayableItems[comp.type] = true;
                 }
 
                 var htmlContent =
@@ -263,5 +334,16 @@ define(
         }
 
         return UIEditor;
+
+        //==========================
+        function showLibTreeItems(elem, icon) {
+            elem.siblings().each(function () {
+                if (displayableItems[$(this).attr('data-entity')]) {
+                    $(this).show('fast');
+                }
+            });
+            icon.addClass('icon-arrow-right');
+            icon.removeClass('icon-arrow-down');
+        }
     }
 );
