@@ -69,6 +69,14 @@ define(
 
             this._stage.on('mouseup', function() {
                 that._ctrl.p2cMouseUp(this.getPointerPosition());
+
+                if (that._scale > 1) {
+                    that._stage.setDraggable(true);
+                } else {
+                    that._stage.setDraggable(false);
+                }
+
+                that._wireLayer.draw();
             });
 
             this._registerCallbacks();
@@ -319,6 +327,10 @@ define(
 
         UIEditor.prototype.c2pWireAdded = function (wire) {
             this._wireLayer.add(wire);
+            if (this._scale > 1) {
+                // disable drag while wire creation is in progress
+                this._stage.setDraggable(false);
+            }
         }
 
         UIEditor.prototype.c2pInflateLibTree = function () {
