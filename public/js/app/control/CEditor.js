@@ -109,6 +109,18 @@ define(
             }
         }
 
+        CEditor.prototype.p2cZoomIn = function () {
+            this._ui.c2pZoomIn();
+        }
+
+        CEditor.prototype.p2cZoomDefault = function () {
+            this._ui.c2pZoomDefault();
+        }
+
+        CEditor.prototype.p2cZoomOut = function () {
+            this._ui.c2pZoomOut();
+        }
+
         // Override KEditor.setModel(model)
         CEditor.prototype.setModel = function (model) {
             KEditor.prototype.setModel.call(this, model);

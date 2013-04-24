@@ -34,6 +34,10 @@ define(
         'command/DebugCommand',
         'command/MergeDefaultLibraryCommand',
         'command/ClearCommand',
+        'command/OpenFromNodeCommand',
+        'command/ZoomInCommand',
+        'command/ZoomDefaultCommand',
+        'command/ZoomOutCommand',
         'bootstrap/tooltip',
         'bootstrap/modal',
         'bootstrap/collapse',
@@ -44,7 +48,7 @@ define(
 
     function ($, Kinetic, CFactory, Config, IOEngine,
               SaveCommand, SaveAsKevsCommand, LoadCommand, SettingsCommand, DebugCommand, MergeDefaultLibraryCommand,
-              ClearCommand,
+              ClearCommand, OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand,
               _bootstrap) {
 
         // document.onload
@@ -77,9 +81,32 @@ define(
                 cmd.execute();
             });
 
+            $('#open-from-node').click(function () {
+                var cmd = new OpenFromNodeCommand();
+                var protocol = $('#open-node-protocol option:selected').val();
+                var uri = $('#open-node-uri').val();
+
+                cmd.execute(protocol, uri, editor);
+            });
+
             $('#settings').click(function () {
                 var cmd = new SettingsCommand();
                 cmd.execute();
+            });
+
+            $('#zoom-in').click(function () {
+                var cmd = new ZoomInCommand();
+                cmd.execute(editor);
+            });
+
+            $('#zoom-default').click(function () {
+                var cmd = new ZoomDefaultCommand();
+                cmd.execute(editor);
+            });
+
+            $('#zoom-out').click(function () {
+                var cmd = new ZoomOutCommand();
+                cmd.execute(editor);
             });
 
             $('#debug').click(function () {

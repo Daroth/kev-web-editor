@@ -24,6 +24,7 @@ define(
             this._modelLayer = new Kinetic.Layer();
             this._wireLayer = new WireLayer();
             this._modelHelper = new ModelHelper();
+            this._scale = 1;
         }
 
         UIEditor.prototype.create = function(width, height) {
@@ -47,6 +48,7 @@ define(
                 bgLayer.setZIndex(0);
                 bgLayer.draw();
             }
+
             bgImg.src = "/img/background.jpg";
             this._stage.add(bgLayer);
 
@@ -254,6 +256,34 @@ define(
         UIEditor.prototype.c2pDropImpossible = function (entity) {
             entity.getDOMItem().effect('highlight', {color: '#f00'}, 500);
             entity.getDOMItem().tooltip('show');
+        }
+
+        UIEditor.prototype.c2pZoomIn = function () {
+            this._scale = this._scale + 0.1;
+            if (this._scale > 1) this._stage.setDraggable(true);
+            this._stage.setScale(this._scale);
+            this._stage.draw();
+            this._wireLayer.draw();
+        }
+
+        UIEditor.prototype.c2pZoomDefault = function () {
+            this._scale = 1;
+            this._stage.setScale(this._scale);
+            this._stage.setDraggable(false);
+            this._stage.setPosition(0, 0);
+            this._stage.draw();
+            this._wireLayer.draw();
+        }
+
+        UIEditor.prototype.c2pZoomOut = function () {
+            this._scale = this._scale - 0.1;
+            if (this._scale < 1) {
+                this._stage.setPosition(0, 0);
+                this._stage.setDraggable(false);
+            }
+            this._stage.setScale(this._scale);
+            this._stage.draw();
+            this._wireLayer.draw();
         }
 
         /**
