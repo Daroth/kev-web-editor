@@ -292,7 +292,11 @@ define(
         }
 
         UIEditor.prototype.c2pInflateLibTree = function () {
-            $('.lib-tree-info').remove();
+            $('.lib-tree-info').remove(); // remove info
+            displayableItems = []; // reset old filter
+            displayableSubTrees = []; // reset old filter
+            $('#lib-tree-settings-toggle-fold').text('Fold all'); // reset fold status
+            libTreeFolded = false; // reset fold status
 
             var libz = this._modelHelper.getLibraries(this._ctrl.getModel());
 

@@ -21,11 +21,7 @@ body {
 }
 
 #lib-tree {
-    max-height: 100%;
-    min-height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-bottom: 50px;
+    height: 100%;
 }
 
 #lib-tree > * {
@@ -36,10 +32,6 @@ body {
     font-size: 12px;
 }
 
-#lib-tree-settings .checkbox {
-    margin: 0;
-}
-
 #lib-tree .dropdown-menu > li > a {
     padding: 2px 10px;
 }
@@ -48,16 +40,27 @@ body {
     margin: 2px 1px;
 }
 
-#lib-tree-search {
-    margin: 5px;
-    color: #fff;
-}
-
 #lib-tree-settings {
-    float: left;
     margin-top: 10px;
     margin-left: 5px;
 }
+
+#lib-tree-settings .checkbox {
+    margin: 0;
+}
+
+#lib-tree-search {
+    margin: 5px;
+    width: 70%;
+}
+
+#lib-tree-content {
+    margin: 10px 0;
+    height: 85%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 
 .lib-item {
     color: #fff;
@@ -199,7 +202,12 @@ div.shadow {
     }
 
     #lib-tree {
-        max-height: 400px;
-        min-height: 80px;
+        height: 400px;
     }
 }
+
+/*@media (max-width: 767px) {*/
+    /*#lib-tree {*/
+        /*height: 80px;*/
+    /*}*/
+/*}*/

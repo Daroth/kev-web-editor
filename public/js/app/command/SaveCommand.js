@@ -13,11 +13,7 @@ define(
             var json = IOEngine.save(editor);
             console.log(json);
 
-            setTimeout(function () {
-                $('#filename').val('/foo/bar/model.kvm');
-                $('#save-popup-content').text("TODO");
-                $('#save-popup').modal({ show: true });
-            }, 300);
+            $('#filename').val('/foo/bar/model.kvm');
         }
 
         return SaveCommand;

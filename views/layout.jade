@@ -32,8 +32,11 @@ html
                   b.caret
                 ul.dropdown-menu
                   li
-                    a#load(href="#") Load
-                    a#save(href='#') Save
+                    a#load(href='#') Load
+                    a#open(href='#open-node-popup', data-toggle='modal') Open from node
+                  li.divider
+                  li
+                    a#save(href='#save-popup', data-toggle='modal') Save
                     a#save-kevs(href='#') Save as KevScript
               li.dropdown
                 a.dropdown-toggle(href='#', data-toggle='dropdown') Model&nbsp;
@@ -71,10 +74,25 @@ html
         h3 Save model
       div.modal-body
         input#filename(type='text')
+        p TODO
         p#save-popup-content
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
         button#save-model.btn.btn-primary(data-dismiss='modal') Save
+    //- ===============
+
+    //- ===============
+    //- OPEN FROM NODE POPUP
+    div#open-node-popup.modal.hide.fade(tabindex='-1', role='dialog')
+      div.modal-header
+        button.close(href='#', type='button', data-dismiss='modal') &times;
+        h3 Open from node
+      div.modal-body
+        p Remote target node
+        input#open-node-uri(type='text', placeholder='ex: http://your-node-webserver.org/model/json')
+      div.modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Close
+        button#save-model.btn.btn-primary(data-dismiss='modal') Open
     //- ===============
 
     //- ===============

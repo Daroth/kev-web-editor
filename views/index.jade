@@ -8,17 +8,19 @@ block content
           a.dropdown-toggle(href='#', data-toggle='dropdown')
             img(src='/img/settings.png')
           ul.dropdown-menu(role='menu')
-            li: a#lib-tree-settings-toggle-fold(href='#') Fold all
+            li
+              a#lib-tree-settings-toggle-fold(href='#') Fold all
             li.divider
-            li: a#lib-tree-settings-filter-nodes(href='#') Nodes
-              input.checkbox.pull-right(type='checkbox', value='NodeType', checked='true')
-            li: a#lib-tree-settings-filter-components(href='#') Components
-              input.checkbox.pull-right(type='checkbox', value='ComponentType', checked='true')
-            li: a#lib-tree-settings-filter-groups(href='#') Groups
-              input.checkbox.pull-right(type='checkbox', value='GroupType', checked='true')
-            li: a#lib-tree-settings-filter-channels(href='#') Channels
-              input.checkbox.pull-right(type='checkbox', value='ChannelType', checked='true')
-        input#lib-tree-search(type='text', placeholder='Search field...')
+            li
+              a#lib-tree-settings-filter-nodes(href='#') Nodes
+                input.checkbox.pull-right(type='checkbox', value='NodeType', checked='true')
+              a#lib-tree-settings-filter-components(href='#') Components
+                input.checkbox.pull-right(type='checkbox', value='ComponentType', checked='true')
+              a#lib-tree-settings-filter-groups(href='#') Groups
+                input.checkbox.pull-right(type='checkbox', value='GroupType', checked='true')
+              a#lib-tree-settings-filter-channels(href='#') Channels
+                input.checkbox.pull-right(type='checkbox', value='ChannelType', checked='true')
+          input.search-query#lib-tree-search(type='text', placeholder='Search field...')
         div#lib-tree-content.sidebar-nav
           p.lib-tree-info
             strong To load libraries:
