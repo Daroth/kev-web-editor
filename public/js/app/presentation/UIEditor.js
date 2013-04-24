@@ -152,28 +152,32 @@ define(
 
             $('#lib-tree-settings-toggle-fold').off(NAMESPACE);
             $('#lib-tree-settings-toggle-fold').on('click'+NAMESPACE, function () {
-                if (libTreeFolded) {
-                    // unfold libtree
-                    $('.nav-header').each(function (index) {
-                        var icon = $(this).children().first();
-                        if (icon.hasClass('icon-arrow-down')) {
-                            displayableSubTrees[$(this).text()] = true;
-                            showLibTreeItems($(this), icon);
-                        }
-                    });
-                    libTreeFolded = false;
-                } else {
-                    // fold libtree
-                    $('.nav-header').each(function (index) {
-                        var icon = $(this).children().first();
-                        if (icon.hasClass('icon-arrow-right')) {
-                            displayableSubTrees[$(this).text()] = false;
-                            $(this).siblings().hide('fast');
-                            icon.removeClass('icon-arrow-right');
-                            icon.addClass('icon-arrow-down');
-                        }
-                    });
-                    libTreeFolded = true;
+                if (that._ctrl.getModel()) { // no action to make if there is no model
+                    if (libTreeFolded) {
+                        // unfold libtree
+                        $(this).text('Fold all');
+                        $('.nav-header').each(function () {
+                            var icon = $(this).children().first();
+                            if (icon.hasClass('icon-arrow-down')) {
+                                displayableSubTrees[$(this).text()] = true;
+                                showLibTreeItems($(this), icon);
+                            }
+                        });
+                        libTreeFolded = false;
+                    } else {
+                        // fold libtree
+                        $(this).text('Unfold all');
+                        $('.nav-header').each(function () {
+                            var icon = $(this).children().first();
+                            if (icon.hasClass('icon-arrow-right')) {
+                                displayableSubTrees[$(this).text()] = false;
+                                $(this).siblings().hide('fast');
+                                icon.removeClass('icon-arrow-right');
+                                icon.addClass('icon-arrow-down');
+                            }
+                        });
+                        libTreeFolded = true;
+                    }
                 }
             });
 
