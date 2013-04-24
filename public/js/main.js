@@ -69,6 +69,14 @@ define(
                 $(this).parent().removeClass('in');
             });
 
+            $('#editor').on('mouseenter', function () {
+                $('#zoom-controls').stop(true, true).delay(600).show('fast');
+            });
+
+            $('#editor').on('mouseleave', function () {
+                $('#zoom-controls').stop(true, true).delay(600).hide('fast');
+            });
+
             // ========================================
             // Listeners that trigger XXXCommand.execute(...)
             $('#save').click(function () {
