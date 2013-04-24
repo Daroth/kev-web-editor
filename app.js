@@ -6,8 +6,7 @@
 var express = require('express'),
     routes  = require('./routes'),
     http    = require('http'),
-    path    = require('path'),
-    io      = require('socket.io').listen(9090);
+    path    = require('path');
 
 var app = express();
 
@@ -32,19 +31,6 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/merge/:env', routes.merge);
-
-var chat = io
-    .of('/model/json')
-    .on('connection', function (socket) {
-        socket.emit('dat model', {
-            that: 'only',
-            '/chat': 'will get'
-        });
-        chat.emit('a message', {
-            everyone: 'in'
-            , '/chat': 'will get'
-        });
-    });
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
