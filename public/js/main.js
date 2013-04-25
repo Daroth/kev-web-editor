@@ -144,6 +144,12 @@ define(
                 e.preventDefault();
             });
 
+            $('#model-load-corelib').click(function (e) {
+                // prevent user from clicking on this link and hide the menu
+                // without 'really' choosing one of the corelibs to load
+                return false;
+            });
+
             $('.model-load-corelib').click(function (e) {
                 var cmd = new MergeDefaultLibraryCommand();
                 cmd.execute($(this).attr('data-lib'), editor);
