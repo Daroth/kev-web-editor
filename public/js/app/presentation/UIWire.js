@@ -30,7 +30,7 @@ define(
 
         UIWire.prototype.draw = function(layer) {
             var origin = (this._origin) ? this._origin.getPosition() : {x: 0, y: 0};
-            var target = (this._target) ? this._target.getPosition() : {x: 0, y: 0};
+            var target = (this._target) ? this._target.getPosition(origin) : {x: 0, y: 0};
 
             var canvas = layer.getCanvas();
             var context = canvas.getContext();
@@ -47,24 +47,16 @@ define(
 
         UIWire.prototype._computeMiddlePoint = function() {
             var origin = (this._origin) ? this._origin.getPosition() : {x: 0, y: 0};
-            var target = (this._target) ? this._target.getPosition() : {x: 0, y: 0};
-
-            var ox = origin.x,
-                oy = origin.y,
-                tx = target.x,
-                ty = target.y;
+            var target = (this._target) ? this._target.getPosition(origin) : {x: 0, y: 0};
 
             var middleX, middleY;
 
-            if (ox > tx) middleX = tx + (ox - tx)/2;
-            else         middleX = ox + (tx - ox)/2;
+            if (origin.x > target.x) middleX = target.x + (origin.x - target.x)/2;
+            else middleX = origin.x + (target.x - origin.x)/2;
 
-            middleY = ((oy >= ty) ? oy : ty) + 30;
+            middleY = ((origin.y >= target.y) ? origin.y : target.y) + 30;
 
-            return {
-                x: middleX,
-                y: middleY
-            }
+            return { x: middleX, y: middleY };
         }
 
         UIWire.prototype.remove = function () {

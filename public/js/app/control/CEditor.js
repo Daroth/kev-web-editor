@@ -56,7 +56,6 @@ define(
             if (!this._draggedEntity) {
                 var factory = require('factory/CFactory').getInstance();
                 var component = this._modelHelper.getComponent(this.getModel(), env, name);
-                console.log("dragged comp:", component);
 
                 switch (entity_type) {
                     case KGroup.ENTITY_TYPE:

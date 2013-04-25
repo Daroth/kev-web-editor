@@ -29,7 +29,6 @@ define(
 
         ModelHelper.prototype.getComponent = function (model, env, name) {
             var compz = this.getComponents(model, env);
-            console.log("getComponent", compz);
             for (var i=0; i < compz.length; i++) {
                 if (compz[i].name == name) return compz[i];
             }

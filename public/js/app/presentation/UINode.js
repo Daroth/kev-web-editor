@@ -94,6 +94,34 @@ define(
             this._rect.getLayer().draw();
         }
 
+        /**
+         * override UINestableEntity.getPosition()
+         *
+         * @param origin {optional} when this is set it means that the getPosition has been
+         * asked for wire displaying purposes and this origin param is the origin point of
+         * the wire (= group's origin though)
+         * @returns {{x: number, y: number}} wire plug point
+         */
+        UINode.prototype.getPosition = function (origin) {
+            var pos = this._shape.getAbsolutePosition(),
+                off = this._shape.getOffset(),
+                width = this._rect.getWidth();
+
+            if (origin && origin.x > ((pos.x + 10 - off.x) + width/2)) {
+                // if origin point is on the right, then give the upper right corner for node wire's plug
+                return {
+                    x: pos.x - 10 + off.x + width,
+                    y: pos.y + 10 - off.y
+                };
+            }
+
+            // default is the upper left corner for node wire's plug
+            return {
+                x: pos.x + 10 - off.x,
+                y: pos.y + 10 - off.y
+            };
+        }
+
         UINode.prototype.c2pWireCreated = function (wire) {
             wire.getCtrl().getOrigin().getUI().getShape().setDraggable(true);
 

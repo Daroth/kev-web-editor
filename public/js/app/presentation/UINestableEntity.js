@@ -155,10 +155,7 @@ define(
         UINestableEntity.prototype._draw = function () {}
 
         UINestableEntity.prototype.getPosition = function () {
-            return {
-                x: this._shape.getAbsolutePosition().x + 10 - this._shape.getOffset().x,
-                y: this._shape.getAbsolutePosition().y + 10 - this._shape.getOffset().y
-            };
+            return this._shape.getAbsolutePosition();
         }
 
         UINestableEntity.prototype.getHeader = function () {
