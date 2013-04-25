@@ -65,6 +65,12 @@ define(
                 $(this).parent().removeClass('in');
             });
 
+            // safety check because one does not simply like when he loses
+            // a 30 minutes work on a model by miss-pressing F5 button for instance
+            $(window).bind('beforeunload', function(){
+                return 'Leaving now will discard any changes you made.';
+            });
+
             $('#editor').on('mouseenter', function () {
                 $('#zoom-controls').stop(true, true).delay(600).show('fast');
             });
