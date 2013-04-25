@@ -34,6 +34,7 @@ define(
         'command/DebugCommand',
         'command/MergeDefaultLibraryCommand',
         'command/ClearCommand',
+        'command/ClearInstancesCommand',
         'command/OpenFromNodeCommand',
         'command/ZoomInCommand',
         'command/ZoomDefaultCommand',
@@ -48,7 +49,7 @@ define(
 
     function ($, Kinetic, CFactory, Config, IOEngine,
               SaveCommand, SaveAsKevsCommand, LoadCommand, SettingsCommand, DebugCommand, MergeDefaultLibraryCommand,
-              ClearCommand, OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand,
+              ClearCommand, ClearInstancesCommand, OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand,
               _bootstrap) {
 
         // document.onload
@@ -124,6 +125,11 @@ define(
 
             $('#clear').click(function () {
                 var cmd = new ClearCommand();
+                cmd.execute(editor);
+            });
+
+            $('#clear-instances').click(function () {
+                var cmd = new ClearInstancesCommand();
                 cmd.execute(editor);
             });
 

@@ -334,7 +334,7 @@ define(
         }
 
         UIEditor.prototype.c2pInflateLibTree = function () {
-            $('.lib-tree-info').remove(); // remove info
+            $('.lib-tree-info').hide(); // hide info
             displayableItems = []; // reset old filter
             displayableSubTrees = []; // reset old filter
             $('#lib-tree-settings-toggle-fold').text('Fold all'); // reset fold status
@@ -366,10 +366,15 @@ define(
                 libItems = htmlContent = "";
             }
 
-            $('#lib-tree-content').html(libTree);
+            $('#lib-tree-content').append(libTree);
             $('.nav-list, .lib-item').tsort();
 
             this._registerCallbacks();
+        }
+
+        UIEditor.prototype.c2pClear = function () {
+            $('.lib-tree-info').show(); // show info
+            $('#lib-tree-content li, #lib-tree-content ul').remove();
         }
 
         /**

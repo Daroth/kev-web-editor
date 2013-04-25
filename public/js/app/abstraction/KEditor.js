@@ -36,6 +36,11 @@ define(
         }
 
         KEditor.prototype.clear = function () {
+            this.clearInstances();
+            this._model = null; // and forget model
+        }
+
+        KEditor.prototype.clearInstances = function () {
             var entities = this._entities.slice(0); // clone entities array
 
             for (var i=0; i < entities.length; i++) {

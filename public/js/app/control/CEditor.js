@@ -138,6 +138,12 @@ define(
             return this._currentWire;
         }
 
+        // Override KEditor.clear()
+        CEditor.prototype.clear = function () {
+            KEditor.prototype.clear.call(this);
+            this._ui.c2pClear();
+        }
+
         CEditor.prototype.startWireCreationTask = function (wire) {
             this._currentWire = wire;
             this._ui.c2pWireAdded(wire.getUI());
