@@ -236,7 +236,7 @@ define(
                     if (ui.draggable.children().size() != 0) {
                         ui.draggable.children().first().text(badgeCount);
                     } else if (badgeCount != 0) {
-                        ui.draggable.append("<span class='badge pull-right'>"+badgeCount+"</span>");
+                        ui.draggable.append("<span class='lib-item-count badge'>"+badgeCount+"</span>");
                     }
                 },
                 over: function(event, ui) {
