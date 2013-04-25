@@ -159,7 +159,7 @@ define(
                 // resize children if necessary
                 for (var i=0; i < children.length; i++) {
                     var entity = children[i].getUI();
-                    if (maxChildrenWidth < width) {
+                    if (maxChildrenWidth < (width - UINestableEntity.CHILD_X_PADDING)) {
                         // parent herited width
                         entity.setWidth(this.getWidth() - UINestableEntity.CHILD_X_PADDING);
                     } else {

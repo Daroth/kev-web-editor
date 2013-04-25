@@ -15,6 +15,8 @@ define(
                 for (var i=0; i<this._observers.length; i++) {
                     if (this._observers[i].update) {
                         this._observers[i].update(this);
+                    } else {
+                        console.warn("There is no update() method in your Observer. Did you extends Observer and/or override update(subject) method?");
                     }
                 }
             }

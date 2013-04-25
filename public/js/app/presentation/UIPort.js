@@ -52,6 +52,10 @@ define(
             this._ctrl.getComponent().getUI().setDraggable(isDraggable, parentsToo, childrenToo);
         }
 
+        UIPort.prototype.getWidth = function () {
+            return RADIUS*2;
+        }
+
         return UIPort;
     }
 );

@@ -8,6 +8,8 @@ define(
         var DEFAULT_STROKE_COLOR = "white",
             STROKE = 1;
 
+        UIComponent.PORT_PADDING = 10;
+
         Pooffs.extends(UIComponent, UINestableEntity);
 
         function UIComponent(ctrl) {
@@ -29,7 +31,7 @@ define(
             var inputs = ctrl.getInputs();
             for (var i=0; i < inputs.length; i++) {
                 var port = inputs[i].getUI().getShape();
-                port.setX(port.getRadius() + 10);
+                port.setX(port.getRadius() + UIComponent.PORT_PADDING);
                 port.setY(that._rect.getHeight() / 2);
                 this._shape.add(port);
             }
@@ -37,10 +39,12 @@ define(
             var outputs = ctrl.getOutputs();
             for (var i=0; i < outputs.length; i++) {
                 var port = outputs[i].getUI().getShape();
-                port.setX(that._rect.getWidth() - port.getRadius() - 10);
+                port.setX(that._rect.getWidth() - port.getRadius() - UIComponent.PORT_PADDING);
                 port.setY(that._rect.getHeight() / 2);
                 this._shape.add(port);
             }
+
+            this._updateDimensions();
 
             this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
         }
@@ -59,6 +63,8 @@ define(
                 var offset = parent.getChildOffset(this);
 
                 this._shape.setOffset(-offset.x, -offset.y);
+            } else {
+                this._updateDimensions();
             }
 
             this._rect.setHeight(this._headerName.getHeight());
@@ -84,6 +90,17 @@ define(
             this._rect.setStrokeWidth(STROKE);
             this._rect.setStroke(DEFAULT_STROKE_COLOR);
             if (this._shape.getParent()) this._shape.getLayer().draw();
+        }
+
+        UIComponent.prototype._updateDimensions = function () {
+            var portSpace = 0;
+            if (this._ctrl.getInputs().length > 0 || this._ctrl.getOutputs().length > 0) {
+                portSpace = (this._ctrl.getInputs()[0].getUI().getWidth()*2
+                    || this._ctrl.getOutputs()[0].getUI().getWidth()*2) + UIComponent.PORT_PADDING;
+            }
+
+            this._rect.setWidth(this._headerName.getWidth()+this._headerName.getPadding() + portSpace);
+            this._rect.setHeight(this._headerName.getHeight()+this._headerName.getPadding());
         }
 
         return UIComponent;
