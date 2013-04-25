@@ -339,6 +339,7 @@ define(
             displayableSubTrees = []; // reset old filter
             $('#lib-tree-settings-toggle-fold').text('Fold all'); // reset fold status
             libTreeFolded = false; // reset fold status
+            $('#lib-tree-content li, #lib-tree-content ul').remove(); // remove old content
 
             var libz = this._modelHelper.getLibraries(this._ctrl.getModel());
 
