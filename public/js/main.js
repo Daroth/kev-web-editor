@@ -44,7 +44,8 @@ define(
         'bootstrap/collapse',
         'bootstrap/dropdown',
         'bootstrap/alert',
-        'bootstrap/popover'
+        'bootstrap/popover',
+        'jqueryui/resizable'
     ],
 
     function ($, Kinetic, CFactory, Config, IOEngine,
@@ -57,12 +58,6 @@ define(
             //- init editor
             var editor = CFactory.getInstance().newEditor(Config.CONTAINER_ID);
             editor.getUI().create($('#'+Config.CONTAINER_ID).width(), $('#'+Config.CONTAINER_ID).height());
-
-            // opens file chooser when "load" menu item is clicked
-            $('#load').click(function () {
-                var cmd = new LoadCommand();
-                cmd.execute(editor);
-            });
 
             $('.close').click(function () {
                 // global behavior for alerts : close will remove 'in' class
@@ -80,62 +75,79 @@ define(
 
             // ========================================
             // Listeners that trigger XXXCommand.execute(...)
-            $('#save').click(function () {
+            $('#load').click(function (e) {
+                var cmd = new LoadCommand();
+                cmd.execute(editor);
+                e.preventDefault();
+            });
+
+            $('#save').click(function (e) {
                 var cmd = new SaveCommand();
                 cmd.execute(editor);
+                e.preventDefault();
             });
 
-            $('#save-kevs').click(function () {
+            $('#save-kevs').click(function (e) {
                 var cmd = new SaveAsKevsCommand();
                 cmd.execute();
+                e.preventDefault();
             });
 
-            $('#open-from-node').click(function () {
+            $('#open-from-node').click(function (e) {
                 var cmd = new OpenFromNodeCommand();
                 var protocol = $('#open-node-protocol option:selected').val();
                 var uri = $('#open-node-uri').val();
 
                 cmd.execute(protocol, uri, editor);
+                e.preventDefault();
             });
 
-            $('#settings').click(function () {
+            $('#settings').click(function (e) {
                 var cmd = new SettingsCommand();
                 cmd.execute();
+                e.preventDefault();
             });
 
-            $('#zoom-in').click(function () {
+            $('#zoom-in').click(function (e) {
                 var cmd = new ZoomInCommand();
                 cmd.execute(editor);
+                e.preventDefault();
             });
 
-            $('#zoom-default').click(function () {
+            $('#zoom-default').click(function (e) {
                 var cmd = new ZoomDefaultCommand();
                 cmd.execute(editor);
+                e.preventDefault();
             });
 
-            $('#zoom-out').click(function () {
+            $('#zoom-out').click(function (e) {
                 var cmd = new ZoomOutCommand();
                 cmd.execute(editor);
+                e.preventDefault();
             });
 
-            $('#debug').click(function () {
+            $('#debug').click(function (e) {
                 var cmd = new DebugCommand();
                 cmd.execute();
+                e.preventDefault();
             });
 
-            $('#clear').click(function () {
+            $('#clear').click(function (e) {
                 var cmd = new ClearCommand();
                 cmd.execute(editor);
+                e.preventDefault();
             });
 
-            $('#clear-instances').click(function () {
+            $('#clear-instances').click(function (e) {
                 var cmd = new ClearInstancesCommand();
                 cmd.execute(editor);
+                e.preventDefault();
             });
 
-            $('.model-load-corelib').click(function () {
+            $('.model-load-corelib').click(function (e) {
                 var cmd = new MergeDefaultLibraryCommand();
                 cmd.execute($(this).attr('data-lib'), editor);
+                e.preventDefault();
             });
             // END Listeners that trigger Cmd.execute()
             // ========================================
