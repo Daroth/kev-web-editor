@@ -19,7 +19,6 @@ define(
             this._parent = null;
             this._name = 'comp' + (COUNT++);
             this._inputs = [];
-            this._inputs.push(new CInputPort());
             this._outputs = [];
             for (var i=0; i < this._inputs.length; i++) this._inputs[i].setComponent(this);
             for (var i=0; i < this._outputs.length; i++) this._outputs[i].setComponent(this);
