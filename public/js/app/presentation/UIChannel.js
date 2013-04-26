@@ -73,10 +73,21 @@ define(
         }
 
         // Override UIEntity.getPosition()
-        UIChannel.prototype.getPosition = function () {
+        UIChannel.prototype.getPosition = function (origin) {
+            var pos = this._circle.getAbsolutePosition();
+
+            if (origin && (origin.y > pos.y)) {
+                // if origin.y is greater than this channel position.y
+                // then it is located 'under' graphically so give another plug point
+                return {
+                    x: pos.x,
+                    y: pos.y + RADIUS - 10
+                };
+            }
+
             return {
-                x: this._circle.getAbsolutePosition().x,
-                y: this._circle.getAbsolutePosition().y - RADIUS/2
+                x: pos.x,
+                y: pos.y - RADIUS + 10
             };
         }
 

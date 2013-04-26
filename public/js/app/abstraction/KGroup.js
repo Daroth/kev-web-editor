@@ -12,11 +12,9 @@ define(
         Pooffs.extends(KGroup, KEntity);
 
         function KGroup(editor, type) {
-            console.log("start KGroup constructor");
             KEntity.prototype.constructor.call(this, editor, type);
 
             this._name = "group" + (COUNT++);
-            console.log("end KGroup constructor");
         }
 
         KGroup.prototype.getEntityType = function () {
