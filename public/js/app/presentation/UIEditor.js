@@ -162,6 +162,20 @@ define(
                 }
             });
 
+            $('.lib-item').off(NAMESPACE);
+            $('.lib-item').on('mouseenter'+NAMESPACE, function () {
+                    // hover in callback
+                    console.log("YAHAAA");
+                    $(this).find('.lib-item-count').hide();
+                    $(this).find('.lib-item-name').css('overflow', 'visible');
+            });
+            $('.lib-item').on('mouseleave'+NAMESPACE, function () {
+                // hover out callback
+                console.log("YOUIJOUDIDZI");
+                $(this).find('.lib-item-count').show();
+                $(this).find('.lib-item-name').css('overflow', 'hidden');
+            });
+
             $('#lib-tree-settings-toggle-fold').off(NAMESPACE);
             $('#lib-tree-settings-toggle-fold').on('click'+NAMESPACE, function () {
                 if (that._ctrl.getModel()) { // no action to make if there is no model

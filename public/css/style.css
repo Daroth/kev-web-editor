@@ -85,7 +85,6 @@ body {
     background-color: #3E3E3E;
     cursor: pointer;
     z-index: 42;
-    width: auto !important;
 }
 
 .lib-tree-info {
