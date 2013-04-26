@@ -198,11 +198,7 @@ define(
                 helper: function() {
                     // the div dragged is a clone of the selected
                     // div for the drag without the badge if it exists
-                    var clone = $(this)
-                        .clone()    // clone the element
-                        .children() // select all the children
-                        .remove()   // remove all the children
-                        .end();     // again go back to selected element
+                    var clone = $(this).clone();
                     clone.addClass('dragged');
                     return clone;
                 },
@@ -228,27 +224,25 @@ define(
             $('#editor').droppable({
                 drop: function(event, ui) {
                     that._ctrl.p2cEntityDropped();
-                    var name = ui.draggable.clone() // clone the element
-                        .children()                 // select all the children
-                        .remove()                   // remove all the children
-                        .end()                      // again go back to selected element
-                        .text();
+                    var name = ui.draggable.find('.lib-item-name').text();
                     var badgeCount = that._ctrl.getEntityCount(name);
 
-                    if (ui.draggable.children().size() != 0) {
-                        ui.draggable.children().first().text(badgeCount);
+                    console.log("VTFF "+ui.draggable.has('.lib-item-count'));
+
+                    if (ui.draggable.has('.lib-item-count').size() > 0) {
+                        ui.draggable.find('.lib-item-count').text(badgeCount);
                     } else if (badgeCount != 0) {
-                        ui.draggable.append("<span class='lib-item-count badge'>"+badgeCount+"</span>");
+                        ui.draggable.append(
+                            "<div class='lib-item-count'>" +
+                                "<span class='badge'>"+badgeCount+"</span>"+
+                            "</div>"
+                        );
                     }
                 },
                 over: function(event, ui) {
                     var entity = ui.draggable.attr('data-entity');
                     var env = ui.draggable.attr('data-env');
-                    var name = ui.draggable.clone() // clone the element
-                        .children()                 // select all the children
-                        .remove()                   // remove all the children
-                        .end()                      // again go back to selected element
-                        .text();
+                    var name = ui.draggable.find('.lib-item-name').text();
                     that._ctrl.p2cEntityDraggedOver(ui.draggable, entity, env, name);
                 },
                 out: function () {
@@ -350,7 +344,10 @@ define(
                 var compz = libz[i].components;
                 for (var compIndex=0; compIndex < compz.length; compIndex++) {
                     var comp = compz[compIndex];
-                    libItems += "<li class='lib-item' data-entity='"+comp.type+"' data-env='"+libz[i].name+"'>"+comp.name+"</li>";
+                    libItems +=
+                        "<li class='lib-item' data-entity='"+comp.type+"' data-env='"+libz[i].name+"'>"+
+                            "<div class='lib-item-name'>"+comp.name+"</div>"+
+                        "</li>";
                     // if comp.type field in displayableItems is not defined, default value is true
                     if (displayableItems[comp.type] == undefined) displayableItems[comp.type] = true;
                 }

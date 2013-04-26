@@ -7,7 +7,9 @@ define(
         WireLayer.prototype = new Observer();
 
         function WireLayer() {
-            this._layer = new Kinetic.Layer();
+            this._layer = new Kinetic.Layer({
+                listening: false
+            });
             this._wires = new Array();
         }
 
