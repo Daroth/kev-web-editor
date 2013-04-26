@@ -34,23 +34,23 @@ define(
                     case Config.WS:
                         uri = protocol + uri;
                         var ws = new WebSocket(uri);
-                        ws.onmessage = function (data) {
-                            console.log("WS onMessage event");
+                        ws.onmessage = function (event) {
+                            console.log("WS onMessage event ", event);
+                            editor.setModel(JSON.parse(event.data));
+                            loadSucceed();
                         }
 
                         ws.onopen = function () {
                             console.log("WS onOpen event");
-
+                            ws.send("gimme da model");
                         }
 
                         ws.onclose = function () {
                             console.log("WS onClose event");
+                            loadFailed(uri);
                         }
 
-                        if (ws.readyState == WebSocket.OPEN) {
-                            ws.send("ping");
-                            loadSucceed();
-                        } else {
+                        ws.onerror = function () {
                             loadFailed(uri);
                         }
                         break;
