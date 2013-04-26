@@ -140,7 +140,7 @@ define(
             } else {
                 // error, 'entity' is not a KNode or a KComponent
                 // or it has already been added to this node children
-                // TODO
+                // TODO well it is not supposed to happen because the controller is supposed to check those things
             }
         }
 

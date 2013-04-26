@@ -96,8 +96,8 @@ define(
             });
 
             // foldable lib-tree
-            $('.nav-header').off(NAMESPACE);
-            $('.nav-header').on('click'+NAMESPACE, function() {
+            $('#lib-tree-content .nav-header').off(NAMESPACE);
+            $('#lib-tree-content .nav-header').on('click'+NAMESPACE, function() {
                 var icon = $(this).parent().children().first().children().first();
                 if (icon.hasClass('icon-arrow-right')) {
                     // all items are showed, hide them
@@ -111,6 +111,8 @@ define(
                     showLibTreeItems($(this), icon);
                 }
             });
+
+            // TODO refactor show/hide of lib-item in one method (currently it's way too split all over (control logic and ui stuff)
 
             // search field
             $('#lib-tree-search').off(NAMESPACE);
@@ -166,7 +168,7 @@ define(
                     if (libTreeFolded) {
                         // unfold libtree
                         $(this).text('Fold all');
-                        $('.nav-header').each(function () {
+                        $('#lib-tree-content .nav-header').each(function () {
                             var icon = $(this).children().first();
                             if (icon.hasClass('icon-arrow-down')) {
                                 displayableSubTrees[$(this).text()] = true;
@@ -177,7 +179,7 @@ define(
                     } else {
                         // fold libtree
                         $(this).text('Unfold all');
-                        $('.nav-header').each(function () {
+                        $('#lib-tree-content .nav-header').each(function () {
                             var icon = $(this).children().first();
                             if (icon.hasClass('icon-arrow-right')) {
                                 displayableSubTrees[$(this).text()] = false;
@@ -335,7 +337,6 @@ define(
 
         UIEditor.prototype.c2pInflateLibTree = function () {
             $('.lib-tree-info').hide(); // hide info
-            displayableItems = []; // reset old filter
             displayableSubTrees = []; // reset old filter
             $('#lib-tree-settings-toggle-fold').text('Fold all'); // reset fold status
             libTreeFolded = false; // reset fold status
@@ -350,7 +351,8 @@ define(
                 for (var compIndex=0; compIndex < compz.length; compIndex++) {
                     var comp = compz[compIndex];
                     libItems += "<li class='lib-item' data-entity='"+comp.type+"' data-env='"+libz[i].name+"'>"+comp.name+"</li>";
-                    displayableItems[comp.type] = true;
+                    // if comp.type field in displayableItems is not defined, default value is true
+                    if (displayableItems[comp.type] == undefined) displayableItems[comp.type] = true;
                 }
 
                 var htmlContent =
@@ -371,6 +373,13 @@ define(
             $('.nav-list, .lib-item').tsort();
 
             this._registerCallbacks();
+
+            // be sure to hide items if they were disable in lib-tree-settings
+            $('.lib-item').each(function () {
+                if (!displayableItems[$(this).attr('data-entity')]) {
+                    $(this).hide();
+                }
+            });
         }
 
         UIEditor.prototype.c2pClear = function () {

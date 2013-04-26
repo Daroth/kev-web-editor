@@ -3,10 +3,12 @@ define(
         KEntity._COUNT = 0;
 
         function KEntity(editor, type) {
+            console.log("start KEntity constructor");
             this._editor = editor;
             this._type = type;
             this._name = type + KEntity._COUNT++;
             this._wires = new Array();
+            console.log("end KEntity constructor");
         }
 
         KEntity.prototype.getName = function() {

@@ -112,10 +112,17 @@ html
         button.close(href='#', type='button', data-dismiss='modal') &times;
         h3 Editor settings
       div.modal-body
-        p TODO
+        //- p
+          em Each setting is saved in 'real-time', so the current state you are observing
+            | are the actual used settings. Closing this window won't discard your changings.
+        // hr
+        div.row-fluid
+          div.span10
+            label(for='ask-before-leaving') Confirm before leaving/reloading KevWebEditor
+          div.span2
+            input#ask-before-leaving.pull-right(type='checkbox', checked='true')
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
-        button#save-model.btn.btn-primary(data-dismiss='modal') Save
     //- ===============
 
     //- ===============

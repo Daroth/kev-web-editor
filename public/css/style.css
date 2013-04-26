@@ -15,7 +15,7 @@ body {
     padding-left: 0;
 }
 
-.nav-header {
+#lib-tree-content .nav-header {
     font-size: 13px;
     color: #fff;
 }

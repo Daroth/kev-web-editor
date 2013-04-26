@@ -34,12 +34,12 @@
             });
 
             var text = new Kinetic.Text({
-                text: ctrl.getType(),
+                text: ctrl.getName() + '\n' + ctrl.getType(),
                 fontSize: 13,
                 fontFamily: 'Helvetica',
                 fill: '#FFF',
                 align: 'center',
-                width: circle.getWidth()
+                width: circle.getWidth()-10
             });
 
             text.move(-text.getWidth()/2, -text.getHeight()/2);

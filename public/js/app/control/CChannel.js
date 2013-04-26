@@ -30,6 +30,7 @@ define(
                 // there is a wire task in progress
                 var origin = wire.getOrigin();
                 if (typeof (origin.getEntityType) != 'function') { // TODO -> THIS IS FREAKING UGLY: CHANGETHAT
+                                                                   // TODO because this is my way of checking if origin is a Port or a Group...
                     // connection can be made
                     this._ui.c2pDropPossible();
                 } else {
@@ -37,7 +38,7 @@ define(
                     this._ui.c2pDropImpossible();
                 }
             } else {
-                // user is just overing the shape
+                // user is just hovering the shape
                 this._ui.c2pPointerOverShape();
             }
         }
@@ -59,7 +60,7 @@ define(
                     this._ui.c2pDropImpossible();
                 }
             } else {
-                // user is just overing the shape
+                // user is just hovering the shape
                 this._ui.c2pPointerOverShape();
             }
         }

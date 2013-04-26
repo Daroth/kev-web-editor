@@ -9,16 +9,16 @@ define(
 
     function(KGroup, UIGroup, AController, CEntity, Pooffs) {
 
+        Pooffs.extends(CGroup, CEntity);
         Pooffs.extends(CGroup, KGroup);
         Pooffs.extends(CGroup, AController);
-        Pooffs.extends(CGroup, CEntity);
 
         function CGroup(editor, type) {
-            // KGroup.super(type)
-            KGroup.prototype.constructor.call(this, editor, type);
-
             // CEntity.super(editor, type)
             CEntity.prototype.constructor.call(this, editor, type);
+
+            // KGroup.super(type)
+            KGroup.prototype.constructor.call(this, editor, type);
 
             // instantiate UI
             this._ui = new UIGroup(this);

@@ -7,6 +7,7 @@ define(
     ],
 
     function(KEntity, CInputPort, COutputPort, Pooffs) {
+        var COUNT = 0;
 
         KComponent.ENTITY_TYPE = 'ComponentType';
 
@@ -16,6 +17,7 @@ define(
             KEntity.prototype.constructor.call(this, editor, type);
 
             this._parent = null;
+            this._name = 'comp' + (COUNT++);
             this._inputs = [];
             this._outputs = [];
             for (var i=0; i < this._inputs.length; i++) this._inputs[i].setComponent(this);

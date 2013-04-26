@@ -28,13 +28,13 @@ define(
             });
 
             var text = new Kinetic.Text({
-                text: ctrl.getType(),
+                text: ctrl.getName() + '\n' + ctrl.getType(),
                 fontSize: 12,
                 fontFamily: 'Helvetica',
                 fontWeight: 'bold',
                 fill: '#FFF',
                 align: 'center',
-                width: this._circle.getWidth()
+                width: this._circle.getWidth()-10
             });
 
             text.move(-text.getWidth()/2, -text.getHeight()/2);
