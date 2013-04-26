@@ -165,13 +165,11 @@ define(
             $('.lib-item').off(NAMESPACE);
             $('.lib-item').on('mouseenter'+NAMESPACE, function () {
                     // hover in callback
-                    console.log("YAHAAA");
                     $(this).find('.lib-item-count').hide();
                     $(this).find('.lib-item-name').css('overflow', 'visible');
             });
             $('.lib-item').on('mouseleave'+NAMESPACE, function () {
                 // hover out callback
-                console.log("YOUIJOUDIDZI");
                 $(this).find('.lib-item-count').show();
                 $(this).find('.lib-item-name').css('overflow', 'hidden');
             });
@@ -240,8 +238,6 @@ define(
                     that._ctrl.p2cEntityDropped();
                     var name = ui.draggable.find('.lib-item-name').text();
                     var badgeCount = that._ctrl.getEntityCount(name);
-
-                    console.log("VTFF "+ui.draggable.has('.lib-item-count'));
 
                     if (ui.draggable.has('.lib-item-count').size() > 0) {
                         ui.draggable.find('.lib-item-count').text(badgeCount);
