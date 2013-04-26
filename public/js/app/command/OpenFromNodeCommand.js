@@ -24,22 +24,35 @@ define(
                             // load model into editor
                             editor.setModel(data);
 
-                            // close 'Open from node' modal
-                            $('#open-node-popup').modal('hide');
-
-                            AlertPopupHelper.setText("Model loaded successfully");
-                            AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
-                            AlertPopupHelper.show(5000);
+                            loadSucceed();
 
                         }, 'json').fail(function () {
-                                $('#open-node-alert-content').text("Unable to get model from "+uri+". Are you sure that your model is a valid JSON Kevoree model ?");
-                                $('#open-node-alert').addClass('in');
+                                loadFailed(uri);
                             });
                         break;
 
                     case Config.WS:
                         uri = protocol + uri;
+                        var ws = new WebSocket(uri);
+                        ws.onmessage = function (data) {
+                            console.log("WS onMessage event");
+                        }
 
+                        ws.onopen = function () {
+                            console.log("WS onOpen event");
+
+                        }
+
+                        ws.onclose = function () {
+                            console.log("WS onClose event");
+                        }
+
+                        if (ws.readyState == WebSocket.OPEN) {
+                            ws.send("ping");
+                            loadSucceed();
+                        } else {
+                            loadFailed(uri);
+                        }
                         break;
 
                     default:
@@ -54,5 +67,19 @@ define(
         }
 
         return OpenFromNodeCommand;
+
+        function loadSucceed() {
+            // close 'Open from node' modal
+            $('#open-node-popup').modal('hide');
+
+            AlertPopupHelper.setText("Model loaded successfully");
+            AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
+            AlertPopupHelper.show(5000);
+        }
+
+        function loadFailed(uri) {
+            $('#open-node-alert-content').text("Unable to get model from "+uri+". Are you sure that your model is a valid JSON Kevoree model ? Or remote target is reachable ?");
+            $('#open-node-alert').addClass('in');
+        }
     }
 );
