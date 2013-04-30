@@ -144,6 +144,12 @@ define(
             this._ui.c2pClear();
         }
 
+        // Override KEditor.clearInstances()
+        CEditor.prototype.clearInstances = function () {
+            // TODO here you maybe should check the saved state of the model ?
+            KEditor.prototype.clearInstances.call(this);
+        }
+
         CEditor.prototype.startWireCreationTask = function (wire) {
             this._currentWire = wire;
             this._ui.c2pWireAdded(wire.getUI());

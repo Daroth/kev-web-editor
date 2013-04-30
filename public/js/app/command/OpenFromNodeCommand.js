@@ -13,56 +13,69 @@ define(
                 $('#open-node-alert').removeClass('in');
             });
 
+            // prevent user from clicking 'open' button while disabled
+            if (!$('#open-from-node').hasClass('disabled')) {
+                // check uri
+                // TODO check it better maybe ?
+                if (uri && uri.length != 0) {
+                    // seems like we have a good uri
+                    // display loading alert
+                    $('#open-node-alert').removeClass('alert-error');
+                    $('#open-node-alert').addClass('alert-success');
+                    $('#open-node-alert-content').html("<img src='/img/ajax-loader-small.gif'/> Loading in progress, please wait...");
+                    $('#open-node-alert').addClass('in');
+                    $('#open-from-node').addClass('disabled');
 
-            if (uri && uri.length != 0) {
-                // seems like we have a good uri
-
-                switch (protocol) {
-                    case Config.HTTP:
-                        uri = protocol + uri;
-                        $.get(uri, function (data) {
-                            // load model into editor
-                            editor.setModel(data);
-
-                            loadSucceed();
-
-                        }, 'json').fail(function () {
-                                loadFailed(uri);
+                    // use HTTP or WebSocket
+                    switch (protocol) {
+                        case Config.HTTP:
+                            uri = protocol + uri;
+                            $.ajax({
+                                url: uri,
+                                timeout: 10000, // 10 seconds timeout
+                                dataType: 'json',
+                                success: function (data) {
+                                    // load model into editor
+                                    editor.setModel(data);
+                                    loadSucceed();
+                                },
+                                error: function () {
+                                    loadFailed(uri);
+                                }
                             });
-                        break;
+                            break;
 
-                    case Config.WS:
-                        uri = protocol + uri;
-                        var ws = new WebSocket(uri);
-                        ws.onmessage = function (event) {
-                            console.log("WS onMessage event ", event);
-                            editor.setModel(JSON.parse(event.data));
-                            loadSucceed();
-                        }
+                        case Config.WS:
+                            uri = protocol + uri;
+                            var ws = new WebSocket(uri);
+                            ws.onmessage = function (event) {
+                                editor.setModel(JSON.parse(event.data));
+                                loadSucceed();
+                            }
 
-                        ws.onopen = function () {
-                            console.log("WS onOpen event");
-                            ws.send("gimme da model");
-                        }
+                            ws.onopen = function () {
+                                // TODO use a clean protocol
+                                ws.send("gimme da model");
+                            }
 
-                        ws.onclose = function () {
-                            console.log("WS onClose event");
-                            loadFailed(uri);
-                        }
+                            ws.onclose = function () {
+                                loadFailed(uri);
+                            }
 
-                        ws.onerror = function () {
-                            loadFailed(uri);
-                        }
-                        break;
+                            ws.onerror = function () {
+                                loadFailed(uri);
+                            }
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
+
+                } else {
+                    // uri is malformed
+                    $('#open-node-alert-content').text("Malformed URI");
+                    $('#open-node-alert').addClass('in');
                 }
-
-            } else {
-                // uri is malformed
-                $('#open-node-alert-content').text("Malformed URI");
-                $('#open-node-alert').addClass('in');
             }
         }
 
@@ -71,6 +84,7 @@ define(
         function loadSucceed() {
             // close 'Open from node' modal
             $('#open-node-popup').modal('hide');
+            $('#open-from-node').removeClass('disabled');
 
             AlertPopupHelper.setText("Model loaded successfully");
             AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
@@ -78,6 +92,9 @@ define(
         }
 
         function loadFailed(uri) {
+            $('#open-from-node').removeClass('disabled');
+            $('#open-node-alert').removeClass('alert-success');
+            $('#open-node-alert').addClass('alert-error');
             $('#open-node-alert-content').text("Unable to get model from "+uri+". Are you sure that your model is a valid JSON Kevoree model ? Or remote target is reachable ?");
             $('#open-node-alert').addClass('in');
         }
