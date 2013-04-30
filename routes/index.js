@@ -4,3 +4,4 @@ exports.index = function(req, res) {
 };
 
 exports.merge = require('./merge').merge;
+exports.save = require('./save').save;

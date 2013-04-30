@@ -1,11 +1,10 @@
 define(
     [
         'jquery',
-        'io/IOEngine',
         'util/ModelHelper',
         'util/AlertPopupHelper'
     ],
-    function ($, IOEngine, ModelHelper, AlertPopupHelper) {
+    function ($, ModelHelper, AlertPopupHelper) {
         function LoadCommand () {}
 
         LoadCommand.prototype.execute = function (editor) {

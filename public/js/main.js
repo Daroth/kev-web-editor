@@ -13,7 +13,6 @@ requirejs.config({
         control:        '../app/control',
         presentation:   '../app/presentation',
         factory:        '../app/factory',
-        io:             '../app/io',
         util:           '../app/util',
         command:        '../app/command'
     }
@@ -26,7 +25,6 @@ define(
         'kinetic',
         'factory/CFactory',
         'util/Config',
-        'io/IOEngine',
         'command/SaveCommand',
         'command/SaveAsKevsCommand',
         'command/LoadCommand',
@@ -48,7 +46,7 @@ define(
         'jqueryui/resizable'
     ],
 
-    function ($, Kinetic, CFactory, Config, IOEngine,
+    function ($, Kinetic, CFactory, Config,
               SaveCommand, SaveAsKevsCommand, LoadCommand, SettingsCommand, DebugCommand, MergeDefaultLibraryCommand,
               ClearCommand, ClearInstancesCommand, OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand,
               _bootstrap) {
@@ -74,7 +72,7 @@ define(
             });
 
             // safety check because one does not simply like when he loses
-            // a 30 minutes work on a model by miss-pressing F5 button for instance
+            // a 30 minutes work on a model by miss-pressing F5 button...if u no wat I mean
             $(window).bind('beforeunload', function() {
                 var askBeforeLeaving = $('#ask-before-leaving').prop('checked');
                 if (askBeforeLeaving) {

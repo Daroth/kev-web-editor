@@ -38,7 +38,7 @@ html
                     a#open(href='#open-node-popup', data-toggle='modal') Open from node
                   li.divider
                   li
-                    a#save(href='#save-popup', data-toggle='modal') Save
+                    a#save(href='#', data-toggle='modal') Save
                     a#save-kevs(href='#') Save as KevScript
               li.dropdown
                 a.dropdown-toggle(href='#', data-toggle='dropdown') Model&nbsp;
@@ -77,12 +77,12 @@ html
         button.close(href='#', type='button', data-dismiss='modal') &times;
         h3 Save model
       div.modal-body
-        input#filename(type='text')
-        p TODO
-        p#save-popup-content
+        p#save-popup-text
+          img(src='/img/ajax-loader-small.gif')
+          | &nbsp; Uploading model in progress, this may take a few minutes...
+        a#saved-model-link.hide(href='#', target='_blank') Download your model
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
-        button#save-model.btn.btn-primary(data-dismiss='modal') Save
     //- ===============
 
     //- ===============
