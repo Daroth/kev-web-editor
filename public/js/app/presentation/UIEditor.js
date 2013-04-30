@@ -165,12 +165,12 @@ define(
             $('.lib-item').off(NAMESPACE);
             $('.lib-item').on('mouseenter'+NAMESPACE, function () {
                     // hover in callback
-                    $(this).find('.lib-item-count').hide();
+                    $(this).find('.lib-item-count').stop(true, true).delay(500).fadeOut();
                     $(this).find('.lib-item-name').css('overflow', 'visible');
             });
             $('.lib-item').on('mouseleave'+NAMESPACE, function () {
                 // hover out callback
-                $(this).find('.lib-item-count').show();
+                $(this).find('.lib-item-count').stop(true, true).delay(500).fadeIn();
                 $(this).find('.lib-item-name').css('overflow', 'hidden');
             });
 
