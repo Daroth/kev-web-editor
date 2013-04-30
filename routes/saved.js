@@ -11,7 +11,7 @@ exports.saved = function(req, res) {
     fs.stat(filename, function(err, stats) {
         if(!err && stats.isFile()) {
             // send file back
-            res.sendfile(filename);
+            res.download(filename);
 
             // delete file after 5 minutes
             if (!timeouts[filename]) {
