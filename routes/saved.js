@@ -24,6 +24,8 @@ exports.saved = function(req, res) {
                     timeouts[filename].forEach(function (id) {
                         clearTimeout(id);
                     });
+                    // clear this file timeouts
+                    delete timeouts[filename];
                 } catch (err) {
                     console.warn("err "+err.message);
                 }
