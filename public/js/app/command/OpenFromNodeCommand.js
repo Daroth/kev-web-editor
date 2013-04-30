@@ -5,11 +5,13 @@ define(
     ],
 
     function (AlertPopupHelper, Config) {
+        var NAMESPACE = '.open-node-popup';
+
         function OpenFromNodeCommand() {};
 
         OpenFromNodeCommand.prototype.execute = function (protocol, uri, editor) {
-            $('body').off('.open-node-popup')
-            $('body').on('hidden.open-node-popup', '#open-node-popup', function () {
+            $('body').off(NAMESPACE)
+            $('body').on('hidden'+NAMESPACE, '#open-node-popup', function () {
                 $('#open-node-alert').removeClass('in');
             });
 

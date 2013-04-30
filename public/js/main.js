@@ -55,9 +55,17 @@ define(
 
         // document.onload
         $(function() {
-            //- init editor
+            // init editor
             var editor = CFactory.getInstance().newEditor(Config.CONTAINER_ID);
             editor.getUI().create($('#'+Config.CONTAINER_ID).width(), $('#'+Config.CONTAINER_ID).height());
+
+            // load editor's settings from Local Storage
+            var storage = window.localStorage;
+            if (storage) { // check if browser is compatible with HTML5 Local Storage
+                var askBeforeLeaving = storage.getItem(Config.LS_ASK_BEFORE_LEAVING);
+                askBeforeLeaving = (askBeforeLeaving == "true") ? true : false;
+                $('#ask-before-leaving').prop('checked', askBeforeLeaving);
+            }
 
             $('.close').click(function () {
                 // global behavior for alerts : close will remove 'in' class
@@ -74,10 +82,12 @@ define(
                 }
             });
 
+            // show zoom controls when mouse hovers #editor area
             $('#editor').on('mouseenter', function () {
                 $('#zoom-controls').stop(true, true).delay(600).show('fast');
             });
 
+            // hide zoom controls when mouse leaves #editor area
             $('#editor').on('mouseleave', function () {
                 $('#zoom-controls').stop(true, true).delay(600).hide('fast');
             });
