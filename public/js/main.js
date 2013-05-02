@@ -27,6 +27,7 @@ define(
         'util/Config',
         'command/SaveCommand',
         'command/SaveAsKevsCommand',
+        'command/SaveAsPNGCommand',
         'command/LoadCommand',
         'command/SettingsCommand',
         'command/DebugCommand',
@@ -47,8 +48,9 @@ define(
     ],
 
     function ($, Kinetic, CFactory, Config,
-              SaveCommand, SaveAsKevsCommand, LoadCommand, SettingsCommand, DebugCommand, MergeDefaultLibraryCommand,
-              ClearCommand, ClearInstancesCommand, OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand,
+              SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, SettingsCommand, DebugCommand,
+              MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand, OpenFromNodeCommand, ZoomInCommand,
+              ZoomDefaultCommand, ZoomOutCommand,
               _bootstrap) {
 
         // document.onload
@@ -107,6 +109,12 @@ define(
             $('#save-kevs').click(function (e) {
                 var cmd = new SaveAsKevsCommand();
                 cmd.execute();
+                e.preventDefault();
+            });
+
+            $('#save-png').click(function (e) {
+                var cmd = new SaveAsPNGCommand();
+                cmd.execute(editor);
                 e.preventDefault();
             });
 

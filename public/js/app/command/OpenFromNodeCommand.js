@@ -97,7 +97,7 @@ define(
             $('#open-from-node').removeClass('disabled');
             $('#open-node-alert').removeClass('alert-success');
             $('#open-node-alert').addClass('alert-error');
-            $('#open-node-alert-content').text("Unable to get model from "+uri+". Are you sure that your model is a valid JSON Kevoree model ? Or remote target is reachable ?");
+            $('#open-node-alert-content').text("Unable to get model from "+uri+". Are you sure that your model is a valid JSON Kevoree model ? Or that the remote target is reachable ?");
             $('#open-node-alert').addClass('in');
         }
     }
