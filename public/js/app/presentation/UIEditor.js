@@ -13,6 +13,7 @@ define(
     function (WireLayer, ModelHelper, _bootstrap, $) {
         var NAMESPACE = '.uieditor',
             libTreeFolded = false,
+            libTreeShowed = true,
             displayableItems = [],
             displayableSubTrees = [];
 
@@ -93,6 +94,29 @@ define(
                 that._stage.setHeight($('#'+that._id).height());
                 that._stage.draw();
                 that._wireLayer.update();
+            });
+
+            $('#toggle-lib-tree').off(NAMESPACE);
+            $('#toggle-lib-tree').on('click'+NAMESPACE, function () {
+                if (libTreeShowed) {
+                    // hide lib tree
+                    $('#lib-tree').hide();
+                    $('#editor-panel').removeClass('span10');
+
+                } else {
+                    // show lib tree
+                    $('#lib-tree').show();
+                    $('#editor-panel').addClass('span10');
+                }
+
+                // resize editor accordingly
+                that._stage.setWidth($('#'+that._id).width());
+                that._stage.setHeight($('#'+that._id).height());
+                that._stage.draw();
+                that._wireLayer.update();
+
+                // change toggle value
+                libTreeShowed = !libTreeShowed;
             });
 
             // foldable lib-tree

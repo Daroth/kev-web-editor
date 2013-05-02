@@ -32,7 +32,10 @@ block content
             br
             em File > Load
 
-      div.span10.layer.fill
+      div#editor-panel.span10.layer.fill
+        a#toggle-lib-tree.over(href='#', title='Toggle menu')
+          img(src='/img/show-menu.png')
+
         //- ===============
         //- ALERT
         div#alert.alert.alert-block.fade.over-right

@@ -42,6 +42,7 @@ define(
         }
 
         KEntity.prototype.remove = function () {
+            console.log("KEntity remove");
             this.getEditor().removeEntity(this);
             this.clearWires();
         }

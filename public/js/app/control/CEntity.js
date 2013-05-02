@@ -10,6 +10,7 @@ define(
         function CEntity(editor, type) {}
 
         CEntity.prototype.p2cRemoveEntity = function () {
+            console.log('CEntity p2cRemoveEntity');
             this.remove();
         }
 
