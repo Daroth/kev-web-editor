@@ -25,10 +25,12 @@ define(
         'kinetic',
         'factory/CFactory',
         'util/Config',
+        'behave',
         'command/SaveCommand',
         'command/SaveAsKevsCommand',
         'command/SaveAsPNGCommand',
         'command/LoadCommand',
+        'command/OpenKevsEditorCommand',
         'command/SettingsCommand',
         'command/DebugCommand',
         'command/MergeDefaultLibraryCommand',
@@ -47,10 +49,10 @@ define(
         'jqueryui/resizable'
     ],
 
-    function ($, Kinetic, CFactory, Config,
-              SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, SettingsCommand, DebugCommand,
-              MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand, OpenFromNodeCommand, ZoomInCommand,
-              ZoomDefaultCommand, ZoomOutCommand,
+    function ($, Kinetic, CFactory, Config, Behave,
+              SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, SettingsCommand,
+              DebugCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand, OpenFromNodeCommand,
+              ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand,
               _bootstrap) {
 
         // document.onload
@@ -66,6 +68,11 @@ define(
                 askBeforeLeaving = (askBeforeLeaving == "true") ? true : false;
                 $('#ask-before-leaving').prop('checked', askBeforeLeaving);
             }
+
+            // use Behave.js for Kevs Editor
+            var kevsEditor = new Behave({
+                textarea: document.getElementById('kev-script')
+            });
 
             $('.close').click(function () {
                 // global behavior for alerts : close will remove 'in' class
@@ -124,6 +131,12 @@ define(
                 var uri = $('#open-node-uri').val();
 
                 cmd.execute(protocol, uri, editor);
+                e.preventDefault();
+            });
+
+            $('#open-kevs-editor').click(function (e) {
+                var cmd = new OpenKevsEditorCommand();
+                cmd.execute(editor);
                 e.preventDefault();
             });
 

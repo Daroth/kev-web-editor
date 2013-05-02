@@ -60,6 +60,13 @@ html
                       li: a.model-load-corelib(href='#', data-lib='webserver') WebServer
 
               li.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown') KevScript&nbsp;
+                  b.caret
+                ul.dropdown-menu
+                  li
+                    a#open-kevs-editor(href="#") Open editor
+
+              li.dropdown
                 a.dropdown-toggle(href='#', data-toggle='dropdown') Edit&nbsp;
                   b.caret
                 ul.dropdown-menu
@@ -105,6 +112,20 @@ html
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
         button#open-from-node.btn.btn-primary Open
+    //- ===============
+
+    //- ===============
+    //- KevScript Editor
+    div#kevs-editor.modal.hide.fade(tabindex='-1', role='dialog')
+      div.modal-header
+        button.close(href='#', type='button', data-dismiss='modal') &times;
+        h3 KevScript Editor
+      div.modal-body
+        div.row-fluid
+          textarea#kev-script.span12(rows='15')
+      div.modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Close
+        button#run-kevs.btn.btn-primary(data-dismiss='modal') Run
     //- ===============
 
     //- ===============

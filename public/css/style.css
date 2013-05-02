@@ -133,6 +133,17 @@ body {
     background-color: #484848;
 }
 
+#kevs-editor {
+    width: 60%;
+    margin-left: -30%;
+}
+
+#kev-script {
+    padding: 10px;
+    font-family: monospace;
+    font-size: small;
+}
+
 #zoom-controls {
     position: absolute;
     bottom: 40px;
@@ -149,7 +160,7 @@ body {
 }
 
 #debug-alert-content {
-    height: 95%;
+    height: 90%;
     overflow-y: scroll;
 }
 
@@ -250,5 +261,10 @@ div.shadow {
 
     #lib-tree-content {
         height: 78%;
+    }
+
+    #kevs-editor {
+        width: auto;
+        margin-left: auto;
     }
 }
