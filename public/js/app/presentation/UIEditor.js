@@ -90,9 +90,7 @@ define(
             $(window).off(NAMESPACE);
             // refresh editor size on window resizing
             $(window).on('resize'+NAMESPACE, function() {
-                that._stage.setWidth($('#'+that._id).width());
-                that._stage.setHeight($('#'+that._id).height());
-                that._stage.draw();
+                that._stage.setSize($('#'+that._id).width(), $('#'+that._id).height());
                 that._wireLayer.update();
             });
 
@@ -110,9 +108,7 @@ define(
                 }
 
                 // resize editor accordingly
-                that._stage.setWidth($('#'+that._id).width());
-                that._stage.setHeight($('#'+that._id).height());
-                that._stage.draw();
+                that._stage.setSize($('#'+that._id).width(), $('#'+that._id).height());
                 that._wireLayer.update();
 
                 // change toggle value
@@ -264,7 +260,7 @@ define(
                     var badgeCount = that._ctrl.getEntityCount(name);
 
                     if (ui.draggable.has('.lib-item-count').size() > 0) {
-                        ui.draggable.find('.lib-item-count').text(badgeCount);
+                        ui.draggable.find('.lib-item-count').children('.badge').text(badgeCount);
                     } else if (badgeCount != 0) {
                         ui.draggable.append(
                             "<div class='lib-item-count'>" +
@@ -335,9 +331,9 @@ define(
             var badgeCount = this._ctrl.getEntityCount(entity.getCtrl().getType());
 
             if (badgeCount == 0) {
-                entity.getDOMItem().find('.badge').remove();
+                entity.getDOMItem().find('.lib-item-count').remove();
             } else {
-                entity.getDOMItem().children().first().text(badgeCount);
+                entity.getDOMItem().find('.lib-item-count').children('.badge').text(badgeCount);;
             }
         }
 
