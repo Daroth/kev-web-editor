@@ -102,6 +102,10 @@ define(
             }
         }
 
+        CEditor.prototype.p2cDblTap = function () {
+            this._ui.c2pZoomDefault();
+        }
+
         CEditor.prototype.p2cMouseMove = function (position) {
             if (this._currentWire) {
                 this._ui.c2pUpdateWire(this._currentWire.getUI(), position);

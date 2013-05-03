@@ -26,6 +26,7 @@ define(
         'factory/CFactory',
         'util/Config',
         'behave',
+        'util/QueryString',
         'command/SaveCommand',
         'command/SaveAsKevsCommand',
         'command/SaveAsPNGCommand',
@@ -49,10 +50,11 @@ define(
         'bootstrap/dropdown',
         'bootstrap/alert',
         'bootstrap/popover',
-        'hammer'
+        'hammer',
+        'touchpunch'
     ],
 
-    function ($, Kinetic, CFactory, Config, Behave,
+    function ($, Kinetic, CFactory, Config, Behave, QueryString,
               SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, RunKevScriptCommand,
               SettingsCommand, DebugCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
               OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand, ShowStatsCommand, CheckModelCommand,
@@ -76,6 +78,15 @@ define(
             var kevsEditor = new Behave({
                 textarea: document.getElementById('kev-script')
             });
+
+            // check if there is some action given within the URL
+            var qs = new QueryString();
+            if (qs.corelib) {
+                // merge this core library directly
+                var cmd = new MergeDefaultLibraryCommand();
+                cmd.execute(qs.corelib, editor);
+            }
+
 
             $('.close').click(function () {
                 // global behavior for alerts : close will remove 'in' class
@@ -174,13 +185,13 @@ define(
                 e.preventDefault();
             });
 
-            $('#editor').hammer().on("pinchin", function(e) {
+            $('#editor').hammer().on("pinchout", function(e) {
                 var cmd = new ZoomInCommand();
                 cmd.execute(editor);
                 e.preventDefault();
             });
 
-            $('#editor').hammer().on("pinchout", function(e) {
+            $('#editor').hammer().on("pinchin", function(e) {
                 var cmd = new ZoomOutCommand();
                 cmd.execute(editor);
                 e.preventDefault();

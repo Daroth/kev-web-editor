@@ -6,7 +6,7 @@
     function(UIEntity) {
         // GLOBAL CONSTANTS
         var STROKE = 4,
-            RADIUS = 10;
+            RADIUS = 12;
 
         // inherit from KEntity
         UIGroup.prototype = new UIEntity();
@@ -58,13 +58,13 @@
             //===========================
             var that = this;
 
-            this._shape.on('mouseover', function() {
+            this._shape.on('mouseover touchstart', function() {
                 document.body.style.cursor = 'pointer';
                 circle.setStrokeWidth(STROKE+1);
                 circle.getLayer().draw();
             });
 
-            this._shape.on('mouseout', function() {
+            this._shape.on('mouseout touchend', function() {
                 document.body.style.cursor = 'default';
                 circle.setStrokeWidth(STROKE);
                 circle.getLayer().draw();
@@ -74,12 +74,12 @@
                 that._ctrl.p2cDragMove();
             });
 
-            this._plug.on('mouseover', function() {
+            this._plug.on('mouseover touchmove', function() {
                 that._plug.setRadius(RADIUS+1);
                 that._plug.getLayer().draw();
             });
 
-            this._plug.on('mouseout', function() {
+            this._plug.on('mouseout touchend', function() {
                 that._plug.setRadius(RADIUS);
                 that._plug.getLayer().draw();
             });
@@ -104,14 +104,14 @@
 
                 // listens to 'mousedown' events to recognize
                 // initiation of wire drawing
-                this._plug.on('mousedown', function() {
+                this._plug.on('mousedown touchstart', function() {
                     // disable drag events on group during wire creation process
                     that._shape.setDraggable(false);
                     // dispatch user's mousedown event to controller
                     that._ctrl.p2cMouseDown(that._shape.getStage().getPointerPosition());
                 });
 
-                that._shape.getStage().on('mouseup', function () {
+                that._shape.getStage().on('mouseup touchend', function () {
                     that._ctrl.p2cMouseMove(this.getPointerPosition());
                 });
 

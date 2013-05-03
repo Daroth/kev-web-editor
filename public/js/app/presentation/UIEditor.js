@@ -7,7 +7,8 @@ define(
         'jqueryui/droppable',
         'jqueryui/draggable',
         'jqueryui/effect-highlight',
-        'tinysort'
+        'tinysort',
+        'touchpunch'
     ],
 
     function (WireLayer, ModelHelper, _bootstrap, $) {
@@ -64,11 +65,15 @@ define(
             //===========================
             var that = this;
 
-            this._stage.on('mousemove', function() {
+            this._stage.on('mousemove touchmove', function() {
                 that._ctrl.p2cMouseMove(this.getPointerPosition());
             });
 
-            this._stage.on('mouseup', function() {
+            this._stage.on('dbltap', function () {
+               that._ctrl.p2cDblTap();
+            });
+
+            this._stage.on('mouseup touchend', function() {
                 that._ctrl.p2cMouseUp(this.getPointerPosition());
 
                 if (that._scale > 1) {
@@ -89,7 +94,7 @@ define(
             // unregister listeners before
             $(window).off(NAMESPACE);
             // refresh editor size on window resizing
-            $(window).on('resize'+NAMESPACE, function() {
+            $(window).on('smartresize'+NAMESPACE, function() {
                 that._stage.setSize($('#'+that._id).width(), $('#'+that._id).height());
                 that._wireLayer.update();
             });
@@ -113,6 +118,11 @@ define(
 
                 // change toggle value
                 libTreeShowed = !libTreeShowed;
+            });
+
+            $('#editor').off(NAMESPACE);
+            $('#editor').on('dblclick'+NAMESPACE, function () {
+                that._ctrl.p2cDblTap();
             });
 
             // foldable lib-tree
@@ -237,6 +247,9 @@ define(
                 cursor: 'move',
                 cursorAt: {
                     top: -5 // offset mouse cursor over the dragged item
+                },
+                start: function () {
+                    $('#editor').focus();
                 }
             });
 
@@ -283,6 +296,7 @@ define(
 
         UIEditor.prototype.c2pEntityAdded = function(entity) {
             if (this._stage.getPointerPosition()) entity.getShape().setPosition(this._stage.getPointerPosition());
+            else entity.getShape().setPosition(100, 100); // default position
             this.addShape(entity.getShape());
             entity.ready();
         }

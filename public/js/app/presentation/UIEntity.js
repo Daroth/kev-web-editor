@@ -24,8 +24,8 @@ define(
 
         UIEntity.prototype.setPopup = function(content) {
             var that = this;
-            this._shape.off('dblclick tap');
-            this._shape.on('dblclick tap', function(e) {
+            this._shape.off('dblclick dbltap');
+            this._shape.on('dblclick dbltap', function(e) {
                 // prevent children from getting the event too
                 e.cancelBubble = true;
 

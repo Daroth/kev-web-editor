@@ -62,11 +62,11 @@ define(
             var that = this;
             this._mouseUpEvent = null;
 
-            this._shape.on('mouseover', function() {
+            this._shape.on('mouseover touchmove touchstart', function() {
                 that._ctrl.p2cMouseOver();
             });
 
-            this._shape.on('mouseout', function() {
+            this._shape.on('mouseout touchend', function() {
                 that._ctrl.p2cMouseOut();
             });
 
@@ -83,7 +83,7 @@ define(
             if (!this._isReady) {
                 var that = this;
 
-                this._shape.on('mouseup', function(event) {
+                this._shape.on('mouseup touchend', function(event) {
                     that._mouseUpEvent = event;
                     that._ctrl.p2cMouseUp(this.getStage().getPointerPosition());
                 });

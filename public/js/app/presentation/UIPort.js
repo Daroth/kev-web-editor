@@ -17,18 +17,17 @@ define(
             // Event handling
             //==========================
             var that = this;
-            this._shape.on('mouseenter', function () {
+            this._shape.on('mouseenter touchstart', function () {
                 that._shape.setStrokeWidth(that._shape.getStrokeWidth()+1);
                 that._shape.getLayer().draw();
             });
 
-            this._shape.on('mouseout', function () {
+            this._shape.on('mouseout touchend', function () {
                 that._shape.setStrokeWidth(that._shape.getStrokeWidth()-1);
                 that._shape.getLayer().draw();
             });
 
-            this._shape.on('mousedown', function () {
-                console.log("mouse down Port");
+            this._shape.on('mousedown touchstart', function () {
                 that._ctrl.p2cMouseDown();
             });
         }

@@ -50,22 +50,22 @@ define(
             // Event handling
             //===========================
             var that = this;
-            this._shape.on('mouseover', function() {
+            this._shape.on('mouseover touchmove', function() {
                 that._ctrl.p2cMouseOver();
             });
 
-            this._shape.on('mouseout', function() {
+            this._shape.on('mouseout touchend', function() {
                 document.body.style.cursor = 'default';
                 that._circle.setStrokeWidth(STROKE);
                 that._circle.setStroke(DEFAULT_STROKE_COLOR);
                 that._circle.getLayer().draw();
             });
 
-            this._shape.on('mouseup', function () {
+            this._shape.on('mouseup touchend', function () {
                 that._ctrl.p2cMouseUp();
             });
 
-            this._shape.on('dragmove', function () {
+            this._shape.on('dragmove touchmove', function () {
                 that._ctrl.p2cDragMove();
             });
 
