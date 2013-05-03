@@ -48,7 +48,8 @@ define(
         'bootstrap/collapse',
         'bootstrap/dropdown',
         'bootstrap/alert',
-        'bootstrap/popover'
+        'bootstrap/popover',
+        'hammer'
     ],
 
     function ($, Kinetic, CFactory, Config, Behave,
@@ -169,6 +170,18 @@ define(
 
             $('#zoom-in').click(function (e) {
                 var cmd = new ZoomInCommand();
+                cmd.execute(editor);
+                e.preventDefault();
+            });
+
+            $('#editor').hammer().on("pinchin", function(e) {
+                var cmd = new ZoomInCommand();
+                cmd.execute(editor);
+                e.preventDefault();
+            });
+
+            $('#editor').hammer().on("pinchout", function(e) {
+                var cmd = new ZoomOutCommand();
                 cmd.execute(editor);
                 e.preventDefault();
             });
