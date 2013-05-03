@@ -31,6 +31,7 @@ define(
         'command/SaveAsPNGCommand',
         'command/LoadCommand',
         'command/OpenKevsEditorCommand',
+        'command/RunKevScriptCommand',
         'command/SettingsCommand',
         'command/DebugCommand',
         'command/MergeDefaultLibraryCommand',
@@ -40,19 +41,20 @@ define(
         'command/ZoomInCommand',
         'command/ZoomDefaultCommand',
         'command/ZoomOutCommand',
+        'command/ShowStatsCommand',
+        'command/CheckModelCommand',
         'bootstrap/tooltip',
         'bootstrap/modal',
         'bootstrap/collapse',
         'bootstrap/dropdown',
         'bootstrap/alert',
-        'bootstrap/popover',
-        'jqueryui/resizable'
+        'bootstrap/popover'
     ],
 
     function ($, Kinetic, CFactory, Config, Behave,
-              SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, SettingsCommand,
-              DebugCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand, OpenFromNodeCommand,
-              ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand,
+              SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, RunKevScriptCommand,
+              SettingsCommand, DebugCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
+              OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand, ShowStatsCommand, CheckModelCommand,
               _bootstrap) {
 
         // document.onload
@@ -119,6 +121,12 @@ define(
                 e.preventDefault();
             });
 
+            $('#check-model').click(function (e) {
+                var cmd = new CheckModelCommand();
+                cmd.execute();
+                e.preventDefault();
+            });
+
             $('#save-png').click(function (e) {
                 var cmd = new SaveAsPNGCommand();
                 cmd.execute(editor);
@@ -137,6 +145,19 @@ define(
             $('#open-kevs-editor').click(function (e) {
                 var cmd = new OpenKevsEditorCommand();
                 cmd.execute(editor);
+                e.preventDefault();
+            });
+
+            $('#show-stats').click(function (e) {
+                var cmd = new ShowStatsCommand();
+                cmd.execute(editor);
+                e.preventDefault();
+            });
+
+            $('#run-kevs').click(function (e) {
+                var cmd = new RunKevScriptCommand();
+                var script = $('#kev-script').val();
+                cmd.execute(editor, script);
                 e.preventDefault();
             });
 

@@ -239,7 +239,6 @@ div.shadow {
     background: #666 url('../img/scrollbar_thumb_bg.png') no-repeat center;
 }
 
-
 @media (max-width: 980px) {
     body {
         overflow: auto;

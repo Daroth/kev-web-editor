@@ -58,6 +58,11 @@ html
                       li: a.model-load-corelib(href='#', data-lib='javase') JavaSE
                       li: a.model-load-corelib(href='#', data-lib='sky') Sky
                       li: a.model-load-corelib(href='#', data-lib='webserver') WebServer
+                  li.divider
+                  li.nav-header Tools
+                  li
+                    a#show-stats(href='#') Statistics
+                    a#check-model(href='#') Check model
 
               li.dropdown
                 a.dropdown-toggle(href='#', data-toggle='dropdown') KevScript&nbsp;
@@ -129,6 +134,18 @@ html
     //- ===============
 
     //- ===============
+    //- STATISTICS POPUP
+    div#stats-popup.modal.hide.fade(tabindex='-1', role='dialog')
+      div.modal-header
+        button.close(href='#', type='button', data-dismiss='modal') &times;
+        h3 Model statistics
+      div.modal-body
+        div#stats-popup-content
+      div.modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Close
+    //- ===============
+
+    //- ===============
     //- SETTINGS POPUP
     div#settings-popup.modal.hide.fade(tabindex='-1', role='dialog')
       div.modal-header
@@ -145,11 +162,10 @@ html
           a(href='http://www.mozilla.org/fr/firefox/new/') &nbsp;Firefox
           | .
 
-        div.row-fluid
-          div.span10
-            label(for='ask-before-leaving') Confirm before leaving/reloading KevWebEditor
-          div.span2
-            input#ask-before-leaving.pull-right(type='checkbox')
+        table.table
+          tr
+            td Confirm before leaving/reloading KevWebEditor
+            td: input#ask-before-leaving.pull-right(type='checkbox')
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
         button#save-settings.btn.btn-primary(data-dismiss='modal') Save

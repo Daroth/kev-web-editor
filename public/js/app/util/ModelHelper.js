@@ -36,9 +36,10 @@ define(
         }
 
         /**
-         *
+         * Returns every components from the specified given 'env' parameter or from all
+         * 'env' if only the model is given in parameter
          * @param model
-         * @param env {optional}
+         * @param env {optional} android, javase, etc..
          * @returns {*}
          */
         ModelHelper.prototype.getComponents = function (model, env) {
