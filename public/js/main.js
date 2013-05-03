@@ -26,7 +26,7 @@ define(
         'factory/CFactory',
         'util/Config',
         'behave',
-        'util/QueryString',
+        'util/QueryStringCtrl',
         'command/SaveCommand',
         'command/SaveAsKevsCommand',
         'command/SaveAsPNGCommand',
@@ -54,7 +54,7 @@ define(
         'touchpunch'
     ],
 
-    function ($, Kinetic, CFactory, Config, Behave, QueryString,
+    function ($, Kinetic, CFactory, Config, Behave, QueryStringCtrl,
               SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, RunKevScriptCommand,
               SettingsCommand, DebugCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
               OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand, ShowStatsCommand, CheckModelCommand,
@@ -79,14 +79,8 @@ define(
                 textarea: document.getElementById('kev-script')
             });
 
-            // check if there is some action given within the URL
-            var qs = new QueryString();
-            if (qs.corelib) {
-                // merge this core library directly
-                var cmd = new MergeDefaultLibraryCommand();
-                cmd.execute(qs.corelib, editor);
-            }
-
+            // create the controller that handles parameters in URL
+            var qs = new QueryStringCtrl(editor);
 
             $('.close').click(function () {
                 // global behavior for alerts : close will remove 'in' class

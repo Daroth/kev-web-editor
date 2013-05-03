@@ -314,6 +314,19 @@ define(
             this._wireLayer.draw();
         }
 
+        UIEditor.prototype.zoomTo = function (scale) {
+            this._scale = scale;
+            this._stage.setScale(this._scale);
+            if (this._scale > 1) {
+                this._stage.setDraggable(true);
+            } else {
+                this._stage.setDraggable(false);
+                this._stage.setPosition(0, 0);
+            }
+            this._stage.draw();
+            this._wireLayer.draw();
+        }
+
         UIEditor.prototype.c2pZoomDefault = function () {
             this._scale = 1;
             this._stage.setScale(this._scale);
