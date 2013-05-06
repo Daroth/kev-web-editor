@@ -114,7 +114,7 @@ define(
             if (origin && origin.x > ((pos.x + 10 - off.x) + width/2)) {
                 // if origin point is on the right, then give the upper right corner for node wire's plug
                 return {
-                    x: pos.x - 10 + off.x + width,
+                    x: pos.x - 10 - off.x + width,
                     y: pos.y + 10 - off.y
                 };
             }
