@@ -40,15 +40,22 @@ define(
             this._ui.c2pEntityRemoved(entity.getUI());
         }
 
-        CEditor.prototype.p2cEntityDropped = function () {
+        CEditor.prototype.p2cEntityDropped = function (position) {
             if (this._draggedEntity && this._draggedEntity.getEntityType() != KComponent.ENTITY_TYPE) {
                 // really adding the entity to the editor model
+                this._draggedEntity.getUI().getShape().setPosition(position);
                 this.addEntity(this._draggedEntity);
 
                 // forget about the draggedEntity, it has already been added
                 this._draggedEntity = null;
 
             } else if (this._draggedEntity) {
+                console.log("before crash", position);
+                var node = this._ui.getStage().getIntersection(position);
+                if (node.getParent && node.getParent()) node.getParent().fire('mouseup');
+                console.log("yes dude, we have a problem on mobile devices");
+                // here the draggedEntity is a KComponent, so if we end up here
+                // it means that no one (no nodes) consumes this entity => cancel
                 this._ui.c2pDropImpossible(this._draggedEntity.getUI());
                 this._draggedEntity = null;
             }

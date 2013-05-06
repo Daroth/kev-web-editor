@@ -24,6 +24,9 @@ define(
             this._rect.setShadowOpacity(0.2);
             this._rect.setCornerRadius(10);
 
+            // this offset is set to improve positioning when entity is dropped
+            this._shape.setOffset(this._rect.getWidth()/2, this._rect.getHeight()/2);
+
             this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
         }
 
@@ -44,6 +47,7 @@ define(
             var parent = this._ctrl.getParent();
             if (parent) parent.getUI().redrawParent();
 
+            this._shape.draw();
             this._shape.getLayer().draw();
         }
 

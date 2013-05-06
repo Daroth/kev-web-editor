@@ -101,6 +101,7 @@
         UIGroup.prototype.ready = function () {
             if (!this._isReady) {
                 var that = this;
+                var stage = that._shape.getStage();
 
                 // listens to 'mousedown' events to recognize
                 // initiation of wire drawing
@@ -108,11 +109,11 @@
                     // disable drag events on group during wire creation process
                     that._shape.setDraggable(false);
                     // dispatch user's mousedown event to controller
-                    that._ctrl.p2cMouseDown(that._shape.getStage().getPointerPosition());
+                    that._ctrl.p2cMouseDown(stage.getTouchPosition() || stage.getPointerPosition());
                 });
 
                 that._shape.getStage().on('mouseup touchend', function () {
-                    that._ctrl.p2cMouseMove(this.getPointerPosition());
+                    that._ctrl.p2cMouseMove(stage.getTouchPosition() || stage.getPointerPosition());
                 });
 
                 this._isReady = true;

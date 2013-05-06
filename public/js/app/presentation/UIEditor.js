@@ -65,7 +65,7 @@ define(
             var that = this;
 
             this._stage.on('mousemove touchmove', function() {
-                that._ctrl.p2cMouseMove(this.getPointerPosition());
+                that._ctrl.p2cMouseMove(this.getTouchPosition() || this.getPointerPosition());
             });
 
             this._stage.on('dbltap', function () {
@@ -73,7 +73,7 @@ define(
             });
 
             this._stage.on('mouseup touchend', function() {
-                that._ctrl.p2cMouseUp(this.getPointerPosition());
+                that._ctrl.p2cMouseUp(this.getTouchPosition() || this.getPointerPosition());
 
                 if (that._scale > 1) {
                     that._stage.setDraggable(true);
@@ -195,6 +195,7 @@ define(
 
             // draggable item in lib-tree
             $('.lib-item').draggable({
+                revert: 'invalid',
                 helper: function() {
                     // the div dragged is a clone of the selected
                     // div for the drag without the badge if it exists
@@ -205,7 +206,7 @@ define(
                 cursor: 'move',
                 cursorAt: {
                     top: -5, // offset mouse cursor over the dragged item
-                    left: -5
+                    right: -5 // dragged item will be place to the left of cursor (ergo++ on mobile devices)
                 }
             });
 
@@ -221,16 +222,12 @@ define(
                 }
             });
 
-            $(".lib-item[data-entity='ComponentType']").off(NAMESPACE);
-            $(".lib-item[data-entity='ComponentType']").on('click'+NAMESPACE, function () {
-                // TODO
-                console.log("drugs");
-            });
-
             // drop behavior on #editor
             $('#editor').droppable({
                 drop: function(event, ui) {
-                    that._ctrl.p2cEntityDropped();
+                    var canvas = $('#editor').offset();
+                    var position = {x: event.pageX - canvas.left, y: event.pageY - canvas.top};
+                    that._ctrl.p2cEntityDropped(position);
                     var name = ui.draggable.find('.lib-item-name').text();
                     var badgeCount = that._ctrl.getEntityCount(name);
 
@@ -254,20 +251,9 @@ define(
                     that._ctrl.p2cEntityDraggedOut();
                 }
             });
-
-            $('#editor').off('mouseup');
-            $('#editor').on('mouseup', function (e) {
-                var offset = $(this).offset();
-                console.log('jquery mouseup UIEditor', e.pageX - offset.left, e.pageY - offset.top);
-            });
         }
 
         UIEditor.prototype.c2pEntityAdded = function(entity) {
-            console.log("mouse", this._stage.getMousePosition());
-            console.log("pointer", this._stage.getPointerPosition());
-
-            if (this._stage.getPointerPosition()) entity.getShape().setPosition(this._stage.getPointerPosition());
-            else entity.getShape().setPosition(100, 100); // default position
             this.addShape(entity.getShape());
             entity.ready();
         }

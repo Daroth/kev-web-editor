@@ -28,6 +28,7 @@ define(
 
         // Override CNode.p2cMouseUp(position)
         CNode.prototype.p2cMouseUp = function (position) {
+            console.log("CNode mouse up at ", position);
             var wire = this.getEditor().getCurrentWire();
             if (wire) {
                 // there is a wire task in progress
@@ -53,7 +54,7 @@ define(
             } else if (!this._isDragged) {
                 var draggedEntity = this.getEditor().getDraggedEntity();
                 if (draggedEntity) {
-                    // user is over the shape and he drops an entity
+                    // user released its mouse over this node
                     if (this.isValidChildEntity(draggedEntity)) {
                         // this entity is valid and can be added to this node
                         // I'm in charge of adding this to the model, not CEditor

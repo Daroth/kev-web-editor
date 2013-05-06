@@ -62,7 +62,7 @@ define(
             var that = this;
             this._mouseUpEvent = null;
 
-            this._shape.on('mouseover touchmove touchstart', function() {
+            this._shape.on('mouseover touchmove', function() {
                 that._ctrl.p2cMouseOver();
             });
 
@@ -86,7 +86,7 @@ define(
                 this._shape.on('mouseup touchend', function(event) {
                     console.log('mouse up touch end in UINestableEntity');
                     that._mouseUpEvent = event;
-                    that._ctrl.p2cMouseUp(this.getStage().getPointerPosition());
+                    that._ctrl.p2cMouseUp(this.getStage().getTouchPosition() || this.getStage().getPointerPosition());
                 });
 
                 this._shape.on('dragstart', function(event) {
