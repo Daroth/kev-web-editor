@@ -11,21 +11,18 @@ define(
             var qs = new QueryString();
             var actions = [
                 {
-                    name:'fold',
+                    name: 'corelib',
                     action: function (env) {
-                        // reify logic binded to listeners in UIEditor so I can call them from here too
-                    }
-                },
-                {
-                    name:'corelib',
-                    action: function (env) {
-                        // merge this core library
+                        var envz = env.split('+');
+                        // merge those core libraries
                         var cmd = new MergeDefaultLibraryCommand();
-                        cmd.execute(env, editor);
+                        for (var i=0; i < envz.length; i++) {
+                            cmd.execute(envz[i], editor);
+                        }
                     }
                 },
                 {
-                    name:'zoom',
+                    name: 'zoom',
                     action: function (scale) {
                         // set editor zoom to the given scale if not wrong number
                         var value = parseFloat(scale) || 1;
@@ -35,9 +32,14 @@ define(
                     }
                 },
                 {
-                    name:'menu',
-                    action: function (hidden) {
-                        // reify logic binded to listeners in UIEditor so I can call them from here too
+                    name: 'menu',
+                    action: function (value) {
+                        var hide = (value == 'hide' || value == '0');
+                        if (hide) {
+                            editor.getUI().c2pHideLibTree();
+                        } else {
+                            editor.getUI().c2pShowLibTree();
+                        }
                     }
                 }
             ];

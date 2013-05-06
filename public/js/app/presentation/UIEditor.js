@@ -14,7 +14,6 @@ define(
     function (WireLayer, ModelHelper, _bootstrap, $) {
         var NAMESPACE = '.uieditor',
             libTreeFolded = false,
-            libTreeShowed = true,
             displayableItems = [],
             displayableSubTrees = [];
 
@@ -101,23 +100,7 @@ define(
 
             $('#toggle-lib-tree').off(NAMESPACE);
             $('#toggle-lib-tree').on('click'+NAMESPACE, function () {
-                if (libTreeShowed) {
-                    // hide lib tree
-                    $('#lib-tree').hide();
-                    $('#editor-panel').removeClass('span10');
-
-                } else {
-                    // show lib tree
-                    $('#lib-tree').show();
-                    $('#editor-panel').addClass('span10');
-                }
-
-                // resize editor accordingly
-                that._stage.setSize($('#'+that._id).width(), $('#'+that._id).height());
-                that._wireLayer.update();
-
-                // change toggle value
-                libTreeShowed = !libTreeShowed;
+                that._ctrl.p2cToggleLibTree();
             });
 
             $('#editor').off(NAMESPACE);
@@ -206,33 +189,7 @@ define(
 
             $('#lib-tree-settings-toggle-fold').off(NAMESPACE);
             $('#lib-tree-settings-toggle-fold').on('click'+NAMESPACE, function () {
-                if (that._ctrl.getModel()) { // no action to make if there is no model
-                    if (libTreeFolded) {
-                        // unfold libtree
-                        $(this).text('Fold all');
-                        $('#lib-tree-content .nav-header').each(function () {
-                            var icon = $(this).children().first();
-                            if (icon.hasClass('icon-arrow-down')) {
-                                displayableSubTrees[$(this).text()] = true;
-                                showLibTreeItems($(this), icon);
-                            }
-                        });
-                        libTreeFolded = false;
-                    } else {
-                        // fold libtree
-                        $(this).text('Unfold all');
-                        $('#lib-tree-content .nav-header').each(function () {
-                            var icon = $(this).children().first();
-                            if (icon.hasClass('icon-arrow-right')) {
-                                displayableSubTrees[$(this).text()] = false;
-                                $(this).siblings().hide('fast');
-                                icon.removeClass('icon-arrow-right');
-                                icon.addClass('icon-arrow-down');
-                            }
-                        });
-                        libTreeFolded = true;
-                    }
-                }
+                that._ctrl.p2cFoldAllLibTree();
             });
 
             // draggable item in lib-tree
@@ -345,6 +302,52 @@ define(
             this._stage.setScale(this._scale);
             this._stage.draw();
             this._wireLayer.draw();
+        }
+
+        UIEditor.prototype.c2pHideLibTree = function () {
+            // hide lib tree
+            $('#lib-tree').hide();
+            $('#editor-panel').removeClass('span10');
+
+            // resize editor accordingly
+            this._stage.setSize($('#'+this._id).width(), $('#'+this._id).height());
+            this._wireLayer.update();
+        }
+
+        UIEditor.prototype.c2pFoldAllLibTree = function () {
+            $('#lib-tree-settings-toggle-fold').text('Unfold all');
+            $('#lib-tree-content .nav-header').each(function () {
+                var icon = $(this).children().first();
+                if (icon.hasClass('icon-arrow-right')) {
+                    displayableSubTrees[$(this).text()] = false;
+                    $(this).siblings().hide('fast');
+                    icon.removeClass('icon-arrow-right');
+                    icon.addClass('icon-arrow-down');
+                }
+            });
+            libTreeFolded = true;
+        }
+
+        UIEditor.prototype.c2pUnfoldAllLibTree = function () {
+            $('#lib-tree-settings-toggle-fold').text('Fold all');
+            $('#lib-tree-content .nav-header').each(function () {
+                var icon = $(this).children().first();
+                if (icon.hasClass('icon-arrow-down')) {
+                    displayableSubTrees[$(this).text()] = true;
+                    showLibTreeItems($(this), icon);
+                }
+            });
+            libTreeFolded = false;
+        }
+
+        UIEditor.prototype.c2pShowLibTree = function () {
+            // show lib tree
+            $('#lib-tree').show();
+            $('#editor-panel').addClass('span10');
+
+            // resize editor accordingly
+            this._stage.setSize($('#'+this._id).width(), $('#'+this._id).height());
+            this._wireLayer.update();
         }
 
         /**

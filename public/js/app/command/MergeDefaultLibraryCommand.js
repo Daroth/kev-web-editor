@@ -16,10 +16,6 @@ define(
 
             $.get('/merge/'+lib, function (model) {
                 try {
-                    // create a model helper to handle jsonModel parsing
-//                    var modelHelper = new ModelHelper();
-//                    modelHelper.loadFromJSON(jsonModel, editor);
-
                     // TODO allow merge, this is not a merge, it replaces the old model if there is one
                     editor.setModel(model);
 

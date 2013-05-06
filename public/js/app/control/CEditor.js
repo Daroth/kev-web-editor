@@ -24,6 +24,8 @@ define(
             this._currentWire = null;
             this._draggedEntity = null;
             this._modelHelper = new ModelHelper();
+            this._libTreeDisplayed = true,
+            this._foldedLibTree = false;
         }
 
         // Override KEditor.addEntity(KEntity)
@@ -122,6 +124,24 @@ define(
 
         CEditor.prototype.p2cZoomOut = function () {
             this._ui.c2pZoomOut();
+        }
+
+        CEditor.prototype.p2cToggleLibTree = function () {
+            if (this._libTreeDisplayed) {
+                this._ui.c2pShowLibTree();
+            } else {
+                this._ui.c2pHideLibTree();
+            }
+        }
+
+        CEditor.prototype.p2cFoldAllLibTree = function () {
+            if (this.getModel()) {
+                if (this._foldedLibTree) {
+                    this._ui.c2pFoldAllLibTree();
+                } else {
+                    this._ui.c2pUnfoldAllLibTree();
+                }
+            }
         }
 
         // Override KEditor.setModel(model)
