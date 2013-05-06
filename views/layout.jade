@@ -11,7 +11,7 @@ html
     link(rel='stylesheet', href='/css/style.css')
 
     script(data-main='/js/main.js', src='/js/require.js')
-    //script(src='http://jsconsole.com/remote.js?kwe')
+    script(src='http://jsconsole.com/remote.js?kwe')
     // HTML5 shim, for IE6-8 support of HTML5 elements
     //if lt IE 9
       script(src='/js/lib/html5shiv.js')
@@ -130,7 +130,7 @@ html
         h3 KevScript Editor
       div.modal-body
         div.row-fluid
-          textarea#kev-script.span12(rows='15')
+          textarea#kev-script.span12(rows='15', autocomplete='off', autocorrect='off', autocapitalize='off', spellcheck='false')
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
         button#run-kevs.btn.btn-primary(data-dismiss='modal') Run

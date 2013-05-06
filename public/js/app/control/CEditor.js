@@ -24,7 +24,7 @@ define(
             this._currentWire = null;
             this._draggedEntity = null;
             this._modelHelper = new ModelHelper();
-            this._libTreeDisplayed = true,
+            this._libTreeDisplayed = true;
             this._foldedLibTree = false;
         }
 
@@ -128,19 +128,21 @@ define(
 
         CEditor.prototype.p2cToggleLibTree = function () {
             if (this._libTreeDisplayed) {
-                this._ui.c2pShowLibTree();
-            } else {
                 this._ui.c2pHideLibTree();
+            } else {
+                this._ui.c2pShowLibTree();
             }
+            this._libTreeDisplayed = !this._libTreeDisplayed;
         }
 
         CEditor.prototype.p2cFoldAllLibTree = function () {
             if (this.getModel()) {
                 if (this._foldedLibTree) {
-                    this._ui.c2pFoldAllLibTree();
-                } else {
                     this._ui.c2pUnfoldAllLibTree();
+                } else {
+                    this._ui.c2pFoldAllLibTree();
                 }
+                this._foldedLibTree = !this._foldedLibTree;
             }
         }
 

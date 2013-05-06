@@ -203,10 +203,8 @@ define(
                 },
                 cursor: 'move',
                 cursorAt: {
-                    top: -5 // offset mouse cursor over the dragged item
-                },
-                start: function () {
-                    $('#editor').focus();
+                    top: -5, // offset mouse cursor over the dragged item
+                    left: -5
                 }
             });
 
@@ -249,13 +247,24 @@ define(
                     that._ctrl.p2cEntityDraggedOut();
                 }
             });
+
+            $('#editor').off('mouseup');
+            $('#editor').on('mouseup', function (e) {
+                var offset = $(this).offset();
+                console.log('jquery mouseup UIEditor', e.pageX - offset.left, e.pageY - offset.top);
+            });
         }
 
         UIEditor.prototype.c2pEntityAdded = function(entity) {
+            console.log("mouse", this._stage.getMousePosition());
+            console.log("pointer", this._stage.getPointerPosition());
+
             if (this._stage.getPointerPosition()) entity.getShape().setPosition(this._stage.getPointerPosition());
             else entity.getShape().setPosition(100, 100); // default position
             this.addShape(entity.getShape());
             entity.ready();
+
+            entity.getShape().fire('touchend');
         }
 
         UIEditor.prototype.c2pDropImpossible = function (entity) {
@@ -307,7 +316,7 @@ define(
         UIEditor.prototype.c2pHideLibTree = function () {
             // hide lib tree
             $('#lib-tree').hide();
-            $('#editor-panel').removeClass('span10');
+            $('#editor-panel').removeClass('span9');
 
             // resize editor accordingly
             this._stage.setSize($('#'+this._id).width(), $('#'+this._id).height());
@@ -343,7 +352,7 @@ define(
         UIEditor.prototype.c2pShowLibTree = function () {
             // show lib tree
             $('#lib-tree').show();
-            $('#editor-panel').addClass('span10');
+            $('#editor-panel').addClass('span9');
 
             // resize editor accordingly
             this._stage.setSize($('#'+this._id).width(), $('#'+this._id).height());

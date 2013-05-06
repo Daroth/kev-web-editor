@@ -84,6 +84,7 @@ define(
                 var that = this;
 
                 this._shape.on('mouseup touchend', function(event) {
+                    console.log('mouse up touch end in UINestableEntity');
                     that._mouseUpEvent = event;
                     that._ctrl.p2cMouseUp(this.getStage().getPointerPosition());
                 });

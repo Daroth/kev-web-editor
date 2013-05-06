@@ -52,8 +52,9 @@ define(
         }
 
         KNode.prototype.isValidChildEntity = function (entity) {
-            return (entity.getEntityType() == KNode.ENTITY_TYPE
-                || entity.getEntityType() == KComponent.ENTITY_TYPE);
+            return ((entity.getEntityType() == KNode.ENTITY_TYPE
+                || entity.getEntityType() == KComponent.ENTITY_TYPE)
+                && this !== entity);
         }
 
         KNode.prototype.setParent = function (entity) {

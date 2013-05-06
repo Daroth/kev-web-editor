@@ -60,10 +60,6 @@ define(
                         this.getEditor().consumeDraggedEntity();
                         // actually add the entity to my children
                         this.addChild(draggedEntity);
-                    } else {
-                        // this entity is not valid and can't be added to this node
-                        console.log("Can't do that mate: add a "+draggedEntity.getEntityType()+" to a Node. I added it to the model (but not the node)");
-                        return;
                     }
 
                 } else {
