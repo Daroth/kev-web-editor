@@ -109,20 +109,21 @@ define(
         UINode.prototype.getPosition = function (origin) {
             var pos = this._shape.getAbsolutePosition(),
                 off = this._shape.getOffset(),
-                width = this._rect.getWidth();
+                width = this._rect.getWidth(),
+                scale = this._shape.getStage().getScale();
 
-            if (origin && origin.x > ((pos.x + 10 - off.x) + width/2)) {
+            if (origin && origin.x > ((pos.x + 10 - off.x*scale.x) + (width*scale.x)/2)) {
                 // if origin point is on the right, then give the upper right corner for node wire's plug
                 return {
-                    x: pos.x - 10 - off.x + width,
-                    y: pos.y + 10 - off.y
+                    x: pos.x - 10 - off.x*scale.x + width*scale.x,
+                    y: pos.y + 10 - off.y*scale.y
                 };
             }
 
             // default is the upper left corner for node wire's plug
             return {
-                x: pos.x + 10 - off.x,
-                y: pos.y + 10 - off.y
+                x: pos.x + 10 - off.x*scale.x,
+                y: pos.y + 10 - off.y*scale.y
             };
         }
 
