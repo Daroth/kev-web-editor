@@ -118,6 +118,10 @@ define(
             this._ui.c2pZoomIn();
         }
 
+        CEditor.prototype.p2cZoomTo = function (scale) {
+            this._ui.c2pZoomTo(scale);
+        }
+
         CEditor.prototype.p2cZoomDefault = function () {
             this._ui.c2pZoomDefault();
         }

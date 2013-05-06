@@ -105,6 +105,7 @@ define(
 
             $('#editor').off(NAMESPACE);
             $('#editor').on('dblclick'+NAMESPACE, function () {
+                console.log("dbl click");
                 that._ctrl.p2cDblTap();
             });
 
@@ -178,12 +179,12 @@ define(
             $('.lib-item').off(NAMESPACE);
             $('.lib-item').on('mouseenter'+NAMESPACE, function () {
                     // hover in callback
-                    $(this).find('.lib-item-count').stop(true, true).delay(500).fadeOut();
+                    $(this).find('.lib-item-count').stop(true, true).delay(600).fadeOut();
                     $(this).find('.lib-item-name').css('overflow', 'visible');
             });
             $('.lib-item').on('mouseleave'+NAMESPACE, function () {
                 // hover out callback
-                $(this).find('.lib-item-count').stop(true, true).delay(500).fadeIn();
+                $(this).find('.lib-item-count').stop(true, true).delay(600).fadeIn();
                 $(this).find('.lib-item-name').css('overflow', 'hidden');
             });
 
@@ -218,6 +219,12 @@ define(
                     show: 500,
                     hide: 0
                 }
+            });
+
+            $(".lib-item[data-entity='ComponentType']").off(NAMESPACE);
+            $(".lib-item[data-entity='ComponentType']").on('click'+NAMESPACE, function () {
+                // TODO
+                console.log("drugs");
             });
 
             // drop behavior on #editor
@@ -263,8 +270,6 @@ define(
             else entity.getShape().setPosition(100, 100); // default position
             this.addShape(entity.getShape());
             entity.ready();
-
-            entity.getShape().fire('touchend');
         }
 
         UIEditor.prototype.c2pDropImpossible = function (entity) {
@@ -280,7 +285,7 @@ define(
             this._wireLayer.draw();
         }
 
-        UIEditor.prototype.zoomTo = function (scale) {
+        UIEditor.prototype.c2pZoomTo = function (scale) {
             this._scale = scale;
             this._stage.setScale(this._scale);
             if (this._scale > 1) {

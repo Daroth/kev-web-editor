@@ -5,7 +5,7 @@ define(
         function ZoomToCommand() {}
 
         ZoomToCommand.prototype.execute = function (editor, scale) {
-            editor.getUI().zoomTo(scale);
+            editor.p2cZoomTo(scale);
         }
 
         return ZoomToCommand;
