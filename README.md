@@ -10,7 +10,7 @@ Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side 
         node app.js
 
 ## 2. Features
-**Kevoree Web Editor** allows you to load core libraries directly by giving the name of the 'environment' in a **corelib** parameter in the URL
+**Kevoree Web Editor** offers a way for users to change the state of the editor on start-up by adding some data to the URL
 
 <table>
   <thead>
