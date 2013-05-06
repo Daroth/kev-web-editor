@@ -20,9 +20,6 @@ define(
             // CNestableEntity.super(editor, type)
             CNestableEntity.prototype.constructor.call(this, editor, type);
 
-            // KComponent.super(editor, type, ins, outs)
-            KComponent.prototype.constructor.call(this, editor, type);
-
             // instantiate UI
             this._ui = new UIComponent(this);
             this._parentCache = null;
