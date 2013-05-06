@@ -105,7 +105,6 @@ define(
 
             $('#editor').off(NAMESPACE);
             $('#editor').on('dblclick'+NAMESPACE, function () {
-                console.log("dbl click");
                 that._ctrl.p2cDblTap();
             });
 
@@ -200,6 +199,7 @@ define(
                     // the div dragged is a clone of the selected
                     // div for the drag without the badge if it exists
                     var clone = $(this).clone();
+                    clone.children('.lib-item-count').remove();
                     clone.addClass('dragged');
                     return clone;
                 },
