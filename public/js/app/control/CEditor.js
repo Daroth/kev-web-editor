@@ -48,7 +48,11 @@ define(
 
             } else if (this._draggedEntity) {
                 var node = this._ui.getStage().getIntersection(position);
-                node.shape.parent.fire('touchend');
+                if (node && node.shape.parent && node.shape.parent.nodeType == 'Group') {
+                    node.shape.parent.fire('touchend');
+                } else {
+                    this._ui.c2pDropImpossible(this._draggedEntity.getUI());
+                }
             }
 
             // forget about the draggedEntity, it has already been added

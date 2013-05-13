@@ -51,6 +51,13 @@ define(
             this._typeCounter = [];
         }
 
+        KEditor.prototype.hasEntity = function (entity) {
+            for (var i=0; i < this._entities.length; i++) {
+                if (this._entities[i] == entity) return true;
+            }
+            return false;
+        }
+
         KEditor.prototype.getEntities = function () {
             return this._entities;
         }
