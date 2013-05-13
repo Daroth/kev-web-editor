@@ -32,10 +32,14 @@ app.configure('development', function(){
 
 // clear public/saved/model*.json if any on startup
 fs.readdir('public/saved/', function(err, files) {
-    if (err) throw err;
-    files.forEach(function (file) {
-        fs.unlink('public/saved/'+file);
-    });
+    if (err) {
+        fs.mkdirSync('public/saved');
+        console.log(err.message, ': Creating folder for saved models...');
+    } else {
+        files.forEach(function (file) {
+            fs.unlink('public/saved/'+file);
+        });
+    }
 });
 
 app.get('/', routes.index);
