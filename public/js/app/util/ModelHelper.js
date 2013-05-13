@@ -1,7 +1,13 @@
 define(
-    function () {
+    [
+        'kevoree'
+    ],
+    function (Kevoree) {
 
-        function ModelHelper () {}
+        function ModelHelper () {
+            this._factory = new Kevoree['impl'].DefaultKevoreeFactory();
+            this._serializer = new Kevoree['serializer'].JSONModelSerializer();
+        }
 
         ModelHelper.prototype.getLibraries = function (model) {
             var libz = this.getComponents(model);
