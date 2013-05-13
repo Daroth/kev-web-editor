@@ -28,7 +28,6 @@ define(
 
         // Override CNode.p2cMouseUp(position)
         CNode.prototype.p2cMouseUp = function (position) {
-            console.log("CNode mouse up at ", position);
             var wire = this.getEditor().getCurrentWire();
             if (wire) {
                 // there is a wire task in progress

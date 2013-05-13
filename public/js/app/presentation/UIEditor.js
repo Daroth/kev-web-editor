@@ -210,18 +210,6 @@ define(
                 }
             });
 
-            // tooltip on ComponentType
-            $(".lib-item[data-entity='ComponentType']").tooltip({
-                selector: $(this),
-                placement: 'bottom',
-                title: "You have to drop this element in a Node",
-                trigger: 'hover',
-                delay: {
-                    show: 500,
-                    hide: 0
-                }
-            });
-
             // drop behavior on #editor
             $('#editor').droppable({
                 drop: function(event, ui) {
@@ -247,8 +235,20 @@ define(
                     var name = ui.draggable.find('.lib-item-name').text();
                     that._ctrl.p2cEntityDraggedOver(ui.draggable, entity, env, name);
                 },
-                out: function () {
+                out: function (e, ui) {
                     that._ctrl.p2cEntityDraggedOut();
+                }
+            });
+
+            // tooltip on ComponentType
+            $(".lib-item[data-entity='ComponentType']").tooltip({
+                selector: $(this),
+                placement: 'bottom',
+                title: "You have to drop this element in a Node",
+                trigger: 'hover',
+                delay: {
+                    show: 500,
+                    hide: 0
                 }
             });
         }
