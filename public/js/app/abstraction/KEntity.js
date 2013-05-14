@@ -2,11 +2,13 @@ define(
     function(require) {
         KEntity._COUNT = 0;
 
-        function KEntity(editor, type) {
+        function KEntity(editor, lib, type) {
             this._editor = editor;
+            this._library = lib;
             this._type = type;
             this._name = type + KEntity._COUNT++;
             this._wires = new Array();
+            this._deployUnits = [];
         }
 
         KEntity.prototype.getName = function() {
@@ -56,6 +58,10 @@ define(
             for (var i=0; i<wires.length; i++) {
                 wires[i].disconnect(); // tell each wire to disconnect
             }
+        }
+
+        KEntity.prototype.getLibrary = function () {
+            return this._library;
         }
 
         return KEntity;

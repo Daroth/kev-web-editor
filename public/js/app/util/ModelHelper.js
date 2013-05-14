@@ -1,23 +1,28 @@
 define(
     [
-        'kevoree'
+        'kevoree',
+        'abstraction/KComponent',
+        'abstraction/KGroup',
+        'abstraction/KNode',
+        'abstraction/KChannel'
     ],
-    function (Kevoree) {
+    function (Kevoree, KComponent, KGroup, KNode, KChannel) {
 
         function ModelHelper () {
-            this._factory = new Kevoree['impl'].DefaultKevoreeFactory();
-            this._serializer = new Kevoree['serializer'].JSONModelSerializer();
+            this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
+            this._serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
         }
 
         ModelHelper.prototype.getLibraries = function (model) {
-            var libz = this.getComponents(model);
+            var libz = this.getTypeDefs(model);
 
             for (var i=0; i < libz.length; i++) {
                 var compz = libz[i].components;
                 for (var j=0; j < compz.length; j++) {
                     compz[j] = {
                         name: compz[j].name,
-                        type: isolateEClassName(compz[j].eClass)
+                        type: isolateEClassName(compz[j].eClass),
+                        deployUnits: compz[j].deployUnits
                     };
                 }
             }
@@ -25,16 +30,52 @@ define(
             return libz;
         }
 
-        ModelHelper.prototype.addGroup = function (model, name) {
-            var ports = [];
+        ModelHelper.prototype.addInstance = function (model, entity) {
+            // TODO retrieve ContainerRoot from model with the thing that I do not have to for now
+            var instance = {};
 
+            switch (entity.getEntityType()) {
+                case KComponent.ENTITY_TYPE:
+                    instance = this._factory.createComponentInstance();
+                    break;
 
+                case KChannel.ENTITY_TYPE:
+                    instance = this._factory.createChannel();
+                    break;
 
-            return ports;
+                case KGroup.ENTITY_TYPE:
+                    instance = this._factory.createGroup();
+                    break;
+
+                case KNode.ENTITY_TYPE:
+                    instance = this._factory.createContainerNode();
+                    break;
+            }
+
+            instance.setName(entity.getName());
+            var modelTypeDef = this.getTypeDef(model, entity.getLibrary(), entity.getType());
+//            for (var i=0; i < modelTypeDef.deployUnits.length; i++) {
+//                var deployUnit = this._factory.createDeployUnit();
+//                deployUnit.setRef(modelTypeDef.deployUnits[i]);
+//                instance.setDeployUnits(deployUnit);
+//
+//                //instance.addDeployUnits(deployUnit);
+//            }
+//            var typeDef = this._factory.createTypeDefinition();
+//            typeDef.setName('typeDefinitions['+modelTypeDef.name+']');
+//            instance.setTypeDefinition(typeDef);
+//
+//            // TODO remove the following lines, this is for TEST
+//            // Work in progress from now on !
+//            var ostream = new Kevoree.java.io.OutputStream();
+//            var root = this._factory.createContainerRoot();
+//
+//            this._serializer.serialize(root, ostream);
+//            console.log("output", ostream.get_result());
         }
 
-        ModelHelper.prototype.getComponent = function (model, env, name) {
-            var compz = this.getComponents(model, env);
+        ModelHelper.prototype.getTypeDef = function (model, lib, name) {
+            var compz = this.getTypeDefs(model, lib);
             for (var i=0; i < compz.length; i++) {
                 if (compz[i].name == name) return compz[i];
             }
@@ -42,13 +83,13 @@ define(
         }
 
         /**
-         * Returns every components from the specified given 'env' parameter or from all
-         * 'env' if only the model is given in parameter
+         * Returns every typedef from the specified given 'lib' parameter or from all
+         * 'lib' if only the model is given in parameter
          * @param model
-         * @param env {optional} android, javase, etc..
+         * @param lib {optional} Android, JavaSE, etc..
          * @returns {*}
          */
-        ModelHelper.prototype.getComponents = function (model, env) {
+        ModelHelper.prototype.getTypeDefs = function (model, lib) {
             // create an array of [libEnv => [compName, compName, ...], libEnv => [...], ...]
             var libz = [];
             for (var i=0; i < model.libraries.length; i++) {
@@ -71,14 +112,14 @@ define(
                 }
             }
 
-            // return env's components if env is given
+            // return lib's components if lib is given
             var ret = [];
-            if (env) {
+            if (lib) {
                 for (var i=0; i < libz.length; i++) {
-                    if (libz[i].name = env) ret = libz[i].components;
+                    if (libz[i].name == lib) ret = libz[i].components;
                 }
 
-            // return every env's components if no env given
+            // return every lib's components if no lib given
             } else {
                 ret = libz;
             }
@@ -90,7 +131,9 @@ define(
 
 
         // ================================================
-        // Util functions unavailable outside this scope
+        // Util functions unavailable outside of this scope
+        // ================================================
+
         function isolateEClassName(eClass) {
             var index = eClass.search(':');
             return eClass.substr(index+1, eClass.length - index);

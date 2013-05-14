@@ -32,32 +32,24 @@ define(
             return new CEditor(containerID);
         };
 
-        CFactory.prototype.newGroup = function (editor, type) {
-            return new CGroup(editor, type);
+        CFactory.prototype.newGroup = function (editor, lib, type) {
+            return new CGroup(editor, lib, type);
         };
 
-        CFactory.prototype.newNode = function (editor, type) {
-            return new CNode(editor, type);
+        CFactory.prototype.newNode = function (editor, lib, type) {
+            return new CNode(editor, lib, type);
         };
 
-        CFactory.prototype.newComponent = function (editor, type) {
-            return new CComponent(editor, type);
+        CFactory.prototype.newComponent = function (editor, lib, type) {
+            return new CComponent(editor, lib, type);
         };
 
-        CFactory.prototype.newChannel = function (editor, type) {
-            return new CChannel(editor, type);
+        CFactory.prototype.newChannel = function (editor, lib, type) {
+            return new CChannel(editor, lib, type);
         };
 
         CFactory.prototype.newWire = function (origin) {
             return new CWire(origin);
-        };
-
-        CFactory.prototype.newInputPort = function (name) {
-            return new CInputPort(name);
-        };
-
-        CFactory.prototype.newOutputPort = function (name) {
-            return new COutputPort(name);
         };
 
         return CFactory;

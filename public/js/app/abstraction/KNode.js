@@ -12,8 +12,8 @@ define(
 
         Pooffs.extends(KNode, KEntity);
 
-        function KNode(editor, type) {
-            KEntity.prototype.constructor.call(this, editor, type);
+        function KNode(editor, lib, type) {
+            KEntity.prototype.constructor.call(this, editor, lib, type);
 
             this._parent = null;
             this._children = new Array();

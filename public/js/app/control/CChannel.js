@@ -13,12 +13,12 @@ define(
         Pooffs.extends(CChannel, AController);
         Pooffs.extends(CChannel, CEntity);
 
-        function CChannel(editor, type) {
+        function CChannel(editor, lib, type) {
             // KChannel.super(type)
-            KChannel.prototype.constructor.call(this, editor, type);
+            KChannel.prototype.constructor.call(this, editor, lib, type);
 
             // CEntity.super(editor, type)
-            CEntity.prototype.constructor.call(this, editor, type);
+            CEntity.prototype.constructor.call(this, editor, lib, type);
 
             // instantiate UI
             this._ui = new UIChannel(this);

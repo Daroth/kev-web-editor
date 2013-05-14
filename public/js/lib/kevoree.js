@@ -25201,6 +25201,6 @@ define(
             Kotlin.defineModule('org.kevoree.js', _);
         }());
 
-        return Kotlin.modules['org.kevoree.js'].org.kevoree;
+        return Kotlin.modules['org.kevoree.js'];
     }
 );

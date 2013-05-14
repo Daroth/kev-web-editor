@@ -136,7 +136,7 @@ define(
                     if (itemName.search(searchVal) == -1) {
                         $(this).hide();
                     } else {
-                        if (displayableItems[$(this).attr('data-entity')] && displayableSubTrees[$(this).attr('data-env')]) {
+                        if (displayableItems[$(this).attr('data-entity')] && displayableSubTrees[$(this).attr('data-lib')]) {
                             $(this).show();
                         }
                     }
@@ -162,7 +162,7 @@ define(
                     // show 'type'
                     displayableItems[entity] = true;
                     $('.lib-item[data-entity='+entity+']').each(function () {
-                        if (displayableSubTrees[$(this).attr('data-env')]) {
+                        if (displayableSubTrees[$(this).attr('data-lib')]) {
                             $(this).show('fast');
                         }
                     });
@@ -231,9 +231,9 @@ define(
                 },
                 over: function(event, ui) {
                     var entity = ui.draggable.attr('data-entity');
-                    var env = ui.draggable.attr('data-env');
+                    var lib = ui.draggable.attr('data-lib');
                     var name = ui.draggable.find('.lib-item-name').text();
-                    that._ctrl.p2cEntityDraggedOver(ui.draggable, entity, env, name);
+                    that._ctrl.p2cEntityDraggedOver(ui.draggable, entity, lib, name);
                 },
                 out: function (e, ui) {
                     that._ctrl.p2cEntityDraggedOut();
@@ -414,7 +414,7 @@ define(
                 for (var compIndex=0; compIndex < compz.length; compIndex++) {
                     var comp = compz[compIndex];
                     libItems +=
-                        "<li class='lib-item' data-entity='"+comp.type+"' data-env='"+libz[i].name+"'>"+
+                        "<li class='lib-item' data-entity='"+comp.type+"' data-lib='"+libz[i].name +"'>"+
                             "<div class='lib-item-name'>"+comp.name+"</div>"+
                         "</li>";
                     // if comp.type field in displayableItems is not defined, default value is true
@@ -477,7 +477,7 @@ define(
         //==========================
         function showLibTreeItems(elem, icon) {
             elem.siblings().each(function () {
-                if (displayableItems[$(this).attr('data-entity')] && displayableSubTrees[$(this).attr('data-env')]) {
+                if (displayableItems[$(this).attr('data-entity')] && displayableSubTrees[$(this).attr('data-lib')]) {
                     $(this).show('fast');
                 }
             });

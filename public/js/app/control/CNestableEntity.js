@@ -7,9 +7,9 @@ define(
     function (CEntity, Pooffs) {
         Pooffs.extends(CNestableEntity, CEntity);
 
-        function CNestableEntity(editor, type) {
-            // CEntity.super(editor, type)
-            CEntity.prototype.constructor.call(this, editor, type);
+        function CNestableEntity(editor, lib, type) {
+            // CEntity.super(editor, lib, type)
+            CEntity.prototype.constructor.call(this, editor, lib, type);
         }
 
         CNestableEntity.prototype.p2cMouseOver = function () {}

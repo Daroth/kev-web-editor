@@ -14,12 +14,12 @@ define(
         Pooffs.extends(CNode, AController);
         Pooffs.extends(CNode, CNestableEntity);
 
-        function CNode(editor, type) {
-            // CNestableEntity.super(editor, type)
-            CNestableEntity.prototype.constructor.call(this, editor, type);
+        function CNode(editor, lib, type) {
+            // CNestableEntity.super(editor, lib, type)
+            CNestableEntity.prototype.constructor.call(this, editor, lib, type);
 
-            // KNode.super(type)
-            KNode.prototype.constructor.call(this, editor, type);
+            // KNode.super(editor, lib, type)
+            KNode.prototype.constructor.call(this, editor, lib, type);
 
             // instantiate UI
             this._ui = new UINode(this);

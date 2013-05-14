@@ -1,8 +1,15 @@
 define(
-    function() {
+    [
+        'util/ModelHelper'
+    ],
+
+    function(ModelHelper) {
+
         function KEditor() {
             this._entities = new Array();
             this._typeCounter = new Array();
+            this._model = null;
+            this._modelHelper = new ModelHelper();
         }
 
         KEditor.prototype.addEntity = function(entity) {
@@ -30,7 +37,6 @@ define(
         }
 
         KEditor.prototype.removeNestableEntity = function (entity) {
-            // update typeCounter
             // update typeCounter
             this._typeCounter[entity.getType()]--;
         }
@@ -67,6 +73,10 @@ define(
         }
 
         KEditor.prototype.getModel = function () {
+            for (var i=0; i < this._entities.length; i++) {
+                this._modelHelper.addInstance(this._model, this._entities[i]);
+            }
+
             return this._model;
         }
 

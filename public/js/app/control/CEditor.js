@@ -8,12 +8,11 @@ define(
         'abstraction/KNode',
         'control/AController',
         'presentation/UIEditor',
-        'factory/CFactory',
         'util/ModelHelper',
         'require'
     ],
 
-    function (Pooffs, KEditor, KGroup, KComponent, KChannel, KNode, AController, UIEditor, CFactory, ModelHelper, require) {
+    function (Pooffs, KEditor, KGroup, KComponent, KChannel, KNode, AController, UIEditor, ModelHelper, require) {
         Pooffs.extends(CEditor, KEditor);
         Pooffs.extends(CEditor, AController);
 
@@ -59,26 +58,25 @@ define(
             this._draggedEntity = null;
         }
 
-        CEditor.prototype.p2cEntityDraggedOver = function (libItem, entity_type, env, name) {
+        CEditor.prototype.p2cEntityDraggedOver = function (libItem, entity_type, lib, name) {
             if (!this._draggedEntity) {
-                var factory = require('factory/CFactory').getInstance();
-                var component = this._modelHelper.getComponent(this.getModel(), env, name);
+                var cFactory = require('factory/CFactory').getInstance();
 
                 switch (entity_type) {
                     case KGroup.ENTITY_TYPE:
-                        this._draggedEntity = factory.newGroup(this, name);
+                        this._draggedEntity = cFactory.newGroup(this, lib, name);
                         break;
 
                     case KChannel.ENTITY_TYPE:
-                        this._draggedEntity = factory.newChannel(this, name);
+                        this._draggedEntity = cFactory.newChannel(this, lib, name);
                         break;
 
                     case KNode.ENTITY_TYPE:
-                        this._draggedEntity = factory.newNode(this, name);
+                        this._draggedEntity = cFactory.newNode(this, lib, name);
                         break;
 
                     case KComponent.ENTITY_TYPE:
-                        this._draggedEntity = factory.newComponent(this, name);
+                        this._draggedEntity = cFactory.newComponent(this, lib, name);
                         break;
 
                     default:
