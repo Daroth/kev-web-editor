@@ -240,17 +240,26 @@ define(
                 }
             });
 
-            // tooltip on ComponentType
-            $(".lib-item[data-entity='ComponentType']").tooltip({
-                selector: $(this),
-                placement: 'bottom',
-                title: "You have to drop this element in a Node",
-                trigger: 'hover',
-                delay: {
-                    show: 500,
-                    hide: 0
-                }
-            });
+            var tooltipOnComponents = $('#component-tooltip').prop('checked');
+            this.enableTooltips(tooltipOnComponents);
+        }
+
+        UIEditor.prototype.enableTooltips = function (enabled) {
+            if (enabled) {
+                // tooltip on ComponentType
+                $(".lib-item[data-entity='ComponentType']").tooltip({
+                    selector: $(this),
+                    placement: 'bottom',
+                    title: "You have to drop this element in a Node",
+                    trigger: 'hover',
+                    delay: {
+                        show: 500,
+                        hide: 0
+                    }
+                });
+            } else {
+                $(".lib-item[data-entity='ComponentType']").tooltip('destroy');
+            }
         }
 
         UIEditor.prototype.c2pEntityAdded = function(entity) {

@@ -44,6 +44,7 @@ define(
         'command/ZoomOutCommand',
         'command/ShowStatsCommand',
         'command/CheckModelCommand',
+        'command/LoadSettingsCommand',
         'bootstrap/tooltip',
         'bootstrap/modal',
         'bootstrap/collapse',
@@ -58,6 +59,7 @@ define(
               SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, RunKevScriptCommand,
               SettingsCommand, DebugCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
               OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand, ShowStatsCommand, CheckModelCommand,
+              LoadSettingsCommand,
               _bootstrap) {
 
         // document.onload
@@ -67,12 +69,8 @@ define(
             editor.getUI().create($('#'+Config.CONTAINER_ID).width(), $('#'+Config.CONTAINER_ID).height());
 
             // load editor's settings from Local Storage
-            var storage = window.localStorage;
-            if (storage) { // check if browser is compatible with HTML5 Local Storage
-                var askBeforeLeaving = storage.getItem(Config.LS_ASK_BEFORE_LEAVING);
-                askBeforeLeaving = (askBeforeLeaving == "true") ? true : false;
-                $('#ask-before-leaving').prop('checked', askBeforeLeaving);
-            }
+            var loadSettingsCmd = new LoadSettingsCommand();
+            loadSettingsCmd.execute();
 
             // use Behave.js for Kevs Editor
             var kevsEditor = new Behave({
@@ -169,7 +167,7 @@ define(
 
             $('#settings').click(function (e) {
                 var cmd = new SettingsCommand();
-                cmd.execute();
+                cmd.execute(editor);
                 e.preventDefault();
             });
 

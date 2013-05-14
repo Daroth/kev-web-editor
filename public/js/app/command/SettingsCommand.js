@@ -8,7 +8,7 @@ define(
 
         function SettingsCommand () {}
 
-        SettingsCommand.prototype.execute = function () {
+        SettingsCommand.prototype.execute = function (editor) {
             $('#save-settings').off(NAMESPACE);
 
             // check browser compatibily with HTML5 Local Storage
@@ -16,9 +16,15 @@ define(
             if (storage) {
                 // Local storage available
                 $('#save-settings').on('click'+NAMESPACE, function () {
-                    var askBeforeLeaving = $('#ask-before-leaving').prop('checked');
+                    var askBeforeLeaving = $('#ask-before-leaving').prop('checked'),
+                        componentTooltip = $('#component-tooltip').prop('checked');
+
+                    // ASK BEFORE LEAVING Saving procress
                     storage.setItem(Config.LS_ASK_BEFORE_LEAVING, askBeforeLeaving);
-                    console.log("saved stuff "+askBeforeLeaving);
+
+                    // COMPONENT TOOLTIP Saving procress
+                    storage.setItem(Config.LS_COMPONENT_TOOLTIP, componentTooltip);
+                    editor.getUI().enableTooltips(componentTooltip);
                 });
 
             } else {
