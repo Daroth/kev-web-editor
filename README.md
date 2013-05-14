@@ -36,3 +36,7 @@ Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side 
     <td>Sets the editor scale (default zoom is 1, range is from 0.1 to Inf)</td>
   </tr>
 </table>
+
+So an usage could be something like that:
+
+http://kevoree.org/editor?corelib=all&zoom=1.5&menu=hide
