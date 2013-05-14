@@ -103,10 +103,6 @@ define(
             if (this._currentWire) {
                 this.abortWireCreationTask();
             }
-
-            if (this._draggedEntity && this._draggedEntity.getUI().isReady()) {
-                this._draggedEntity = null;
-            }
         }
 
         CEditor.prototype.p2cDblTap = function () {
