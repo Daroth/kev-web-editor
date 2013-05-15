@@ -73,17 +73,18 @@ define(
         KNode.prototype.remove = function () {
             KEntity.prototype.remove.call(this);
 
+            // tell my children to kill themselves x.x
+            var children = this._children.slice(0);
+            for (var i = 0; i < children.length; i++) {
+                children[i].remove();
+            }
+
+            this._children = []; // reset my children :'(
+
             // tell my parent that I'm gone *sob*
             if (this._parent) {
                 this._parent.removeChild(this);
             }
-
-            // tell my children to kill themselves x.x
-            for (var i = 0; i < this._children.length; i++) {
-                this._children[i].remove();
-            }
-
-            this._children = new Array(); // reset my children :'(
         }
 
         /**

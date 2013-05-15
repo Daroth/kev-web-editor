@@ -8,7 +8,6 @@ define(
             this._type = type;
             this._name = type + KEntity._COUNT++;
             this._wires = new Array();
-            this._deployUnits = [];
         }
 
         KEntity.prototype.getName = function() {
@@ -55,8 +54,8 @@ define(
 
         KEntity.prototype.clearWires = function () {
             var wires = this._wires.slice(0); // clone wires array
-            for (var i=0; i<wires.length; i++) {
-                wires[i].disconnect(); // tell each wire to disconnect
+            for (var i=0; i < wires.length; i++) {
+                wires[i].disconnect();
             }
         }
 

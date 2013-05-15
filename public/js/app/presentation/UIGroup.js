@@ -74,7 +74,7 @@
                 that._ctrl.p2cDragMove();
             });
 
-            this._plug.on('mouseover touchmove', function() {
+            this._plug.on('mouseover touchmove touchstart', function() {
                 that._plug.setRadius(RADIUS+1);
                 that._plug.getLayer().draw();
             });

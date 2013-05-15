@@ -46,7 +46,6 @@ define(
                         this._ui.c2pWireCreated(wire.getUI());
                     } else {
                         // connection cannot be made
-                        this._ui.c2pDropImpossible();
                         this.getEditor().abortWireCreationTask();
                     }
                 }

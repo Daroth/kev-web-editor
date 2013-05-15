@@ -26,10 +26,10 @@ define(
 
             this._headerName = new Kinetic.Text({
                 text: ctrl.getName() + " : " + ctrl.getType(),
-                fontSize: 15,
+                fontSize: 14,
                 fontFamily: 'Helvetica',
                 fill: '#FFF',
-                padding: 15,
+                padding: 12,
                 align: 'center',
                 drawFunc: function (canvas) {
                     that._drawHeader();
@@ -63,7 +63,6 @@ define(
             this._mouseUpEvent = null;
 
             this._shape.on('mouseover touchmove', function(event) {
-                console.log('Mouse over '+that._ctrl.getName());
                 that._ctrl.p2cMouseOver();
                 event.cancelBubble = true;
             });
@@ -142,9 +141,6 @@ define(
 
         UINestableEntity.prototype.c2pMouseOver = function () {
             document.body.style.cursor = 'pointer';
-            this._rect.setStrokeWidth(2);
-            this._rect.setStroke('#ccc');
-            this._shape.getLayer().draw();
         }
 
         UINestableEntity.prototype.redrawParent = function () {

@@ -94,13 +94,6 @@ define(
             this._shape.getLayer().draw();      // redraw layer
         }
 
-        // override UINestableEntity.c2pMouseOver()
-        UINode.prototype.c2pMouseOver = function () {
-            document.body.style.cursor = 'pointer';
-            this._rect.setStrokeWidth(STROKE+1);
-            this._rect.getLayer().draw();
-        }
-
         /**
          * override UINestableEntity.getPosition()
          *
@@ -134,8 +127,7 @@ define(
             wire.getCtrl().getOrigin().getUI().getShape().setDraggable(true);
 
             if (this._mouseUpEvent) {
-                this._mouseUpEvent.cancelBubble = true;
-
+                //this._mouseUpEvent.cancelBubble = true;
                 this._mouseUpEvent = null;
             }
         }
