@@ -55,11 +55,13 @@ define(
                 // then user is trying to drop me in the wild without
                 // any parent and it's not possible
                 this.remove();
-            }
-
-            if (this._parentCache) {
-                this._parentCache.addChild(this);
-                this._parentCache = null;
+                // so we put the component back where it was
+                if (this._parentCache) {
+                    this._parentCache.addChild(this);
+                    this._parentCache = null;
+                }
+                // forget draggedEntity
+                this.getEditor().consumeDraggedEntity();
             }
         }
 

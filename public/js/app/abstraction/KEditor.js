@@ -73,9 +73,9 @@ define(
         }
 
         KEditor.prototype.getModel = function () {
-            for (var i=0; i < this._entities.length; i++) {
-                this._modelHelper.addInstance(this._model, this._entities[i]);
-            }
+//            for (var i=0; i < this._entities.length; i++) {
+//                this._modelHelper.addInstance(this._model, this._entities[i]);
+//            }
 
             return this._model;
         }

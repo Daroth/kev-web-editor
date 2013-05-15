@@ -47,7 +47,7 @@ define(
 
             } else if (this._draggedEntity) {
                 var node = this._ui.getStage().getIntersection(position);
-                if (node && node.shape.parent && node.shape.parent.nodeType == 'Group') {
+                if (node && node.shape && node.shape.parent && node.shape.parent.nodeType == 'Group') {
                     node.shape.parent.fire('touchend');
                 } else {
                     this._ui.c2pDropImpossible(this._draggedEntity.getUI());
@@ -80,7 +80,7 @@ define(
                         break;
 
                     default:
-                        console.error("CEditor.addEntity(type): I don't know this entity type: "+entity_type);
+                        console.error("CEditor.p2cEntityDraggedOver(libItem, entity_type, lib, name): I don't know this entity type: "+entity_type);
                         return;
                 }
 

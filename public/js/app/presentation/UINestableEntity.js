@@ -62,8 +62,10 @@ define(
             var that = this;
             this._mouseUpEvent = null;
 
-            this._shape.on('mouseover touchmove', function() {
+            this._shape.on('mouseover touchmove', function(event) {
+                console.log('Mouse over '+that._ctrl.getName());
                 that._ctrl.p2cMouseOver();
+                event.cancelBubble = true;
             });
 
             this._shape.on('mouseout touchend', function() {
@@ -90,6 +92,7 @@ define(
 
                 this._shape.on('dragstart', function(event) {
                     that._dragStartHandler(event);
+
                 });
 
                 this._shape.on('dragend', function(e) {
@@ -110,7 +113,9 @@ define(
             this._ctrl.p2cDragStart();
 
             // prevent parent from getting the event too
-            if (this._ctrl.getParent()) event.cancelBubble = true;
+            if (this._ctrl.getParent()) {
+                event.cancelBubble = true;
+            }
         }
 
         UINestableEntity.prototype.getChildOffset = function (child) {

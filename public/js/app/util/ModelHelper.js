@@ -32,46 +32,70 @@ define(
 
         ModelHelper.prototype.addInstance = function (model, entity) {
             // TODO retrieve ContainerRoot from model with the thing that I do not have to for now
-            var instance = {};
+            var instance = {},
+                type = {};
 
             switch (entity.getEntityType()) {
                 case KComponent.ENTITY_TYPE:
                     instance = this._factory.createComponentInstance();
+                    type = this._factory.createComponentType();
                     break;
 
                 case KChannel.ENTITY_TYPE:
                     instance = this._factory.createChannel();
+                    type = this._factory.createChannelType();
                     break;
 
                 case KGroup.ENTITY_TYPE:
                     instance = this._factory.createGroup();
+                    type = this._factory.createGroupType();
                     break;
 
                 case KNode.ENTITY_TYPE:
                     instance = this._factory.createContainerNode();
+                    type = this._factory.createNodeType();
                     break;
             }
 
             instance.setName(entity.getName());
+            instance.setTypeDefinition(type);
+
             var modelTypeDef = this.getTypeDef(model, entity.getLibrary(), entity.getType());
-//            for (var i=0; i < modelTypeDef.deployUnits.length; i++) {
-//                var deployUnit = this._factory.createDeployUnit();
-//                deployUnit.setRef(modelTypeDef.deployUnits[i]);
-//                instance.setDeployUnits(deployUnit);
-//
-//                //instance.addDeployUnits(deployUnit);
-//            }
-//            var typeDef = this._factory.createTypeDefinition();
-//            typeDef.setName('typeDefinitions['+modelTypeDef.name+']');
-//            instance.setTypeDefinition(typeDef);
-//
-//            // TODO remove the following lines, this is for TEST
-//            // Work in progress from now on !
-//            var ostream = new Kevoree.java.io.OutputStream();
-//            var root = this._factory.createContainerRoot();
-//
-//            this._serializer.serialize(root, ostream);
-//            console.log("output", ostream.get_result());
+            var typeDef = this._factory.createTypeDefinition();
+            typeDef.setBean(modelTypeDef.bean);
+            typeDef.setFactoryBean(modelTypeDef.factoryBean);
+            for (var i=0; i < modelTypeDef.deployUnits.length; i++) {
+                var deployUnit = this._factory.createDeployUnit();
+                deployUnit.setRef(modelTypeDef.deployUnits[i]);
+                typeDef.addDeployUnits(deployUnit);
+            }
+            type.setName(entity.getType());
+
+            // TODO remove the following lines, this is for TEST
+            // Work in progress from now on !
+            var ostream = new Kevoree.java.io.OutputStream();
+            var root = this._factory.createContainerRoot();
+
+            switch (entity.getEntityType()) {
+                case KComponent.ENTITY_TYPE:
+                    root.addComponents(instance);
+                    break;
+
+                case KChannel.ENTITY_TYPE:
+                    root.addHubs(instance);
+                    break;
+
+                case KGroup.ENTITY_TYPE:
+                    root.addGroups(instance);
+                    break;
+
+                case KNode.ENTITY_TYPE:
+                    root.addNodes(instance);
+                    break;
+            }
+
+            this._serializer.serialize(root, ostream);
+            console.log("output", ostream.get_result());
         }
 
         ModelHelper.prototype.getTypeDef = function (model, lib, name) {

@@ -24,10 +24,10 @@ define(
                     AlertPopupHelper.show(5000);
                 } catch (err) {
                     // update headsup for user
-                    AlertPopupHelper.setText(err.message);
+                    AlertPopupHelper.setText("Unable to load library ("+lib+")");
                     AlertPopupHelper.setType(AlertPopupHelper.ERROR);
                     AlertPopupHelper.show(5000);
-                    console.error(err.message);
+                    console.error("Unable to load library ("+lib+")", err.message);
                 }
             });
         }

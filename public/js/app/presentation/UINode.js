@@ -84,11 +84,14 @@ define(
             var shape = entity.getShape();
             var absPosition = shape.getAbsolutePosition();
             shape.remove(); // remove the shape from its group
-            this._shape.getLayer().add(shape); // add shape to modelLayer
-            shape.setPosition(absPosition); // prevent shape from "jumping" from 0,0 to current pointer position
-                                            // by re-assigning its old absolute position in the new layer
-            shape.fire('dragstart'); // fire a 'dragstart' to let the shape follow the pointer (mouse)
-            this._shape.getLayer().draw(); // redraw layer
+            this._shape.getLayer().add(shape);  // add shape to modelLayer
+            shape.setPosition(absPosition);     // prevent shape from "jumping" from 0,0 to current pointer position
+                                                // by re-assigning its old absolute position in the new layer
+            shape.setZIndex(0);                 // we wont go through the 'classic' dragstart handler so ZIndex wont
+                                                // be set unless we do it here
+            shape.fire('dragstart.fake');       // fire a fake 'dragstart' to let the shape follow the pointer (mouse)
+                                                // by doing so, the previous dragstart handler wont be triggered
+            this._shape.getLayer().draw();      // redraw layer
         }
 
         // override UINestableEntity.c2pMouseOver()
