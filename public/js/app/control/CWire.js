@@ -16,7 +16,7 @@ define(
             KWire.prototype.constructor.call(this, origin);
 
             // instantiate ui
-            this._ui = new UIWire(this);
+            this._ui = new UIWire(this, origin.getEditor().getUI().getWiresLayer());
         }
 
         // Override KWire.setOrigin(KEntity)

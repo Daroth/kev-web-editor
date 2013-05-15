@@ -5,12 +5,10 @@ define(
         'control/CChannel',
         'control/CNode',
         'control/CComponent',
-        'control/CWire',
-        'control/CInputPort',
-        'control/COutputPort'
+        'control/CWire'
     ],
 
-    function (CEditor, CGroup, CChannel, CNode, CComponent, CWire, CInputPort, COutputPort) {
+    function (CEditor, CGroup, CChannel, CNode, CComponent, CWire) {
 
         function CFactory() {
             if (CFactory.prototype._instance) {

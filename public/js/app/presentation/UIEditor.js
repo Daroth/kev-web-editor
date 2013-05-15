@@ -1,6 +1,5 @@
 define(
     [   // dependencies
-        'presentation/widget/WireLayer',
         'util/ModelHelper',
         'bootstrap/modal',
         'jquery',
@@ -11,7 +10,7 @@ define(
         'touchpunch'
     ],
 
-    function (WireLayer, ModelHelper, _bootstrap, $) {
+    function (ModelHelper, _bootstrap, $) {
         var NAMESPACE = '.uieditor',
             libTreeFolded = false,
             displayableItems = [],
@@ -23,7 +22,7 @@ define(
             this._id = containerID;
             this._currentWire = null;
             this._modelLayer = new Kinetic.Layer();
-            this._wireLayer = new WireLayer();
+            this._wireLayer = new Kinetic.Layer();
             this._modelHelper = new ModelHelper();
             this._scale = 1;
         }
@@ -57,7 +56,7 @@ define(
             this._stage.add(this._modelLayer);
 
             // add wire layer to stage
-            this._stage.add(this._wireLayer.getKineticLayer());
+            this._stage.add(this._wireLayer);
 
             //===========================
             // Event handlers
@@ -95,7 +94,7 @@ define(
             // refresh editor size on window resizing
             $(window).on('smartresize'+NAMESPACE, function() {
                 that._stage.setSize($('#'+that._id).width(), $('#'+that._id).height());
-                that._wireLayer.update();
+                that._wireLayer.draw();
             });
 
             $('#toggle-lib-tree').off(NAMESPACE);
@@ -320,7 +319,7 @@ define(
 
             // resize editor accordingly
             this._stage.setSize($('#'+this._id).width(), $('#'+this._id).height());
-            this._wireLayer.update();
+            this._wireLayer.draw();
         }
 
         UIEditor.prototype.c2pFoldAllLibTree = function () {
@@ -356,7 +355,7 @@ define(
 
             // resize editor accordingly
             this._stage.setSize($('#'+this._id).width(), $('#'+this._id).height());
-            this._wireLayer.update();
+            this._wireLayer.draw();
         }
 
         /**
@@ -391,7 +390,7 @@ define(
         }
 
         UIEditor.prototype.c2pWireAdded = function (wire) {
-            this._wireLayer.add(wire);
+//            this._wireLayer.add(wire);
             if (this._scale > 1) {
                 // disable drag while wire creation is in progress
                 this._stage.setDraggable(false);

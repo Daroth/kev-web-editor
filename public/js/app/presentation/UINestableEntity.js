@@ -91,7 +91,6 @@ define(
 
                 this._shape.on('dragstart', function(event) {
                     that._dragStartHandler(event);
-
                 });
 
                 this._shape.on('dragend', function(e) {
