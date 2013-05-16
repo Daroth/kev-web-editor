@@ -7,7 +7,8 @@ define(
         'jqueryui/draggable',
         'jqueryui/effect-highlight',
         'tinysort',
-        'touchpunch'
+        'touchpunch',
+        'hammer'
     ],
 
     function (ModelHelper, _bootstrap, $) {
@@ -189,6 +190,17 @@ define(
             $('#lib-tree-settings-toggle-fold').off(NAMESPACE);
             $('#lib-tree-settings-toggle-fold').on('click'+NAMESPACE, function () {
                 that._ctrl.p2cFoldAllLibTree();
+            });
+
+            $('.lib-item').hammer().off('tap');
+            $('.lib-item').hammer().on('tap', function () {
+                $('.lib-item').removeClass('selected');
+                $(this).addClass('selected');
+            });
+
+            $('.lib-item').hammer().off('doubletap');
+            $('.lib-item').hammer().on('doubletap', function () {
+                that._addEntity($(this));
             });
 
             // draggable item in lib-tree
@@ -464,6 +476,25 @@ define(
         UIEditor.prototype.draw = function () {
             this._stage.draw();
             this._wireLayer.draw();
+        }
+
+        UIEditor.prototype._addEntity = function (jqyItem) {
+            var entity = jqyItem.attr('data-entity');
+            var lib = jqyItem.attr('data-lib');
+            var name = jqyItem.find('.lib-item-name').text();
+            this._ctrl.p2cEntityDraggedOver(jqyItem, entity, lib, name);
+            this._ctrl.p2cEntityDropped({x: 100, y: 100});
+            var badgeCount = this._ctrl.getEntityCount(name);
+
+            if (jqyItem.has('.lib-item-count').size() > 0) {
+                jqyItem.find('.lib-item-count').children('.badge').text(badgeCount);
+            } else if (badgeCount != 0) {
+                jqyItem.append(
+                    "<div class='lib-item-count'>" +
+                        "<span class='badge'>"+badgeCount+"</span>"+
+                        "</div>"
+                );
+            }
         }
 
         return UIEditor;

@@ -114,6 +114,10 @@ body {
     cursor: pointer;
 }
 
+.lib-item.selected {
+    background-color: #6E6E6E;
+}
+
 .lib-item-count {
     width: 20%;
     float: right;
