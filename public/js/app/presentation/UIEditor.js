@@ -276,7 +276,6 @@ define(
             if (this._scale > 1) this._stage.setDraggable(true);
             this._stage.setScale(this._scale);
             this._stage.draw();
-            this._wireLayer.draw();
         }
 
         UIEditor.prototype.c2pZoomTo = function (scale) {
@@ -289,7 +288,6 @@ define(
                 this._stage.setPosition(0, 0);
             }
             this._stage.draw();
-            this._wireLayer.draw();
         }
 
         UIEditor.prototype.c2pZoomDefault = function () {
@@ -298,7 +296,6 @@ define(
             this._stage.setDraggable(false);
             this._stage.setPosition(0, 0);
             this._stage.draw();
-            this._wireLayer.draw();
         }
 
         UIEditor.prototype.c2pZoomOut = function () {
@@ -309,7 +306,6 @@ define(
             }
             this._stage.setScale(this._scale);
             this._stage.draw();
-            this._wireLayer.draw();
         }
 
         UIEditor.prototype.c2pHideLibTree = function () {
@@ -319,7 +315,6 @@ define(
 
             // resize editor accordingly
             this._stage.setSize($('#'+this._id).width(), $('#'+this._id).height());
-            this._wireLayer.draw();
         }
 
         UIEditor.prototype.c2pFoldAllLibTree = function () {

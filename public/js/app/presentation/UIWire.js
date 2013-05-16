@@ -1,24 +1,26 @@
 define(
     [
-        'util/Observable'
+        'presentation/UIEntity',
+        'util/Pooffs'
     ],
 
-    function(Observable) {
-        UIWire.prototype = new Observable();
+    function(UIEntity, Pooffs) {
+        Pooffs.extends(UIWire, UIEntity);
 
         // GLOBAL CONSTANTS
         var DEFAULT_COLOR = '#5aa564';
 
         function UIWire(ctrl, layer) {
-            this._ctrl = ctrl;
+            // UIEntity.super(ctrl)
+            UIEntity.prototype.constructor.call(this, ctrl);
+
             this._color = DEFAULT_COLOR;
 
             this._origin = ctrl.getOrigin().getUI();
             this._target = null;
-            this._removable = false;
 
             var that = this;
-            this._wire = new Kinetic.Shape({
+            this._shape = new Kinetic.Shape({
                 stroke: this._color,
                 strokeWidth: 5,
                 lineCap: 'round',
@@ -49,43 +51,44 @@ define(
                         context.moveTo(origin.x, origin.y);
                         context.quadraticCurveTo(middle.x, middle.y, target.x, target.y);
                         canvas.fillStroke(this);
-                        canvas.fill(this);
                         canvas.stroke(this);
                         context.closePath();
                     }
                 }
             });
 
-            layer.add(this._wire);
+            layer.add(this._shape);
 
-            this._wire.on('dblclick dbltap', function (e) {
-                console.log("double tap wire from "+that._origin.getCtrl().getName()+" to "+that._target.getCtrl().getName());
-            });
-
-            this._wire.on('mouseenter', function (e) {
+            // ================
+            // Event handlers
+            // ================
+            this._shape.on('mouseenter', function (e) {
                 this.setStrokeWidth(8);
                 this.getLayer().draw();
             });
 
-            this._wire.on('mouseout', function (e) {
+            this._shape.on('mouseout', function (e) {
                 this.setStrokeWidth(5);
                 this.getLayer().draw();
             });
+
+            // ================
+            // Properties popup
+            // ================
+            this.setPopup();
         }
 
         UIWire.prototype.setOrigin = function(entityUI) {
             this._origin = entityUI;
-            this.notifyObservers();
         }
 
         UIWire.prototype.setTarget = function(entityUI) {
             this._target = entityUI;
-            this.notifyObservers();
             this._handlersEnabled = true;
         }
 
         UIWire.prototype.draw = function() {
-            this._wire.draw();
+            this._shape.draw();
         }
 
         UIWire.prototype._computeMiddlePoint = function() {
@@ -103,13 +106,11 @@ define(
         }
 
         UIWire.prototype.remove = function () {
-            this._removable = true;
-            if (this._wire) this._wire.destroy();
-            this.notifyObservers();
-        }
-
-        UIWire.prototype.isRemovable = function () {
-            return this._removable;
+            if (this._shape) {
+                var layer = this._shape.getLayer();
+                this._shape.destroy();
+                layer.draw();
+            }
         }
 
         UIWire.prototype.setTargetPoint = function (point) {
@@ -118,11 +119,6 @@ define(
                     return point;
                 }
             };
-            this.notifyObservers();
-        }
-
-        UIWire.prototype.getCtrl = function () {
-            return this._ctrl;
         }
 
         UIWire.prototype.setColor = function (color) {

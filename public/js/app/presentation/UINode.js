@@ -64,6 +64,7 @@ define(
             this._rect.setStrokeWidth(STROKE+1);
             this._rect.setStroke(OK_STROKE_COLOR);
             this._rect.getLayer().draw();
+
         }
 
         UINode.prototype.c2pDropImpossible = function () {
@@ -106,20 +107,21 @@ define(
             var pos = this._shape.getAbsolutePosition(),
                 off = this._shape.getOffset(),
                 width = this._rect.getWidth(),
-                scale = this._shape.getStage().getScale();
+                scale = this._shape.getStage().getScale(),
+                pos = {x: pos.x / scale.x, y: pos.y / scale.y};
 
-            if (origin && origin.x > ((pos.x + 10 - off.x*scale.x) + (width*scale.x)/2)) {
+            if (origin && origin.x > pos.x - off.x + width/2 + 10) {
                 // if origin point is on the right, then give the upper right corner for node wire's plug
                 return {
-                    x: pos.x - 10 - off.x*scale.x + width*scale.x,
-                    y: pos.y + 10 - off.y*scale.y
+                    x: pos.x - off.x + width - 10,
+                    y: pos.y - off.y + 10
                 };
             }
 
             // default is the upper left corner for node wire's plug
             return {
-                x: pos.x + 10 - off.x*scale.x,
-                y: pos.y + 10 - off.y*scale.y
+                x: pos.x - off.x + 10,
+                y: pos.y - off.y + 10
             };
         }
 

@@ -121,7 +121,12 @@
         }
 
         UIGroup.prototype.getPosition = function () {
-            return this._plug.getAbsolutePosition();
+            var pos = this._plug.getAbsolutePosition();
+            var scale = this._plug.getStage().getScale();
+            return {
+                x: pos.x / scale.x,
+                y: pos.y / scale.y
+            };
         }
 
         return UIGroup;

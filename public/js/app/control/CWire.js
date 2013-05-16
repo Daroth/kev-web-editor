@@ -37,6 +37,14 @@ define(
             this._ui.remove();
         }
 
+        CWire.prototype.p2cRemoveEntity = function () {
+            this.disconnect();
+        }
+
+        CWire.prototype.p2cSaveProperties = function (name) {
+            this.setName(name);
+        }
+
         return CWire;
     }
 );
