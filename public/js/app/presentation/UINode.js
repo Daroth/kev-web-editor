@@ -11,6 +11,8 @@ define(
             KO_STROKE_COLOR = '#F00',
             OK_STROKE_COLOR = '#0F0';
 
+        UINode.SHAPE_NAME = 'kev_node';
+
         Pooffs.extends(UINode, UINestableEntity);
 
         function UINode(ctrl) {
@@ -23,6 +25,7 @@ define(
             this._rect.setShadowOffset([5, 5]);
             this._rect.setShadowOpacity(0.2);
             this._rect.setCornerRadius(10);
+            this._rect.setName(UINode.SHAPE_NAME);
 
             // this offset is set to improve positioning when entity is dropped
             this._shape.setOffset(this._rect.getWidth()/2, this._rect.getHeight()/2);

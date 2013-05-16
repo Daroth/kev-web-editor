@@ -59,6 +59,18 @@ define(
             }
         }
 
+        KEntity.prototype.hasWires = function () {
+            if (this._wires.length > 0) return true;
+            else {
+                if (this._children) {
+                    for (var i=0; i < this._children.length; i++) {
+                        if (this._children[i].hasWires()) return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         KEntity.prototype.getLibrary = function () {
             return this._library;
         }

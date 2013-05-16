@@ -67,12 +67,7 @@ define(
 
         CChannel.prototype.p2cDragMove = function () {
             var wires = this.getWires();
-            for (var i=0; i < wires.length; i++) {
-                // there is plugged wires
-                for (var i=0; i<wires.length; i++) {
-                    wires[i].setTarget(this);
-                }
-            }
+            if (wires.length > 0) this.getEditor().getUI().getWiresLayer().draw();
         }
 
         return CChannel;

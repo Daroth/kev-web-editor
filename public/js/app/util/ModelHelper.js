@@ -1,4 +1,10 @@
 define(
+    /**
+     * TODO Change all this helper to use a real deserializer and to have
+     * only a ContainerRoot object in abstraction/KEditor in order to
+     * process the model. Because parsing 'a la mano' suxx
+     */
+
     [
         'kevoree',
         'abstraction/KComponent',
@@ -22,11 +28,12 @@ define(
                     compz[j] = {
                         name: compz[j].name,
                         type: isolateEClassName(compz[j].eClass),
-                        deployUnits: compz[j].deployUnits
+                        required: isolatePorts(compz[j].required),
+                        provided: isolatePorts(compz[j].provided)
+
                     };
                 }
             }
-
             return libz;
         }
 
@@ -176,6 +183,20 @@ define(
                 prettySubTypes.push(lib.subTypes[i].substr(index+1, lib.subTypes[i].length - index - 2));
             }
             return prettySubTypes;
+        }
+
+        function isolatePorts(array) {
+            if (array) {
+                var ports = [];
+                for (var i=0; i < array.length; i++) {
+                    ports.push({
+                        name: array[i].name,
+                        optional: array[i].optional
+                    });
+                }
+                return ports;
+            }
+            return [];
         }
 
         /**

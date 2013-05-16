@@ -33,7 +33,12 @@ define(
         }
 
         UIPort.prototype.getPosition = function () {
-            return this._shape.getAbsolutePosition();
+            var pos = this._shape.getAbsolutePosition(),
+                scale = this._shape.getStage().getScale();
+            return {
+                x: pos.x / scale.x,
+                y: pos.y / scale.y
+            };
         }
 
         UIPort.prototype.getShape = function () {

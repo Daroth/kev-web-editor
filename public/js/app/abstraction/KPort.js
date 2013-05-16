@@ -29,6 +29,10 @@ define(
             return this._component;
         }
 
+        KPort.prototype.getEditor = function () {
+            return this._component.getEditor();
+        }
+
         KPort.prototype.setComponent = function (comp) {
             this._component = comp;
         }

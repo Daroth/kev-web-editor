@@ -21,7 +21,7 @@ define(
 
         CEntity.prototype.p2cDragMove = function () {
             // refresh wires layer if any
-            if (this.getWires().length > 0) {
+            if (this.hasWires()) {
                 this._ui.c2pRefreshWires(this.getEditor().getUI());
             }
         }

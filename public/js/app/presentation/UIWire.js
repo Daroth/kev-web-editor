@@ -14,14 +14,12 @@ define(
             // UIEntity.super(ctrl)
             UIEntity.prototype.constructor.call(this, ctrl);
 
-            this._color = DEFAULT_COLOR;
-
             this._origin = ctrl.getOrigin().getUI();
             this._target = null;
 
             var that = this;
             this._shape = new Kinetic.Shape({
-                stroke: this._color,
+                stroke: DEFAULT_COLOR,
                 strokeWidth: 5,
                 lineCap: 'round',
                 lineJoin: 'round',
@@ -122,7 +120,7 @@ define(
         }
 
         UIWire.prototype.setColor = function (color) {
-            this._color = color;
+            this._shape.setStroke(color);
         }
 
         return UIWire;

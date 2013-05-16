@@ -44,9 +44,11 @@ define(
                         this.addWire(wire);
                         this.getEditor().endWireCreationTask();
                         this._ui.c2pWireCreated(wire.getUI());
+                        this._ui.c2pMouseOut(); // to put the shape in a normal state graphically
                     } else {
                         // connection cannot be made
                         this.getEditor().abortWireCreationTask();
+                        this._ui.c2pMouseOut(); // to put the shape in a normal state graphically
                     }
                 }
             } else if (!this._isDragged) {

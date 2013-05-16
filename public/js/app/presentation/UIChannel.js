@@ -74,7 +74,9 @@ define(
 
         // Override UIEntity.getPosition()
         UIChannel.prototype.getPosition = function (origin) {
-            var pos = this._circle.getAbsolutePosition();
+            var pos = this._circle.getAbsolutePosition(),
+                scale = this._circle.getStage().getScale(),
+                pos = {x: pos.x / scale.x, y: pos.y / scale.y};
 
             if (origin && (origin.y > pos.y)) {
                 // if origin.y is greater than this channel position.y
