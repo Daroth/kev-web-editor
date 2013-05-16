@@ -72,6 +72,7 @@ define(
             });
 
             this._shape.on('dragmove', function(e) {
+                //console.log("dragmove "+that._ctrl.getName());
                 that._ctrl.p2cDragMove();
             });
         }

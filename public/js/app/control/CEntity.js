@@ -20,7 +20,10 @@ define(
         CEntity.prototype.p2cMouseMove = function (position) {}
 
         CEntity.prototype.p2cDragMove = function () {
-            this.getEditor().getUI().getWiresLayer().draw();
+            // refresh wires layer if any
+            if (this.getWires().length > 0) {
+                this._ui.c2pRefreshWires(this.getEditor().getUI());
+            }
         }
 
         // Override KEntity.remove()

@@ -93,6 +93,10 @@ define(
 
         UIEntity.prototype.c2pWireCreationStarted = function (wire) {}
 
+        UIEntity.prototype.c2pRefreshWires = function (editor) {
+            editor.getWiresLayer().draw();
+        }
+
         /**
          * Do not rely on that, in KineticJS, groups do not have
          * width & height defined, so you MUST override this method
