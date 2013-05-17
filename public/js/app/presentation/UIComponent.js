@@ -25,6 +25,7 @@ define(
             this._rect.setFill('black');
             this._rect.setStroke(DEFAULT_STROKE_COLOR);
             this._rect.setStrokeWidth(STROKE);
+            this._rect.setOpacity(0.7);
 
             var that = this;
 

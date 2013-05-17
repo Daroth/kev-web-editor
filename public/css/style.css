@@ -8,6 +8,14 @@ body {
     height: 100%;
     background-color: #3E3E3E;
     overflow: hidden;
+
+    /* prevent user from highlighting lib tree when dragging shapes on canvas */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .container-fluid {
