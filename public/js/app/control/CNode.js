@@ -102,10 +102,10 @@ define(
                         if (wire.getTarget() && wire.getTarget() == this) alreadyConnected = true;
                     }
                     if (!alreadyConnected) {
-                        this._ui.c2pDropPossible();
+                        this._ui.c2pDropPossible(true);
                     } else {
                         // connection cannot be made
-                        this._ui.c2pDropImpossible();
+                        this._ui.c2pDropImpossible(true);
                     }
                 } else {
                     // connection cannot be made
@@ -116,14 +116,29 @@ define(
                 if (draggedEntity) {
                     // user is over the shape and he is dragging an entity
                     if (this.isValidChildEntity(draggedEntity)) {
-                        this._ui.c2pDropPossible();
+                        this._ui.c2pDropPossible(true);
                     } else {
-                        this._ui.c2pDropImpossible();
+                        this._ui.c2pDropImpossible(true);
                     }
 
                 } else {
                     // user is just overing the shape
                     this._ui.c2pMouseOver();
+                }
+            }
+        }
+
+        CNode.prototype.p2cBeforeDraw = function () {
+            var draggedEntity = this.getEditor().getDraggedEntity(),
+                wireCreation = this.getEditor().getCurrentWire();
+
+            if ((draggedEntity && draggedEntity != this)) {
+                this._ui.c2pDropPossible(false);
+            } else if (wireCreation) {
+                if (wireCreation.canConnect(this)) {
+                    this._ui.c2pDropPossible(false);
+                } else {
+                    this._ui.c2pDropImpossible(false);
                 }
             }
         }

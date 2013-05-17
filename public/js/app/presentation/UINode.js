@@ -61,17 +61,17 @@ define(
             this._rect.getLayer().draw();
         }
 
-        UINode.prototype.c2pDropPossible = function () {
+        UINode.prototype.c2pDropPossible = function (refresh) {
             document.body.style.cursor = 'pointer';
             this._rect.setStroke(OK_STROKE_COLOR);
-            this._rect.getLayer().draw();
+            if (refresh) this._rect.getLayer().draw();
 
         }
 
-        UINode.prototype.c2pDropImpossible = function () {
+        UINode.prototype.c2pDropImpossible = function (refresh) {
             document.body.style.cursor = 'pointer';
             this._rect.setStroke(KO_STROKE_COLOR);
-            this._rect.getLayer().draw();
+            if (refresh) this._rect.getLayer().draw();
         }
 
         UINode.prototype.c2pChildRemoved = function (entity) {
@@ -139,9 +139,7 @@ define(
             var width = this.getHeader().getWidth(),
                 height = this.getHeader().getHeight(),
                 pos = this._rect.getAbsolutePosition(),
-                pointer = this._shape.getStage().getPointerPosition() || this._shape.getStage().getMousePosition(),
-                draggedEntity = this._ctrl.getEditor().getDraggedEntity(),
-                wireCreation = this._ctrl.getEditor().getCurrentWire();
+                pointer = this._shape.getStage().getPointerPosition() || this._shape.getStage().getMousePosition();
 
             if (this._ctrl.getParent()) {
                 var parent = this._ctrl.getParent().getUI();
@@ -182,10 +180,10 @@ define(
             this._rect.setHeight(height);
             this.getHeader().setOffset(- (width/2 - this.getHeader().getWidth()/2), 0);
 
-            if (((draggedEntity && draggedEntity != this._ctrl) || wireCreation) && pos && pointer &&
+            if (pos && pointer &&
                 pos.x <= pointer.x && pointer.x <= pos.x + width &&
                 pos.y <= pointer.y && pointer.y <= pos.y + height) {
-                this._rect.setStroke(OK_STROKE_COLOR);
+                this._ctrl.p2cBeforeDraw();
             } else {
                 this._rect.setStroke(DEFAULT_STROKE_COLOR);
             }
