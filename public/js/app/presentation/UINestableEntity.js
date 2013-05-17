@@ -67,7 +67,7 @@ define(
             this._mouseUpEvent = null;
 
             this._shape.on('mouseover touchmove', function(event) {
-                that._ctrl.p2cMouseOver();
+                //that._ctrl.p2cMouseOver();
                 event.cancelBubble = true;
             });
 

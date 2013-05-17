@@ -57,14 +57,12 @@ define(
         // override UINestableEntity.c2pMouseOut()
         UINode.prototype.c2pMouseOut = function () {
             document.body.style.cursor = 'default';
-            this._rect.setStrokeWidth(STROKE);
             this._rect.setStroke(DEFAULT_STROKE_COLOR);
             this._rect.getLayer().draw();
         }
 
         UINode.prototype.c2pDropPossible = function () {
             document.body.style.cursor = 'pointer';
-            this._rect.setStrokeWidth(STROKE+1);
             this._rect.setStroke(OK_STROKE_COLOR);
             this._rect.getLayer().draw();
 
@@ -72,7 +70,6 @@ define(
 
         UINode.prototype.c2pDropImpossible = function () {
             document.body.style.cursor = 'pointer';
-            this._rect.setStrokeWidth(STROKE+1);
             this._rect.setStroke(KO_STROKE_COLOR);
             this._rect.getLayer().draw();
         }
@@ -143,15 +140,8 @@ define(
                 height = this.getHeader().getHeight(),
                 pos = this._rect.getAbsolutePosition(),
                 pointer = this._shape.getStage().getPointerPosition() || this._shape.getStage().getMousePosition(),
-                draggedEntity = this._ctrl.getEditor().getDraggedEntity();
-
-            if (draggedEntity && draggedEntity != this._ctrl && pos && pointer &&
-                pos.x <= pointer.x && pointer.x <= pos.x + this._rect.getWidth() &&
-                pos.y <= pointer.y && pointer.y <= pos.y + this._rect.getHeight()) {
-                this._rect.setStroke(OK_STROKE_COLOR);
-            } else {
-                this._rect.setStroke(DEFAULT_STROKE_COLOR);
-            }
+                draggedEntity = this._ctrl.getEditor().getDraggedEntity(),
+                wireCreation = this._ctrl.getEditor().getCurrentWire();
 
             if (this._ctrl.getParent()) {
                 var parent = this._ctrl.getParent().getUI();
@@ -191,6 +181,14 @@ define(
             this._rect.setWidth(width);
             this._rect.setHeight(height);
             this.getHeader().setOffset(- (width/2 - this.getHeader().getWidth()/2), 0);
+
+            if (((draggedEntity && draggedEntity != this._ctrl) || wireCreation) && pos && pointer &&
+                pos.x <= pointer.x && pointer.x <= pos.x + this._rect.getWidth() &&
+                pos.y <= pointer.y && pointer.y <= pos.y + this._rect.getHeight()) {
+                this._rect.setStroke(OK_STROKE_COLOR);
+            } else {
+                this._rect.setStroke(DEFAULT_STROKE_COLOR);
+            }
         }
 
         return UINode;
