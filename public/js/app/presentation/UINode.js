@@ -152,9 +152,9 @@ define(
             }
 
             if (this._ctrl.hasChildren()) {
-                var maxChildrenWidth = 0;
-                var childrenHeight = 0;
-                var children = this._ctrl.getChildren();
+                var maxChildrenWidth = 0,
+                    childrenHeight = 0,
+                    children = this._ctrl.getChildren()
                 // find the widest children in this node, plus compute the whole height
                 for (var i=0; i < children.length; i++) {
                     var entity = children[i].getUI();
@@ -183,8 +183,8 @@ define(
             this.getHeader().setOffset(- (width/2 - this.getHeader().getWidth()/2), 0);
 
             if (((draggedEntity && draggedEntity != this._ctrl) || wireCreation) && pos && pointer &&
-                pos.x <= pointer.x && pointer.x <= pos.x + this._rect.getWidth() &&
-                pos.y <= pointer.y && pointer.y <= pos.y + this._rect.getHeight()) {
+                pos.x <= pointer.x && pointer.x <= pos.x + width &&
+                pos.y <= pointer.y && pointer.y <= pos.y + height) {
                 this._rect.setStroke(OK_STROKE_COLOR);
             } else {
                 this._rect.setStroke(DEFAULT_STROKE_COLOR);

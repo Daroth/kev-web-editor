@@ -385,6 +385,7 @@ define(
         UIEditor.prototype.c2pUpdateWire = function (wire, position) {
             wire.setTargetPoint(position);
             this._wireLayer.draw();
+//            this._modelLayer.draw();
         }
 
         UIEditor.prototype.getWiresLayer = function () {
