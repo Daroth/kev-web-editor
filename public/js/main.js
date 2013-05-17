@@ -62,177 +62,174 @@ define(
               LoadSettingsCommand,
               _bootstrap) {
 
-        // document.onload
-        $(function() {
-            // init editor
-            var editor = CFactory.getInstance().newEditor(Config.CONTAINER_ID);
-            editor.getUI().create($('#'+Config.CONTAINER_ID).width(), $('#'+Config.CONTAINER_ID).height());
+        // init editor
+        var editor = CFactory.getInstance().newEditor(Config.CONTAINER_ID);
+        editor.getUI().create($('#'+Config.CONTAINER_ID).width(), $('#'+Config.CONTAINER_ID).height());
 
-            // load editor's settings from Local Storage
-            var loadSettingsCmd = new LoadSettingsCommand();
-            loadSettingsCmd.execute();
+        // load editor's settings from Local Storage
+        var loadSettingsCmd = new LoadSettingsCommand();
+        loadSettingsCmd.execute();
 
-            // use Behave.js for Kevs Editor
-            var kevsEditor = new Behave({
-                textarea: document.getElementById('kev-script')
-            });
-
-            // create the controller that handles parameters in URL
-            var qs = new QueryStringCtrl(editor);
-
-            $('.close').click(function () {
-                // global behavior for alerts : close will remove 'in' class
-                // in order for them to properly hide (with the CSS3 magic)
-                $(this).parent().removeClass('in');
-            });
-
-            // safety check because one does not simply like when he loses
-            // a 30 minutes work on a model by miss-pressing F5 button...if u no wat I mean
-            $(window).bind('beforeunload', function() {
-                var askBeforeLeaving = $('#ask-before-leaving').prop('checked');
-                if (askBeforeLeaving) {
-                    return 'Leaving now will discard any changes you made.';
-                }
-            });
-
-            // show zoom controls when mouse hovers #editor area
-            $('#editor').on('mouseenter', function () {
-                $('#zoom-controls').stop(true, true).delay(600).show('fast');
-            });
-
-            // hide zoom controls when mouse leaves #editor area
-            $('#editor').on('mouseleave', function () {
-                $('#zoom-controls').stop(true, true).delay(600).hide('fast');
-            });
-
-            // ========================================
-            // Listeners that trigger XXXCommand.execute(...)
-            $('#load').click(function (e) {
-                var cmd = new LoadCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#save').click(function (e) {
-                var cmd = new SaveCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#save-kevs').click(function (e) {
-                var cmd = new SaveAsKevsCommand();
-                cmd.execute();
-                e.preventDefault();
-            });
-
-            $('#check-model').click(function (e) {
-                var cmd = new CheckModelCommand();
-                cmd.execute();
-                e.preventDefault();
-            });
-
-            $('#save-png').click(function (e) {
-                var cmd = new SaveAsPNGCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#open-from-node').click(function (e) {
-                var cmd = new OpenFromNodeCommand();
-                var protocol = $('#open-node-protocol option:selected').val();
-                var uri = $('#open-node-uri').val();
-
-                cmd.execute(protocol, uri, editor);
-                e.preventDefault();
-            });
-
-            $('#open-kevs-editor').click(function (e) {
-                var cmd = new OpenKevsEditorCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#show-stats').click(function (e) {
-                var cmd = new ShowStatsCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#run-kevs').click(function (e) {
-                var cmd = new RunKevScriptCommand();
-                var script = $('#kev-script').val();
-                cmd.execute(editor, script);
-                e.preventDefault();
-            });
-
-            $('#settings').click(function (e) {
-                var cmd = new SettingsCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#zoom-in').click(function (e) {
-                var cmd = new ZoomInCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#editor').hammer().on("pinchout", function(e) {
-                var cmd = new ZoomInCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#editor').hammer().on("pinchin", function(e) {
-                var cmd = new ZoomOutCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#zoom-default').click(function (e) {
-                var cmd = new ZoomDefaultCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#zoom-out').click(function (e) {
-                var cmd = new ZoomOutCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#debug').click(function (e) {
-                var cmd = new DebugCommand();
-                cmd.execute();
-                e.preventDefault();
-            });
-
-            $('#clear').click(function (e) {
-                var cmd = new ClearCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#clear-instances').click(function (e) {
-                var cmd = new ClearInstancesCommand();
-                cmd.execute(editor);
-                e.preventDefault();
-            });
-
-            $('#model-load-corelib').click(function (e) {
-                // prevent user from clicking on this link and hide the menu
-                // without 'really' choosing one of the corelibs to load
-                return false;
-            });
-
-            $('.model-load-corelib').click(function (e) {
-                var cmd = new MergeDefaultLibraryCommand();
-                cmd.execute($(this).attr('data-lib'), editor);
-                e.preventDefault();
-            });
-            // END Listeners that trigger Cmd.execute()
-            // ========================================
+        // use Behave.js for Kevs Editor
+        var kevsEditor = new Behave({
+            textarea: document.getElementById('kev-script')
         });
+
+        // create the controller that handles parameters in URL
+        var qs = new QueryStringCtrl(editor);
+
+        $('.close').click(function () {
+            // global behavior for alerts : close will remove 'in' class
+            // in order for them to properly hide (with the CSS3 magic)
+            $(this).parent().removeClass('in');
+        });
+
+        // safety check because one does not simply like when he loses
+        // a 30 minutes work on a model by miss-pressing F5 button...if u no wat I mean
+        $(window).bind('beforeunload', function() {
+            var askBeforeLeaving = $('#ask-before-leaving').prop('checked');
+            if (askBeforeLeaving) {
+                return 'Leaving now will discard any changes you made.';
+            }
+        });
+
+        // show zoom controls when mouse hovers #editor area
+        $('#editor').on('mouseenter', function () {
+            $('#zoom-controls').stop(true, true).delay(600).show('fast');
+        });
+
+        // hide zoom controls when mouse leaves #editor area
+        $('#editor').on('mouseleave', function () {
+            $('#zoom-controls').stop(true, true).delay(600).hide('fast');
+        });
+
+        // ========================================
+        // Listeners that trigger XXXCommand.execute(...)
+        $('#load').click(function (e) {
+            var cmd = new LoadCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#save').click(function (e) {
+            var cmd = new SaveCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#save-kevs').click(function (e) {
+            var cmd = new SaveAsKevsCommand();
+            cmd.execute();
+            e.preventDefault();
+        });
+
+        $('#check-model').click(function (e) {
+            var cmd = new CheckModelCommand();
+            cmd.execute();
+            e.preventDefault();
+        });
+
+        $('#save-png').click(function (e) {
+            var cmd = new SaveAsPNGCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#open-from-node').click(function (e) {
+            var cmd = new OpenFromNodeCommand();
+            var protocol = $('#open-node-protocol option:selected').val();
+            var uri = $('#open-node-uri').val();
+
+            cmd.execute(protocol, uri, editor);
+            e.preventDefault();
+        });
+
+        $('#open-kevs-editor').click(function (e) {
+            var cmd = new OpenKevsEditorCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#show-stats').click(function (e) {
+            var cmd = new ShowStatsCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#run-kevs').click(function (e) {
+            var cmd = new RunKevScriptCommand();
+            var script = $('#kev-script').val();
+            cmd.execute(editor, script);
+            e.preventDefault();
+        });
+
+        $('#settings').click(function (e) {
+            var cmd = new SettingsCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#zoom-in').click(function (e) {
+            var cmd = new ZoomInCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#editor').hammer().on("pinchout", function(e) {
+            var cmd = new ZoomInCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#editor').hammer().on("pinchin", function(e) {
+            var cmd = new ZoomOutCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#zoom-default').click(function (e) {
+            var cmd = new ZoomDefaultCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#zoom-out').click(function (e) {
+            var cmd = new ZoomOutCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#debug').click(function (e) {
+            var cmd = new DebugCommand();
+            cmd.execute();
+            e.preventDefault();
+        });
+
+        $('#clear').click(function (e) {
+            var cmd = new ClearCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#clear-instances').click(function (e) {
+            var cmd = new ClearInstancesCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#model-load-corelib').click(function (e) {
+            // prevent user from clicking on this link and hide the menu
+            // without 'really' choosing one of the corelibs to load
+            return false;
+        });
+
+        $('.model-load-corelib').click(function (e) {
+            var cmd = new MergeDefaultLibraryCommand();
+            cmd.execute($(this).attr('data-lib'), editor);
+            e.preventDefault();
+        });
+        // END Listeners that trigger Cmd.execute()
+        // ========================================
 
         return {};
     }

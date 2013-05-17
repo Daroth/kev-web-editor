@@ -132,7 +132,7 @@ define(
             var draggedEntity = this.getEditor().getDraggedEntity(),
                 wireCreation = this.getEditor().getCurrentWire();
 
-            if ((draggedEntity && draggedEntity != this)) {
+            if ((draggedEntity && this.isValidChildEntity(draggedEntity))) {
                 this._ui.c2pDropPossible(false);
             } else if (wireCreation) {
                 if (wireCreation.canConnect(this)) {

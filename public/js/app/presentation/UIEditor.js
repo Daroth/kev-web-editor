@@ -224,8 +224,12 @@ define(
             // drop behavior on #editor
             $('#editor').droppable({
                 drop: function(event, ui) {
-                    var canvas = $('#editor').offset();
-                    var position = {x: event.pageX - canvas.left, y: event.pageY - canvas.top};
+                    var canvas = $('#editor').offset(),
+                        scale = that._stage.getScale(),
+                        position = {
+                        x: (event.pageX - canvas.left) / scale.x,
+                        y: (event.pageY - canvas.top) / scale.y
+                        };
                     that._ctrl.p2cEntityDropped(position);
                     var name = ui.draggable.find('.lib-item-name').text();
                     var badgeCount = that._ctrl.getEntityCount(name);
@@ -383,9 +387,13 @@ define(
         }
 
         UIEditor.prototype.c2pUpdateWire = function (wire, position) {
+            var scale = this._stage.getScale();
+            position = {
+                x: position.x / scale.x,
+                y: position.y / scale.y
+            };
             wire.setTargetPoint(position);
             this._wireLayer.draw();
-//            this._modelLayer.draw();
         }
 
         UIEditor.prototype.getWiresLayer = function () {

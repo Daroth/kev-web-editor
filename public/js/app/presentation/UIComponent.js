@@ -62,7 +62,6 @@ define(
             if (this._ctrl.getParent()) {
                 var parent = this._ctrl.getParent().getUI();
                 var offset = parent.getChildOffset(this);
-
                 this._shape.setOffset(-offset.x, -offset.y);
             } else {
                 this._updateDimensions();
