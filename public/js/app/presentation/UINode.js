@@ -140,7 +140,18 @@ define(
         // Override UINestableEntity._draw()
         UINode.prototype._draw = function () {
             var width = this.getHeader().getWidth(),
-                height = this.getHeader().getHeight();
+                height = this.getHeader().getHeight(),
+                pos = this._rect.getAbsolutePosition(),
+                pointer = this._shape.getStage().getPointerPosition() || this._shape.getStage().getMousePosition(),
+                draggedEntity = this._ctrl.getEditor().getDraggedEntity();
+
+            if (draggedEntity && draggedEntity != this._ctrl && pos && pointer &&
+                pos.x <= pointer.x && pointer.x <= pos.x + this._rect.getWidth() &&
+                pos.y <= pointer.y && pointer.y <= pos.y + this._rect.getHeight()) {
+                this._rect.setStroke(OK_STROKE_COLOR);
+            } else {
+                this._rect.setStroke(DEFAULT_STROKE_COLOR);
+            }
 
             if (this._ctrl.getParent()) {
                 var parent = this._ctrl.getParent().getUI();

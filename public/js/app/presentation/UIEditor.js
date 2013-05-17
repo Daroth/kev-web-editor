@@ -397,7 +397,6 @@ define(
         }
 
         UIEditor.prototype.c2pWireAdded = function (wire) {
-//            this._wireLayer.add(wire);
             if (this._scale > 1) {
                 // disable drag while wire creation is in progress
                 this._stage.setDraggable(false);

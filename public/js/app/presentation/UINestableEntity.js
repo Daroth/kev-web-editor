@@ -75,36 +75,8 @@ define(
                 that._ctrl.p2cMouseOut();
             });
 
-            var collidedCache = [];
             this._shape.on('dragmove', function(e) {
                 that._ctrl.p2cDragMove();
-
-//                // TODO improv that : wasting a lot of CPU time in there
-//                // Detect shapes under mouse position
-//                var pointer = (this.getStage().getTouchPosition() || this.getStage().getMousePosition());
-//
-//                // Highlight drop target candidates, e.g. simulating a "mouseover"
-//                var collidedShapes = [];
-//                var shapes = this.getLayer().get('.'+UINode.SHAPE_NAME);
-//                shapes.each(function (shape) {
-//                    if (that._rect != shape) {
-//                        var pos = shape.getAbsolutePosition();
-//                        if (pos.x <= pointer.x && pointer.x <= pos.x + shape.getWidth() &&
-//                            pos.y <= pointer.y && pointer.y <= pos.y + shape.getHeight()) {
-//                            shape.parent.fire('mouseover');
-//                            collidedCache.push(shape.parent);
-//                            collidedShapes.push(shape.parent);
-//                        }
-//                    }
-//                });
-//
-//                for (var i=0; i < collidedCache.length; i++) {
-//                    var index = collidedShapes.indexOf(collidedCache[i]);
-//                    if (index == -1) {
-//                        collidedCache[i].fire('mouseout');
-//                        collidedCache.splice(i, 1);
-//                    }
-//                }
             });
         }
 
