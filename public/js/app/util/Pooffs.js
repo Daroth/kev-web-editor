@@ -8,7 +8,10 @@ define(
         function Pooffs() {}
 
         /**
-         * Use this method to extends (like Java 'extends' keyword) a class
+         * Use this method to "extend" another class (it does not really extends like in Java, but
+         * it gives to the child all the parent's functions/attributes)
+         * So you can not do checks like A instanceof B
+         * (well you can do them, but they will return false)
          * Usage:
          * <code>Pooffs.extends(ChildClass, ParentClass);</code>
          * You can multiply Pooffs.extends(A, B) as many times as you want as it just
