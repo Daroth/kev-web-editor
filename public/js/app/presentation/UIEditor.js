@@ -25,6 +25,7 @@ define(
             this._currentWire = null;
             this._modelLayer = new Kinetic.Layer();
             this._wireLayer = new Kinetic.Layer();
+            this._dragLayer = new Kinetic.Layer();
             this._modelHelper = new ModelHelper();
             this._scale = 1;
         }
@@ -59,6 +60,8 @@ define(
 
             // add wire layer to stage
             this._stage.add(this._wireLayer);
+
+            this._stage.add(this._dragLayer);
 
             //===========================
             // Event handlers

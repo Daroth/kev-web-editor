@@ -18,14 +18,16 @@ define(
         function UINode(ctrl) {
             UINestableEntity.prototype.constructor.call(this, ctrl);
 
-            this._rect.setStroke(DEFAULT_STROKE_COLOR);
-            this._rect.setStrokeWidth(STROKE);
-            this._rect.setShadowColor('black');
-            this._rect.setShadowBlur(10);
-            this._rect.setShadowOffset([5, 5]);
-            this._rect.setShadowOpacity(0.2);
-            this._rect.setCornerRadius(10);
-            this._rect.setName(UINode.SHAPE_NAME);
+            this._rect.setAttrs({
+                name: UINode.SHAPE_NAME,
+                stroke: DEFAULT_STROKE_COLOR,
+                strokeWidth: STROKE,
+                shadowColor: 'black',
+                shadowBlur: 10,
+                shadowOffset: [5, 5],
+                shadowOpacity: 0.2,
+                corderRadius: 10
+            });
 
             // this offset is set to improve positioning when entity is dropped
             this._shape.setOffset(this._rect.getWidth()/2, this._rect.getHeight()/2);
@@ -57,20 +59,20 @@ define(
         // override UINestableEntity.c2pMouseOut()
         UINode.prototype.c2pMouseOut = function () {
             document.body.style.cursor = 'default';
-            this._rect.setStroke(DEFAULT_STROKE_COLOR);
+            this._rect.setAttrs({stroke : DEFAULT_STROKE_COLOR});
             this._rect.getLayer().draw();
         }
 
         UINode.prototype.c2pDropPossible = function (refresh) {
             document.body.style.cursor = 'pointer';
-            this._rect.setStroke(OK_STROKE_COLOR);
+            this._rect.setAttrs({stroke : OK_STROKE_COLOR});
             if (refresh) this._rect.getLayer().draw();
 
         }
 
         UINode.prototype.c2pDropImpossible = function (refresh) {
             document.body.style.cursor = 'pointer';
-            this._rect.setStroke(KO_STROKE_COLOR);
+            this._rect.setAttrs({stroke : KO_STROKE_COLOR});
             if (refresh) this._rect.getLayer().draw();
         }
 

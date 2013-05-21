@@ -48,6 +48,10 @@ define(
                 width: that._headerName.getWidth(),
                 height: that._headerName.getHeight(),
                 cornerRadius: 10,
+                shadowColor: 'black',
+                shadowBlur: 10,
+                shadowOffset: 5,
+                shadowOpacity: 0.6,
                 drawFunc: function (canvas) {
                     that._draw();
                     this.drawFunc(canvas);
