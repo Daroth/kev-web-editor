@@ -25,14 +25,11 @@ define(
                 lineJoin: 'round',
                 opacity: 0.6,
                 drawFunc: function(canvas) {
-                    var origin = (that._origin) ? that._origin.getPosition() : {x: 0, y: 0};
-                    var middle = that._computeMiddlePoint();
-                    var target = (that._target) ? that._target.getPosition(origin) : {x: 0, y: 0};
-
+                    var pts = getPoints(that);
                     var context = canvas.getContext();
                     context.beginPath();
-                    context.moveTo(origin.x, origin.y);
-                    context.quadraticCurveTo(middle.x, middle.y, target.x, target.y);
+                    context.moveTo(pts.origin.x, pts.origin.y);
+                    context.quadraticCurveTo(pts.middle.x, pts.middle.y, pts.target.x, pts.target.y);
                     canvas.fillStroke(this);
                     canvas.fill(this);
                     canvas.stroke(this);
@@ -40,14 +37,11 @@ define(
                 },
                 drawHitFunc: function(canvas) {
                     if (that._handlersEnabled) {
-                        var origin = (that._origin) ? that._origin.getPosition() : {x: 0, y: 0};
-                        var middle = that._computeMiddlePoint();
-                        var target = (that._target) ? that._target.getPosition(origin) : {x: 0, y: 0};
-
+                        var pts = getPoints(that);
                         var context = canvas.getContext();
                         context.beginPath();
-                        context.moveTo(origin.x, origin.y);
-                        context.quadraticCurveTo(middle.x, middle.y, target.x, target.y);
+                        context.moveTo(pts.origin.x, pts.origin.y);
+                        context.quadraticCurveTo(pts.middle.x, pts.middle.y, pts.target.x, pts.target.y);
                         canvas.fillStroke(this);
                         canvas.stroke(this);
                         context.closePath();
@@ -89,10 +83,7 @@ define(
             this._shape.draw();
         }
 
-        UIWire.prototype._computeMiddlePoint = function() {
-            var origin = (this._origin) ? this._origin.getPosition() : {x: 0, y: 0};
-            var target = (this._target) ? this._target.getPosition(origin) : {x: 0, y: 0};
-
+        UIWire.prototype._computeMiddlePoint = function(origin, target) {
             var middleX, middleY;
 
             if (origin.x > target.x) middleX = target.x + (origin.x - target.x)/2;
@@ -121,6 +112,17 @@ define(
 
         UIWire.prototype.setColor = function (color) {
             this._shape.setStroke(color);
+        }
+
+        function getPoints(wire) {
+            var origin = (wire._origin) ? wire._origin.getPosition() : {x: 0, y: 0},
+                target = (wire._target) ? wire._target.getPosition(origin) : {x: 0, y: 0};
+
+            return {
+                origin: origin,
+                target: target,
+                middle: wire._computeMiddlePoint(origin, target)
+            };
         }
 
         return UIWire;

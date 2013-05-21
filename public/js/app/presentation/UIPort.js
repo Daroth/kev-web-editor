@@ -34,10 +34,12 @@ define(
 
         UIPort.prototype.getPosition = function () {
             var pos = this._shape.getAbsolutePosition(),
-                scale = this._shape.getStage().getScale();
+                scale = this._shape.getStage().getScale(),
+                stagePos = this._shape.getStage().getPosition();
+
             return {
-                x: pos.x / scale.x,
-                y: pos.y / scale.y
+                x: (pos.x - stagePos.x) / scale.x,
+                y: (pos.y - stagePos.y) / scale.y
             };
         }
 

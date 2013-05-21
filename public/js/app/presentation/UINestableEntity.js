@@ -181,7 +181,14 @@ define(
         }
 
         UINestableEntity.prototype.getPosition = function () {
-            return this._shape.getAbsolutePosition();
+            var pos = this._shape.getAbsolutePosition(),
+                scale = this._shape.getStage().getScale(),
+                stagePos = this._shape.getStage().getPosition();
+
+            return {
+                x: (pos.x - stagePos.x) / scale.x,
+                y: (pos.y - stagePos.y) / scale.y
+            };
         }
 
         UINestableEntity.prototype.getHeader = function () {

@@ -76,7 +76,11 @@ define(
         UIChannel.prototype.getPosition = function (origin) {
             var pos = this._circle.getAbsolutePosition(),
                 scale = this._circle.getStage().getScale(),
-                pos = {x: pos.x / scale.x, y: pos.y / scale.y};
+                stagePos = this._circle.getStage().getPosition(),
+                pos = {
+                    x: (pos.x - stagePos.x) / scale.x,
+                    y: (pos.y - stagePos.y) / scale.y
+                };
 
             if (origin && (origin.y > pos.y)) {
                 // if origin.y is greater than this channel position.y

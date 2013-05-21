@@ -101,7 +101,8 @@ define(
                 off = this._shape.getOffset(),
                 width = this._rect.getWidth(),
                 scale = this._shape.getStage().getScale(),
-                pos = {x: pos.x / scale.x, y: pos.y / scale.y};
+                stagePos = this._shape.getStage().getPosition(),
+                pos = {x: (pos.x - stagePos.x) / scale.x, y: (pos.y - stagePos.y) / scale.y};
 
             if (origin && origin.x > pos.x - off.x + width/2 + 10) {
                 // if origin point is on the right, then give the upper right corner for node wire's plug

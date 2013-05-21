@@ -41,6 +41,10 @@ define(
             return this._name;
         }
 
+        KPort.prototype.getWires = function () {
+            return this._component.getWires();
+        }
+
         return KPort;
     }
 );
