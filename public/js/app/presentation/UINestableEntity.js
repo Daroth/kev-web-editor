@@ -43,11 +43,10 @@ define(
 
             var that = this;
             this._rect = new Kinetic.Rect({
-                stroke: 'white',
-                strokeWidth: 1,
                 width: that._headerName.getWidth(),
                 height: that._headerName.getHeight(),
-                cornerRadius: 10,
+                fill: 'white',
+                opacity: 0.1,
                 shadowColor: 'black',
                 shadowBlur: 10,
                 shadowOffset: 5,
@@ -58,16 +57,28 @@ define(
                 }
             });
 
+            this._border = new Kinetic.Rect({
+                width: that._rect.getWidth(),
+                height: that._rect.getHeight(),
+                stroke: 'white',
+                strokeWidth: 2,
+                cornerRadius: 10,
+                drawFunc: function (canvas) {
+                    that._drawBorder();
+                    this.drawFunc(canvas);
+                }
+            });
+
             this._shape = new Kinetic.Group({
                 draggable: true
             });
+            this._shape.add(this._border);
             this._shape.add(this._rect);
             this._shape.add(this._headerName);
 
             //==========================
             // Event handling
             //==========================
-            var that = this;
             this._mouseUpEvent = null;
 
             this._shape.on('mouseover touchmove', function (e) {
@@ -82,10 +93,6 @@ define(
             this._shape.on('dragmove', function(e) {
                 that._ctrl.p2cDragMove();
             });
-        }
-
-        UINestableEntity.prototype._drawHeader = function () {
-            this._headerName.setText(this._ctrl.getName() + ' : ' + this._ctrl.getType());
         }
 
         UINestableEntity.prototype.ready = function() {
@@ -141,8 +148,10 @@ define(
 
         UINestableEntity.prototype.c2pMouseOut = function () {
             document.body.style.cursor = 'default';
-            this._rect.setStrokeWidth(1);
-            this._rect.setStroke('white');
+            this._border.setAttrs({
+                strokeWidth: 1,
+                stroke: 'white'
+            });
             this._shape.getLayer().draw();
         }
 
@@ -160,7 +169,16 @@ define(
             }
         }
 
+        UINestableEntity.prototype._drawHeader = function () {
+            this._headerName.setText(this._ctrl.getName() + ' : ' + this._ctrl.getType());
+        }
+
         UINestableEntity.prototype._draw = function () {}
+
+        UINestableEntity.prototype._drawBorder = function () {
+            this._border.setWidth(this._rect.getWidth());
+            this._border.setHeight(this._rect.getHeight());
+        }
 
         UINestableEntity.prototype.getPosition = function () {
             return this._shape.getAbsolutePosition();

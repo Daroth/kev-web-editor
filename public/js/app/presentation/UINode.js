@@ -20,8 +20,8 @@ define(
 
             this._rect.setAttrs({
                 name: UINode.SHAPE_NAME,
-                stroke: DEFAULT_STROKE_COLOR,
-                strokeWidth: STROKE,
+//                stroke: DEFAULT_STROKE_COLOR,
+//                strokeWidth: STROKE,
                 shadowColor: 'black',
                 shadowBlur: 10,
                 shadowOffset: [5, 5],
@@ -59,21 +59,21 @@ define(
         // override UINestableEntity.c2pMouseOut()
         UINode.prototype.c2pMouseOut = function () {
             document.body.style.cursor = 'default';
-            this._rect.setAttrs({stroke : DEFAULT_STROKE_COLOR});
-            this._rect.getLayer().draw();
+            this._border.setAttrs({stroke : DEFAULT_STROKE_COLOR});
+            this._shape.getLayer().draw();
         }
 
         UINode.prototype.c2pDropPossible = function (refresh) {
             document.body.style.cursor = 'pointer';
-            this._rect.setAttrs({stroke : OK_STROKE_COLOR});
-            if (refresh) this._rect.getLayer().draw();
+            this._border.setAttrs({stroke : OK_STROKE_COLOR});
+            if (refresh) this._shape.getLayer().draw();
 
         }
 
         UINode.prototype.c2pDropImpossible = function (refresh) {
             document.body.style.cursor = 'pointer';
-            this._rect.setAttrs({stroke : KO_STROKE_COLOR});
-            if (refresh) this._rect.getLayer().draw();
+            this._border.setAttrs({stroke : KO_STROKE_COLOR});
+            if (refresh) this._shape.getLayer().draw();
         }
 
         UINode.prototype.c2pChildRemoved = function (entity) {
@@ -187,7 +187,7 @@ define(
                 pos.y <= pointer.y && pointer.y <= pos.y + height) {
                 this._ctrl.p2cBeforeDraw();
             } else {
-                this._rect.setStroke(DEFAULT_STROKE_COLOR);
+                this._border.setStroke(DEFAULT_STROKE_COLOR);
             }
         }
 

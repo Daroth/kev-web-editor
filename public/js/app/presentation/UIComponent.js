@@ -6,7 +6,7 @@ define(
 
     function(UINestableEntity, Pooffs) {
         var DEFAULT_STROKE_COLOR = "white",
-            STROKE = 1;
+            STROKE = 2;
 
         UIComponent.PORT_PADDING = 10;
 
@@ -22,10 +22,15 @@ define(
             );
             this._headerName.setPadding(8);
 
-            this._rect.setFill('black');
-            this._rect.setStroke(DEFAULT_STROKE_COLOR);
-            this._rect.setStrokeWidth(STROKE);
-            this._rect.setOpacity(0.7);
+            this._rect.setAttrs({
+                fill: 'black',
+                opacity: 0.7,
+                cornerRadius: 10
+            });
+
+            this._border.setAttrs({
+                strokeWidth: STROKE
+            });
 
             var that = this;
 
@@ -84,12 +89,14 @@ define(
             this._headerName.setOffset(- (this.getWidth()/2 - this._headerName.getWidth()/2), 0);
         }
 
-        // override UINestableEntity.c2pMouseOut()
+        // Override UINestableEntity.c2pMouseOut()
         UIComponent.prototype.c2pMouseOut = function () {
             document.body.style.cursor = 'default';
-            this._rect.setStrokeWidth(STROKE);
-            this._rect.setStroke(DEFAULT_STROKE_COLOR);
-            if (this._shape.getParent()) this._shape.getLayer().draw();
+            this._border.setAttrs({
+                strokeWidth: STROKE,
+                stroke: 'white'
+            });
+            this._shape.getLayer().draw();
         }
 
         UIComponent.prototype._updateDimensions = function () {
