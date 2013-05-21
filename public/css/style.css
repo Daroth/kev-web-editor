@@ -72,6 +72,10 @@ body {
     overflow-y: auto;
 }
 
+#lib-tree-content .nav-header:hover {
+    background-color: #222;
+}
+
 [data-entity='GroupType'] {
     background: url('../img/group-ico.png') center left no-repeat;
 }

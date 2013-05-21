@@ -24,7 +24,7 @@ define(
 
             this._rect.setAttrs({
                 fill: 'black',
-                opacity: 0.7,
+                opacity: 1,
                 cornerRadius: 10
             });
 

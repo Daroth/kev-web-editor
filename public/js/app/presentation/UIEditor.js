@@ -88,6 +88,10 @@ define(
                 that._wireLayer.draw();
             });
 
+            this._stage.on('dragmove', function () {
+
+            });
+
             this._registerCallbacks();
         }
 

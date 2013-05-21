@@ -18,16 +18,7 @@ define(
         function UINode(ctrl) {
             UINestableEntity.prototype.constructor.call(this, ctrl);
 
-            this._rect.setAttrs({
-                name: UINode.SHAPE_NAME,
-//                stroke: DEFAULT_STROKE_COLOR,
-//                strokeWidth: STROKE,
-                shadowColor: 'black',
-                shadowBlur: 10,
-                shadowOffset: [5, 5],
-                shadowOpacity: 0.2,
-                corderRadius: 10
-            });
+            this._rect.setName(UINode.SHAPE_NAME);
 
             // this offset is set to improve positioning when entity is dropped
             this._shape.setOffset(this._rect.getWidth()/2, this._rect.getHeight()/2);

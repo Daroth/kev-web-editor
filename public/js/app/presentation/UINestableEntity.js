@@ -47,10 +47,6 @@ define(
                 height: that._headerName.getHeight(),
                 fill: 'white',
                 opacity: 0.1,
-                shadowColor: 'black',
-                shadowBlur: 10,
-                shadowOffset: 5,
-                shadowOpacity: 0.6,
                 drawFunc: function (canvas) {
                     that._draw();
                     this.drawFunc(canvas);
@@ -63,6 +59,10 @@ define(
                 stroke: 'white',
                 strokeWidth: 2,
                 cornerRadius: 10,
+                shadowColor: 'black',
+                shadowBlur: 10,
+                shadowOffset: [5, 5],
+                shadowOpacity: 0.6,
                 drawFunc: function (canvas) {
                     that._drawBorder();
                     this.drawFunc(canvas);
