@@ -4,12 +4,9 @@ define(
         AlertPopupHelper.SUCCESS    = 'alert-success';
         AlertPopupHelper.ERROR      = 'alert-error';
         AlertPopupHelper.WARN       = 'alert-warn';
+        AlertPopupHelper.isEnabled  = true;
 
-        function AlertPopupHelper() {
-            // default type is 'success'
-            this._type = AlertPopupHelper.SUCCESS;
-            this._timeoutID = null;
-        }
+        function AlertPopupHelper() {}
 
         AlertPopupHelper.setText = function (text) {
             $('#alert-content').text(text);
@@ -41,18 +38,20 @@ define(
          * @param timeout {Number} show popup for 'timeout' ms before hiding it
          */
         AlertPopupHelper.show = function (timeout) {
-            // show the alert popup
-            $('#alert').addClass(this._type+' in');
+            if (AlertPopupHelper.isEnabled) {
+                // show the alert popup
+                $('#alert').addClass(this._type+' in');
 
-            // if a timeout is given, register a callback in 'timeout' milliseconds
-            // to close the alert popup
-            if (timeout) {
-                var that = this;
-                if (this._timeoutID) clearTimeout(this._timeoutID);
-                this._timeoutID = setTimeout(function () {
-                    $('#alert').removeClass('in');
-                    that._timeoutID = null;
-                }, timeout);
+                // if a timeout is given, register a callback in 'timeout' milliseconds
+                // to close the alert popup
+                if (timeout) {
+                    var that = this;
+                    if (this._timeoutID) clearTimeout(this._timeoutID);
+                    this._timeoutID = setTimeout(function () {
+                        $('#alert').removeClass('in');
+                        that._timeoutID = null;
+                    }, timeout);
+                }
             }
         }
 
@@ -69,6 +68,10 @@ define(
                 $('#alert').removeClass('in');
                 that._timeoutID = null;
             }, timetowait);
+        }
+
+        AlertPopupHelper.setEnabled = function (isEnabled) {
+            AlertPopupHelper.isEnabled = isEnabled;
         }
 
         return AlertPopupHelper;

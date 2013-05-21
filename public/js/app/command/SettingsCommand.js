@@ -17,7 +17,8 @@ define(
                 // Local storage available
                 $('#save-settings').on('click'+NAMESPACE, function () {
                     var askBeforeLeaving = $('#ask-before-leaving').prop('checked'),
-                        componentTooltip = $('#component-tooltip').prop('checked');
+                        componentTooltip = $('#component-tooltip').prop('checked'),
+                        alertPopups      = $('#display-alert-popups').prop('checked');
 
                     // ASK BEFORE LEAVING Saving procress
                     storage.setItem(Config.LS_ASK_BEFORE_LEAVING, askBeforeLeaving);
@@ -25,6 +26,10 @@ define(
                     // COMPONENT TOOLTIP Saving procress
                     storage.setItem(Config.LS_COMPONENT_TOOLTIP, componentTooltip);
                     editor.getUI().enableTooltips(componentTooltip);
+
+                    // DISPLAY ALERT POPUPS
+                    storage.setItem(Config.LS_DISPLAY_ALERT_POPUPS, alertPopups);
+                    editor.getUI().enableAlertPopups(alertPopups);
                 });
 
             } else {

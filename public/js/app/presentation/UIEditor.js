@@ -1,6 +1,7 @@
 define(
     [   // dependencies
         'util/ModelHelper',
+        'util/AlertPopupHelper',
         'bootstrap/modal',
         'jquery',
         'jqueryui/droppable',
@@ -11,7 +12,7 @@ define(
         'hammer'
     ],
 
-    function (ModelHelper, _bootstrap, $) {
+    function (ModelHelper, AlertPopupHelper, _bootstrap, $) {
         var NAMESPACE = '.uieditor',
             libTreeFolded = false,
             displayableItems = [],
@@ -275,6 +276,10 @@ define(
             } else {
                 $(".lib-item[data-entity='ComponentType']").tooltip('destroy');
             }
+        }
+
+        UIEditor.prototype.enableAlertPopups = function (enabled) {
+            AlertPopupHelper.setEnabled(enabled);
         }
 
         UIEditor.prototype.c2pEntityAdded = function(entity) {

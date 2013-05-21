@@ -68,7 +68,7 @@ define(
 
         // load editor's settings from Local Storage
         var loadSettingsCmd = new LoadSettingsCommand();
-        loadSettingsCmd.execute();
+        loadSettingsCmd.execute(editor);
 
         // use Behave.js for Kevs Editor
         var kevsEditor = new Behave({
