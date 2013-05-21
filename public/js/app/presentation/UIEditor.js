@@ -227,8 +227,8 @@ define(
                     var canvas = $('#editor').offset(),
                         scale = that._stage.getScale(),
                         position = {
-                        x: (event.pageX - canvas.left) / scale.x,
-                        y: (event.pageY - canvas.top) / scale.y
+                            x: (event.pageX - canvas.left) / scale.x,
+                            y: (event.pageY - canvas.top) / scale.y
                         };
                     that._ctrl.p2cEntityDropped(position);
                     var name = ui.draggable.find('.lib-item-name').text();

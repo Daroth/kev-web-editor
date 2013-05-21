@@ -109,7 +109,7 @@ define(
                     }
                 } else {
                     // connection cannot be made
-                    this._ui.c2pDropImpossible();
+                    this._ui.c2pDropImpossible(true);
                 }
             } else if (!this._isDragged) {
                 var draggedEntity = this.getEditor().getDraggedEntity();
@@ -123,7 +123,7 @@ define(
 
                 } else {
                     // user is just overing the shape
-                    this._ui.c2pMouseOver();
+                    this._ui.c2pMouseOver(true);
                 }
             }
         }
