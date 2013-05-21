@@ -9,10 +9,11 @@ define(
         'control/AController',
         'presentation/UIEditor',
         'util/ModelHelper',
+        'util/DebugLoggerHelper',
         'require'
     ],
 
-    function (Pooffs, KEditor, KGroup, KComponent, KChannel, KNode, AController, UIEditor, ModelHelper, require) {
+    function (Pooffs, KEditor, KGroup, KComponent, KChannel, KNode, AController, UIEditor, ModelHelper, DebugLoggerHelper, require) {
         Pooffs.extends(CEditor, KEditor);
         Pooffs.extends(CEditor, AController);
 
@@ -20,6 +21,7 @@ define(
             KEditor.prototype.constructor.call(this); // KEditor.super();
 
             this._ui = new UIEditor(this, containerID);
+            this._debug = new DebugLoggerHelper();
             this._currentWire = null;
             this._draggedEntity = null;
             this._modelHelper = new ModelHelper();
@@ -31,12 +33,14 @@ define(
         CEditor.prototype.addEntity = function (entity) {
             KEditor.prototype.addEntity.call(this, entity); // super.addEntity(type)
             this._ui.c2pEntityAdded(entity.getUI())
+            this._debug.log('['+entity.getType()+': '+entity.getName()+'] ADD');
         }
 
         // Override KEditor.removeEntity(KEntity)
         CEditor.prototype.removeEntity = function (entity) {
             KEditor.prototype.removeEntity.call(this, entity); // super.addEntity(type)
             this._ui.c2pEntityRemoved(entity.getUI());
+            this._debug.log('['+entity.getType()+': '+entity.getName()+'] REMOVE');
         }
 
         CEditor.prototype.p2cEntityDropped = function (position) {

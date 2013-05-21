@@ -179,6 +179,11 @@ body {
     overflow-y: scroll;
 }
 
+#debug-alert-content li {
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
 .alert.fade {
     z-index: -42;
 }
