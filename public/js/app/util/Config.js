@@ -6,6 +6,7 @@ define(
         Config.CONTAINER_ID = 'editor';
         Config.HTTP = 'http://';
         Config.WS = 'ws://';
+        Config.BACKGROUND_IMG = '/img/background.jpg';
 
         // Local Storage Constants
         Config.LS_ASK_BEFORE_LEAVING = 'askBeforeLeaving';

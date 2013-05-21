@@ -2,6 +2,7 @@ define(
     [   // dependencies
         'util/ModelHelper',
         'util/AlertPopupHelper',
+        'util/Config',
         'bootstrap/modal',
         'jquery',
         'jqueryui/droppable',
@@ -12,7 +13,7 @@ define(
         'hammer'
     ],
 
-    function (ModelHelper, AlertPopupHelper, _bootstrap, $) {
+    function (ModelHelper, AlertPopupHelper, Config, _bootstrap, $) {
         var NAMESPACE = '.uieditor',
             libTreeFolded = false,
             displayableItems = [],
@@ -25,7 +26,6 @@ define(
             this._currentWire = null;
             this._modelLayer = new Kinetic.Layer();
             this._wireLayer = new Kinetic.Layer();
-            this._dragLayer = new Kinetic.Layer();
             this._modelHelper = new ModelHelper();
             this._scale = 1;
         }
@@ -52,7 +52,7 @@ define(
                 bgLayer.draw();
             }
 
-            bgImg.src = "/img/background.jpg";
+            bgImg.src = Config.BACKGROUND_IMG;
             this._stage.add(bgLayer);
 
             // add model layer to stage (layer for entities)
@@ -60,8 +60,6 @@ define(
 
             // add wire layer to stage
             this._stage.add(this._wireLayer);
-
-            this._stage.add(this._dragLayer);
 
             //===========================
             // Event handlers
