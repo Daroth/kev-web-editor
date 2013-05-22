@@ -17,6 +17,7 @@ define(
             $.get('/merge/'+lib, function (model) {
                 try {
                     // TODO allow merge, this is not a merge, it replaces the old model if there is one
+                    //console.log(model);
                     editor.setModel(model);
 
                     // update headsup for user
