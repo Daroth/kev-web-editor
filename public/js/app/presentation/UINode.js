@@ -23,6 +23,12 @@ define(
             // this offset is set to improve positioning when entity is dropped
             this._shape.setOffset(this._rect.getWidth()/2, this._rect.getHeight()/2);
 
+            var that = this;
+            this._shape.on('mouseover touchmove', function (e) {
+                that._ctrl.p2cMouseOver();
+                e.cancelBubble = true;
+            });
+
             this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
         }
 
@@ -132,7 +138,6 @@ define(
         UINode.prototype._draw = function () {
             var width = this.getHeader().getWidth(),
                 height = this.getHeader().getHeight(),
-                pos = this._rect.getAbsolutePosition(),
                 pointer = this._shape.getStage().getPointerPosition() || this._shape.getStage().getMousePosition();
 
             if (this._ctrl.getParent()) {

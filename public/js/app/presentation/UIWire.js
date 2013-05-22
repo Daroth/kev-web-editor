@@ -111,7 +111,7 @@ define(
         }
 
         UIWire.prototype.setColor = function (color) {
-            this._shape.setStroke(color);
+            this._shape.setAttrs({stroke: color});
         }
 
         function getPoints(wire) {
