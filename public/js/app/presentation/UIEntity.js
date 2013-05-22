@@ -97,6 +97,10 @@ define(
             editor.getWiresLayer().draw();
         }
 
+        UIEntity.prototype.c2pPropertiesUpdated = function () {
+            this._shape.getLayer().draw();
+        }
+
         /**
          * Do not rely on that, in KineticJS, groups do not have
          * width & height defined, so you MUST override this method

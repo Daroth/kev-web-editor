@@ -48,7 +48,7 @@ define(
                 fill: 'white',
                 opacity: 0.1,
                 drawFunc: function (canvas) {
-                    that._draw();
+                    that._draw(canvas.getContext());
                     this.drawFunc(canvas);
                 }
             });

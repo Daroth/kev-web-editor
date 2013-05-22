@@ -34,6 +34,7 @@ define(
 
         CEntity.prototype.p2cSaveProperties = function (name) {
             this.setName(name);
+            this._ui.c2pPropertiesUpdated();
         }
 
         return CEntity;
