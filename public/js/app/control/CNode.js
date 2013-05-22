@@ -122,7 +122,7 @@ define(
                     }
 
                 } else {
-                    // user is just overing the shape
+                    // user is just hovering the shape
                     this._ui.c2pMouseOver(true);
                 }
             }

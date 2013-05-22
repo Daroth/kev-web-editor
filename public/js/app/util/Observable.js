@@ -13,7 +13,7 @@ define(
         Observable.prototype.notifyObservers = function() {
             if (this._observers && this._observers.length > 0) {
                 for (var i=0; i<this._observers.length; i++) {
-                    if (this._observers[i].update) {
+                    if (this._observers[i].update && typeof (this._observers[i].update) == "function") {
                         this._observers[i].update(this);
                     } else {
                         console.warn("There is no update() method in your Observer. Did you extends Observer and/or override update(subject) method?");

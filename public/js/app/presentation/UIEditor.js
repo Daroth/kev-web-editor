@@ -113,17 +113,19 @@ define(
             // foldable lib-tree
             $('#lib-tree-content .nav-header').off(NAMESPACE);
             $('#lib-tree-content .nav-header').on('click'+NAMESPACE, function() {
-                var icon = $(this).parent().children().first().children().first();
+                var header = $(this),
+                    icon = header.find('.lib-subtree-icon');
+                
                 if (icon.hasClass('icon-arrow-right')) {
                     // all items are showed, hide them
-                    displayableSubTrees[$(this).text()] = false;
-                    $(this).siblings().hide('fast');
+                    displayableSubTrees[header.text()] = false;
+                    header.siblings().hide('fast');
                     icon.removeClass('icon-arrow-right');
                     icon.addClass('icon-arrow-down');
                 } else {
                     // all items are hidden, reveal them
-                    displayableSubTrees[$(this).text()] = true;
-                    showLibTreeItems($(this), icon);
+                    displayableSubTrees[header.text()] = true;
+                    showLibTreeItems(header, icon);
                 }
             });
 
@@ -133,13 +135,15 @@ define(
             $('#lib-tree-search').off(NAMESPACE);
             $('#lib-tree-search').on('keyup'+NAMESPACE, function () {
                 $('.lib-item').filter(function () {
-                    var itemName = $(this).text().toLowerCase();
-                    var searchVal = $('#lib-tree-search').val().toLowerCase();
+                    var libItem = $(this),
+                        itemName = libItem.text().toLowerCase(),
+                        searchVal = $('#lib-tree-search').val().toLowerCase();
+
                     if (itemName.search(searchVal) == -1) {
-                        $(this).hide();
+                        libItem.hide();
                     } else {
-                        if (displayableItems[$(this).attr('data-entity')] && displayableSubTrees[$(this).attr('data-lib')]) {
-                            $(this).show();
+                        if (displayableItems[libItem.attr('data-entity')] && displayableSubTrees[libItem.attr('data-lib')]) {
+                            libItem.show();
                         }
                     }
                 });
@@ -444,7 +448,7 @@ define(
                 var htmlContent =
                     "<ul class='nav nav-list'>" +
                         "<li class='nav-header cursor-pointer'>" +
-                        "<i class='icon-arrow-right icon-white'></i>"+
+                        "<i class='lib-subtree-icon icon-arrow-right icon-white'></i>"+
                         libz[i].name+
                         "</li>"+
                         libItems+
