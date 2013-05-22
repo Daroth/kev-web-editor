@@ -25,29 +25,26 @@ define(
                 lineJoin: 'round',
                 opacity: 0.6,
                 drawFunc: function(canvas) {
-                    var pts = getPoints(that);
-                    var context = canvas.getContext();
-                    context.beginPath();
-                    context.moveTo(pts.origin.x, pts.origin.y);
-                    context.quadraticCurveTo(pts.middle.x, pts.middle.y, pts.target.x, pts.target.y);
-                    canvas.fillStroke(this);
-                    canvas.fill(this);
-                    canvas.stroke(this);
-                    context.closePath();
+                    drawLine.call(this, canvas);
                 },
                 drawHitFunc: function(canvas) {
                     if (that._handlersEnabled) {
-                        var pts = getPoints(that);
-                        var context = canvas.getContext();
-                        context.beginPath();
-                        context.moveTo(pts.origin.x, pts.origin.y);
-                        context.quadraticCurveTo(pts.middle.x, pts.middle.y, pts.target.x, pts.target.y);
-                        canvas.fillStroke(this);
-                        canvas.stroke(this);
-                        context.closePath();
+                        drawLine.call(this, canvas);
                     }
                 }
             });
+
+            function drawLine(canvas) {
+                var pts = getPoints(that);
+                var context = canvas.getContext();
+                context.beginPath();
+                context.moveTo(pts.origin.x, pts.origin.y);
+                context.quadraticCurveTo(pts.middle.x, pts.middle.y, pts.target.x, pts.target.y);
+                canvas.fillStroke(this);
+                canvas.fill(this);
+                canvas.stroke(this);
+                context.closePath();
+            }
 
             layer.add(this._shape);
 

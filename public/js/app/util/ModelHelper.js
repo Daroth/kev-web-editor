@@ -30,7 +30,6 @@ define(
                         type: isolateEClassName(compz[j].eClass),
                         required: isolatePorts(compz[j].required),
                         provided: isolatePorts(compz[j].provided)
-
                     };
                 }
             }
