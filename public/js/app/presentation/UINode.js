@@ -174,13 +174,36 @@ define(
             this._rect.setHeight(height);
             this.getHeader().setOffset(- (width/2 - this.getHeader().getWidth()/2), 0);
 
-            if (pos && pointer &&
-                pos.x <= pointer.x && pointer.x <= pos.x + width &&
-                pos.y <= pointer.y && pointer.y <= pos.y + height) {
+            if (this.containsPoint(pointer) && this._noChildrenContainsPoint(pointer)) {
                 this._ctrl.p2cBeforeDraw();
             } else {
-                this._border.setStroke(DEFAULT_STROKE_COLOR);
+                this._border.setAttrs({stroke: DEFAULT_STROKE_COLOR});
             }
+        }
+
+        /**
+         * Returns true if no children contains the given point; otherwise false
+         * @param point {x: Number, y: Number}
+         * @returns {boolean} true if no children contains the given point; false otherwise
+         * @private
+         */
+        UINode.prototype._noChildrenContainsPoint = function (point) {
+            var children = this._ctrl.getChildren();
+            if (!this._ctrl.getParent() && children.length > 0) {
+                for (var i=0; i < children.length; i++) {
+                    if (children[i].getUI().containsPoint(point)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        UINode.prototype.containsPoint = function (point) {
+            var pos = this._rect.getAbsolutePosition();
+            return pos && point &&
+                   pos.x <= point.x && point.x <= pos.x + this.getHeader().getWidth() &&
+                   pos.y <= point.y && point.y <= pos.y + this.getHeader().getHeight();
         }
 
         return UINode;

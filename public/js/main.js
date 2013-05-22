@@ -45,6 +45,7 @@ define(
         'command/ShowStatsCommand',
         'command/CheckModelCommand',
         'command/LoadSettingsCommand',
+        'command/MergeCommand',
         'bootstrap/tooltip',
         'bootstrap/modal',
         'bootstrap/collapse',
@@ -59,7 +60,7 @@ define(
               SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, RunKevScriptCommand,
               SettingsCommand, DebugCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
               OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand, ShowStatsCommand, CheckModelCommand,
-              LoadSettingsCommand,
+              LoadSettingsCommand, MergeCommand,
               _bootstrap) {
 
         // init editor
@@ -107,6 +108,12 @@ define(
         // Listeners that trigger XXXCommand.execute(...)
         $('#load').click(function (e) {
             var cmd = new LoadCommand();
+            cmd.execute(editor);
+            e.preventDefault();
+        });
+
+        $('#merge').click(function (e) {
+            var cmd = new MergeCommand();
             cmd.execute(editor);
             e.preventDefault();
         });

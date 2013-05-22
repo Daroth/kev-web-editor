@@ -10,6 +10,7 @@ define(
         function OpenFromNodeCommand() {};
 
         OpenFromNodeCommand.prototype.execute = function (protocol, uri, editor) {
+            // prevent listeners from being registered several times
             $('body').off(NAMESPACE)
             $('body').on('hidden'+NAMESPACE, '#open-node-popup', function () {
                 $('#open-node-alert').removeClass('in');
