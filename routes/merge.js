@@ -7,7 +7,7 @@
 
 exports.merge = function(req, res) {
     if (req.xhr) {
-        var loader = java.newInstanceSync('org.kevoree.loader.JSONModelLoader');
+//        var loader = java.newInstanceSync('org.kevoree.loader.JSONModelLoader');
 
         switch (req.params.env) {
             case 'all':
