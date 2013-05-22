@@ -206,6 +206,31 @@ define(
             this._rect.setHeight(height);
         }
 
+        /**
+         * Returns true if no children contains the given point; otherwise false
+         * @param point {x: Number, y: Number}
+         * @returns {boolean} true if no children contains the given point; false otherwise
+         * @private
+         */
+        UINestableEntity.prototype._noChildrenContainsPoint = function (point) {
+            var children = this._ctrl.getChildren();
+            if (!this._ctrl.getParent() && children.length > 0) {
+                for (var i=0; i < children.length; i++) {
+                    if (children[i].getUI().containsPoint(point)) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        UINestableEntity.prototype.containsPoint = function (point) {
+            var pos = this._rect.getAbsolutePosition();
+            return pos && point &&
+                pos.x <= point.x && point.x <= pos.x + this.getHeader().getWidth() &&
+                pos.y <= point.y && point.y <= pos.y + this.getHeader().getHeight();
+        }
+
         return UINestableEntity;
     }
 );
