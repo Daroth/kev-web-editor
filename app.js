@@ -46,6 +46,8 @@ app.get('/', routes.index);
 app.get('/merge/:env', routes.merge);
 app.post('/save', routes.save);
 app.get('/saved/:model', routes.saved);
+app.get('/runtime', routes.runtime);
+
 app.use(function(req, res) {
     // if you end-up here, it means that I do not know the given url
     // so for now => redirect to '/' but you can put a custom 404 if you want
