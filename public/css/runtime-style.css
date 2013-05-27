@@ -1,0 +1,38 @@
+body {
+    background-image: url('/img/background.jpg');
+}
+
+#tabs-container {
+    padding-top: 50px;
+}
+
+#tabs-container > .nav-tabs > li > a {
+    color: #fff;
+    border-color: #fff;
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+}
+
+#tabs-container > .nav-tabs > li.active > a {
+    color: #000;
+}
+
+#tabs-container > .nav-tabs > li > a:hover {
+    color: #000;
+}
+
+
+.tab-pane {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.fill {
+    height: 100%;
+}
+
+@media (max-width: 980px) {
+    #tabs-container {
+        padding-top: 0px;
+    }
+}
