@@ -7,35 +7,24 @@ requirejs.config({
     //never includes a ".js" extension since
     //the paths config could be for a directory.
     paths: {
-        bootstrap:      'bootstrap/src'
+        bootstrap:  'bootstrap/src',
+        app:        '../app',
+        ui:         '../app/runtime/ui',
+        ctrl:       '../app/runtime/ctrl'
     }
 });
 
 define(
     [
+        'ctrl/Runtime',
         'jquery',
         'jqueryui/effect-highlight',
         'bootstrap/tab'
     ],
 
-    function ($, _bootstrap) {
+    function (Runtime, $, _bootstrap) {
 
-        var tabCounter = $('#tabs-content .tab-pane').size();
-
-        function addTab(name, content) {
-            var tabID = 'appended-tab-' + (++tabCounter);
-
-            $('#tabs').append(
-                '<li>' +
-                    '<a href="#'+tabID+'" data-toggle="tab">'+name+'</a>' +
-                '</li>');
-            $('#tabs-content').append(
-                '<div id="'+tabID+'" class="tab-pane in">' +
-                    '<p>' + content + '</p>' +
-                '</div>');
-
-            $("a[href='#"+tabID+"']").effect('highlight', {color: '#fff'}, 500);
-        }
+        var runtime = new Runtime() // Runtime app controller
 
         return {};
     }

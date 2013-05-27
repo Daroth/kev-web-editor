@@ -9,12 +9,12 @@ requirejs.config({
     paths: {
         bootstrap:      'bootstrap/src',
         app:            '../app',
-        abstraction:    '../app/abstraction',
-        control:        '../app/control',
-        presentation:   '../app/presentation',
-        factory:        '../app/factory',
         util:           '../app/util',
-        command:        '../app/command'
+        abstraction:    '../app/editor/abstraction',
+        control:        '../app/editor/control',
+        presentation:   '../app/editor/presentation',
+        factory:        '../app/editor/factory',
+        command:        '../app/editor/command'
     }
 });
 
