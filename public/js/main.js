@@ -26,7 +26,7 @@ define(
         'factory/CFactory',
         'util/Config',
         'behave',
-        'util/QueryStringCtrl',
+        'control/QueryStringCtrl',
         'command/SaveCommand',
         'command/SaveAsKevsCommand',
         'command/SaveAsPNGCommand',

@@ -16,6 +16,7 @@ define(
             this._startNodeBtn = $('#node-start');
             this._stopNodeBtn = $('#node-stop');
             this._nodeName = $('#node-name');
+            this._grpSelect = $('#node-grp');
 
             configUI(this);
             registerCallbacks(this);
@@ -46,7 +47,7 @@ define(
             });
 
             ui._startNodeBtn.on('click', function () {
-                ui._ctrl.p2cStartNode(ui._nodeName.val());
+                ui._ctrl.p2cStartNode(ui._nodeName.val(), ui._grpSelect.find('option:selected').val());
             });
 
             ui._stopNodeBtn.on('click', function () {

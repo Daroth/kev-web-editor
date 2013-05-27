@@ -9,6 +9,7 @@ requirejs.config({
     paths: {
         bootstrap:  'bootstrap/src',
         app:        '../app',
+        util:       '../app/util',
         ui:         '../app/runtime/ui',
         ctrl:       '../app/runtime/ctrl'
     }
