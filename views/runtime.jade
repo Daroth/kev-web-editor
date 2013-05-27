@@ -5,7 +5,7 @@
    Time: 4:52 PM
 
 doctype 5
-html
+html.fill
     head
       meta(name='viewport', content='user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1')
 
@@ -22,14 +22,15 @@ html
 
       title= title
 
-    body
-      div.navbar.navbar-inverse.navbar-fixed-top
+    body.fill
+      div#header.navbar.navbar-inverse.navbar-fixed-top
         div.navbar-inner
           div.container-fluid
-            button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
-              span.icon-bar
-              span.icon-bar
-              span.icon-bar
+            //- uncomment the following line if you add menu items
+              button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
             a.brand(href='#') KWE Runtime
 
       div#tabs-container.container-fluid
@@ -38,9 +39,14 @@ html
 
         div#tabs-content.tab-content
           div#home.tab-pane.active
-            div.input-prepend.input-append
+            div#node-form.input-prepend.input-append
               button#node-stop.btn.btn-danger.disabled(type='button') Stop
-              input#node-name.input(type='text', value='node0', placeholder='Node instance name')
-              button#node-start.btn.btn-success(type='button') Start
+              input#node-name.input.span3(type='text', value='node0', placeholder='Node instance name', autofocus='autofocus')
+              div.btn-group
+                select#node-grp
+                  option(value='0', selected) WebSocketGroup
+                  option(value='1') WebSocketGroupEchoer
+                  option(value='2') WebSocketGroupMasterServer
+                button#node-start.btn.btn-success(type='button') Start
 
       script(data-main='/js/runtime-main.js', src='/js/require.js')
