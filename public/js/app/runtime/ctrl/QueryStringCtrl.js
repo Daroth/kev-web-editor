@@ -11,7 +11,7 @@ define(
                 {
                     name: 'foo',
                     action: function (value) {
-                        
+
                     }
                 }
             ];
