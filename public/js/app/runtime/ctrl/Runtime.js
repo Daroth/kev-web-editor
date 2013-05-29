@@ -15,7 +15,7 @@ define(
             // TODO
             nodeName = (nodeName && nodeName.length > 0) ? nodeName : 'node0';
             console.log("wanna start "+nodeName+" with group "+grpId);
-            this._ui.c2pNodeStarted(nodeName);
+            this._ui.c2pNodeStarted(nodeName, grpId);
         }
 
         RuntimeController.prototype.p2cStopNode = function () {

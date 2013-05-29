@@ -24,11 +24,27 @@ body {
 
 
 #tabs-content {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 .tab-pane {
     padding: 10px;
+}
+
+#home-logger li:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.debug {
+    background-color: #5890AD;
+}
+
+.err {
+    background-color: #da4f49;
+}
+
+.warn {
+    background-color: #faa732;
 }
 
 .fill {
