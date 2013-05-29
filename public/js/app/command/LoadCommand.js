@@ -2,9 +2,10 @@ define(
     [
         'jquery',
         'util/ModelHelper',
-        'util/AlertPopupHelper'
+        'util/AlertPopupHelper',
+        'kevoree'
     ],
-    function ($, ModelHelper, AlertPopupHelper) {
+    function ($, ModelHelper, AlertPopupHelper, Kevoree) {
         function LoadCommand () {}
 
         LoadCommand.prototype.execute = function (editor) {
@@ -24,9 +25,17 @@ define(
                 var fReader = new FileReader();
                 fReader.onload = function (event) {
                     // retrieve data from selected file
-                    var data = event.target.result;
+                    var model = JSON.parse(event.target.result);
                     try {
-                        editor.setModel(JSON.parse(data));
+                        var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
+                        var root = loader.loadModelFromString(model);
+                        console.log(root);
+                        var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
+                        var os = new Kevoree.java.io.OutputStream();
+                        serializer.serialize(root, os);
+                        console.log(os);
+
+                        editor.setModel(model);
 
                         AlertPopupHelper.setText("Model \""+file.name+"\" loaded successfully");
                         AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);

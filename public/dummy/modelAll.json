@@ -67,7 +67,8 @@
             "bean":"org.kevoree.library.sky.libvirt.LibVirtKvmNode",
             "deployUnits": ["//@deployUnits.32"],
             "superTypes": ["typeDefinitions[JavaSENode]"],
-            "managedPrimitiveTypes": ["adaptationPrimitiveTypes[UpdateFragmentBinding]",
+            "managedPrimitiveTypes": [
+                "adaptationPrimitiveTypes[UpdateFragmentBinding]",
                 "adaptationPrimitiveTypes[UpdateDictionaryInstance]",
                 "adaptationPrimitiveTypes[UpdateBinding]",
                 "adaptationPrimitiveTypes[RemoveThirdParty]",
@@ -89,7 +90,8 @@
                 "adaptationPrimitiveTypes[RemoveDeployUnit]",
                 "adaptationPrimitiveTypes[AddThirdParty]",
                 "adaptationPrimitiveTypes[AddType]",
-                "adaptationPrimitiveTypes[AddInstance]"],
+                "adaptationPrimitiveTypes[AddInstance]"
+            ],
             "dictionaryType":{ "eClass":"org.kevoree:DictionaryType" ,
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
