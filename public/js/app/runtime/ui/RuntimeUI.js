@@ -8,11 +8,11 @@ define(
     function ($) {
         function RuntimeUI(ctrl) {
             this._ctrl = ctrl;
-            this._tabCounter = $('#tabs-content .tab-pane').size();
             this._header = $('#header');
             this._tabsContainer = $('#tabs-container');
             this._tabs = $('#tabs');
             this._tabsPane = $('#tabs-container .tab-pane');
+            this._tabCounter = this._tabsPane.size();
             this._startNodeBtn = $('#node-start');
             this._stopNodeBtn = $('#node-stop');
             this._nodeName = $('#node-name');
@@ -24,6 +24,9 @@ define(
 
         // private method
         function configUI(ui) {
+            ui._tabsPane = $('#tabs-container .tab-pane');
+            ui._tabCounter = ui._tabsPane.size();
+
             function resize() {
                 var fullHeight = $('body').outerHeight(true),
                     headerHeight = ui._header.outerHeight(true),
@@ -31,8 +34,10 @@ define(
                     tabsHeight = ui._tabs.outerHeight(true);
 
                 var computedPadding = parseInt(tabsContainerPaddingTop.substr(0, tabsContainerPaddingTop.length-2));
-                tabsContainerPaddingTop = (computedPadding == 0) ? 20 : computedPadding;
-                ui._tabsPane.height((fullHeight - headerHeight - tabsHeight - tabsContainerPaddingTop)+'px');
+                tabsContainerPaddingTop = (computedPadding == 0) ? 50 : computedPadding;
+                ui._tabsPane.each(function () {
+                    $(this).height((fullHeight - headerHeight - tabsHeight - tabsContainerPaddingTop)+'px');
+                });
             }
             $(document).ready(resize);
             $(window).resize(resize);
@@ -69,6 +74,7 @@ define(
                     '</div>');
 
             $("a[href='#"+tabID+"']").effect('highlight', {color: '#fff'}, 500);
+            configUI(this);
         }
 
         RuntimeUI.prototype.c2pNodeStarted = function (nodeName) {
