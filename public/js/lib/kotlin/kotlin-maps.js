@@ -1,4 +1,4 @@
-define(['kotlin/kotlin-lib-ecma3'], function (Kotlin) {
+define(['kotlin/kotlin-lib'], function (Kotlin) {
     /*
      * Copyright 2010-2013 JetBrains s.r.o.
      *
@@ -619,4 +619,6 @@ define(['kotlin/kotlin-lib-ecma3'], function (Kotlin) {
             HashSet.call(this);
         }});
     }());
+
+    return Kotlin;
 });
