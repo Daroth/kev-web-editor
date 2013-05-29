@@ -1,6 +1,6 @@
 define(
     [
-        'util/QueryString'
+        'app_util/QueryString'
     ],
 
     function (QueryString) {

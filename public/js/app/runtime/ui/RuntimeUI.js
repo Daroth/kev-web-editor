@@ -1,6 +1,6 @@
 define(
     [
-        'ui/Logger',
+        'util/Logger',
         'jquery',
         'jqueryui/effect-highlight',
         'bootstrap/tab'
