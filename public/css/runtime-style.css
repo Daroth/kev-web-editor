@@ -36,7 +36,24 @@ body {
 }
 
 #node-stop, #node-start {
+    margin-top: 10px;
     width: 110px;
+}
+
+#specify-grp-ip {
+    display: inline;
+}
+
+#node-grp-ip {
+    margin-top: 5px;
+}
+
+#specify-grp-ip:hover {
+    cursor: pointer;
+}
+
+#specify-grp-ip > i {
+    padding-right: 5px;
 }
 
 #home-logger li:hover {

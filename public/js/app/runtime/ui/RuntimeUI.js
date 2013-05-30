@@ -18,6 +18,7 @@ define(
             this._stopNodeBtn = $('#node-stop');
             this._nodeName = $('#node-name');
             this._grpSelect = $('#node-grp');
+            this._grpIpSpecified = false;
 
             configUI(this);
             registerCallbacks(this);
@@ -25,7 +26,9 @@ define(
 
         // private method
         function configUI(ui) {
+            // refresh tabs related variables
             ui._tabsPane = $('#tabs-container .tab-pane');
+            ui._tabs = $('#tabs');
             ui._tabCounter = ui._tabsPane.size();
 
             function resize() {
@@ -58,6 +61,18 @@ define(
 
             ui._stopNodeBtn.on('click', function () {
                 ui._ctrl.p2cStopNode();
+            });
+
+            $("#specify-grp-ip").click(function () {
+                var that = $(this);
+                $('#node-grp-ip').parent().toggle({
+                    duration: 'fast',
+                    complete: function () {
+                        if (ui._grpIpSpecified) that.find('.icon-plus').removeClass('icon-plus').addClass('icon-minus');
+                        else that.find('.icon-minus').removeClass('icon-minus').addClass('icon-plus');
+                    }
+                });
+                ui._grpIpSpecified = !ui._grpIpSpecified;
             });
         }
 

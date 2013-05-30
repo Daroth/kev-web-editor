@@ -40,15 +40,6 @@ define(
             this._ui.addTab(name, content);
         }
 
-        RuntimeController.prototype.removeTab = function (name) {
-            var index = this._tabs.indexOf(name);
-            if (index != -1) {
-                this._tabs.slice(index, 1);
-            } else {
-                Logger.log("Runtime: cannot remove unknown tab \""+name+"\"");
-            }
-        }
-
         return RuntimeController;
     }
 );

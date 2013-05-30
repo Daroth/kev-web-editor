@@ -45,7 +45,13 @@ html.fill
               div.row-fluid
                 select#node-grp
                   //- fill that with group retrieved from a true JS kev model
-                  option(value='0', selected) WebSocketGroup
+                  option(value='0', selected) WebRTCGroup
+              div.row-fluid
+                div#specify-grp-ip
+                  i.icon-plus
+                  | Specify your own server
+                div.hide: input#node-grp-ip(type='text', placeholder='0.0.0.0')
+
               div.row-fluid
                 div.btn-group
                   button#node-stop.btn.btn-danger.disabled(type='button') Stop
