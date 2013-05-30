@@ -27,9 +27,13 @@ define(
             console.log(params);
             if (!this._isStarted) {
                 // TODO real start node
-                this._bootstrapper.start(params.nodeName, params.groupName, params.p2pIP);
-                this._isStarted = true;
-                this._ui.c2pNodeStarted(params);
+                this._isStarted = this._bootstrapper.start(params.nodeName, params.groupName, params.p2pIP);
+
+                if (this._isStarted) {
+                    this._ui.c2pNodeStarted(params);
+                } else {
+                    this._ui.c2pNodeStopped();
+                }
             }
         }
 
