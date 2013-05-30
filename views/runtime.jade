@@ -26,12 +26,32 @@ html.fill
       div#header.navbar.navbar-inverse.navbar-fixed-top
         div.navbar-inner
           div.container-fluid
-            //- uncomment the following line if you add menu items
-              button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
+            button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
             a.brand(href='#') KWE Runtime
+            div.nav-collapse.collapse
+              ul.nav
+                li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown') Actions&nbsp;
+                    b.caret
+                  ul.dropdown-menu
+                    li: a(href="#") Clear logs
+              form.navbar-form.pull-right
+                input#node-name.span2(type='text', placeholder='Node name')
+                select#node-grp.span2
+                div#node-start-stop-btns.btn-group
+                  button#node-stop.btn.btn-danger.disabled(type='button') Stop
+                  button#node-start.btn.btn-success(type='button') Start
+            div.nav-collapse.collapse.pull-right
+              ul.nav
+                li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown') P2P Server IP&nbsp;
+                    b.caret
+                  ul.dropdown-menu
+                    li.nav-header Give a valid server IP
+                    li: input#p2p-ip(type='text', placeholder='kevoree.org', value='kevoree.org')
 
       div#tabs-container.container-fluid
         ul#tabs.nav.nav-tabs
@@ -39,21 +59,6 @@ html.fill
 
         div#tabs-content.tab-content
           div#home.tab-pane.active
-            div#node-form
-              div.row-fluid
-                input#node-name.input(type='text', value='node0', placeholder='Node instance name', autofocus='autofocus')
-              div.row-fluid
-                select#node-grp
-              div.row-fluid
-                div#specify-grp-ip
-                  i.icon-plus
-                  | Specify your own server
-                div.hide: input#node-grp-ip(type='text', placeholder='0.0.0.0')
-
-              div.row-fluid
-                div.btn-group
-                  button#node-stop.btn.btn-danger.disabled(type='button') Stop
-                  button#node-start.btn.btn-success(type='button') Start
             ul#home-logger.unstyled
 
       script(data-main='/js/runtime-main.js', src='/js/require.js')

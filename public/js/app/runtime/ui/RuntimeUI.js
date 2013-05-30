@@ -18,7 +18,7 @@ define(
             this._stopNodeBtn = $('#node-stop');
             this._nodeName = $('#node-name');
             this._grpSelect = $('#node-grp');
-            this._grpIP = $('#node-grp-ip');
+            this._p2pIP = $('#p2p-ip');
             this._grpIpSpecified = false;
 
             configUI(this);
@@ -52,36 +52,22 @@ define(
         function registerCallbacks(ui) {
             ui._nodeName.on('keyup', function (e) {
                 if(e.keyCode == 13) {
-                    ui._ctrl.p2cStartNode({
-                        nodeName: ui._nodeName.val(),
-                        groupName: ui._grpSelect.find('option:selected').val(),
-                        groupIP: ui._grpIP.val()
-                    });
+                    ctrlStartNode(ui);
                 }
             });
 
             ui._startNodeBtn.on('click', function () {
-                ui._ctrl.p2cStartNode({
-                    nodeName: ui._nodeName.val(),
-                    groupName: ui._grpSelect.find('option:selected').val(),
-                    groupIP: ui._grpIP.val()
-                });
+                ctrlStartNode(ui);
             });
 
             ui._stopNodeBtn.on('click', function () {
                 ui._ctrl.p2cStopNode();
             });
 
-            $("#specify-grp-ip").click(function () {
-                var that = $(this);
-                ui._grpIP.parent().toggle({
-                    duration: 'fast',
-                    complete: function () {
-                        if (ui._grpIpSpecified) that.find('.icon-plus').removeClass('icon-plus').addClass('icon-minus');
-                        else that.find('.icon-minus').removeClass('icon-minus').addClass('icon-plus');
-                    }
-                });
+            ui._p2pIP.on('click', function (e) {
+                e.preventDefault();
                 ui._grpIpSpecified = !ui._grpIpSpecified;
+                return false;
             });
         }
 
@@ -125,6 +111,15 @@ define(
             for (var i=0; i < groups.length; i++) {
                 this._grpSelect.append('<option value="'+groups[i]+'">'+groups[i]+'</option>');
             }
+        }
+
+        // private method
+        function ctrlStartNode(ui) {
+            ui._ctrl.p2cStartNode({
+                nodeName: ui._nodeName.val(),
+                groupName: ui._grpSelect.find('option:selected').val(),
+                p2pIP: (ui._grpIpSpecified) ? ui._p2pIP.val() : null
+            });
         }
 
         return RuntimeUI;

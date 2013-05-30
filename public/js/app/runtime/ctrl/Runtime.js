@@ -6,6 +6,7 @@ define(
     ],
 
     function (RuntimeUI, QueryStringCtrl, Logger) {
+        var DEFAULT_P2P_IP = "kevoree.org";
 
         function RuntimeController() {
             this._isStarted = false;
@@ -19,6 +20,7 @@ define(
 
         RuntimeController.prototype.p2cStartNode = function (params) {
             params.nodeName = (params.nodeName && params.nodeName.length > 0) ? params.nodeName : randomName();
+            params.p2pIP = (params.p2pIP && params.p2pIP.length > 0) ? params.p2pIP : DEFAULT_P2P_IP;
             console.log(params);
             if (!this._isStarted) {
                 // TODO real start node
@@ -56,7 +58,7 @@ define(
 
         function doARealModelParsingToGetGroups() {
             // TODO fake values, read that from model
-            return ['WebRTCGroup', 'WebSocketGroup', 'WebSocketGroupMasterServer'];
+            return ['WebRTCGroup'];
         }
 
         return RuntimeController;

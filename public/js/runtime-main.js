@@ -18,10 +18,14 @@ requirejs.config({
 
 define(
     [
-        'ctrl/Runtime'
+        'ctrl/Runtime',
+        'bootstrap/collapse',
+        'bootstrap/dropdown',
+        'bootstrap/alert',
+        'bootstrap/popover'
     ],
 
-    function (Runtime) {
+    function (Runtime, _bootstrap) {
 
         HTMLElement.prototype.createShadowRoot = HTMLElement.prototype.createShadowRoot ||
             HTMLElement.prototype.webkitCreateShadowRoot;

@@ -31,29 +31,8 @@ body {
     padding: 10px;
 }
 
-#node-form {
-    margin-bottom: 10px;
-}
-
-#node-stop, #node-start {
-    margin-top: 10px;
-    width: 110px;
-}
-
-#specify-grp-ip {
-    display: inline;
-}
-
-#node-grp-ip {
-    margin-top: 5px;
-}
-
-#specify-grp-ip:hover {
-    cursor: pointer;
-}
-
-#specify-grp-ip > i {
-    padding-right: 5px;
+#p2p-ip {
+    margin: 8px;
 }
 
 #home-logger li:hover {
@@ -76,15 +55,23 @@ body {
     height: 100%;
 }
 
-/* === BOOTSTRAP OVERRIDING ===*/
 #tabs > li > a {
     padding-top: 4px;
     padding-bottom: 4px;
 }
-/* === BOOTSTRAP OVERRIDING END ===*/
 
 @media (max-width: 980px) {
     #tabs-container {
         padding-top: 0px;
+    }
+}
+
+@media (max-width: 767px) {
+    #node-start-stop-btns {
+        width: 100%;
+    }
+
+    #node-start, #node-stop {
+        width: 50%;
     }
 }
