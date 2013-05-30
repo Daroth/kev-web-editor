@@ -2,15 +2,18 @@ define(
     [
         'ui/RuntimeUI',
         'ctrl/QueryStringCtrl',
+        'core/KevoreeJSBootstrap',
         'util/Logger'
     ],
 
-    function (RuntimeUI, QueryStringCtrl, Logger) {
+    function (RuntimeUI, QueryStringCtrl, KevoreeJSBootstrap, Logger) {
         var DEFAULT_P2P_IP = "kevoree.org";
 
         function RuntimeController() {
             this._isStarted = false;
             this._tabs = [];
+
+            this._bootstrapper = new KevoreeJSBootstrap();
 
             this._ui = new RuntimeUI(this);
             var groups = doARealModelParsingToGetGroups();
@@ -24,7 +27,7 @@ define(
             console.log(params);
             if (!this._isStarted) {
                 // TODO real start node
-
+                this._bootstrapper.start(params.nodeName, params.groupName, params.p2pIP);
                 this._isStarted = true;
                 this._ui.c2pNodeStarted(params);
             }

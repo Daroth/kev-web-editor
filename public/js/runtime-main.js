@@ -12,7 +12,8 @@ requirejs.config({
         util:       '../app/runtime/util',
         app_util:   '../app/util',
         ui:         '../app/runtime/ui',
-        ctrl:       '../app/runtime/ctrl'
+        ctrl:       '../app/runtime/ctrl',
+        core:       '../app/runtime/core'
     }
 });
 
