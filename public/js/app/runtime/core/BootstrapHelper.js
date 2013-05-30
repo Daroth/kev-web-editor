@@ -30,14 +30,14 @@ define(
                         model.addGroups(group);
 
                     } else {
-                        Logger.err("Default group type not found for name " + grpDefType);
+                        Logger.err("Default group type not found in model for name " + grpDefType);
                     }
 
                 } else {
-                    Logger.err("Default node type not found for name \"" + nodeDefType + "\"");
+                    Logger.err("Default node type not found in model for name \"" + nodeDefType + "\"");
                 }
             } else {
-                Logger.debug("Model already init for node name \"" + nodeName + "\"");
+                Logger.debug("Model already initialized for node name \"" + nodeName + "\"");
             }
         }
 
