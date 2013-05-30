@@ -21,6 +21,10 @@ define(
             this._dom.append("<li class='warn'>"+message+"</li>");
         }
 
+        Logger.prototype.clear = function () {
+            this._dom.empty();
+        }
+
         // return an instance of Logger
         return new Logger();
     }

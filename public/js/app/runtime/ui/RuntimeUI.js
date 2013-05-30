@@ -20,6 +20,7 @@ define(
             this._grpSelect = $('#node-grp');
             this._p2pIP = $('#p2p-ip');
             this._grpIpSpecified = false;
+            this._actionClearLog = $('#action-clear-log');
 
             configUI(this);
             registerCallbacks(this);
@@ -68,6 +69,11 @@ define(
                 e.preventDefault();
                 ui._grpIpSpecified = !ui._grpIpSpecified;
                 return false;
+            });
+
+            ui._actionClearLog.on('click', function (e) {
+                Logger.clear();
+                e.preventDefault();
             });
         }
 
