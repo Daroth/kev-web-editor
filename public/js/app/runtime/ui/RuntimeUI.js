@@ -68,11 +68,17 @@ define(
             $('#tabs').append(
                 '<li>' +
                     '<a href="#'+tabID+'" data-toggle="tab">'+name+'</a>' +
-                    '</li>');
+                '</li>');
+
             $('#tabs-content').append(
                 '<div id="'+tabID+'" class="tab-pane in">' +
-                    '<p>' + content + '</p>' +
-                    '</div>');
+                    '<p>Your browser does not support Shadow DOM. You should consider using a real one (like Google Chrome or Firefox)</p>' +
+                '</div>'
+            );
+
+            // using Shadow DOM to encapsulate component's view (own scope for CSS and script)
+            var tabRoot = document.getElementById(tabID).createShadowRoot();
+            tabRoot.innerHTML = content
 
             $("a[href='#"+tabID+"']").effect('highlight', {color: '#fff'}, 500);
             configUI(this);

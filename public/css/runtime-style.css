@@ -18,7 +18,7 @@ body {
     color: #000;
 }
 
-#tabs-container > .nav-tabs > li > a:hover {
+#tabs-container > .nav-tabs > li > a:hover, #tabs-container > .nav-tabs > li > a:focus {
     color: #000;
 }
 

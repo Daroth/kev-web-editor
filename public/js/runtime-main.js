@@ -23,6 +23,8 @@ define(
 
     function (Runtime) {
 
+        HTMLElement.prototype.createShadowRoot = HTMLElement.prototype.createShadowRoot ||
+            HTMLElement.prototype.webkitCreateShadowRoot;
         var runtime = new Runtime() // Runtime app controller
 
         for (var i=1; i < 10; i++) {
