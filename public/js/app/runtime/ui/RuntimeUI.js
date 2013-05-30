@@ -18,6 +18,7 @@ define(
             this._stopNodeBtn = $('#node-stop');
             this._nodeName = $('#node-name');
             this._grpSelect = $('#node-grp');
+            this._grpIP = $('#node-grp-ip');
             this._grpIpSpecified = false;
 
             configUI(this);
@@ -51,12 +52,20 @@ define(
         function registerCallbacks(ui) {
             ui._nodeName.on('keyup', function (e) {
                 if(e.keyCode == 13) {
-                    ui._ctrl.p2cStartNode(ui._nodeName.val());
+                    ui._ctrl.p2cStartNode({
+                        nodeName: ui._nodeName.val(),
+                        groupName: ui._grpSelect.find('option:selected').val(),
+                        groupIP: ui._grpIP.val()
+                    });
                 }
             });
 
             ui._startNodeBtn.on('click', function () {
-                ui._ctrl.p2cStartNode(ui._nodeName.val(), ui._grpSelect.find('option:selected').val());
+                ui._ctrl.p2cStartNode({
+                    nodeName: ui._nodeName.val(),
+                    groupName: ui._grpSelect.find('option:selected').val(),
+                    groupIP: ui._grpIP.val()
+                });
             });
 
             ui._stopNodeBtn.on('click', function () {
@@ -65,7 +74,7 @@ define(
 
             $("#specify-grp-ip").click(function () {
                 var that = $(this);
-                $('#node-grp-ip').parent().toggle({
+                ui._grpIP.parent().toggle({
                     duration: 'fast',
                     complete: function () {
                         if (ui._grpIpSpecified) that.find('.icon-plus').removeClass('icon-plus').addClass('icon-minus');
@@ -99,17 +108,23 @@ define(
             configUI(this);
         }
 
-        RuntimeUI.prototype.c2pNodeStarted = function (nodeName, grpId) {
-            this._nodeName.val(nodeName);
+        RuntimeUI.prototype.c2pNodeStarted = function (params) {
+            this._nodeName.val(params.nodeName);
             this._startNodeBtn.addClass('disabled');
             this._stopNodeBtn.removeClass('disabled');
-            Logger.log("Starting "+nodeName+" with "+this._grpSelect.find('option[value="'+grpId+'"]').text());
+            Logger.log("Starting "+params.nodeName+" with "+this._grpSelect.find('option[value="'+params.groupName+'"]').text());
         }
 
         RuntimeUI.prototype.c2pNodeStopped = function () {
             this._startNodeBtn.removeClass('disabled');
             this._stopNodeBtn.addClass('disabled');
             Logger.log("Node stopped");
+        }
+
+        RuntimeUI.prototype.inflateGroupSelector = function (groups) {
+            for (var i=0; i < groups.length; i++) {
+                this._grpSelect.append('<option value="'+groups[i]+'">'+groups[i]+'</option>');
+            }
         }
 
         return RuntimeUI;

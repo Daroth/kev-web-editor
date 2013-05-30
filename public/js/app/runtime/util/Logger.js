@@ -3,7 +3,6 @@ define(
     function () {
         function Logger() {
             this._dom = $('#home-logger');
-            console.log('logger logger');
         }
 
         Logger.prototype.log = function (message) {
