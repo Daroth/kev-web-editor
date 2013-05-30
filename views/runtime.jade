@@ -39,14 +39,17 @@ html.fill
 
         div#tabs-content.tab-content
           div#home.tab-pane.active
-            div#node-form.input-prepend.input-append
-              button#node-stop.btn.btn-danger.disabled(type='button') Stop
-              input#node-name.input.span3(type='text', value='node0', placeholder='Node instance name', autofocus='autofocus')
-              div.btn-group
+            div#node-form
+              div.row-fluid
+                input#node-name.input(type='text', value='node0', placeholder='Node instance name', autofocus='autofocus')
+              div.row-fluid
                 select#node-grp
                   //- fill that with group retrieved from a true JS kev model
                   option(value='0', selected) WebSocketGroup
-                button#node-start.btn.btn-success(type='button') Start
+              div.row-fluid
+                div.btn-group
+                  button#node-stop.btn.btn-danger.disabled(type='button') Stop
+                  button#node-start.btn.btn-success(type='button') Start
             ul#home-logger.unstyled
 
       script(data-main='/js/runtime-main.js', src='/js/require.js')
