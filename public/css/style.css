@@ -27,6 +27,10 @@ body {
     padding: 2px 20px;
 }
 
+.navbar .brand > img {
+    padding-right: 8px;
+}
+
 #lib-tree-content .nav-header {
     font-size: 13px;
     color: #fff;
