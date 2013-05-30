@@ -18,7 +18,6 @@ define(
             this._stopNodeBtn = $('#node-stop');
             this._nodeName = $('#node-name');
             this._grpSelect = $('#node-grp');
-            this._logger = new Logger();
 
             configUI(this);
             registerCallbacks(this);
@@ -83,15 +82,14 @@ define(
             this._nodeName.val(nodeName);
             this._startNodeBtn.addClass('disabled');
             this._stopNodeBtn.removeClass('disabled');
-            this._logger.log("Starting "+nodeName+" with "+this._grpSelect.find('option[value="'+grpId+'"]').text());
+            Logger.log("Starting "+nodeName+" with "+this._grpSelect.find('option[value="'+grpId+'"]').text());
         }
 
         RuntimeUI.prototype.c2pNodeStopped = function () {
             this._startNodeBtn.removeClass('disabled');
             this._stopNodeBtn.addClass('disabled');
+            Logger.log("Node stopped");
         }
-
-
 
         return RuntimeUI;
     }

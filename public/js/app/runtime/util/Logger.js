@@ -1,7 +1,9 @@
 define(
+    ['jquery'],
     function () {
         function Logger() {
             this._dom = $('#home-logger');
+            console.log('logger logger');
         }
 
         Logger.prototype.log = function (message) {
@@ -20,6 +22,7 @@ define(
             this._dom.append("<li class='warn'>"+message+"</li>");
         }
 
-        return Logger;
+        // return an instance of Logger
+        return new Logger();
     }
 );
