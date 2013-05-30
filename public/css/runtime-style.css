@@ -60,8 +60,9 @@ body {
 }
 
 /* === BOOTSTRAP OVERRIDING ===*/
-.input-append, .input-prepend {
-    /*white-space: normal;*/
+#tabs > li > a {
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 /* === BOOTSTRAP OVERRIDING END ===*/
 
