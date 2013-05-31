@@ -41,7 +41,13 @@ define(
          */
         QueryString.prototype.process = function (actions) {
             for (var param in actions) {
-                if (this._qs[param]) actions[param].call(this._qs, this._qs[param]);
+                if (this._qs[param]) {
+                    if (typeof actions[param] === "function") {
+                        actions[param].call(this._qs, this._qs[param]);
+                    } else {
+                        console.error("QueryString Error: '"+param+"' field if not a function. Skipped!");
+                    }
+                }
             }
         }
 
