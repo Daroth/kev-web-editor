@@ -7,7 +7,7 @@ define(
     ],
 
     function (RuntimeUI, QueryString, KevoreeJSBootstrap, Logger) {
-        var DEFAULT_P2P_IP = "kevoree.org";
+        var DEFAULT_SERVER_URL = "kevoree.org:9042/default";
 
         function RuntimeController() {
             this._isStarted = false;
@@ -22,7 +22,6 @@ define(
             var runtime = this;
             this._queryString.process({
                 name: function (name) {
-                    console.log(this);
                     runtime.setNodeName(name);
                 },
                 server: function (ip) {
@@ -39,11 +38,13 @@ define(
         RuntimeController.prototype.p2cStartNode = function (params) {
             // never trust user inputs
             params.nodeName = (params.nodeName && params.nodeName.length > 0) ? params.nodeName : 'node'+randomChar(4);
-            params.p2pIP = (params.p2pIP && params.p2pIP.length > 0) ? params.p2pIP : DEFAULT_P2P_IP;
+            params.serverUrl = (params.serverUrl && params.serverUrl.length > 0) ? params.serverUrl : DEFAULT_SERVER_URL;
+
 
             if (!this._isStarted) {
                 // TODO real start node
-                this._isStarted = this._bootstrapper.start(params.nodeName, params.groupName, params.p2pIP);
+
+                this._isStarted = this._bootstrapper.start(params.nodeName, params.groupName, params.serverUrl);
 
                 if (this._isStarted) {
                     this._ui.c2pNodeStarted(params);

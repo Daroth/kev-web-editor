@@ -18,7 +18,7 @@ define(
             this._stopNodeBtn = $('#node-stop');
             this._nodeName = $('#node-name');
             this._grpSelect = $('#node-grp');
-            this._p2pIP = $('#p2p-ip');
+            this._serverUrl = $('#server-ip');
             this._actionClearLog = $('#action-clear-log');
             this._tabsMap = [];
 
@@ -65,12 +65,6 @@ define(
                 ui._ctrl.p2cStopNode();
             });
 
-            ui._p2pIP.on('click', function (e) {
-                e.preventDefault();
-                ui._grpIpSpecified = !ui._grpIpSpecified;
-                return false;
-            });
-
             ui._actionClearLog.on('click', function (e) {
                 Logger.clear();
                 e.preventDefault();
@@ -107,14 +101,11 @@ define(
         }
 
         RuntimeUI.prototype.removeTab = function (name) {
-            console.log('removing tab '+name, this._tabsMap);
             for (var i=0; i < this._tabsMap.length; i++) {
                 if (this._tabsMap[i].name == name) {
-                    console.log("work in progress");
                     $('#'+this._tabsMap[i].tab_id).empty();
                     $('#'+this._tabsMap[i].content_id).empty();
                     this._tabsMap.splice(i, 1);
-                    console.log("after remove ui",this._tabsMap);
                     return;
                 }
             }
@@ -136,7 +127,7 @@ define(
         }
 
         RuntimeUI.prototype.c2pSetServerIP = function (ip) {
-            this._p2pIP.val(ip);
+            this._serverUrl.val(ip);
         }
 
         RuntimeUI.prototype.c2pNodeStopped = function () {
@@ -156,7 +147,7 @@ define(
             ui._ctrl.p2cStartNode({
                 nodeName: ui._nodeName.val(),
                 groupName: ui._grpSelect.find('option:selected').val(),
-                p2pIP: ui._p2pIP.val()
+                serverUrl: ui._serverUrl.val()
             });
         }
 
