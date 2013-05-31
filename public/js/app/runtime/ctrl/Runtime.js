@@ -23,7 +23,7 @@ define(
 
         RuntimeController.prototype.p2cStartNode = function (params) {
             // never trust user inputs
-            params.nodeName = (params.nodeName && params.nodeName.length > 0) ? params.nodeName : randomName();
+            params.nodeName = (params.nodeName && params.nodeName.length > 0) ? params.nodeName : 'node'+randomChar(4);
             params.p2pIP = (params.p2pIP && params.p2pIP.length > 0) ? params.p2pIP : DEFAULT_P2P_IP;
 
             if (!this._isStarted) {
@@ -47,11 +47,35 @@ define(
         }
 
         RuntimeController.prototype.addTab = function (name, content) {
+            // ensure no tab has the same name
+            for (var i=0; i < this._tabs.length; i++) {
+                if (this._tabs[i].name == name) {
+                    // someone already has this name
+                    name = 'Tab'+randomChar(3); // new random name
+                    break; // we can break the loop
+                }
+            }
+
             this._tabs.push({
                 name: name,
                 content: content
             });
             this._ui.addTab(name, content);
+        }
+
+        RuntimeController.prototype.removeTab = function (name) {
+            if (name) {
+                for (var i=0; i < this._tabs.length; i++) {
+                    if (this._tabs[i].name == name) {
+                        this._ui.removeTab(name);
+                        this._tabs.slice(i, 1);
+                        return;
+                    }
+                }
+            } else {
+                var lastElem = this._tabs.pop();
+                if (lastElem) this._ui.removeTab(lastElem.name);
+            }
         }
 
         RuntimeController.prototype.setNodeName = function (name) {
@@ -62,14 +86,14 @@ define(
             this._ui.c2pSetServerIP(ip);
         }
 
-        function randomName() {
+        function randomChar(length) {
             var text = "";
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-            for(var i=0; i < 4; i++)
+            for(var i=0; i < length; i++)
                 text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-            return 'node'+text;
+            return text;
         }
 
         function doARealModelParsingToGetGroups() {

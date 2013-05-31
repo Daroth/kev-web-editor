@@ -20,6 +20,7 @@ define(
             this._grpSelect = $('#node-grp');
             this._p2pIP = $('#p2p-ip');
             this._actionClearLog = $('#action-clear-log');
+            this._tabsMap = [];
 
             configUI(this);
             registerCallbacks(this);
@@ -78,25 +79,45 @@ define(
 
         RuntimeUI.prototype.addTab = function (name, content) {
             this._tabCounter += 1;
-            var tabID = 'appended-tab-' + (this._tabCounter);
+            var tabID = 'appended-tab-' + (this._tabCounter),
+                contentID = 'tab-content-' + (this._tabCounter);
 
             $('#tabs').append(
-                '<li>' +
-                    '<a href="#'+tabID+'" data-toggle="tab">'+name+'</a>' +
+                '<li id="'+tabID+'">' +
+                    '<a href="#'+contentID+'" data-toggle="tab">'+name+'</a>' +
                 '</li>');
 
             $('#tabs-content').append(
-                '<div id="'+tabID+'" class="tab-pane in">' +
+                '<div id="'+contentID+'" class="tab-pane in">' +
                     '<p>Your browser does not support Shadow DOM. You should consider using a real one (like Google Chrome or Firefox)</p>' +
                 '</div>'
             );
 
             // using Shadow DOM to encapsulate component's view (own scope for CSS and script)
-            var tabRoot = document.getElementById(tabID).createShadowRoot();
+            var tabRoot = document.getElementById(contentID).createShadowRoot();
             tabRoot.innerHTML = content
 
-            $("a[href='#"+tabID+"']").effect('highlight', {color: '#fff'}, 500);
+            $("#"+tabID).effect('highlight', {color: '#fff'}, 500);
             configUI(this);
+            this._tabsMap.push({
+                tab_id: tabID,
+                content_id: contentID,
+                name: name
+            });
+        }
+
+        RuntimeUI.prototype.removeTab = function (name) {
+            console.log('removing tab '+name, this._tabsMap);
+            for (var i=0; i < this._tabsMap.length; i++) {
+                if (this._tabsMap[i].name == name) {
+                    console.log("work in progress");
+                    $('#'+this._tabsMap[i].tab_id).empty();
+                    $('#'+this._tabsMap[i].content_id).empty();
+                    this._tabsMap.splice(i, 1);
+                    console.log("after remove ui",this._tabsMap);
+                    return;
+                }
+            }
         }
 
         RuntimeUI.prototype.c2pNodeStarted = function (params) {

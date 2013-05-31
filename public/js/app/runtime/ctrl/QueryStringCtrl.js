@@ -19,6 +19,14 @@ define(
                     action: function (ip) {
                         runtime.setServerIP(ip);
                     }
+                },
+                {
+                    name: 'debug',
+                    action: function (enabled) {
+                        if (enabled == "true" || enabled == "on" || enabled == "show") {
+                            $('#debug-menu').show();
+                        }
+                    }
                 }
             ];
 
