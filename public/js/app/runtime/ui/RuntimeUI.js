@@ -19,7 +19,6 @@ define(
             this._nodeName = $('#node-name');
             this._grpSelect = $('#node-grp');
             this._p2pIP = $('#p2p-ip');
-            this._grpIpSpecified = false;
             this._actionClearLog = $('#action-clear-log');
 
             configUI(this);
@@ -107,6 +106,18 @@ define(
             Logger.log("Starting "+params.nodeName+" with "+this._grpSelect.find('option[value="'+params.groupName+'"]').text());
         }
 
+        RuntimeUI.prototype.c2pNodeStartFailed = function () {
+            this._startNodeBtn.effect('highlight', {color: '#f00'});
+        }
+
+        RuntimeUI.prototype.c2pSetNodeName = function (name) {
+            this._nodeName.val(name);
+        }
+
+        RuntimeUI.prototype.c2pSetServerIP = function (ip) {
+            this._p2pIP.val(ip);
+        }
+
         RuntimeUI.prototype.c2pNodeStopped = function () {
             this._startNodeBtn.removeClass('disabled');
             this._stopNodeBtn.addClass('disabled');
@@ -124,7 +135,7 @@ define(
             ui._ctrl.p2cStartNode({
                 nodeName: ui._nodeName.val(),
                 groupName: ui._grpSelect.find('option:selected').val(),
-                p2pIP: (ui._grpIpSpecified) ? ui._p2pIP.val() : null
+                p2pIP: ui._p2pIP.val()
             });
         }
 

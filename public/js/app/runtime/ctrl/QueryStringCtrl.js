@@ -9,9 +9,15 @@ define(
             var qs = new QueryString();
             var actions = [
                 {
-                    name: 'foo',
-                    action: function (value) {
-
+                    name: 'name',
+                    action: function (name) {
+                        runtime.setNodeName(name);
+                    }
+                },
+                {
+                    name: 'server',
+                    action: function (ip) {
+                        runtime.setServerIP(ip);
                     }
                 }
             ];

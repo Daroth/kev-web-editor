@@ -22,9 +22,10 @@ define(
         }
 
         RuntimeController.prototype.p2cStartNode = function (params) {
+            // never trust user inputs
             params.nodeName = (params.nodeName && params.nodeName.length > 0) ? params.nodeName : randomName();
             params.p2pIP = (params.p2pIP && params.p2pIP.length > 0) ? params.p2pIP : DEFAULT_P2P_IP;
-            console.log(params);
+
             if (!this._isStarted) {
                 // TODO real start node
                 this._isStarted = this._bootstrapper.start(params.nodeName, params.groupName, params.p2pIP);
@@ -32,7 +33,7 @@ define(
                 if (this._isStarted) {
                     this._ui.c2pNodeStarted(params);
                 } else {
-                    this._ui.c2pNodeStopped();
+                    this._ui.c2pNodeStartFailed();
                 }
             }
         }
@@ -51,6 +52,14 @@ define(
                 content: content
             });
             this._ui.addTab(name, content);
+        }
+
+        RuntimeController.prototype.setNodeName = function (name) {
+            this._ui.c2pSetNodeName(name);
+        }
+
+        RuntimeController.prototype.setServerIP = function (ip) {
+            this._ui.c2pSetServerIP(ip);
         }
 
         function randomName() {
