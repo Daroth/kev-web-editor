@@ -1,12 +1,12 @@
 define(
     [
         'ui/RuntimeUI',
-        'ctrl/QueryStringCtrl',
+        'app_util/QueryString',
         'core/KevoreeJSBootstrap',
         'util/Logger'
     ],
 
-    function (RuntimeUI, QueryStringCtrl, KevoreeJSBootstrap, Logger) {
+    function (RuntimeUI, QueryString, KevoreeJSBootstrap, Logger) {
         var DEFAULT_P2P_IP = "kevoree.org";
 
         function RuntimeController() {
@@ -18,7 +18,22 @@ define(
             this._ui = new RuntimeUI(this);
             var groups = doARealModelParsingToGetGroups();
             this._ui.inflateGroupSelector(groups);
-            this._queryStrCtrl = new QueryStringCtrl(this);
+            this._queryString = new QueryString();
+            var runtime = this;
+            this._queryString.process({
+                name: function (name) {
+                    console.log(this);
+                    runtime.setNodeName(name);
+                },
+                server: function (ip) {
+                    runtime.setServerIP(ip);
+                },
+                debug: function (enabled) {
+                    if (enabled == "true" || enabled == "on" || enabled == "show") {
+                        $('#debug-menu').show();
+                    }
+                }
+            });
         }
 
         RuntimeController.prototype.p2cStartNode = function (params) {
