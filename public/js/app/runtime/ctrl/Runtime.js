@@ -16,6 +16,7 @@ define(
             this._bootstrapper = new KevoreeJSBootstrap();
 
             this._ui = new RuntimeUI(this);
+            console.log("ui obj: ", this._ui);
             var groups = doARealModelParsingToGetGroups();
             this._ui.inflateGroupSelector(groups);
             this._queryString = new QueryString();
@@ -40,9 +41,8 @@ define(
             params.nodeName = (params.nodeName && params.nodeName.length > 0) ? params.nodeName : 'node'+randomChar(4);
             params.serverUrl = (params.serverUrl && params.serverUrl.length > 0) ? params.serverUrl : DEFAULT_SERVER_URL;
 
-
             if (!this._isStarted) {
-                // TODO real start node
+                // TODO real node start
 
                 this._isStarted = this._bootstrapper.start(params.nodeName, params.groupName, params.serverUrl);
 
@@ -72,10 +72,13 @@ define(
                 }
             }
 
+            // keep ref of the tab
             this._tabs.push({
                 name: name,
                 content: content
             });
+
+            // update ui accordingly
             this._ui.addTab(name, content);
         }
 

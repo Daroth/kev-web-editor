@@ -22,15 +22,24 @@ define(
             var bootHelper = new BootstrapHelper(),
                 root = this._factory.createContainerRoot(); // TODO retrieve container root by connecting to p2p server and ask for current model ?
 
+            console.log("foo");
             var socket = new WebSocket('ws://'+url);
             socket.onopen = function () {
                 console.log('opened');
+                this.send('am I connected ?');
             };
             socket.onerror = function () {
                 console.log('error');
             }
 
-            bootHelper.initModelInstance(root, "JavascriptNode", nodeName, grpName);
+            socket.onmessage = function (msg) {
+                var strModel = msg.data;
+                console.log('message received: ' + strModel);
+
+                var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
+                var model = loader.loadModelFromString(strModel);
+                bootHelper.initModelInstance(model, "WebNode", nodeName, grpName);
+            }
 
             return false; // TODO because it does not start for now
         }

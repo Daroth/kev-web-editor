@@ -69,6 +69,11 @@ define(
                 Logger.clear();
                 e.preventDefault();
             });
+
+            ui._serverUrl.on('click', function (e) {
+                e.preventDefault();
+                return false;
+            });
         }
 
         RuntimeUI.prototype.addTab = function (name, content) {
