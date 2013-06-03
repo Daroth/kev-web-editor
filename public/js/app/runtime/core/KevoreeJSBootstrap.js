@@ -50,19 +50,16 @@ define(
 
         KevoreeJSBootstrap.prototype.stop = function () {
             if (!this._started) return;
-
+            // TODO really stop bean
             this._started = false;
         }
 
         function initModelInstance(model, nodeDefType, nodeName, grpDefType, factory) {
-            console.log("initModelInstance start");
             var nodeFound = model.findNodesByID(nodeName);
             if (nodeFound == null) {
-                console.log("nodeFound == null");
 
                 var td = model.findTypeDefinitionsByID(nodeDefType);
                 if (td != null) {
-                    console.log("WebNode found");
                     Logger.warn("Init default node instance for name " + nodeName)
                     var node = factory.createContainerNode();
                     node.setName(nodeName);
