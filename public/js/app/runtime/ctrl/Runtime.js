@@ -16,7 +16,6 @@ define(
             this._bootstrapper = new KevoreeJSBootstrap();
 
             this._ui = new RuntimeUI(this);
-            console.log("ui obj: ", this._ui);
             var groups = doARealModelParsingToGetGroups();
             this._ui.inflateGroupSelector(groups);
             this._queryString = new QueryString();

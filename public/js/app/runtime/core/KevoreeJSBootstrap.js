@@ -28,7 +28,7 @@ define(
             if (this._started) callbackReturn();
 
             var socket = new WebSocket('ws://'+url);
-            socket.onerror = function () {
+            socket.onerror = function (error) {
                 callbackReturn();
             }
 
