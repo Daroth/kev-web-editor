@@ -21,7 +21,6 @@ requirejs.config({
 // Start the main app logic.
 define(
     [
-        'kotlin/kotlin-maps',
         'jquery',
         'kinetic',
         'factory/CFactory',
@@ -58,11 +57,8 @@ define(
         'touchpunch'
     ],
 
-<<<<<<< HEAD
-    function (Kotlin, $, Kinetic, CFactory, Config, Behave, QueryStringCtrl,
-=======
+
     function ($, Kinetic, CFactory, Config, Behave, QueryString,
->>>>>>> kwe_runtime
               SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, RunKevScriptCommand,
               SettingsCommand, DebugCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
               OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomToCommand, ZoomOutCommand, ShowStatsCommand,
@@ -268,63 +264,6 @@ define(
         });
         // END Listeners that trigger Cmd.execute()
         // ========================================
-//        console.log('isDigit');
-//        console.log('{ = '+isDigit('{'));
-//        console.log('z = '+isDigit('z'));
-//        console.log('a = '+isDigit('a'));
-//        console.log('2 = '+isDigit('2'));
-//        console.log('" = '+isDigit('"'));
-//        console.log('==========');
-//
-//        function isDigit(c) {
-//            var digits = new Kotlin.HashSet()
-//            var tmp$0, tmp$1, tmp$2, tmp$3, tmp$4, tmp$5, tmp$6, tmp$7, tmp$8, tmp$9;
-//            ((tmp$0 = digits) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).add('0');
-//            ((tmp$1 = digits) !== null && tmp$1 !== undefined ? tmp$1 : Kotlin.throwNPE()).add('1');
-//            ((tmp$2 = digits) !== null && tmp$2 !== undefined ? tmp$2 : Kotlin.throwNPE()).add('2');
-//            ((tmp$3 = digits) !== null && tmp$3 !== undefined ? tmp$3 : Kotlin.throwNPE()).add('3');
-//            ((tmp$4 = digits) !== null && tmp$4 !== undefined ? tmp$4 : Kotlin.throwNPE()).add('4');
-//            ((tmp$5 = digits) !== null && tmp$5 !== undefined ? tmp$5 : Kotlin.throwNPE()).add('5');
-//            ((tmp$6 = digits) !== null && tmp$6 !== undefined ? tmp$6 : Kotlin.throwNPE()).add('6');
-//            ((tmp$7 = digits) !== null && tmp$7 !== undefined ? tmp$7 : Kotlin.throwNPE()).add('7');
-//            ((tmp$8 = digits) !== null && tmp$8 !== undefined ? tmp$8 : Kotlin.throwNPE()).add('8');
-//            ((tmp$9 = digits) !== null && tmp$9 !== undefined ? tmp$9 : Kotlin.throwNPE()).add('9');
-//            var tmp$10;
-//            return ((tmp$10 = digits) !== null && tmp$10 !== undefined ? tmp$10 : Kotlin.throwNPE()).contains(c);
-//        }
-//
-//        console.log('isBooleanLetter');
-//        console.log('{ = '+isBooleanLetter('{'));
-//        console.log('z = '+isBooleanLetter('z'));
-//        console.log('a = '+isBooleanLetter('a'));
-//        console.log('2 = '+isBooleanLetter('2'));
-//        console.log('" = '+isBooleanLetter('"'));
-//        console.log('==========');
-//        function isBooleanLetter(c) {
-//            var bools = new Kotlin.HashSet()
-//            var tmp$0, tmp$1, tmp$2, tmp$3, tmp$4, tmp$5, tmp$6, tmp$7;
-//            ((tmp$0 = bools) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).add('f');
-//            ((tmp$1 = bools) !== null && tmp$1 !== undefined ? tmp$1 : Kotlin.throwNPE()).add('a');
-//            ((tmp$2 = bools) !== null && tmp$2 !== undefined ? tmp$2 : Kotlin.throwNPE()).add('l');
-//            ((tmp$3 = bools) !== null && tmp$3 !== undefined ? tmp$3 : Kotlin.throwNPE()).add('s');
-//            ((tmp$4 = bools) !== null && tmp$4 !== undefined ? tmp$4 : Kotlin.throwNPE()).add('e');
-//            ((tmp$5 = bools) !== null && tmp$5 !== undefined ? tmp$5 : Kotlin.throwNPE()).add('t');
-//            ((tmp$6 = bools) !== null && tmp$6 !== undefined ? tmp$6 : Kotlin.throwNPE()).add('r');
-//            ((tmp$7 = bools) !== null && tmp$7 !== undefined ? tmp$7 : Kotlin.throwNPE()).add('u');
-//            var tmp$8;
-//            return ((tmp$8 = bools) !== null && tmp$8 !== undefined ? tmp$8 : Kotlin.throwNPE()).contains(c);
-//        }
-//
-//        console.log('isValueLetter');
-//        console.log('{ = '+isValueLetter('{'));
-//        console.log('z = '+isValueLetter('z'));
-//        console.log('a = '+isValueLetter('a'));
-//        console.log('2 = '+isValueLetter('2'));
-//        console.log('" = '+isValueLetter('"'));
-//        console.log('==========');
-//        function isValueLetter(c) {
-//            return c === '-' || c === '+' || c === '.' || isDigit(c) || isBooleanLetter(c);
-//        }
 
         return {};
     }
