@@ -18,9 +18,11 @@ define(
          * @param callback param will be a boolean (true: start succeed, false otherwise)
          */
         KevoreeJSBootstrap.prototype.start = function (nodeName, grpName, url, callback) {
+            var that = this;
+
             function callbackReturn() {
                 if (callback && typeof callback === 'function') {
-                    callback.call(undefined, this._started);
+                    callback.call(undefined, that._started);
                     return;
                 }
             }
@@ -52,11 +54,11 @@ define(
                 try {
                     var loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
                         strModel = msg.data,
-                        model = loader.loadModelFromString(strModel); // msg.data = stringify model
-                    this._started = initModelInstance(model, "WebNode", nodeName, grpName, this._factory);
+                        model = loader.loadModelFromString(strModel).get(0); // msg.data = stringify model
+                    that._started = initModelInstance(model, "WebNode", nodeName, grpName, that._factory);
 
                 } catch (err) {
-                    console.error(err.message);
+                    throw err;
                     Logger.err(err.message);
 
                 } finally {
