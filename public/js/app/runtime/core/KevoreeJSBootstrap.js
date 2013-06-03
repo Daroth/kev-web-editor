@@ -28,8 +28,24 @@ define(
             if (this._started) callbackReturn();
 
             var socket = new WebSocket('ws://'+url);
-            socket.onerror = function (error) {
+            socket.onerror = function () {
                 callbackReturn();
+            }
+
+            socket.onclose = function (e) {
+                var msg = '';
+                switch (e.code) {
+                    case 1000:
+                        msg = 'WebSocket to '+socket.url+' closed.';
+                        console.log(msg);
+                        Logger.log(msg);
+                        break;
+                    default:
+                        msg = 'WebSocket to '+socket.url+' closed. Reason code '+e.code+' (<a href="https://developer.mozilla.org/en-US/docs/XPCOM_Interface_Reference/nsIWebSocketChannel#Status_codes" target="_blank">codes</a>)';
+                        console.warn(msg);
+                        Logger.warn(msg);
+                        break;
+                }
             }
 
             socket.onmessage = function (msg) {
@@ -41,9 +57,11 @@ define(
 
                 } catch (err) {
                     console.error(err.message);
+                    Logger.err(err.message);
 
                 } finally {
                     callbackReturn();
+                    socket.close();
                 }
             }
         }
