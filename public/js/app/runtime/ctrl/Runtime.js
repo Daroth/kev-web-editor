@@ -44,13 +44,15 @@ define(
             if (!this._isStarted) {
                 // TODO real node start
 
-                this._isStarted = this._bootstrapper.start(params.nodeName, params.groupName, params.serverUrl);
-
-                if (this._isStarted) {
-                    this._ui.c2pNodeStarted(params);
-                } else {
-                    this._ui.c2pNodeStartFailed();
-                }
+                var runtime = this;
+                this._bootstrapper.start(params.nodeName, params.groupName, params.serverUrl, function (started) {
+                    runtime._started = started;
+                    if (started) {
+                        runtime._ui.c2pNodeStarted(params);
+                    } else {
+                        runtime._ui.c2pNodeStartFailed();
+                    }
+                });
             }
         }
 
