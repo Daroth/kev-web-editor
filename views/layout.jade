@@ -10,7 +10,6 @@ html
     link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css')
     link(rel='stylesheet', href='/css/style.css')
 
-    script(data-main='/js/main.js', src='/js/require.js')
     //- script(src='http://jsconsole.com/remote.js?kwe')
     // HTML5 shim, for IE6-8 support of HTML5 elements
     //if lt IE 9
@@ -28,7 +27,9 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.brand(href='#'): img(src='/img/kevoree-logo-small.png')
+          a.brand(href='#')
+            img(src='/img/kevoree-logo-small.png')
+            | Editor
 
           div.nav-collapse.collapse
             ul.nav
@@ -196,3 +197,5 @@ html
     div.hide
       input#file(type='file') Open model from file
     //- ===============
+
+    script(data-main='/js/main.js', src='/js/require.js')

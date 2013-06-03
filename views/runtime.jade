@@ -1,0 +1,74 @@
+//
+   Created with IntelliJ IDEA.
+   User: leiko
+   Date: 5/24/13
+   Time: 4:52 PM
+
+doctype 5
+html.fill
+    head
+      meta(name='viewport', content='user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1')
+
+      link(rel='icon', type='/image/png', href='/ico/favicon.ico')
+      link(rel='shortcut icon', type='image/x-icon', href='/ico/favicon.ico')
+      link(rel='stylesheet', href='/css/bootstrap.css')
+      link(rel='stylesheet', href='/css/bootstrap-responsive.css')
+      link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css')
+      link(rel='stylesheet', href='/css/runtime-style.css')
+
+      //- HTML5 shim, for IE6-8 support of HTML5 elements
+      //if lt IE 9
+        script(src='/js/lib/html5shiv.js')
+
+      title= title
+
+    body.fill
+      div#header.navbar.navbar-inverse.navbar-fixed-top
+        div.navbar-inner
+          div.container-fluid
+            button.btn.btn-navbar(type='button', data-toggle='collapse', data-target='.nav-collapse')
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            a.brand(href='#')
+              img(src='/img/kevoree-logo-small.png')
+              | Runtime
+
+            div.nav-collapse.collapse
+              ul.nav
+                li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown') Actions&nbsp;
+                    b.caret
+                  ul.dropdown-menu
+                    li: a#action-clear-log(href="#") Clear logs
+                //- Debug menu hidden by default (url?debug=on to show it)
+                li#debug-menu.dropdown.hide
+                  a.dropdown-toggle(href='#', data-toggle='dropdown') Debug&nbsp;
+                    b.caret
+                  ul.dropdown-menu
+                    li: a(href="#", onclick="require('runtime-main').addTab('New tab', 'Tab content')") Add new tab
+                    li: a(href="#", onclick="require('runtime-main').removeTab()") Remove last tab
+              form.navbar-form.pull-right
+                input#node-name.span2(type='text', placeholder='Node name')
+                select#node-grp.span2
+                div#node-start-stop-btns.btn-group
+                  button#node-stop.btn.btn-danger.disabled(type='button') Stop
+                  button#node-start.btn.btn-success(type='button') Start
+            div.nav-collapse.collapse.pull-right
+              ul.nav
+                li.dropdown
+                  a.dropdown-toggle(href='#', data-toggle='dropdown') Main server&nbsp;
+                    b.caret
+                  ul.dropdown-menu
+                    li.nav-header Give a valid server IP
+                    li: input#server-ip(type='text', placeholder='kevoree.org', value='kevoree.org')
+
+      div#tabs-container.container-fluid
+        ul#tabs.nav.nav-tabs
+          li.active: a(href='#home', data-toggle='tab') Home
+
+        div#tabs-content.tab-content
+          div#home.tab-pane.active
+            ul#home-logger.unstyled
+
+      script(data-main='/js/runtime-main.js', src='/js/require.js')

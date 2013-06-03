@@ -9,12 +9,12 @@ requirejs.config({
     paths: {
         bootstrap:      'bootstrap/src',
         app:            '../app',
-        abstraction:    '../app/abstraction',
-        control:        '../app/control',
-        presentation:   '../app/presentation',
-        factory:        '../app/factory',
         util:           '../app/util',
-        command:        '../app/command'
+        abstraction:    '../app/editor/abstraction',
+        control:        '../app/editor/control',
+        presentation:   '../app/editor/presentation',
+        factory:        '../app/editor/factory',
+        command:        '../app/editor/command'
     }
 });
 
@@ -27,7 +27,7 @@ define(
         'factory/CFactory',
         'util/Config',
         'behave',
-        'util/QueryStringCtrl',
+        'util/QueryString',
         'command/SaveCommand',
         'command/SaveAsKevsCommand',
         'command/SaveAsPNGCommand',
@@ -42,6 +42,7 @@ define(
         'command/OpenFromNodeCommand',
         'command/ZoomInCommand',
         'command/ZoomDefaultCommand',
+        'command/ZoomToCommand',
         'command/ZoomOutCommand',
         'command/ShowStatsCommand',
         'command/CheckModelCommand',
@@ -57,11 +58,15 @@ define(
         'touchpunch'
     ],
 
+<<<<<<< HEAD
     function (Kotlin, $, Kinetic, CFactory, Config, Behave, QueryStringCtrl,
+=======
+    function ($, Kinetic, CFactory, Config, Behave, QueryString,
+>>>>>>> kwe_runtime
               SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, RunKevScriptCommand,
               SettingsCommand, DebugCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
-              OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomOutCommand, ShowStatsCommand, CheckModelCommand,
-              LoadSettingsCommand, MergeCommand,
+              OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomToCommand, ZoomOutCommand, ShowStatsCommand,
+              CheckModelCommand, LoadSettingsCommand, MergeCommand,
               _bootstrap) {
 
         // init editor
@@ -78,7 +83,32 @@ define(
         });
 
         // create the controller that handles parameters in URL
-        var qs = new QueryStringCtrl(editor);
+        var qs = new QueryString();
+        qs.process({
+            corelib: function (env) {
+                var envz = env.split('+');
+                // merge those core libraries
+                var cmd = new MergeDefaultLibraryCommand();
+                for (var i=0; i < envz.length; i++) {
+                    cmd.execute(envz[i], editor);
+                }
+            },
+            zoom: function (scale) {
+                // set editor zoom to the given scale if not wrong number
+                var value = parseFloat(scale) || 1;
+                if (value < 0) value = 0.1;
+                var cmd = new ZoomToCommand();
+                cmd.execute(editor, value);
+            },
+            menu: function (value) {
+                var hide = (value == 'hide' || value == '0');
+                if (hide) {
+                    editor.getUI().c2pHideLibTree();
+                } else {
+                    editor.getUI().c2pShowLibTree();
+                }
+            }
+        });
 
         $('.close').click(function () {
             // global behavior for alerts : close will remove 'in' class
