@@ -14547,18 +14547,7 @@ define(
                                                                 var i = context.get_elementsCount().get(elementId + '/@required') !== null ? context.get_elementsCount().get(elementId + '/@required') : 0;
                                                                 var requiredElementId = elementId + '/@required.' + i;
                                                                 var loadedElem_0 = this.loadPortTypeRef(reader, context, requiredElementId);
-                                                                var test = function (required) {
-                                                                    if (this.isReadOnly()) {
-                                                                        throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
-                                                                    }
-                                                                    this.set__required_java_cache(null);
-                                                                    required.setEContainer(this, Kotlin.b0(_f.f11, this, required));
-                                                                    required.setContainmentRefName('required');
-                                                                    this.get__required().put(required.getName(), required);
-                                                                    console.log("Yep dude");
-                                                                }
-                                                                test.call(modelElem, loadedElem_0);
-                                                                //modelElem.addRequired(loadedElem_0);
+                                                                modelElem.addRequired(loadedElem_0);
                                                                 context.get_elementsCount().put(elementId + '/@required', i + 1);
                                                                 reader.endObject();
                                                             }
@@ -14603,18 +14592,7 @@ define(
                                                                 var i_1 = context.get_elementsCount().get(elementId + '/@provided') !== null ? context.get_elementsCount().get(elementId + '/@provided') : 0;
                                                                 var providedElementId = elementId + '/@provided.' + i_1;
                                                                 var loadedElem_3 = this.loadPortTypeRef(reader, context, providedElementId);
-                                                                var test = function (provided) {
-                                                                    if (this.isReadOnly()) {
-                                                                        throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
-                                                                    }
-                                                                    this.set__provided_java_cache(null);
-                                                                    provided.setEContainer(this, Kotlin.b0(_f.f18, this, provided));
-                                                                    provided.setContainmentRefName('provided');
-                                                                    this.get__provided().put(provided.getName(), provided);
-                                                                };
-                                                                test.call(modelElem, loadedElem_3);
-
-                                                                //modelElem.addProvided(loadedElem_3);
+                                                                modelElem.addProvided(loadedElem_3);
                                                                 context.get_elementsCount().put(elementId + '/@provided', i_1 + 1);
                                                                 reader.endObject();
                                                             }

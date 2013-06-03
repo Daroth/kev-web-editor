@@ -3,7 +3,7 @@ define(
         'kevoree',
         'util/Logger'
     ],
-    function (BootstrapHelper, Kevoree, Logger)  {
+    function (Kevoree, Logger)  {
 
         function KevoreeJSBootstrap() {
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
@@ -18,8 +18,6 @@ define(
          */
         KevoreeJSBootstrap.prototype.start = function (nodeName, grpName, url) {
             // TODO
-            var bootHelper = new BootstrapHelper(),
-                root = this._factory.createContainerRoot(); // TODO retrieve container root by connecting to p2p server and ask for current model ?
 
             console.log("foo");
             var socket = new WebSocket('ws://'+url);
@@ -36,9 +34,8 @@ define(
                 console.log('message received: ' + strModel);
 
                 var loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
-                    factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory(),
                     model = loader.loadModelFromString(strModel);
-                initModelInstance(model, "WebNode", nodeName, grpName, factory);
+                return initModelInstance(model, "WebNode", nodeName, grpName, this._factory);
             }
 
             return false; // TODO because it does not start for now
@@ -64,6 +61,8 @@ define(
                         group.addSubNodes(node);
                         model.addGroups(group);
 
+                        return true;
+
                     } else {
                         Logger.err("Default group type not found in model for typeDef " + grpDefType);
                     }
@@ -74,6 +73,8 @@ define(
             } else {
                 Logger.debug("Model already initialized with a node instance using \"" + nodeName + "\"");
             }
+
+            return false;
         }
 
         return KevoreeJSBootstrap;
