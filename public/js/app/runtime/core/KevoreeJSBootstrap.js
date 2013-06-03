@@ -1,6 +1,5 @@
 define(
     [
-        'core/BootstrapHelper',
         'kevoree',
         'util/Logger'
     ],
@@ -36,12 +35,45 @@ define(
                 var strModel = msg.data;
                 console.log('message received: ' + strModel);
 
-                var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
-                var model = loader.loadModelFromString(strModel);
-                bootHelper.initModelInstance(model, "WebNode", nodeName, grpName);
+                var loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
+                    factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory(),
+                    model = loader.loadModelFromString(strModel);
+                initModelInstance(model, "WebNode", nodeName, grpName, factory);
             }
 
             return false; // TODO because it does not start for now
+        }
+
+        function initModelInstance(model, nodeDefType, nodeName, grpDefType, factory) {
+            var nodeFound = model.findNodesByID(nodeName);
+            if (nodeFound == null) {
+
+                var td = model.findTypeDefinitionsByID(nodeDefType);
+                if (td != null) {
+                    Logger.warn("Init default node instance for name " + nodeName)
+                    var node = factory.createContainerNode();
+                    node.setName(nodeName);
+                    node.setTypeDefinition(td);
+                    model.addNodes(node);
+
+                    var gtd = model.findTypeDefinitionsByID(grpDefType);
+                    if (gtd != null) {
+                        var group = factory.createGroup();
+                        group.setTypeDefinition(gtd);
+                        group.setName("sync");
+                        group.addSubNodes(node);
+                        model.addGroups(group);
+
+                    } else {
+                        Logger.err("Default group type not found in model for typeDef " + grpDefType);
+                    }
+
+                } else {
+                    Logger.err("Default node type not found in model for typeDef \"" + nodeDefType + "\"");
+                }
+            } else {
+                Logger.debug("Model already initialized with a node instance using \"" + nodeName + "\"");
+            }
         }
 
         return KevoreeJSBootstrap;
