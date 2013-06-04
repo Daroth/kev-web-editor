@@ -18,6 +18,11 @@ define(
             // update typeCounter
             if (!this._typeCounter[entity.getType()]) this._typeCounter[entity.getType()] = 0;
             this._typeCounter[entity.getType()]++;
+
+            // update model
+            if (this._model) {
+                this._modelHelper.addInstance(this._model, entity);
+            }
         }
 
         KEditor.prototype.removeEntity = function(entity) {
@@ -27,6 +32,11 @@ define(
 
                 // update typeCounter
                 this._typeCounter[entity.getType()]--;
+
+                // update model
+                if (this._model) {
+                    this._modelHelper.removeInstance(this._model, entity);
+                }
             }
         }
 
@@ -34,11 +44,21 @@ define(
             // update typeCounter
             if (!this._typeCounter[entity.getType()]) this._typeCounter[entity.getType()] = 0;
             this._typeCounter[entity.getType()]++;
+
+            // update model
+            if (this._model) {
+                this._modelHelper.addInstance(this._model, entity);
+            }
         }
 
         KEditor.prototype.removeNestableEntity = function (entity) {
             // update typeCounter
             this._typeCounter[entity.getType()]--;
+
+            // update model
+            if (this._model) {
+                this._modelHelper.removeInstance(this._model, entity);
+            }
         }
 
         KEditor.prototype.clear = function () {

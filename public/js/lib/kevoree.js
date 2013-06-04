@@ -103,7 +103,7 @@ define(
                     },
                     fp: function (it) {
                         if (it === null || it === undefined)
-                            throw new Kotlin.IllegalArgumentException('null element in iterator ' + this.toString());
+                            console.error("Kotlin.IllegalArgumentException", 'null element in iterator ' + this.toString());
                         else
                             return it;
                     },
@@ -277,7 +277,7 @@ define(
                             modelElem.setTypeDefinition(typeDefinitionRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f26: function (context, adjustedRef_0, modelElem) {
@@ -291,7 +291,7 @@ define(
                             modelElem.setNamespace(namespaceRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : Namespace not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : Namespace not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f27: function (context, adjustedRef, modelElem) {
@@ -305,7 +305,7 @@ define(
                             modelElem.addDeployUnits(deployUnitsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f28: function (context, adjustedRef_0, modelElem) {
@@ -319,7 +319,7 @@ define(
                             modelElem.addSuperTypes(superTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f29: function (context, adjustedRef, modelElem) {
@@ -333,7 +333,7 @@ define(
                             modelElem.setTypeDefinition(typeDefinitionRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2a: function (context, adjustedRef_0, modelElem) {
@@ -347,7 +347,7 @@ define(
                             modelElem.addHosts(hostsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f2b: function (context, adjustedRef_1, modelElem) {
@@ -361,7 +361,7 @@ define(
                             modelElem.setHost(hostRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef_1);
+                            console.error("Kotlin.Exception", 'KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef_1);
                         }
                     },
                     f2c: function (context, adjustedRef, modelElem) {
@@ -375,7 +375,7 @@ define(
                             modelElem.addDeployUnits(deployUnitsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2d: function (context, adjustedRef_0, modelElem) {
@@ -389,7 +389,7 @@ define(
                             modelElem.addSuperTypes(superTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f2e: function (context, adjustedRef, modelElem) {
@@ -403,7 +403,7 @@ define(
                             modelElem.addBindings(bindingsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : MBinding not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : MBinding not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2f: function (context, adjustedRef_0, modelElem) {
@@ -417,7 +417,7 @@ define(
                             modelElem.setPortTypeRef(portTypeRefRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : PortTypeRef not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : PortTypeRef not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f2g: function (context, adjustedRef, modelElem) {
@@ -431,7 +431,7 @@ define(
                             modelElem.setParent(parentRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : Namespace not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : Namespace not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2h: function (context, adjustedRef, modelElem) {
@@ -445,7 +445,7 @@ define(
                             modelElem.addGenericTypes(genericTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypedElement not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypedElement not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2i: function (context, adjustedRef, modelElem) {
@@ -459,7 +459,7 @@ define(
                             modelElem.setAttribute(attributeRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DictionaryAttribute not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DictionaryAttribute not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2j: function (context, adjustedRef_0, modelElem) {
@@ -473,7 +473,7 @@ define(
                             modelElem.setTargetNode(targetNodeRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f2k: function (context, adjustedRef, modelElem) {
@@ -487,7 +487,7 @@ define(
                             modelElem.addDeployUnits(deployUnitsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2l: function (context, adjustedRef_0, modelElem) {
@@ -501,7 +501,7 @@ define(
                             modelElem.addSuperTypes(superTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f2m: function (context, adjustedRef_1, modelElem) {
@@ -515,7 +515,7 @@ define(
                             modelElem.addChilds(childsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : ComponentType not found in map ! xmiRef:' + adjustedRef_1);
+                            console.error("Kotlin.Exception", 'KMF Load error : ComponentType not found in map ! xmiRef:' + adjustedRef_1);
                         }
                     },
                     f2n: function (context, adjustedRef, modelElem) {
@@ -529,7 +529,7 @@ define(
                             modelElem.setRef(refRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : PortType not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : PortType not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2o: function (context, adjustedRef, modelElem) {
@@ -543,7 +543,7 @@ define(
                             modelElem.addPorts(portsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : PortTypeRef not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : PortTypeRef not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2p: function (context, adjustedRef, modelElem) {
@@ -557,7 +557,7 @@ define(
                             modelElem.addDeployUnits(deployUnitsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2q: function (context, adjustedRef_0, modelElem) {
@@ -571,7 +571,7 @@ define(
                             modelElem.addSuperTypes(superTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f2r: function (context, adjustedRef, modelElem) {
@@ -585,7 +585,7 @@ define(
                             modelElem.setReturnType(returnTypeRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypedElement not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypedElement not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2s: function (context, adjustedRef, modelElem) {
@@ -599,7 +599,7 @@ define(
                             modelElem.setType(typeRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypedElement not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypedElement not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2t: function (context, adjustedRef, modelElem) {
@@ -613,7 +613,7 @@ define(
                             modelElem.addGenericTypes(genericTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypedElement not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypedElement not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2u: function (context, adjustedRef, modelElem) {
@@ -627,7 +627,7 @@ define(
                             modelElem.addDeployUnits(deployUnitsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2v: function (context, adjustedRef_0, modelElem) {
@@ -641,7 +641,7 @@ define(
                             modelElem.addSuperTypes(superTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f2w: function (context, adjustedRef_1, modelElem) {
@@ -655,7 +655,7 @@ define(
                             modelElem.addFilters(filtersRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypedElement not found in map ! xmiRef:' + adjustedRef_1);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypedElement not found in map ! xmiRef:' + adjustedRef_1);
                         }
                     },
                     f2x: function (context, adjustedRef, modelElem) {
@@ -669,7 +669,7 @@ define(
                             modelElem.addUnits(unitsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2y: function (context, adjustedRef, modelElem) {
@@ -683,7 +683,7 @@ define(
                             modelElem.addRequiredLibs(requiredLibsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f2z: function (context, adjustedRef_0, modelElem) {
@@ -697,7 +697,7 @@ define(
                             modelElem.setTargetNodeType(targetNodeTypeRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : NodeType not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : NodeType not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f30: function (context, adjustedRef, modelElem) {
@@ -711,7 +711,7 @@ define(
                             modelElem.addSubTypes(subTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f31: function (context, adjustedRef, modelElem) {
@@ -725,7 +725,7 @@ define(
                             modelElem.addPortTypes(portTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : PortTypeRef not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : PortTypeRef not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f32: function (context, adjustedRef, modelElem) {
@@ -739,7 +739,7 @@ define(
                             modelElem.addPortTypes(portTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : PortTypeRef not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : PortTypeRef not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f33: function (context, adjustedRef, modelElem) {
@@ -753,7 +753,7 @@ define(
                             modelElem.setTypeDefinition(typeDefinitionRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f34: function (context, adjustedRef_0, modelElem) {
@@ -767,7 +767,7 @@ define(
                             modelElem.addBindings(bindingsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : MBinding not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : MBinding not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f35: function (context, adjustedRef, modelElem) {
@@ -781,7 +781,7 @@ define(
                             modelElem.setPort(portRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : Port not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : Port not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f36: function (context, adjustedRef_0, modelElem) {
@@ -795,7 +795,7 @@ define(
                             modelElem.setHub(hubRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : Channel not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : Channel not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f37: function (context, adjustedRef, modelElem) {
@@ -809,7 +809,7 @@ define(
                             modelElem.setInitBy(initByRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f38: function (context, adjustedRef_0, modelElem) {
@@ -823,7 +823,7 @@ define(
                             modelElem.setTarget(targetRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f39: function (context, adjustedRef, modelElem) {
@@ -837,7 +837,7 @@ define(
                             modelElem.addDeployUnits(deployUnitsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f3a: function (context, adjustedRef_0, modelElem) {
@@ -851,7 +851,7 @@ define(
                             modelElem.addSuperTypes(superTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f3b: function (context, adjustedRef, modelElem) {
@@ -865,7 +865,7 @@ define(
                             modelElem.addDeployUnits(deployUnitsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f3c: function (context, adjustedRef_0, modelElem) {
@@ -879,7 +879,7 @@ define(
                             modelElem.addSuperTypes(superTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f3d: function (context, adjustedRef, modelElem) {
@@ -893,7 +893,7 @@ define(
                             modelElem.setTypeDefinition(typeDefinitionRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f3e: function (context, adjustedRef, modelElem) {
@@ -907,7 +907,7 @@ define(
                             modelElem.addDeployUnits(deployUnitsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f3f: function (context, adjustedRef_0, modelElem) {
@@ -921,7 +921,7 @@ define(
                             modelElem.addSuperTypes(superTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f3g: function (context, adjustedRef, modelElem) {
@@ -935,7 +935,7 @@ define(
                             modelElem.setTypeDefinition(typeDefinitionRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f3h: function (context, adjustedRef_0, modelElem) {
@@ -949,7 +949,7 @@ define(
                             modelElem.addSubNodes(subNodesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : ContainerNode not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f3i: function (context, adjustedRef, modelElem) {
@@ -963,7 +963,7 @@ define(
                             modelElem.addDeployUnits(deployUnitsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f3j: function (context, adjustedRef_0, modelElem) {
@@ -977,7 +977,7 @@ define(
                             modelElem.addSuperTypes(superTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f3k: function (context, adjustedRef, modelElem) {
@@ -991,7 +991,7 @@ define(
                             modelElem.addDeployUnits(deployUnitsRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : DeployUnit not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f3l: function (context, adjustedRef_0, modelElem) {
@@ -1005,7 +1005,7 @@ define(
                             modelElem.addSuperTypes(superTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
+                            console.error("Kotlin.Exception", 'KMF Load error : TypeDefinition not found in map ! xmiRef:' + adjustedRef_0);
                         }
                     },
                     f3m: function (context, adjustedRef_1, modelElem) {
@@ -1019,7 +1019,7 @@ define(
                             modelElem.addManagedPrimitiveTypes(managedPrimitiveTypesRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : AdaptationPrimitiveType not found in map ! xmiRef:' + adjustedRef_1);
+                            console.error("Kotlin.Exception", 'KMF Load error : AdaptationPrimitiveType not found in map ! xmiRef:' + adjustedRef_1);
                         }
                     },
                     f3n: function (context, adjustedRef, modelElem) {
@@ -1033,7 +1033,7 @@ define(
                             modelElem.setRef(refRef);
                         }
                         else {
-                            throw new Kotlin.Exception('KMF Load error : AdaptationPrimitiveType not found in map ! xmiRef:' + adjustedRef);
+                            console.error("Kotlin.Exception", 'KMF Load error : AdaptationPrimitiveType not found in map ! xmiRef:' + adjustedRef);
                         }
                     },
                     f3o: function (elem) {
@@ -1270,7 +1270,7 @@ define(
                             },
                             setName: function (name) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__name(name);
                             },
@@ -1436,7 +1436,7 @@ define(
                             },
                             setFactoryBean: function (factoryBean) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__factoryBean(factoryBean);
                             },
@@ -1445,7 +1445,7 @@ define(
                             },
                             setBean: function (bean) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__bean(bean);
                             },
@@ -1454,7 +1454,7 @@ define(
                             },
                             setNature: function (nature) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__nature(nature);
                             },
@@ -1463,10 +1463,10 @@ define(
                             },
                             setDeployUnits: function (deployUnits) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (deployUnits === null || deployUnits === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__deployUnits_java_cache(null);
                                 if (!Kotlin.equals(this.get__deployUnits(), deployUnits)) {
@@ -1476,21 +1476,21 @@ define(
                             },
                             addDeployUnits: function (deployUnits) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__deployUnits_java_cache(null);
                                 this.get__deployUnits().add(deployUnits);
                             },
                             addAllDeployUnits: function (deployUnits) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__deployUnits_java_cache(null);
                                 this.get__deployUnits().addAll(deployUnits);
                             },
                             removeDeployUnits: function (deployUnits) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__deployUnits_java_cache(null);
                                 if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
@@ -1499,7 +1499,7 @@ define(
                             },
                             removeAllDeployUnits: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__deployUnits_java_cache(null);
                                 this.get__deployUnits().clear();
@@ -1509,7 +1509,7 @@ define(
                             },
                             setDictionaryType: function (dictionaryType) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (!Kotlin.equals(this.get__dictionaryType(), dictionaryType)) {
                                     if (this.get__dictionaryType() !== null && this.get__dictionaryType() !== undefined) {
@@ -1529,10 +1529,10 @@ define(
                             },
                             setSuperTypes: function (superTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (superTypes === null || superTypes === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__superTypes_java_cache(null);
                                 if (!Kotlin.equals(this.get__superTypes(), superTypes)) {
@@ -1548,14 +1548,14 @@ define(
                             },
                             addSuperTypes: function (superTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__superTypes_java_cache(null);
                                 this.get__superTypes().put(superTypes.getName(), superTypes);
                             },
                             addAllSuperTypes: function (superTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__superTypes_java_cache(null);
                                 {
@@ -1568,7 +1568,7 @@ define(
                             },
                             removeSuperTypes: function (superTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__superTypes_java_cache(null);
                                 if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey(superTypes.getName())) {
@@ -1577,7 +1577,7 @@ define(
                             },
                             removeAllSuperTypes: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__superTypes_java_cache(null);
                                 this.get__superTypes().clear();
@@ -1807,7 +1807,7 @@ define(
                             },
                             setStartMethod: function (startMethod) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__startMethod(startMethod);
                             },
@@ -1816,7 +1816,7 @@ define(
                             },
                             setStopMethod: function (stopMethod) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__stopMethod(stopMethod);
                             },
@@ -1825,7 +1825,7 @@ define(
                             },
                             setUpdateMethod: function (updateMethod) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__updateMethod(updateMethod);
                             },
@@ -2074,10 +2074,10 @@ define(
                             },
                             setRequired: function (required) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (required === null || required === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__required_java_cache(null);
                                 if (!Kotlin.equals(this.get__required(), required)) {
@@ -2101,7 +2101,7 @@ define(
                             },
                             addRequired: function (required) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__required_java_cache(null);
                                 required.setEContainer(this, Kotlin.b0(_f.fy, this, required));
@@ -2110,7 +2110,7 @@ define(
                             },
                             addAllRequired: function (required) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__required_java_cache(null);
                                 {
@@ -2131,7 +2131,7 @@ define(
                             },
                             removeRequired: function (required) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__required_java_cache(null);
                                 if (this.get__required().size() !== 0 && this.get__required().containsKey(required.getName())) {
@@ -2143,7 +2143,7 @@ define(
                             },
                             removeAllRequired: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var tmp$0;
                                 {
@@ -2163,10 +2163,10 @@ define(
                             },
                             setIntegrationPatterns: function (integrationPatterns) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (integrationPatterns === null || integrationPatterns === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__integrationPatterns_java_cache(null);
                                 if (!Kotlin.equals(this.get__integrationPatterns(), integrationPatterns)) {
@@ -2190,7 +2190,7 @@ define(
                             },
                             addIntegrationPatterns: function (integrationPatterns) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__integrationPatterns_java_cache(null);
                                 integrationPatterns.setEContainer(this, Kotlin.b0(_f.f11, this, integrationPatterns));
@@ -2199,7 +2199,7 @@ define(
                             },
                             addAllIntegrationPatterns: function (integrationPatterns) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__integrationPatterns_java_cache(null);
                                 {
@@ -2220,7 +2220,7 @@ define(
                             },
                             removeIntegrationPatterns: function (integrationPatterns) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__integrationPatterns_java_cache(null);
                                 if (this.get__integrationPatterns().size() !== 0 && this.get__integrationPatterns().containsKey(integrationPatterns.getName())) {
@@ -2232,7 +2232,7 @@ define(
                             },
                             removeAllIntegrationPatterns: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var tmp$0;
                                 {
@@ -2252,7 +2252,7 @@ define(
                             },
                             setExtraFonctionalProperties: function (extraFonctionalProperties) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (!Kotlin.equals(this.get__extraFonctionalProperties(), extraFonctionalProperties)) {
                                     if (this.get__extraFonctionalProperties() !== null && this.get__extraFonctionalProperties() !== undefined) {
@@ -2272,10 +2272,10 @@ define(
                             },
                             setProvided: function (provided) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (provided === null || provided === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__provided_java_cache(null);
                                 if (!Kotlin.equals(this.get__provided(), provided)) {
@@ -2299,7 +2299,7 @@ define(
                             },
                             addProvided: function (provided) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__provided_java_cache(null);
                                 provided.setEContainer(this, Kotlin.b0(_f.f15, this, provided));
@@ -2308,7 +2308,7 @@ define(
                             },
                             addAllProvided: function (provided) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__provided_java_cache(null);
                                 {
@@ -2329,7 +2329,7 @@ define(
                             },
                             removeProvided: function (provided) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__provided_java_cache(null);
                                 if (this.get__provided().size() !== 0 && this.get__provided().containsKey(provided.getName())) {
@@ -2341,7 +2341,7 @@ define(
                             },
                             removeAllProvided: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var tmp$0;
                                 {
@@ -2588,7 +2588,7 @@ define(
                                             {
                                                 var objFound_0 = this.findRequiredByID(queryID);
                                                 if (!Kotlin.equals(subquery, '') && (objFound_0 !== null && objFound_0 !== undefined)) {
-                                                    throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                    console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                 }
                                                 else {
                                                     tmp$2 = objFound_0;
@@ -2614,7 +2614,7 @@ define(
                                             {
                                                 var objFound_2 = this.findProvidedByID(queryID);
                                                 if (!Kotlin.equals(subquery, '') && (objFound_2 !== null && objFound_2 !== undefined)) {
-                                                    throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                    console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                 }
                                                 else {
                                                     tmp$2 = objFound_2;
@@ -2742,10 +2742,10 @@ define(
                             },
                             setGenericTypes: function (genericTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (genericTypes === null || genericTypes === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__genericTypes_java_cache(null);
                                 if (!Kotlin.equals(this.get__genericTypes(), genericTypes)) {
@@ -2761,14 +2761,14 @@ define(
                             },
                             addGenericTypes: function (genericTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__genericTypes_java_cache(null);
                                 this.get__genericTypes().put(genericTypes.getName(), genericTypes);
                             },
                             addAllGenericTypes: function (genericTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__genericTypes_java_cache(null);
                                 {
@@ -2781,7 +2781,7 @@ define(
                             },
                             removeGenericTypes: function (genericTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__genericTypes_java_cache(null);
                                 if (this.get__genericTypes().size() !== 0 && this.get__genericTypes().containsKey(genericTypes.getName())) {
@@ -2790,7 +2790,7 @@ define(
                             },
                             removeAllGenericTypes: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__genericTypes_java_cache(null);
                                 this.get__genericTypes().clear();
@@ -2966,7 +2966,7 @@ define(
                             },
                             setMetaData: function (metaData) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__metaData(metaData);
                             },
@@ -2975,7 +2975,7 @@ define(
                             },
                             setTypeDefinition: function (typeDefinition) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (!Kotlin.equals(this.get__typeDefinition(), typeDefinition)) {
                                     this.set__typeDefinition(typeDefinition);
@@ -2986,7 +2986,7 @@ define(
                             },
                             setDictionary: function (dictionary) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (!Kotlin.equals(this.get__dictionary(), dictionary)) {
                                     if (this.get__dictionary() !== null && this.get__dictionary() !== undefined) {
@@ -3137,21 +3137,21 @@ define(
                             },
                             noOpposite_addBindings: function (bindings) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__bindings_java_cache(null);
                                 this.get__bindings().add(bindings);
                             },
                             noOpposite_addAllBindings: function (bindings) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__bindings_java_cache(null);
                                 this.get__bindings().addAll(bindings);
                             },
                             noOpposite_removeBindings: function (bindings) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__bindings_java_cache(null);
                                 if (this.get__bindings().size() !== 0 && this.get__bindings().indexOf(bindings) !== -1) {
@@ -3160,7 +3160,7 @@ define(
                             },
                             noOpposite_removeAllBindings: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__bindings_java_cache(null);
                                 this.get__bindings().clear();
@@ -3183,7 +3183,7 @@ define(
                             },
                             noOpposite_setPort: function (port) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (!Kotlin.equals(this.get__port(), port)) {
                                     this.set__port(port);
@@ -3197,7 +3197,7 @@ define(
                             },
                             noOpposite_setHub: function (hub) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (!Kotlin.equals(this.get__hub(), hub)) {
                                     this.set__hub(hub);
@@ -3595,10 +3595,10 @@ define(
                             },
                             setNodes: function (nodes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (nodes === null || nodes === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__nodes_java_cache(null);
                                 if (!Kotlin.equals(this.get__nodes(), nodes)) {
@@ -3622,7 +3622,7 @@ define(
                             },
                             addNodes: function (nodes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__nodes_java_cache(null);
                                 nodes.setEContainer(this, Kotlin.b0(_f.f19, this, nodes));
@@ -3631,7 +3631,7 @@ define(
                             },
                             addAllNodes: function (nodes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__nodes_java_cache(null);
                                 {
@@ -3652,7 +3652,7 @@ define(
                             },
                             removeNodes: function (nodes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__nodes_java_cache(null);
                                 if (this.get__nodes().size() !== 0 && this.get__nodes().containsKey(nodes.getName())) {
@@ -3664,7 +3664,7 @@ define(
                             },
                             removeAllNodes: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var tmp$0;
                                 {
@@ -3684,10 +3684,10 @@ define(
                             },
                             setTypeDefinitions: function (typeDefinitions) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (typeDefinitions === null || typeDefinitions === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__typeDefinitions_java_cache(null);
                                 if (!Kotlin.equals(this.get__typeDefinitions(), typeDefinitions)) {
@@ -3711,7 +3711,7 @@ define(
                             },
                             addTypeDefinitions: function (typeDefinitions) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__typeDefinitions_java_cache(null);
                                 typeDefinitions.setEContainer(this, Kotlin.b0(_f.f1c, this, typeDefinitions));
@@ -3720,7 +3720,7 @@ define(
                             },
                             addAllTypeDefinitions: function (typeDefinitions) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__typeDefinitions_java_cache(null);
                                 {
@@ -3741,7 +3741,7 @@ define(
                             },
                             removeTypeDefinitions: function (typeDefinitions) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__typeDefinitions_java_cache(null);
                                 if (this.get__typeDefinitions().size() !== 0 && this.get__typeDefinitions().containsKey(typeDefinitions.getName())) {
@@ -3753,7 +3753,7 @@ define(
                             },
                             removeAllTypeDefinitions: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var tmp$0;
                                 {
@@ -3773,10 +3773,10 @@ define(
                             },
                             setRepositories: function (repositories) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (repositories === null || repositories === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__repositories_java_cache(null);
                                 if (!Kotlin.equals(this.get__repositories(), repositories)) {
@@ -3800,7 +3800,7 @@ define(
                             },
                             addRepositories: function (repositories) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__repositories_java_cache(null);
                                 repositories.setEContainer(this, Kotlin.b0(_f.f1f, this, repositories));
@@ -3809,7 +3809,7 @@ define(
                             },
                             addAllRepositories: function (repositories) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__repositories_java_cache(null);
                                 {
@@ -3830,7 +3830,7 @@ define(
                             },
                             removeRepositories: function (repositories) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__repositories_java_cache(null);
                                 if (this.get__repositories().size() !== 0 && this.get__repositories().containsKey(repositories.getUrl())) {
@@ -3842,7 +3842,7 @@ define(
                             },
                             removeAllRepositories: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var tmp$0;
                                 {
@@ -3862,10 +3862,10 @@ define(
                             },
                             setDataTypes: function (dataTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (dataTypes === null || dataTypes === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__dataTypes_java_cache(null);
                                 if (!Kotlin.equals(this.get__dataTypes(), dataTypes)) {
@@ -3889,7 +3889,7 @@ define(
                             },
                             addDataTypes: function (dataTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__dataTypes_java_cache(null);
                                 dataTypes.setEContainer(this, Kotlin.b0(_f.f1i, this, dataTypes));
@@ -3898,7 +3898,7 @@ define(
                             },
                             addAllDataTypes: function (dataTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__dataTypes_java_cache(null);
                                 {
@@ -3919,7 +3919,7 @@ define(
                             },
                             removeDataTypes: function (dataTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__dataTypes_java_cache(null);
                                 if (this.get__dataTypes().size() !== 0 && this.get__dataTypes().containsKey(dataTypes.getName())) {
@@ -3931,7 +3931,7 @@ define(
                             },
                             removeAllDataTypes: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var tmp$0;
                                 {
@@ -3951,10 +3951,10 @@ define(
                             },
                             setLibraries: function (libraries) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (libraries === null || libraries === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__libraries_java_cache(null);
                                 if (!Kotlin.equals(this.get__libraries(), libraries)) {
@@ -3978,7 +3978,7 @@ define(
                             },
                             addLibraries: function (libraries) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__libraries_java_cache(null);
                                 libraries.setEContainer(this, Kotlin.b0(_f.f1l, this, libraries));
@@ -3987,7 +3987,7 @@ define(
                             },
                             addAllLibraries: function (libraries) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__libraries_java_cache(null);
                                 {
@@ -4008,7 +4008,7 @@ define(
                             },
                             removeLibraries: function (libraries) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__libraries_java_cache(null);
                                 if (this.get__libraries().size() !== 0 && this.get__libraries().containsKey(libraries.getName())) {
@@ -4020,7 +4020,7 @@ define(
                             },
                             removeAllLibraries: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var tmp$0;
                                 {
@@ -4040,10 +4040,10 @@ define(
                             },
                             setHubs: function (hubs) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (hubs === null || hubs === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__hubs_java_cache(null);
                                 if (!Kotlin.equals(this.get__hubs(), hubs)) {
@@ -4067,7 +4067,7 @@ define(
                             },
                             addHubs: function (hubs) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__hubs_java_cache(null);
                                 hubs.setEContainer(this, Kotlin.b0(_f.f1o, this, hubs));
@@ -4076,7 +4076,7 @@ define(
                             },
                             addAllHubs: function (hubs) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__hubs_java_cache(null);
                                 {
@@ -4097,7 +4097,7 @@ define(
                             },
                             removeHubs: function (hubs) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__hubs_java_cache(null);
                                 if (this.get__hubs().size() !== 0 && this.get__hubs().containsKey(hubs.getName())) {
@@ -4109,7 +4109,7 @@ define(
                             },
                             removeAllHubs: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var tmp$0;
                                 {
@@ -4129,10 +4129,10 @@ define(
                             },
                             setMBindings: function (mBindings) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (mBindings === null || mBindings === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__mBindings_java_cache(null);
                                 if (!Kotlin.equals(this.get__mBindings(), mBindings)) {
@@ -4150,7 +4150,7 @@ define(
                             },
                             addMBindings: function (mBindings) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__mBindings_java_cache(null);
                                 mBindings.setEContainer(this, Kotlin.b0(_f.f1r, this, mBindings));
@@ -4159,7 +4159,7 @@ define(
                             },
                             addAllMBindings: function (mBindings) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__mBindings_java_cache(null);
                                 this.get__mBindings().addAll(mBindings);
@@ -4174,7 +4174,7 @@ define(
                             },
                             removeMBindings: function (mBindings) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__mBindings_java_cache(null);
                                 if (this.get__mBindings().size() !== 0 && this.get__mBindings().indexOf(mBindings) !== -1) {
@@ -4186,7 +4186,7 @@ define(
                             },
                             removeAllMBindings: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var temp_els = this.getMBindings();
                                 {
@@ -4205,10 +4205,10 @@ define(
                             },
                             setDeployUnits: function (deployUnits) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (deployUnits === null || deployUnits === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__deployUnits_java_cache(null);
                                 if (!Kotlin.equals(this.get__deployUnits(), deployUnits)) {
@@ -4226,7 +4226,7 @@ define(
                             },
                             addDeployUnits: function (deployUnits) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__deployUnits_java_cache(null);
                                 deployUnits.setEContainer(this, Kotlin.b0(_f.f1u, this, deployUnits));
@@ -4235,7 +4235,7 @@ define(
                             },
                             addAllDeployUnits: function (deployUnits) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__deployUnits_java_cache(null);
                                 this.get__deployUnits().addAll(deployUnits);
@@ -4250,7 +4250,7 @@ define(
                             },
                             removeDeployUnits: function (deployUnits) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__deployUnits_java_cache(null);
                                 if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
@@ -4262,7 +4262,7 @@ define(
                             },
                             removeAllDeployUnits: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var temp_els = this.getDeployUnits();
                                 {
@@ -4281,10 +4281,10 @@ define(
                             },
                             setNodeNetworks: function (nodeNetworks) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (nodeNetworks === null || nodeNetworks === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__nodeNetworks_java_cache(null);
                                 if (!Kotlin.equals(this.get__nodeNetworks(), nodeNetworks)) {
@@ -4302,7 +4302,7 @@ define(
                             },
                             addNodeNetworks: function (nodeNetworks) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__nodeNetworks_java_cache(null);
                                 nodeNetworks.setEContainer(this, Kotlin.b0(_f.f1x, this, nodeNetworks));
@@ -4311,7 +4311,7 @@ define(
                             },
                             addAllNodeNetworks: function (nodeNetworks) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__nodeNetworks_java_cache(null);
                                 this.get__nodeNetworks().addAll(nodeNetworks);
@@ -4326,7 +4326,7 @@ define(
                             },
                             removeNodeNetworks: function (nodeNetworks) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__nodeNetworks_java_cache(null);
                                 if (this.get__nodeNetworks().size() !== 0 && this.get__nodeNetworks().indexOf(nodeNetworks) !== -1) {
@@ -4338,7 +4338,7 @@ define(
                             },
                             removeAllNodeNetworks: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var temp_els = this.getNodeNetworks();
                                 {
@@ -4357,10 +4357,10 @@ define(
                             },
                             setGroups: function (groups) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (groups === null || groups === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__groups_java_cache(null);
                                 if (!Kotlin.equals(this.get__groups(), groups)) {
@@ -4384,7 +4384,7 @@ define(
                             },
                             addGroups: function (groups) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__groups_java_cache(null);
                                 groups.setEContainer(this, Kotlin.b0(_f.f20, this, groups));
@@ -4393,7 +4393,7 @@ define(
                             },
                             addAllGroups: function (groups) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__groups_java_cache(null);
                                 {
@@ -4414,7 +4414,7 @@ define(
                             },
                             removeGroups: function (groups) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__groups_java_cache(null);
                                 if (this.get__groups().size() !== 0 && this.get__groups().containsKey(groups.getName())) {
@@ -4426,7 +4426,7 @@ define(
                             },
                             removeAllGroups: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var tmp$0;
                                 {
@@ -4446,10 +4446,10 @@ define(
                             },
                             setAdaptationPrimitiveTypes: function (adaptationPrimitiveTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (adaptationPrimitiveTypes === null || adaptationPrimitiveTypes === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                    console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                 }
                                 this.set__adaptationPrimitiveTypes_java_cache(null);
                                 if (!Kotlin.equals(this.get__adaptationPrimitiveTypes(), adaptationPrimitiveTypes)) {
@@ -4473,7 +4473,7 @@ define(
                             },
                             addAdaptationPrimitiveTypes: function (adaptationPrimitiveTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__adaptationPrimitiveTypes_java_cache(null);
                                 adaptationPrimitiveTypes.setEContainer(this, Kotlin.b0(_f.f23, this, adaptationPrimitiveTypes));
@@ -4482,7 +4482,7 @@ define(
                             },
                             addAllAdaptationPrimitiveTypes: function (adaptationPrimitiveTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__adaptationPrimitiveTypes_java_cache(null);
                                 {
@@ -4503,7 +4503,7 @@ define(
                             },
                             removeAdaptationPrimitiveTypes: function (adaptationPrimitiveTypes) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__adaptationPrimitiveTypes_java_cache(null);
                                 if (this.get__adaptationPrimitiveTypes().size() !== 0 && this.get__adaptationPrimitiveTypes().containsKey(adaptationPrimitiveTypes.getName())) {
@@ -4515,7 +4515,7 @@ define(
                             },
                             removeAllAdaptationPrimitiveTypes: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 var tmp$0;
                                 {
@@ -4914,7 +4914,7 @@ define(
                                             {
                                                 var objFound_1 = this.findRepositoriesByID(queryID);
                                                 if (!Kotlin.equals(subquery, '') && (objFound_1 !== null && objFound_1 !== undefined)) {
-                                                    throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                    console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                 }
                                                 else {
                                                     tmp$2 = objFound_1;
@@ -4953,7 +4953,7 @@ define(
                                             {
                                                 var objFound_4 = this.findHubsByID(queryID);
                                                 if (!Kotlin.equals(subquery, '') && (objFound_4 !== null && objFound_4 !== undefined)) {
-                                                    throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                    console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                 }
                                                 else {
                                                     tmp$2 = objFound_4;
@@ -4979,7 +4979,7 @@ define(
                                             {
                                                 var objFound_6 = this.findAdaptationPrimitiveTypesByID(queryID);
                                                 if (!Kotlin.equals(subquery, '') && (objFound_6 !== null && objFound_6 !== undefined)) {
-                                                    throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                    console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                 }
                                                 else {
                                                     tmp$2 = objFound_6;
@@ -5279,21 +5279,21 @@ define(
                             },
                             noOpposite_addBindings: function (bindings) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__bindings_java_cache(null);
                                 this.get__bindings().add(bindings);
                             },
                             noOpposite_addAllBindings: function (bindings) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__bindings_java_cache(null);
                                 this.get__bindings().addAll(bindings);
                             },
                             noOpposite_removeBindings: function (bindings) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__bindings_java_cache(null);
                                 if (this.get__bindings().size() !== 0 && this.get__bindings().indexOf(bindings) !== -1) {
@@ -5302,7 +5302,7 @@ define(
                             },
                             noOpposite_removeAllBindings: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__bindings_java_cache(null);
                                 this.get__bindings().clear();
@@ -5382,7 +5382,7 @@ define(
                             },
                             setSynchrone: function (synchrone) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__synchrone(synchrone);
                             },
@@ -5576,14 +5576,14 @@ define(
                             },
                             noOpposite_addHosts: function (hosts) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__hosts_java_cache(null);
                                 this.get__hosts().put(hosts.getName(), hosts);
                             },
                             noOpposite_addAllHosts: function (hosts) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__hosts_java_cache(null);
                                 {
@@ -5596,7 +5596,7 @@ define(
                             },
                             noOpposite_removeHosts: function (hosts) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__hosts_java_cache(null);
                                 if (this.get__hosts().size() !== 0 && this.get__hosts().containsKey(hosts.getName())) {
@@ -5605,14 +5605,14 @@ define(
                             },
                             noOpposite_removeAllHosts: function () {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 this.set__hosts_java_cache(null);
                                 this.get__hosts().clear();
                             },
                             noOpposite_setHost: function (host) {
                                 if (this.isReadOnly()) {
-                                    throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                    console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                 }
                                 if (!Kotlin.equals(this.get__host(), host)) {
                                     this.set__host(host);
@@ -5917,13 +5917,13 @@ define(
                             },
                             next: function () {
                                 if (!this.hasNext())
-                                    throw new Kotlin.NoSuchElementException();
+                                    console.error("Kotlin.Exception");
                                 this.set_state(_.kotlin.support.State.get_NotReady());
                                 return this.get_nextValue();
                             },
                             peek: function () {
                                 if (!this.hasNext())
-                                    throw new Kotlin.NoSuchElementException();
+                                    console.error("Kotlin.Exception");
                                 return this.get_nextValue();
                             },
                             tryToComputeNext: function () {
@@ -6116,7 +6116,7 @@ define(
                                             this.set_token(null);
                                         }
                                         else {
-                                            throw new Kotlin.IllegalStateException('Expected LEFT_BRACE but was ' + this.peek());
+                                            console.error("Kotlin.IllegalStateException", 'Expected LEFT_BRACE but was ' + this.peek());
                                         }
                                     },
                                     endObject: function () {
@@ -6127,7 +6127,7 @@ define(
                                             this.set_token(null);
                                         }
                                         else {
-                                            throw new Kotlin.IllegalStateException('Expected RIGHT_BRACE but was ' + this.peek());
+                                            console.error("Kotlin.IllegalStateException", 'Expected RIGHT_BRACE but was ' + this.peek());
                                         }
                                     },
                                     beginArray: function () {
@@ -6138,7 +6138,7 @@ define(
                                             this.set_token(null);
                                         }
                                         else {
-                                            throw new Kotlin.IllegalStateException('Expected LEFT_BRACKET but was ' + this.peek());
+                                            console.error("Kotlin.IllegalStateException", 'Expected LEFT_BRACKET but was ' + this.peek());
                                         }
                                     },
                                     endArray: function () {
@@ -6149,7 +6149,7 @@ define(
                                             this.set_token(null);
                                         }
                                         else {
-                                            throw new Kotlin.IllegalStateException('Expected RIGHT_BRACKET but was ' + this.peek());
+                                            console.error("Kotlin.IllegalStateException", 'Expected RIGHT_BRACKET but was ' + this.peek());
                                         }
                                     },
                                     nextBoolean: function () {
@@ -6162,7 +6162,7 @@ define(
                                             this.set_token(null);
                                         }
                                         else {
-                                            throw new Kotlin.IllegalStateException('Expected VALUE(Boolean) but was ' + this.peek());
+                                            console.error("Kotlin.IllegalStateException", 'Expected VALUE(Boolean) but was ' + this.peek());
                                         }
                                         return ret;
                                     },
@@ -6177,7 +6177,7 @@ define(
                                             this.set_token(null);
                                         }
                                         else {
-                                            throw new Kotlin.IllegalStateException('Expected VALUE(String) but was ' + this.peek());
+                                            console.error("Kotlin.IllegalStateException", 'Expected VALUE(String) but was ' + this.peek());
                                         }
                                         return ret;
                                     },
@@ -6194,7 +6194,7 @@ define(
                                             this.set_token(null);
                                         }
                                         else {
-                                            throw new Kotlin.IllegalStateException('Expected VALUE(Int) but was ' + this.peek());
+                                            console.error("Kotlin.IllegalStateException", 'Expected VALUE(Int) but was ' + this.peek());
                                         }
                                         return ret;
                                     },
@@ -6209,7 +6209,7 @@ define(
                                             this.set_token(null);
                                         }
                                         else {
-                                            throw new Kotlin.IllegalStateException('Expected VALUE(Name) but was ' + this.peek());
+                                            console.error("Kotlin.IllegalStateException", 'Expected VALUE(Name) but was ' + this.peek());
                                         }
                                         return ret;
                                     }
@@ -6350,7 +6350,7 @@ define(
                                                 jsonValue = currentValue.toString();
                                             }
                                             else {
-                                                throw new Kotlin.RuntimeException('Unterminated string');
+                                                console.error("Kotlin.RuntimeException", 'Unterminated string');
                                             }
                                         }
                                         else if ('{' === c) {
@@ -10934,10 +10934,10 @@ define(
                                     },
                                     setChilds: function (childs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (childs === null || childs === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__childs_java_cache(null);
                                         if (!Kotlin.equals(this.get__childs(), childs)) {
@@ -10953,14 +10953,14 @@ define(
                                     },
                                     addChilds: function (childs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__childs_java_cache(null);
                                         this.get__childs().put(childs.getName(), childs);
                                     },
                                     addAllChilds: function (childs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__childs_java_cache(null);
                                         {
@@ -10973,7 +10973,7 @@ define(
                                     },
                                     removeChilds: function (childs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__childs_java_cache(null);
                                         if (this.get__childs().size() !== 0 && this.get__childs().containsKey(childs.getName())) {
@@ -10982,7 +10982,7 @@ define(
                                     },
                                     removeAllChilds: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__childs_java_cache(null);
                                         this.get__childs().clear();
@@ -10992,10 +10992,10 @@ define(
                                     },
                                     setWires: function (wires) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (wires === null || wires === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__wires_java_cache(null);
                                         if (!Kotlin.equals(this.get__wires(), wires)) {
@@ -11013,7 +11013,7 @@ define(
                                     },
                                     addWires: function (wires) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__wires_java_cache(null);
                                         wires.setEContainer(this, Kotlin.b0(_f.f3p, this, wires));
@@ -11022,7 +11022,7 @@ define(
                                     },
                                     addAllWires: function (wires) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__wires_java_cache(null);
                                         this.get__wires().addAll(wires);
@@ -11037,7 +11037,7 @@ define(
                                     },
                                     removeWires: function (wires) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__wires_java_cache(null);
                                         if (this.get__wires().size() !== 0 && this.get__wires().indexOf(wires) !== -1) {
@@ -11049,7 +11049,7 @@ define(
                                     },
                                     removeAllWires: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var temp_els = this.getWires();
                                         {
@@ -11327,7 +11327,7 @@ define(
                                                     {
                                                         var objFound_0 = this.findRequiredByID(queryID);
                                                         if (!Kotlin.equals(subquery, '') && (objFound_0 !== null && objFound_0 !== undefined)) {
-                                                            throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                            console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                         }
                                                         else {
                                                             tmp$2 = objFound_0;
@@ -11353,7 +11353,7 @@ define(
                                                     {
                                                         var objFound_2 = this.findProvidedByID(queryID);
                                                         if (!Kotlin.equals(subquery, '') && (objFound_2 !== null && objFound_2 !== undefined)) {
-                                                            throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                            console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                         }
                                                         else {
                                                             tmp$2 = objFound_2;
@@ -11583,10 +11583,10 @@ define(
                                     },
                                     setAttributes: function (attributes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (attributes === null || attributes === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__attributes_java_cache(null);
                                         if (!Kotlin.equals(this.get__attributes(), attributes)) {
@@ -11610,7 +11610,7 @@ define(
                                     },
                                     addAttributes: function (attributes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__attributes_java_cache(null);
                                         attributes.setEContainer(this, Kotlin.b0(_f.f3s, this, attributes));
@@ -11619,7 +11619,7 @@ define(
                                     },
                                     addAllAttributes: function (attributes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__attributes_java_cache(null);
                                         {
@@ -11640,7 +11640,7 @@ define(
                                     },
                                     removeAttributes: function (attributes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__attributes_java_cache(null);
                                         if (this.get__attributes().size() !== 0 && this.get__attributes().containsKey(attributes.getName())) {
@@ -11652,7 +11652,7 @@ define(
                                     },
                                     removeAllAttributes: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var tmp$0;
                                         {
@@ -11672,10 +11672,10 @@ define(
                                     },
                                     setDefaultValues: function (defaultValues) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (defaultValues === null || defaultValues === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__defaultValues_java_cache(null);
                                         if (!Kotlin.equals(this.get__defaultValues(), defaultValues)) {
@@ -11693,7 +11693,7 @@ define(
                                     },
                                     addDefaultValues: function (defaultValues) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__defaultValues_java_cache(null);
                                         defaultValues.setEContainer(this, Kotlin.b0(_f.f3v, this, defaultValues));
@@ -11702,7 +11702,7 @@ define(
                                     },
                                     addAllDefaultValues: function (defaultValues) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__defaultValues_java_cache(null);
                                         this.get__defaultValues().addAll(defaultValues);
@@ -11717,7 +11717,7 @@ define(
                                     },
                                     removeDefaultValues: function (defaultValues) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__defaultValues_java_cache(null);
                                         if (this.get__defaultValues().size() !== 0 && this.get__defaultValues().indexOf(defaultValues) !== -1) {
@@ -11729,7 +11729,7 @@ define(
                                     },
                                     removeAllDefaultValues: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var temp_els = this.getDefaultValues();
                                         {
@@ -11867,7 +11867,7 @@ define(
                                                     {
                                                         var objFound = this.findAttributesByID(queryID);
                                                         if (!Kotlin.equals(subquery, '') && (objFound !== null && objFound !== undefined)) {
-                                                            throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                            console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                         }
                                                         else {
                                                             tmp$4 = objFound;
@@ -12034,10 +12034,10 @@ define(
                                     },
                                     setBindings: function (bindings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (bindings === null || bindings === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__bindings_java_cache(null);
                                         if (!Kotlin.equals(this.get__bindings(), bindings)) {
@@ -12054,7 +12054,7 @@ define(
                                     },
                                     addBindings: function (bindings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__bindings_java_cache(null);
                                         this.get__bindings().add(bindings);
@@ -12062,7 +12062,7 @@ define(
                                     },
                                     addAllBindings: function (bindings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__bindings_java_cache(null);
                                         this.get__bindings().addAll(bindings);
@@ -12076,7 +12076,7 @@ define(
                                     },
                                     removeBindings: function (bindings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__bindings_java_cache(null);
                                         if (this.get__bindings().size() !== 0 && this.get__bindings().indexOf(bindings) !== -1) {
@@ -12086,7 +12086,7 @@ define(
                                     },
                                     removeAllBindings: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var temp_els = this.getBindings();
                                         {
@@ -12299,10 +12299,10 @@ define(
                                     },
                                     setChilds: function (childs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (childs === null || childs === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__childs_java_cache(null);
                                         if (!Kotlin.equals(this.get__childs(), childs)) {
@@ -12326,7 +12326,7 @@ define(
                                     },
                                     addChilds: function (childs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__childs_java_cache(null);
                                         childs.setEContainer(this, Kotlin.b0(_f.f3y, this, childs));
@@ -12335,7 +12335,7 @@ define(
                                     },
                                     addAllChilds: function (childs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__childs_java_cache(null);
                                         {
@@ -12356,7 +12356,7 @@ define(
                                     },
                                     removeChilds: function (childs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__childs_java_cache(null);
                                         if (this.get__childs().size() !== 0 && this.get__childs().containsKey(childs.getName())) {
@@ -12368,7 +12368,7 @@ define(
                                     },
                                     removeAllChilds: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var tmp$0;
                                         {
@@ -12388,7 +12388,7 @@ define(
                                     },
                                     setParent: function (parent) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__parent(), parent)) {
                                             this.set__parent(parent);
@@ -12696,10 +12696,10 @@ define(
                                     },
                                     setComponents: function (components) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (components === null || components === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__components_java_cache(null);
                                         if (!Kotlin.equals(this.get__components(), components)) {
@@ -12723,7 +12723,7 @@ define(
                                     },
                                     addComponents: function (components) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__components_java_cache(null);
                                         components.setEContainer(this, Kotlin.b0(_f.f41, this, components));
@@ -12732,7 +12732,7 @@ define(
                                     },
                                     addAllComponents: function (components) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__components_java_cache(null);
                                         {
@@ -12753,7 +12753,7 @@ define(
                                     },
                                     removeComponents: function (components) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__components_java_cache(null);
                                         if (this.get__components().size() !== 0 && this.get__components().containsKey(components.getName())) {
@@ -12765,7 +12765,7 @@ define(
                                     },
                                     removeAllComponents: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var tmp$0;
                                         {
@@ -12785,10 +12785,10 @@ define(
                                     },
                                     setHosts: function (hosts) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (hosts === null || hosts === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__hosts_java_cache(null);
                                         if (!Kotlin.equals(this.get__hosts(), hosts)) {
@@ -12811,7 +12811,7 @@ define(
                                     },
                                     addHosts: function (hosts) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__hosts_java_cache(null);
                                         this.get__hosts().put(hosts.getName(), hosts);
@@ -12819,7 +12819,7 @@ define(
                                     },
                                     addAllHosts: function (hosts) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__hosts_java_cache(null);
                                         {
@@ -12839,7 +12839,7 @@ define(
                                     },
                                     removeHosts: function (hosts) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__hosts_java_cache(null);
                                         if (this.get__hosts().size() !== 0 && this.get__hosts().containsKey(hosts.getName())) {
@@ -12849,7 +12849,7 @@ define(
                                     },
                                     removeAllHosts: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var tmp$0;
                                         {
@@ -12868,7 +12868,7 @@ define(
                                     },
                                     setHost: function (host) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__host(), host)) {
                                             if (this.get__host() !== null && this.get__host() !== undefined) {
@@ -13037,7 +13037,7 @@ define(
                                                     {
                                                         var objFound = this.findComponentsByID(queryID);
                                                         if (!Kotlin.equals(subquery, '') && (objFound !== null && objFound !== undefined)) {
-                                                            throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                            console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                         }
                                                         else {
                                                             tmp$2 = objFound;
@@ -13257,10 +13257,10 @@ define(
                                     },
                                     setProvided: function (provided) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (provided === null || provided === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__provided_java_cache(null);
                                         if (!Kotlin.equals(this.get__provided(), provided)) {
@@ -13278,7 +13278,7 @@ define(
                                     },
                                     addProvided: function (provided) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__provided_java_cache(null);
                                         provided.setEContainer(this, Kotlin.b0(_f.f44, this, provided));
@@ -13287,7 +13287,7 @@ define(
                                     },
                                     addAllProvided: function (provided) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__provided_java_cache(null);
                                         this.get__provided().addAll(provided);
@@ -13302,7 +13302,7 @@ define(
                                     },
                                     removeProvided: function (provided) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__provided_java_cache(null);
                                         if (this.get__provided().size() !== 0 && this.get__provided().indexOf(provided) !== -1) {
@@ -13314,7 +13314,7 @@ define(
                                     },
                                     removeAllProvided: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var temp_els = this.getProvided();
                                         {
@@ -13333,10 +13333,10 @@ define(
                                     },
                                     setRequired: function (required) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (required === null || required === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__required_java_cache(null);
                                         if (!Kotlin.equals(this.get__required(), required)) {
@@ -13354,7 +13354,7 @@ define(
                                     },
                                     addRequired: function (required) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__required_java_cache(null);
                                         required.setEContainer(this, Kotlin.b0(_f.f47, this, required));
@@ -13363,7 +13363,7 @@ define(
                                     },
                                     addAllRequired: function (required) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__required_java_cache(null);
                                         this.get__required().addAll(required);
@@ -13378,7 +13378,7 @@ define(
                                     },
                                     removeRequired: function (required) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__required_java_cache(null);
                                         if (this.get__required().size() !== 0 && this.get__required().indexOf(required) !== -1) {
@@ -13390,7 +13390,7 @@ define(
                                     },
                                     removeAllRequired: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var temp_els = this.getRequired();
                                         {
@@ -13409,7 +13409,7 @@ define(
                                     },
                                     setNamespace: function (namespace) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__namespace(), namespace)) {
                                             this.set__namespace(namespace);
@@ -13767,10 +13767,10 @@ define(
                                     },
                                     setFilters: function (filters) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (filters === null || filters === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__filters_java_cache(null);
                                         if (!Kotlin.equals(this.get__filters(), filters)) {
@@ -13786,14 +13786,14 @@ define(
                                     },
                                     addFilters: function (filters) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__filters_java_cache(null);
                                         this.get__filters().put(filters.getName(), filters);
                                     },
                                     addAllFilters: function (filters) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__filters_java_cache(null);
                                         {
@@ -13806,7 +13806,7 @@ define(
                                     },
                                     removeFilters: function (filters) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__filters_java_cache(null);
                                         if (this.get__filters().size() !== 0 && this.get__filters().containsKey(filters.getName())) {
@@ -13815,7 +13815,7 @@ define(
                                     },
                                     removeAllFilters: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__filters_java_cache(null);
                                         this.get__filters().clear();
@@ -14135,7 +14135,7 @@ define(
                                     },
                                     setFactoryBean: function (factoryBean) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__factoryBean(factoryBean);
                                     },
@@ -14144,7 +14144,7 @@ define(
                                     },
                                     setBean: function (bean) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__bean(bean);
                                     },
@@ -14153,7 +14153,7 @@ define(
                                     },
                                     setNature: function (nature) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__nature(nature);
                                     },
@@ -14162,10 +14162,10 @@ define(
                                     },
                                     setDeployUnits: function (deployUnits) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (deployUnits === null || deployUnits === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (!Kotlin.equals(this.get__deployUnits(), deployUnits)) {
@@ -14175,21 +14175,21 @@ define(
                                     },
                                     addDeployUnits: function (deployUnits) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         this.get__deployUnits().add(deployUnits);
                                     },
                                     addAllDeployUnits: function (deployUnits) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         this.get__deployUnits().addAll(deployUnits);
                                     },
                                     removeDeployUnits: function (deployUnits) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
@@ -14198,7 +14198,7 @@ define(
                                     },
                                     removeAllDeployUnits: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         this.get__deployUnits().clear();
@@ -14208,7 +14208,7 @@ define(
                                     },
                                     setDictionaryType: function (dictionaryType) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__dictionaryType(), dictionaryType)) {
                                             if (this.get__dictionaryType() !== null && this.get__dictionaryType() !== undefined) {
@@ -14228,10 +14228,10 @@ define(
                                     },
                                     setSuperTypes: function (superTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (superTypes === null || superTypes === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__superTypes_java_cache(null);
                                         if (!Kotlin.equals(this.get__superTypes(), superTypes)) {
@@ -14247,14 +14247,14 @@ define(
                                     },
                                     addSuperTypes: function (superTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__superTypes_java_cache(null);
                                         this.get__superTypes().put(superTypes.getName(), superTypes);
                                     },
                                     addAllSuperTypes: function (superTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__superTypes_java_cache(null);
                                         {
@@ -14267,7 +14267,7 @@ define(
                                     },
                                     removeSuperTypes: function (superTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__superTypes_java_cache(null);
                                         if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey(superTypes.getName())) {
@@ -14276,7 +14276,7 @@ define(
                                     },
                                     removeAllSuperTypes: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__superTypes_java_cache(null);
                                         this.get__superTypes().clear();
@@ -14532,7 +14532,7 @@ define(
                                     },
                                     setOrder: function (order) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__order(order);
                                     },
@@ -14541,7 +14541,7 @@ define(
                                     },
                                     setType: function (type) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__type(), type)) {
                                             this.set__type(type);
@@ -14724,7 +14724,7 @@ define(
                                     },
                                     setOptional: function (optional) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__optional(optional);
                                     },
@@ -14733,7 +14733,7 @@ define(
                                     },
                                     setState: function (state) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__state(state);
                                     },
@@ -14742,7 +14742,7 @@ define(
                                     },
                                     setDatatype: function (datatype) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__datatype(datatype);
                                     },
@@ -14751,7 +14751,7 @@ define(
                                     },
                                     setFragmentDependant: function (fragmentDependant) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__fragmentDependant(fragmentDependant);
                                     },
@@ -15159,10 +15159,10 @@ define(
                                     },
                                     setManagedPrimitiveTypes: function (managedPrimitiveTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (managedPrimitiveTypes === null || managedPrimitiveTypes === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__managedPrimitiveTypes_java_cache(null);
                                         if (!Kotlin.equals(this.get__managedPrimitiveTypes(), managedPrimitiveTypes)) {
@@ -15178,14 +15178,14 @@ define(
                                     },
                                     addManagedPrimitiveTypes: function (managedPrimitiveTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__managedPrimitiveTypes_java_cache(null);
                                         this.get__managedPrimitiveTypes().put(managedPrimitiveTypes.getName(), managedPrimitiveTypes);
                                     },
                                     addAllManagedPrimitiveTypes: function (managedPrimitiveTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__managedPrimitiveTypes_java_cache(null);
                                         {
@@ -15198,7 +15198,7 @@ define(
                                     },
                                     removeManagedPrimitiveTypes: function (managedPrimitiveTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__managedPrimitiveTypes_java_cache(null);
                                         if (this.get__managedPrimitiveTypes().size() !== 0 && this.get__managedPrimitiveTypes().containsKey(managedPrimitiveTypes.getName())) {
@@ -15207,7 +15207,7 @@ define(
                                     },
                                     removeAllManagedPrimitiveTypes: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__managedPrimitiveTypes_java_cache(null);
                                         this.get__managedPrimitiveTypes().clear();
@@ -15217,10 +15217,10 @@ define(
                                     },
                                     setManagedPrimitiveTypeRefs: function (managedPrimitiveTypeRefs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (managedPrimitiveTypeRefs === null || managedPrimitiveTypeRefs === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__managedPrimitiveTypeRefs_java_cache(null);
                                         if (!Kotlin.equals(this.get__managedPrimitiveTypeRefs(), managedPrimitiveTypeRefs)) {
@@ -15238,7 +15238,7 @@ define(
                                     },
                                     addManagedPrimitiveTypeRefs: function (managedPrimitiveTypeRefs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__managedPrimitiveTypeRefs_java_cache(null);
                                         managedPrimitiveTypeRefs.setEContainer(this, Kotlin.b0(_f.f4b, this, managedPrimitiveTypeRefs));
@@ -15247,7 +15247,7 @@ define(
                                     },
                                     addAllManagedPrimitiveTypeRefs: function (managedPrimitiveTypeRefs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__managedPrimitiveTypeRefs_java_cache(null);
                                         this.get__managedPrimitiveTypeRefs().addAll(managedPrimitiveTypeRefs);
@@ -15262,7 +15262,7 @@ define(
                                     },
                                     removeManagedPrimitiveTypeRefs: function (managedPrimitiveTypeRefs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__managedPrimitiveTypeRefs_java_cache(null);
                                         if (this.get__managedPrimitiveTypeRefs().size() !== 0 && this.get__managedPrimitiveTypeRefs().indexOf(managedPrimitiveTypeRefs) !== -1) {
@@ -15274,7 +15274,7 @@ define(
                                     },
                                     removeAllManagedPrimitiveTypeRefs: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var temp_els = this.getManagedPrimitiveTypeRefs();
                                         {
@@ -15456,7 +15456,7 @@ define(
                                                     {
                                                         var objFound_0 = this.findManagedPrimitiveTypesByID(queryID);
                                                         if (!Kotlin.equals(subquery, '') && (objFound_0 !== null && objFound_0 !== undefined)) {
-                                                            throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                            console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                         }
                                                         else {
                                                             tmp$2 = objFound_0;
@@ -15658,7 +15658,7 @@ define(
                                     },
                                     setName: function (name) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__name(name);
                                     },
@@ -15667,7 +15667,7 @@ define(
                                     },
                                     setGroupName: function (groupName) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__groupName(groupName);
                                     },
@@ -15676,7 +15676,7 @@ define(
                                     },
                                     setUnitName: function (unitName) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__unitName(unitName);
                                     },
@@ -15685,7 +15685,7 @@ define(
                                     },
                                     setVersion: function (version) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__version(version);
                                     },
@@ -15694,7 +15694,7 @@ define(
                                     },
                                     setUrl: function (url) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__url(url);
                                     },
@@ -15703,7 +15703,7 @@ define(
                                     },
                                     setHashcode: function (hashcode) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__hashcode(hashcode);
                                     },
@@ -15712,7 +15712,7 @@ define(
                                     },
                                     setType: function (type) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__type(type);
                                     },
@@ -15721,10 +15721,10 @@ define(
                                     },
                                     setRequiredLibs: function (requiredLibs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (requiredLibs === null || requiredLibs === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__requiredLibs_java_cache(null);
                                         if (!Kotlin.equals(this.get__requiredLibs(), requiredLibs)) {
@@ -15734,21 +15734,21 @@ define(
                                     },
                                     addRequiredLibs: function (requiredLibs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__requiredLibs_java_cache(null);
                                         this.get__requiredLibs().add(requiredLibs);
                                     },
                                     addAllRequiredLibs: function (requiredLibs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__requiredLibs_java_cache(null);
                                         this.get__requiredLibs().addAll(requiredLibs);
                                     },
                                     removeRequiredLibs: function (requiredLibs) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__requiredLibs_java_cache(null);
                                         if (this.get__requiredLibs().size() !== 0 && this.get__requiredLibs().indexOf(requiredLibs) !== -1) {
@@ -15757,7 +15757,7 @@ define(
                                     },
                                     removeAllRequiredLibs: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__requiredLibs_java_cache(null);
                                         this.get__requiredLibs().clear();
@@ -15767,7 +15767,7 @@ define(
                                     },
                                     setTargetNodeType: function (targetNodeType) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__targetNodeType(), targetNodeType)) {
                                             this.set__targetNodeType(targetNodeType);
@@ -16199,7 +16199,7 @@ define(
                                     },
                                     setMaxTime: function (maxTime) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__maxTime(maxTime);
                                     },
@@ -16208,7 +16208,7 @@ define(
                                     },
                                     setRef: function (ref) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__ref(), ref)) {
                                             this.set__ref(ref);
@@ -16372,10 +16372,10 @@ define(
                                     },
                                     setExtraFonctionalProperties: function (extraFonctionalProperties) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (extraFonctionalProperties === null || extraFonctionalProperties === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__extraFonctionalProperties_java_cache(null);
                                         if (!Kotlin.equals(this.get__extraFonctionalProperties(), extraFonctionalProperties)) {
@@ -16393,7 +16393,7 @@ define(
                                     },
                                     addExtraFonctionalProperties: function (extraFonctionalProperties) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__extraFonctionalProperties_java_cache(null);
                                         extraFonctionalProperties.setEContainer(this, Kotlin.b0(_f.f4e, this, extraFonctionalProperties));
@@ -16402,7 +16402,7 @@ define(
                                     },
                                     addAllExtraFonctionalProperties: function (extraFonctionalProperties) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__extraFonctionalProperties_java_cache(null);
                                         this.get__extraFonctionalProperties().addAll(extraFonctionalProperties);
@@ -16417,7 +16417,7 @@ define(
                                     },
                                     removeExtraFonctionalProperties: function (extraFonctionalProperties) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__extraFonctionalProperties_java_cache(null);
                                         if (this.get__extraFonctionalProperties().size() !== 0 && this.get__extraFonctionalProperties().indexOf(extraFonctionalProperties) !== -1) {
@@ -16429,7 +16429,7 @@ define(
                                     },
                                     removeAllExtraFonctionalProperties: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var temp_els = this.getExtraFonctionalProperties();
                                         {
@@ -16448,10 +16448,10 @@ define(
                                     },
                                     setPortTypes: function (portTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (portTypes === null || portTypes === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__portTypes_java_cache(null);
                                         if (!Kotlin.equals(this.get__portTypes(), portTypes)) {
@@ -16467,14 +16467,14 @@ define(
                                     },
                                     addPortTypes: function (portTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__portTypes_java_cache(null);
                                         this.get__portTypes().put(portTypes.getName(), portTypes);
                                     },
                                     addAllPortTypes: function (portTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__portTypes_java_cache(null);
                                         {
@@ -16487,7 +16487,7 @@ define(
                                     },
                                     removePortTypes: function (portTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__portTypes_java_cache(null);
                                         if (this.get__portTypes().size() !== 0 && this.get__portTypes().containsKey(portTypes.getName())) {
@@ -16496,7 +16496,7 @@ define(
                                     },
                                     removeAllPortTypes: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__portTypes_java_cache(null);
                                         this.get__portTypes().clear();
@@ -16629,7 +16629,7 @@ define(
                                                     {
                                                         var objFound = this.findPortTypesByID(queryID);
                                                         if (!Kotlin.equals(subquery, '') && (objFound !== null && objFound !== undefined)) {
-                                                            throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                            console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                         }
                                                         else {
                                                             tmp$4 = objFound;
@@ -16854,7 +16854,7 @@ define(
                                     },
                                     setLowerBindings: function (lowerBindings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__lowerBindings(lowerBindings);
                                     },
@@ -16863,7 +16863,7 @@ define(
                                     },
                                     setUpperBindings: function (upperBindings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__upperBindings(upperBindings);
                                     },
@@ -16872,7 +16872,7 @@ define(
                                     },
                                     setLowerFragments: function (lowerFragments) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__lowerFragments(lowerFragments);
                                     },
@@ -16881,7 +16881,7 @@ define(
                                     },
                                     setUpperFragments: function (upperFragments) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__upperFragments(upperFragments);
                                     },
@@ -17196,7 +17196,7 @@ define(
                                     },
                                     setInterface: function (_interface) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__interface(_interface);
                                     },
@@ -17205,10 +17205,10 @@ define(
                                     },
                                     setOperations: function (operations) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (operations === null || operations === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__operations_java_cache(null);
                                         if (!Kotlin.equals(this.get__operations(), operations)) {
@@ -17232,7 +17232,7 @@ define(
                                     },
                                     addOperations: function (operations) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__operations_java_cache(null);
                                         operations.setEContainer(this, Kotlin.b0(_f.f4h, this, operations));
@@ -17241,7 +17241,7 @@ define(
                                     },
                                     addAllOperations: function (operations) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__operations_java_cache(null);
                                         {
@@ -17262,7 +17262,7 @@ define(
                                     },
                                     removeOperations: function (operations) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__operations_java_cache(null);
                                         if (this.get__operations().size() !== 0 && this.get__operations().containsKey(operations.getName())) {
@@ -17274,7 +17274,7 @@ define(
                                     },
                                     removeAllOperations: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var tmp$0;
                                         {
@@ -17560,7 +17560,7 @@ define(
                                     },
                                     setName: function (name) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__name(name);
                                     },
@@ -17728,10 +17728,10 @@ define(
                                     },
                                     setSubNodes: function (subNodes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (subNodes === null || subNodes === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__subNodes_java_cache(null);
                                         if (!Kotlin.equals(this.get__subNodes(), subNodes)) {
@@ -17747,14 +17747,14 @@ define(
                                     },
                                     addSubNodes: function (subNodes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__subNodes_java_cache(null);
                                         this.get__subNodes().put(subNodes.getName(), subNodes);
                                     },
                                     addAllSubNodes: function (subNodes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__subNodes_java_cache(null);
                                         {
@@ -17767,7 +17767,7 @@ define(
                                     },
                                     removeSubNodes: function (subNodes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__subNodes_java_cache(null);
                                         if (this.get__subNodes().size() !== 0 && this.get__subNodes().containsKey(subNodes.getName())) {
@@ -17776,7 +17776,7 @@ define(
                                     },
                                     removeAllSubNodes: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__subNodes_java_cache(null);
                                         this.get__subNodes().clear();
@@ -18034,10 +18034,10 @@ define(
                                     },
                                     setLink: function (link) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (link === null || link === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__link_java_cache(null);
                                         if (!Kotlin.equals(this.get__link(), link)) {
@@ -18055,7 +18055,7 @@ define(
                                     },
                                     addLink: function (link) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__link_java_cache(null);
                                         link.setEContainer(this, Kotlin.b0(_f.f4k, this, link));
@@ -18064,7 +18064,7 @@ define(
                                     },
                                     addAllLink: function (link) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__link_java_cache(null);
                                         this.get__link().addAll(link);
@@ -18079,7 +18079,7 @@ define(
                                     },
                                     removeLink: function (link) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__link_java_cache(null);
                                         if (this.get__link().size() !== 0 && this.get__link().indexOf(link) !== -1) {
@@ -18091,7 +18091,7 @@ define(
                                     },
                                     removeAllLink: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var temp_els = this.getLink();
                                         {
@@ -18110,7 +18110,7 @@ define(
                                     },
                                     setInitBy: function (initBy) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__initBy(), initBy)) {
                                             this.set__initBy(initBy);
@@ -18121,7 +18121,7 @@ define(
                                     },
                                     setTarget: function (target) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__target(), target)) {
                                             this.set__target(target);
@@ -18304,7 +18304,7 @@ define(
                                     },
                                     setValue: function (value) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__value(value);
                                     },
@@ -18313,7 +18313,7 @@ define(
                                     },
                                     setLastCheck: function (lastCheck) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__lastCheck(lastCheck);
                                     },
@@ -18586,7 +18586,7 @@ define(
                                     },
                                     setNetworkType: function (networkType) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__networkType(networkType);
                                     },
@@ -18595,7 +18595,7 @@ define(
                                     },
                                     setEstimatedRate: function (estimatedRate) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__estimatedRate(estimatedRate);
                                     },
@@ -18604,7 +18604,7 @@ define(
                                     },
                                     setLastCheck: function (lastCheck) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__lastCheck(lastCheck);
                                     },
@@ -18613,10 +18613,10 @@ define(
                                     },
                                     setNetworkProperties: function (networkProperties) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (networkProperties === null || networkProperties === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__networkProperties_java_cache(null);
                                         if (!Kotlin.equals(this.get__networkProperties(), networkProperties)) {
@@ -18640,7 +18640,7 @@ define(
                                     },
                                     addNetworkProperties: function (networkProperties) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__networkProperties_java_cache(null);
                                         networkProperties.setEContainer(this, Kotlin.b0(_f.f4n, this, networkProperties));
@@ -18649,7 +18649,7 @@ define(
                                     },
                                     addAllNetworkProperties: function (networkProperties) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__networkProperties_java_cache(null);
                                         {
@@ -18670,7 +18670,7 @@ define(
                                     },
                                     removeNetworkProperties: function (networkProperties) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__networkProperties_java_cache(null);
                                         if (this.get__networkProperties().size() !== 0 && this.get__networkProperties().containsKey(networkProperties.getName())) {
@@ -18682,7 +18682,7 @@ define(
                                     },
                                     removeAllNetworkProperties: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var tmp$0;
                                         {
@@ -18798,7 +18798,7 @@ define(
                                                     {
                                                         var objFound = this.findNetworkPropertiesByID(queryID);
                                                         if (!Kotlin.equals(subquery, '') && (objFound !== null && objFound !== undefined)) {
-                                                            throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                            console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                         }
                                                         else {
                                                             tmp$4 = objFound;
@@ -18926,7 +18926,7 @@ define(
                                     },
                                     setValue: function (value) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__value(value);
                                     },
@@ -18935,7 +18935,7 @@ define(
                                     },
                                     setAttribute: function (attribute) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__attribute(), attribute)) {
                                             this.set__attribute(attribute);
@@ -18946,7 +18946,7 @@ define(
                                     },
                                     setTargetNode: function (targetNode) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__targetNode(), targetNode)) {
                                             this.set__targetNode(targetNode);
@@ -19112,10 +19112,10 @@ define(
                                     },
                                     setParameters: function (parameters) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (parameters === null || parameters === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__parameters_java_cache(null);
                                         if (!Kotlin.equals(this.get__parameters(), parameters)) {
@@ -19139,7 +19139,7 @@ define(
                                     },
                                     addParameters: function (parameters) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__parameters_java_cache(null);
                                         parameters.setEContainer(this, Kotlin.b0(_f.f4q, this, parameters));
@@ -19148,7 +19148,7 @@ define(
                                     },
                                     addAllParameters: function (parameters) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__parameters_java_cache(null);
                                         {
@@ -19169,7 +19169,7 @@ define(
                                     },
                                     removeParameters: function (parameters) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__parameters_java_cache(null);
                                         if (this.get__parameters().size() !== 0 && this.get__parameters().containsKey(parameters.getName())) {
@@ -19181,7 +19181,7 @@ define(
                                     },
                                     removeAllParameters: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var tmp$0;
                                         {
@@ -19201,7 +19201,7 @@ define(
                                     },
                                     setReturnType: function (returnType) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__returnType(), returnType)) {
                                             this.set__returnType(returnType);
@@ -19312,7 +19312,7 @@ define(
                                                     {
                                                         var objFound = this.findParametersByID(queryID);
                                                         if (!Kotlin.equals(subquery, '') && (objFound !== null && objFound !== undefined)) {
-                                                            throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                            console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                         }
                                                         else {
                                                             tmp$2 = objFound;
@@ -19732,10 +19732,10 @@ define(
                                     },
                                     setBindings: function (bindings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (bindings === null || bindings === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__bindings_java_cache(null);
                                         if (!Kotlin.equals(this.get__bindings(), bindings)) {
@@ -19752,7 +19752,7 @@ define(
                                     },
                                     addBindings: function (bindings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__bindings_java_cache(null);
                                         this.get__bindings().add(bindings);
@@ -19760,7 +19760,7 @@ define(
                                     },
                                     addAllBindings: function (bindings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__bindings_java_cache(null);
                                         this.get__bindings().addAll(bindings);
@@ -19774,7 +19774,7 @@ define(
                                     },
                                     removeBindings: function (bindings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__bindings_java_cache(null);
                                         if (this.get__bindings().size() !== 0 && this.get__bindings().indexOf(bindings) !== -1) {
@@ -19784,7 +19784,7 @@ define(
                                     },
                                     removeAllBindings: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var temp_els = this.getBindings();
                                         {
@@ -19802,7 +19802,7 @@ define(
                                     },
                                     setPortTypeRef: function (portTypeRef) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__portTypeRef(), portTypeRef)) {
                                             this.set__portTypeRef(portTypeRef);
@@ -19946,7 +19946,7 @@ define(
                                     },
                                     setUrl: function (url) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__url(url);
                                     },
@@ -19955,10 +19955,10 @@ define(
                                     },
                                     setUnits: function (units) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (units === null || units === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__units_java_cache(null);
                                         if (!Kotlin.equals(this.get__units(), units)) {
@@ -19968,21 +19968,21 @@ define(
                                     },
                                     addUnits: function (units) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__units_java_cache(null);
                                         this.get__units().add(units);
                                     },
                                     addAllUnits: function (units) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__units_java_cache(null);
                                         this.get__units().addAll(units);
                                     },
                                     removeUnits: function (units) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__units_java_cache(null);
                                         if (this.get__units().size() !== 0 && this.get__units().indexOf(units) !== -1) {
@@ -19991,7 +19991,7 @@ define(
                                     },
                                     removeAllUnits: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__units_java_cache(null);
                                         this.get__units().clear();
@@ -20147,10 +20147,10 @@ define(
                                     },
                                     setValues: function (values) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (values === null || values === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__values_java_cache(null);
                                         if (!Kotlin.equals(this.get__values(), values)) {
@@ -20168,7 +20168,7 @@ define(
                                     },
                                     addValues: function (values) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__values_java_cache(null);
                                         values.setEContainer(this, Kotlin.b0(_f.f4t, this, values));
@@ -20177,7 +20177,7 @@ define(
                                     },
                                     addAllValues: function (values) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__values_java_cache(null);
                                         this.get__values().addAll(values);
@@ -20192,7 +20192,7 @@ define(
                                     },
                                     removeValues: function (values) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__values_java_cache(null);
                                         if (this.get__values().size() !== 0 && this.get__values().indexOf(values) !== -1) {
@@ -20204,7 +20204,7 @@ define(
                                     },
                                     removeAllValues: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var temp_els = this.getValues();
                                         {
@@ -20385,10 +20385,10 @@ define(
                                     },
                                     setSubTypes: function (subTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (subTypes === null || subTypes === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__subTypes_java_cache(null);
                                         if (!Kotlin.equals(this.get__subTypes(), subTypes)) {
@@ -20404,14 +20404,14 @@ define(
                                     },
                                     addSubTypes: function (subTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__subTypes_java_cache(null);
                                         this.get__subTypes().put(subTypes.getName(), subTypes);
                                     },
                                     addAllSubTypes: function (subTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__subTypes_java_cache(null);
                                         {
@@ -20424,7 +20424,7 @@ define(
                                     },
                                     removeSubTypes: function (subTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__subTypes_java_cache(null);
                                         if (this.get__subTypes().size() !== 0 && this.get__subTypes().containsKey(subTypes.getName())) {
@@ -20433,7 +20433,7 @@ define(
                                     },
                                     removeAllSubTypes: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__subTypes_java_cache(null);
                                         this.get__subTypes().clear();
@@ -20638,7 +20638,7 @@ define(
                                     },
                                     setBeanMethodName: function (beanMethodName) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__beanMethodName(beanMethodName);
                                     },
@@ -20647,7 +20647,7 @@ define(
                                     },
                                     setServiceMethodName: function (serviceMethodName) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__serviceMethodName(serviceMethodName);
                                     },
@@ -20656,7 +20656,7 @@ define(
                                     },
                                     setParamTypes: function (paramTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__paramTypes(paramTypes);
                                     },
@@ -20781,10 +20781,10 @@ define(
                                     },
                                     setPorts: function (ports) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (ports === null || ports === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__ports_java_cache(null);
                                         if (!Kotlin.equals(this.get__ports(), ports)) {
@@ -20800,14 +20800,14 @@ define(
                                     },
                                     addPorts: function (ports) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__ports_java_cache(null);
                                         this.get__ports().put(ports.getName(), ports);
                                     },
                                     addAllPorts: function (ports) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__ports_java_cache(null);
                                         {
@@ -20820,11 +20820,11 @@ define(
                                     },
                                     removePorts: function (ports) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__ports_java_cache(null);
                                         if (_.kotlin.get_size_0(this.get__ports()) === 2 && this.get__ports().containsKey(ports.getName())) {
-                                            throw new Kotlin.UnsupportedOperationException('The list of ports must contain at least 2 element. Connot remove sizeof(ports)=' + _.kotlin.get_size_0(this.get__ports()));
+                                            console.error("Kotlin.UnsupportedOperationException", 'The list of ports must contain at least 2 element. Connot remove sizeof(ports)=' + _.kotlin.get_size_0(this.get__ports()));
                                         }
                                         else {
                                             this.get__ports().remove(ports.getName());
@@ -20832,7 +20832,7 @@ define(
                                     },
                                     removeAllPorts: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__ports_java_cache(null);
                                         this.get__ports().clear();
@@ -20921,7 +20921,7 @@ define(
                                                     {
                                                         var objFound = this.findPortsByID(queryID);
                                                         if (!Kotlin.equals(subquery, '') && (objFound !== null && objFound !== undefined)) {
-                                                            throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                            console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                         }
                                                         else {
                                                             tmp$4 = objFound;
@@ -21082,7 +21082,7 @@ define(
                                     },
                                     setSynchrone: function (synchrone) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__synchrone(synchrone);
                                     },
@@ -21277,7 +21277,7 @@ define(
                                     },
                                     setPort: function (port) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__port(), port)) {
                                             if (this.get__port() !== null && this.get__port() !== undefined) {
@@ -21295,7 +21295,7 @@ define(
                                     },
                                     setHub: function (hub) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__hub(), hub)) {
                                             if (this.get__hub() !== null && this.get__hub() !== undefined) {
@@ -21718,10 +21718,10 @@ define(
                                     },
                                     setPortTypes: function (portTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (portTypes === null || portTypes === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__portTypes_java_cache(null);
                                         if (!Kotlin.equals(this.get__portTypes(), portTypes)) {
@@ -21737,14 +21737,14 @@ define(
                                     },
                                     addPortTypes: function (portTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__portTypes_java_cache(null);
                                         this.get__portTypes().put(portTypes.getName(), portTypes);
                                     },
                                     addAllPortTypes: function (portTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__portTypes_java_cache(null);
                                         {
@@ -21757,7 +21757,7 @@ define(
                                     },
                                     removePortTypes: function (portTypes) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__portTypes_java_cache(null);
                                         if (this.get__portTypes().size() !== 0 && this.get__portTypes().containsKey(portTypes.getName())) {
@@ -21766,7 +21766,7 @@ define(
                                     },
                                     removeAllPortTypes: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__portTypes_java_cache(null);
                                         this.get__portTypes().clear();
@@ -21855,7 +21855,7 @@ define(
                                                     {
                                                         var objFound = this.findPortTypesByID(queryID);
                                                         if (!Kotlin.equals(subquery, '') && (objFound !== null && objFound !== undefined)) {
-                                                            throw new Kotlin.Exception('KMFQL : rejected sucessor');
+                                                            console.error("Kotlin.Exception", 'KMFQL : rejected sucessor');
                                                         }
                                                         else {
                                                             tmp$4 = objFound;
@@ -21990,7 +21990,7 @@ define(
                                     },
                                     setOptional: function (optional) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__optional(optional);
                                     },
@@ -21999,7 +21999,7 @@ define(
                                     },
                                     setNoDependency: function (noDependency) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__noDependency(noDependency);
                                     },
@@ -22008,7 +22008,7 @@ define(
                                     },
                                     setRef: function (ref) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (!Kotlin.equals(this.get__ref(), ref)) {
                                             this.set__ref(ref);
@@ -22019,10 +22019,10 @@ define(
                                     },
                                     setMappings: function (mappings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         if (mappings === null || mappings === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
+                                            console.error("Kotlin.IllegalArgumentException", 'The list in parameter of the setter cannot be null. Use removeAll to empty a collection.');
                                         }
                                         this.set__mappings_java_cache(null);
                                         if (!Kotlin.equals(this.get__mappings(), mappings)) {
@@ -22040,7 +22040,7 @@ define(
                                     },
                                     addMappings: function (mappings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__mappings_java_cache(null);
                                         mappings.setEContainer(this, Kotlin.b0(_f.f4w, this, mappings));
@@ -22049,7 +22049,7 @@ define(
                                     },
                                     addAllMappings: function (mappings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__mappings_java_cache(null);
                                         this.get__mappings().addAll(mappings);
@@ -22064,7 +22064,7 @@ define(
                                     },
                                     removeMappings: function (mappings) {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         this.set__mappings_java_cache(null);
                                         if (this.get__mappings().size() !== 0 && this.get__mappings().indexOf(mappings) !== -1) {
@@ -22076,7 +22076,7 @@ define(
                                     },
                                     removeAllMappings: function () {
                                         if (this.isReadOnly()) {
-                                            throw new Kotlin.Exception('This model is ReadOnly. Elements are not modifiable.');
+                                            console.error("Kotlin.Exception", 'This model is ReadOnly. Elements are not modifiable.');
                                         }
                                         var temp_els = this.getMappings();
                                         {
@@ -22335,7 +22335,7 @@ define(
                                                         ostream.print(' "typeDefinition":"' + subsubsubtypeDefinition + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF ComponentInstance Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF ComponentInstance Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
                                                     }
                                                 }
                                                 var subsubnamespace = selfObject.getNamespace();
@@ -22346,7 +22346,7 @@ define(
                                                         ostream.print(' "namespace":"' + subsubsubnamespace + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF ComponentInstance Serialization error : No address found for reference namespace(id:' + subsubnamespace + ' container:' + subsubnamespace.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF ComponentInstance Serialization error : No address found for reference namespace(id:' + subsubnamespace + ' container:' + subsubnamespace.eContainer() + ')');
                                                     }
                                                 }
                                                 var subdictionary = selfObject.getDictionary();
@@ -22564,7 +22564,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference ComponentType/deployUnits ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference ComponentType/deployUnits ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -22589,7 +22589,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference ComponentType/superTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference ComponentType/superTypes ');
                                                             }
                                                             firstItLoop_0 = false;
                                                         }
@@ -22726,7 +22726,7 @@ define(
                                                         ostream.print(' "typeDefinition":"' + subsubsubtypeDefinition + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF ContainerNode Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF ContainerNode Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
                                                     }
                                                 }
                                                 if (selfObject.getHosts().size() > 0) {
@@ -22747,7 +22747,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference ContainerNode/hosts ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference ContainerNode/hosts ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -22762,7 +22762,7 @@ define(
                                                         ostream.print(' "host":"' + subsubsubhost + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF ContainerNode Serialization error : No address found for reference host(id:' + subsubhost + ' container:' + subsubhost.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF ContainerNode Serialization error : No address found for reference host(id:' + subsubhost + ' container:' + subsubhost.eContainer() + ')');
                                                     }
                                                 }
                                                 var subdictionary = selfObject.getDictionary();
@@ -23283,7 +23283,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference PortType/deployUnits ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference PortType/deployUnits ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -23308,7 +23308,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference PortType/superTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference PortType/superTypes ');
                                                             }
                                                             firstItLoop_0 = false;
                                                         }
@@ -23357,7 +23357,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference Port/bindings ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference Port/bindings ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -23372,7 +23372,7 @@ define(
                                                         ostream.print(' "portTypeRef":"' + subsubsubportTypeRef + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF Port Serialization error : No address found for reference portTypeRef(id:' + subsubportTypeRef + ' container:' + subsubportTypeRef.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF Port Serialization error : No address found for reference portTypeRef(id:' + subsubportTypeRef + ' container:' + subsubportTypeRef.eContainer() + ')');
                                                     }
                                                 }
                                                 tmp$2 = ostream.println('}');
@@ -23424,7 +23424,7 @@ define(
                                                         ostream.print(' "parent":"' + subsubsubparent + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF Namespace Serialization error : No address found for reference parent(id:' + subsubparent + ' container:' + subsubparent.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF Namespace Serialization error : No address found for reference parent(id:' + subsubparent + ' container:' + subsubparent.eContainer() + ')');
                                                     }
                                                 }
                                                 if (selfObject.getChilds().size() > 0) {
@@ -23644,7 +23644,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference DictionaryAttribute/genericTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference DictionaryAttribute/genericTypes ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -23684,7 +23684,7 @@ define(
                                                         ostream.print(' "attribute":"' + subsubsubattribute + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF DictionaryValue Serialization error : No address found for reference attribute(id:' + subsubattribute + ' container:' + subsubattribute.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF DictionaryValue Serialization error : No address found for reference attribute(id:' + subsubattribute + ' container:' + subsubattribute.eContainer() + ')');
                                                     }
                                                 }
                                                 var subsubtargetNode = selfObject.getTargetNode();
@@ -23695,7 +23695,7 @@ define(
                                                         ostream.print(' "targetNode":"' + subsubsubtargetNode + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF DictionaryValue Serialization error : No address found for reference targetNode(id:' + subsubtargetNode + ' container:' + subsubtargetNode.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF DictionaryValue Serialization error : No address found for reference targetNode(id:' + subsubtargetNode + ' container:' + subsubtargetNode.eContainer() + ')');
                                                     }
                                                 }
                                                 tmp$2 = ostream.println('}');
@@ -23869,7 +23869,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference CompositeType/deployUnits ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference CompositeType/deployUnits ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -23894,7 +23894,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference CompositeType/superTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference CompositeType/superTypes ');
                                                             }
                                                             firstItLoop_0 = false;
                                                         }
@@ -23919,7 +23919,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference CompositeType/childs ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference CompositeType/childs ');
                                                             }
                                                             firstItLoop_1 = false;
                                                         }
@@ -24065,7 +24065,7 @@ define(
                                                         ostream.print(' "ref":"' + subsubsubref + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF PortTypeRef Serialization error : No address found for reference ref(id:' + subsubref + ' container:' + subsubref.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF PortTypeRef Serialization error : No address found for reference ref(id:' + subsubref + ' container:' + subsubref.eContainer() + ')');
                                                     }
                                                 }
                                                 if (selfObject.getMappings().size() > 0) {
@@ -24121,7 +24121,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference Wire/ports ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference Wire/ports ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -24231,7 +24231,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference ServicePortType/deployUnits ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference ServicePortType/deployUnits ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -24256,7 +24256,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference ServicePortType/superTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference ServicePortType/superTypes ');
                                                             }
                                                             firstItLoop_0 = false;
                                                         }
@@ -24335,7 +24335,7 @@ define(
                                                         ostream.print(' "returnType":"' + subsubsubreturnType + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF Operation Serialization error : No address found for reference returnType(id:' + subsubreturnType + ' container:' + subsubreturnType.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF Operation Serialization error : No address found for reference returnType(id:' + subsubreturnType + ' container:' + subsubreturnType.eContainer() + ')');
                                                     }
                                                 }
                                                 if (selfObject.getParameters().size() > 0) {
@@ -24395,7 +24395,7 @@ define(
                                                         ostream.print(' "type":"' + subsubsubtype + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF Parameter Serialization error : No address found for reference type(id:' + subsubtype + ' container:' + subsubtype.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF Parameter Serialization error : No address found for reference type(id:' + subsubtype + ' container:' + subsubtype.eContainer() + ')');
                                                     }
                                                 }
                                                 tmp$2 = ostream.println('}');
@@ -24461,7 +24461,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference TypedElement/genericTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference TypedElement/genericTypes ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -24548,7 +24548,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference MessagePortType/deployUnits ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference MessagePortType/deployUnits ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -24573,7 +24573,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference MessagePortType/superTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference MessagePortType/superTypes ');
                                                             }
                                                             firstItLoop_0 = false;
                                                         }
@@ -24598,7 +24598,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference MessagePortType/filters ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference MessagePortType/filters ');
                                                             }
                                                             firstItLoop_1 = false;
                                                         }
@@ -24654,7 +24654,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference Repository/units ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference Repository/units ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -24746,7 +24746,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference DeployUnit/requiredLibs ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference DeployUnit/requiredLibs ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -24761,7 +24761,7 @@ define(
                                                         ostream.print(' "targetNodeType":"' + subsubsubtargetNodeType + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF DeployUnit Serialization error : No address found for reference targetNodeType(id:' + subsubtargetNodeType + ' container:' + subsubtargetNodeType.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF DeployUnit Serialization error : No address found for reference targetNodeType(id:' + subsubtargetNodeType + ' container:' + subsubtargetNodeType.eContainer() + ')');
                                                     }
                                                 }
                                                 tmp$2 = ostream.println('}');
@@ -24807,7 +24807,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference TypeLibrary/subTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference TypeLibrary/subTypes ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -25128,7 +25128,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference IntegrationPattern/portTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference IntegrationPattern/portTypes ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -25188,7 +25188,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference ExtraFonctionalProperty/portTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference ExtraFonctionalProperty/portTypes ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -25285,7 +25285,7 @@ define(
                                                         ostream.print(' "typeDefinition":"' + subsubsubtypeDefinition + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF Channel Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF Channel Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
                                                     }
                                                 }
                                                 if (selfObject.getBindings().size() > 0) {
@@ -25306,7 +25306,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference Channel/bindings ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference Channel/bindings ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -25379,7 +25379,7 @@ define(
                                                         ostream.print(' "initBy":"' + subsubsubinitBy + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF NodeNetwork Serialization error : No address found for reference initBy(id:' + subsubinitBy + ' container:' + subsubinitBy.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF NodeNetwork Serialization error : No address found for reference initBy(id:' + subsubinitBy + ' container:' + subsubinitBy.eContainer() + ')');
                                                     }
                                                 }
                                                 var subsubtarget = selfObject.getTarget();
@@ -25390,7 +25390,7 @@ define(
                                                         ostream.print(' "target":"' + subsubsubtarget + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF NodeNetwork Serialization error : No address found for reference target(id:' + subsubtarget + ' container:' + subsubtarget.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF NodeNetwork Serialization error : No address found for reference target(id:' + subsubtarget + ' container:' + subsubtarget.eContainer() + ')');
                                                     }
                                                 }
                                                 if (selfObject.getLink().size() > 0) {
@@ -25645,7 +25645,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference ChannelType/deployUnits ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference ChannelType/deployUnits ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -25670,7 +25670,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference ChannelType/superTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference ChannelType/superTypes ');
                                                             }
                                                             firstItLoop_0 = false;
                                                         }
@@ -25848,7 +25848,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference TypeDefinition/deployUnits ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference TypeDefinition/deployUnits ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -25873,7 +25873,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference TypeDefinition/superTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference TypeDefinition/superTypes ');
                                                             }
                                                             firstItLoop_0 = false;
                                                         }
@@ -25999,7 +25999,7 @@ define(
                                                         ostream.print(' "typeDefinition":"' + subsubsubtypeDefinition + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF Instance Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF Instance Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
                                                     }
                                                 }
                                                 var subdictionary = selfObject.getDictionary();
@@ -26166,7 +26166,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference LifeCycleTypeDefinition/deployUnits ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference LifeCycleTypeDefinition/deployUnits ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -26191,7 +26191,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference LifeCycleTypeDefinition/superTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference LifeCycleTypeDefinition/superTypes ');
                                                             }
                                                             firstItLoop_0 = false;
                                                         }
@@ -26255,7 +26255,7 @@ define(
                                                         ostream.print(' "typeDefinition":"' + subsubsubtypeDefinition + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF Group Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF Group Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
                                                     }
                                                 }
                                                 if (selfObject.getSubNodes().size() > 0) {
@@ -26276,7 +26276,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference Group/subNodes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference Group/subNodes ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -26385,7 +26385,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference GroupType/deployUnits ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference GroupType/deployUnits ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -26410,7 +26410,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference GroupType/superTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference GroupType/superTypes ');
                                                             }
                                                             firstItLoop_0 = false;
                                                         }
@@ -26535,7 +26535,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference NodeType/deployUnits ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference NodeType/deployUnits ');
                                                             }
                                                             firstItLoop = false;
                                                         }
@@ -26560,7 +26560,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference NodeType/superTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference NodeType/superTypes ');
                                                             }
                                                             firstItLoop_0 = false;
                                                         }
@@ -26585,7 +26585,7 @@ define(
                                                                 ostream.print_0('"');
                                                             }
                                                             else {
-                                                                throw new Kotlin.Exception('KMF Serialization error : non contained reference NodeType/managedPrimitiveTypes ');
+                                                                console.error("Kotlin.Exception", 'KMF Serialization error : non contained reference NodeType/managedPrimitiveTypes ');
                                                             }
                                                             firstItLoop_1 = false;
                                                         }
@@ -26673,7 +26673,7 @@ define(
                                                         ostream.print(' "ref":"' + subsubsubref + '"');
                                                     }
                                                     else {
-                                                        throw new Kotlin.Exception('KMF AdaptationPrimitiveTypeRef Serialization error : No address found for reference ref(id:' + subsubref + ' container:' + subsubref.eContainer() + ')');
+                                                        console.error("Kotlin.Exception", 'KMF AdaptationPrimitiveTypeRef Serialization error : No address found for reference ref(id:' + subsubref + ' container:' + subsubref.eContainer() + ')');
                                                     }
                                                 }
                                                 tmp$2 = ostream.println('}');
@@ -27379,18 +27379,18 @@ define(
                         },
                         require: function (value, message) {
                             if (!value) {
-                                throw new Kotlin.IllegalArgumentException(message.toString());
+                                console.error("Kotlin.IllegalArgumentException", message.toString());
                             }
                         },
                         require_0: function (value, lazyMessage) {
                             if (!value) {
                                 var message = lazyMessage();
-                                throw new Kotlin.IllegalArgumentException(message.toString());
+                                console.error("Kotlin.IllegalArgumentException", message.toString());
                             }
                         },
                         requireNotNull: function (value, message) {
                             if (value === null || value === undefined) {
-                                throw new Kotlin.IllegalArgumentException(message.toString());
+                                console.error("Kotlin.IllegalArgumentException", message.toString());
                             }
                             else {
                                 return value;
@@ -27398,18 +27398,18 @@ define(
                         },
                         check: function (value, message) {
                             if (!value) {
-                                throw new Kotlin.IllegalStateException(message.toString());
+                                console.error("Kotlin.IllegalStateException", message.toString());
                             }
                         },
                         check_0: function (value, lazyMessage) {
                             if (!value) {
                                 var message = lazyMessage();
-                                throw new Kotlin.IllegalStateException(message.toString());
+                                console.error("Kotlin.IllegalStateException", message.toString());
                             }
                         },
                         checkNotNull: function (value, message) {
                             if (value === null || value === undefined) {
-                                throw new Kotlin.IllegalStateException(message);
+                                console.error("Kotlin.IllegalStateException", message);
                             }
                             else {
                                 return value;
@@ -27692,7 +27692,7 @@ define(
                         reduce: function (receiver, operation) {
                             var iterator = Kotlin.arrayIterator(receiver);
                             if (!iterator.hasNext()) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var result = iterator.next();
                             while (iterator.hasNext()) {
@@ -27703,7 +27703,7 @@ define(
                         reduceRight: function (receiver, operation) {
                             var index = receiver.length - 1;
                             if (index < 0) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var r = receiver[index--];
                             while (index >= 0) {
@@ -27810,7 +27810,7 @@ define(
                                     var element = tmp$0[tmp$2];
                                     {
                                         if (element === null || element === undefined) {
-                                            throw new Kotlin.IllegalArgumentException('null element found in ' + receiver.toString());
+                                            console.error("Kotlin.IllegalArgumentException", 'null element found in ' + receiver.toString());
                                         }
                                     }
                                 }
@@ -28030,7 +28030,7 @@ define(
                         reduce_0: function (receiver, operation) {
                             var iterator = Kotlin.arrayIterator(receiver);
                             if (!iterator.hasNext()) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var result = iterator.next();
                             while (iterator.hasNext()) {
@@ -28041,7 +28041,7 @@ define(
                         reduceRight_0: function (receiver, operation) {
                             var index = receiver.length - 1;
                             if (index < 0) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var r = receiver[index--];
                             while (index >= 0) {
@@ -28342,7 +28342,7 @@ define(
                         reduce_1: function (receiver, operation) {
                             var iterator = Kotlin.arrayIterator(receiver);
                             if (!iterator.hasNext()) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var result = iterator.next();
                             while (iterator.hasNext()) {
@@ -28353,7 +28353,7 @@ define(
                         reduceRight_1: function (receiver, operation) {
                             var index = receiver.length - 1;
                             if (index < 0) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var r = receiver[index--];
                             while (index >= 0) {
@@ -28654,7 +28654,7 @@ define(
                         reduce_2: function (receiver, operation) {
                             var iterator = Kotlin.arrayIterator(receiver);
                             if (!iterator.hasNext()) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var result = iterator.next();
                             while (iterator.hasNext()) {
@@ -28665,7 +28665,7 @@ define(
                         reduceRight_2: function (receiver, operation) {
                             var index = receiver.length - 1;
                             if (index < 0) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var r = receiver[index--];
                             while (index >= 0) {
@@ -28839,7 +28839,7 @@ define(
                                 while (tmp$0.hasNext()) {
                                     var element = tmp$0.next();
                                     if (element === null || element === undefined) {
-                                        throw new Kotlin.IllegalArgumentException('null element found in ' + receiver.toString());
+                                        console.error("Kotlin.IllegalArgumentException", 'null element found in ' + receiver.toString());
                                     }
                                 }
                             }
@@ -29020,7 +29020,7 @@ define(
                         reduce_3: function (receiver, operation) {
                             var iterator = Kotlin.arrayIterator(receiver);
                             if (!iterator.hasNext()) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var result = iterator.next();
                             while (iterator.hasNext()) {
@@ -29031,7 +29031,7 @@ define(
                         reduceRight_3: function (receiver, operation) {
                             var index = receiver.length - 1;
                             if (index < 0) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var r = receiver[index--];
                             while (index >= 0) {
@@ -29479,7 +29479,7 @@ define(
                         reduce_4: function (receiver, operation) {
                             var iterator = Kotlin.arrayIterator(receiver);
                             if (!iterator.hasNext()) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var result = iterator.next();
                             while (iterator.hasNext()) {
@@ -29490,7 +29490,7 @@ define(
                         reduceRight_4: function (receiver, operation) {
                             var index = receiver.length - 1;
                             if (index < 0) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var r = receiver[index--];
                             while (index >= 0) {
@@ -29806,7 +29806,7 @@ define(
                         reduce_5: function (receiver, operation) {
                             var iterator = Kotlin.arrayIterator(receiver);
                             if (!iterator.hasNext()) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var result = iterator.next();
                             while (iterator.hasNext()) {
@@ -29817,7 +29817,7 @@ define(
                         reduceRight_5: function (receiver, operation) {
                             var index = receiver.length - 1;
                             if (index < 0) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var r = receiver[index--];
                             while (index >= 0) {
@@ -30120,7 +30120,7 @@ define(
                         reduce_6: function (receiver, operation) {
                             var iterator = receiver.iterator();
                             if (!iterator.hasNext()) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var result = iterator.next();
                             while (iterator.hasNext()) {
@@ -30421,7 +30421,7 @@ define(
                         reduce_7: function (receiver, operation) {
                             var iterator = receiver;
                             if (!iterator.hasNext()) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var result = iterator.next();
                             while (iterator.hasNext()) {
@@ -30695,7 +30695,7 @@ define(
                         reduce_8: function (receiver, operation) {
                             var iterator = Kotlin.arrayIterator(receiver);
                             if (!iterator.hasNext()) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var result = iterator.next();
                             while (iterator.hasNext()) {
@@ -30706,7 +30706,7 @@ define(
                         reduceRight_6: function (receiver, operation) {
                             var index = receiver.length - 1;
                             if (index < 0) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var r = receiver[index--];
                             while (index >= 0) {
@@ -31007,7 +31007,7 @@ define(
                         reduce_9: function (receiver, operation) {
                             var iterator = Kotlin.arrayIterator(receiver);
                             if (!iterator.hasNext()) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var result = iterator.next();
                             while (iterator.hasNext()) {
@@ -31018,7 +31018,7 @@ define(
                         reduceRight_7: function (receiver, operation) {
                             var index = receiver.length - 1;
                             if (index < 0) {
-                                throw new Kotlin.UnsupportedOperationException("Empty iterable can't be reduced");
+                                console.error("Kotlin.UnsupportedOperationException", "Empty iterable can't be reduced");
                             }
                             var r = receiver[index--];
                             while (index >= 0) {
@@ -31460,7 +31460,7 @@ define(
                                 get: function (index) {
                                     var node = this.get_nodeList().item(index);
                                     if (node === null || node === undefined) {
-                                        throw new Kotlin.IndexOutOfBoundsException('NodeList does not contain a node at index: ' + index);
+                                        console.error("Kotlin.IndexOutOfBoundsException", 'NodeList does not contain a node at index: ' + index);
                                     }
                                     else {
                                         return node;
@@ -31481,13 +31481,13 @@ define(
                                 get: function (index) {
                                     var node = this.get_nodeList().item(index);
                                     if (node === null || node === undefined) {
-                                        throw new Kotlin.IndexOutOfBoundsException('NodeList does not contain a node at index: ' + index);
+                                        console.error("Kotlin.IndexOutOfBoundsException", 'NodeList does not contain a node at index: ' + index);
                                     }
                                     else if (node.nodeType === Node.ELEMENT_NODE) {
                                         return node;
                                     }
                                     else {
-                                        throw new Kotlin.IllegalArgumentException('Node is not an Element as expected but is ' + node.toString());
+                                        console.error("Kotlin.IllegalArgumentException", 'Node is not an Element as expected but is ' + node.toString());
                                     }
                                 },
                                 size: function () {
@@ -31634,7 +31634,7 @@ define(
                                     tmp$0 = doc;
                                 var answer = tmp$0;
                                 if (answer === null || answer === undefined) {
-                                    throw new Kotlin.IllegalArgumentException('Element does not have an ownerDocument and none was provided for: ' + receiver.toString());
+                                    console.error("Kotlin.IllegalArgumentException", 'Element does not have an ownerDocument and none was provided for: ' + receiver.toString());
                                 }
                                 else {
                                     return answer;
