@@ -73,7 +73,7 @@ define(
                 var port = inputs[i].getUI(),
                     portShape = port.getShape(),
                     y_off = dividedHeight*(i+1);
-                portShape.setPosition(port.getRadius() + 10, y_off - port.getHeight()/2 - 15);
+                portShape.setPosition(port.getRadius() + 10, y_off - port.getHeight()/2 - 12);
             }
 
             var outputs = this._ctrl.getOutputs();
@@ -82,7 +82,7 @@ define(
                 var port = outputs[i].getUI(),
                     portShape = port.getShape(),
                     y_off = dividedHeight*(i+1);
-                portShape.setPosition(this._rect.getWidth() - port.getRadius() - 10, y_off - port.getHeight()/2 - 15);
+                portShape.setPosition(this._rect.getWidth() - port.getRadius() - 10, y_off - port.getHeight()/2 - 12);
             }
 
             this._headerName.setOffset(
@@ -113,7 +113,7 @@ define(
                 else defaultPortHeight = outputs[0].getUI().getHeight();
 
                 var max = (inputs.length >= outputs.length) ? inputs.length : outputs.length;
-                ret = currentHeight + ((defaultPortHeight+10) * (max-1)) + 20;
+                ret = currentHeight + ((defaultPortHeight+10) * (max-1)) + 10;
             }
 
             return ret;

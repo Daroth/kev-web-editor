@@ -39,16 +39,6 @@ define(
             // Event handling
             //==========================
             var that = this;
-            this._shape.on('mouseenter touchstart', function () {
-                that._circle.setStrokeWidth(that._circle.getStrokeWidth()+1);
-                that._shape.getLayer().draw();
-            });
-
-            this._shape.on('mouseout touchend', function () {
-                that._circle.setStrokeWidth(that._circle.getStrokeWidth()-1);
-                that._shape.getLayer().draw();
-            });
-
             this._shape.on('mousedown touchstart', function () {
                 that._ctrl.p2cMouseDown();
             });

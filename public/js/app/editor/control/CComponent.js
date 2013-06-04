@@ -31,16 +31,6 @@ define(
             CNestableEntity.prototype.p2cDragStart.call(this);
         }
 
-        // Override CNestableEntity.p2cMouseOver()
-        CComponent.prototype.p2cMouseOver = function () {
-            this._ui.c2pMouseOver();
-        }
-
-        // Override CNestableEntity.p2cMouseOut()
-        CComponent.prototype.p2cMouseOut = function () {
-            this._ui.c2pMouseOut();
-        }
-
         // Override CNestableEntity.remove()
         CComponent.prototype.remove = function () {
             KComponent.prototype.remove.call(this);

@@ -51,12 +51,12 @@ define(
             // ================
             // Event handlers
             // ================
-            this._shape.on('mouseenter', function (e) {
+            this._shape.on('mouseenter', function () {
                 this.setStrokeWidth(8);
                 this.getLayer().draw();
             });
 
-            this._shape.on('mouseout', function (e) {
+            this._shape.on('mouseout', function () {
                 this.setStrokeWidth(5);
                 this.getLayer().draw();
             });
@@ -92,7 +92,7 @@ define(
         }
 
         UIWire.prototype.remove = function () {
-            if (this._shape) {
+            if (this._shape !== undefined) {
                 var layer = this._shape.getLayer();
                 this._shape.destroy();
                 layer.draw();
