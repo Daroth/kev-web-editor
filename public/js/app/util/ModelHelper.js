@@ -106,7 +106,7 @@ define(
 
         ModelHelper.prototype.removeInstance = function (model, entity) {
             console.warn("ModelHelper.removeInstance(model, entity): Not implemented yet!");
-            
+
         }
 
         // private method

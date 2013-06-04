@@ -5,8 +5,7 @@ define(
     ],
 
     function(UINestableEntity, Pooffs) {
-        var DEFAULT_STROKE_COLOR = "white",
-            STROKE = 2;
+            var STROKE = 2;
 
         UIComponent.PORT_PADDING = 10;
 
@@ -32,25 +31,18 @@ define(
                 strokeWidth: STROKE
             });
 
-            var that = this;
-
             var inputs = ctrl.getInputs();
             for (var i=0; i < inputs.length; i++) {
-                var port = inputs[i].getUI().getShape();
-                port.setX(port.getRadius() + UIComponent.PORT_PADDING);
-                port.setY(that._rect.getHeight() / 2);
-                this._shape.add(port);
+                this._shape.add(inputs[i].getUI().getShape());
             }
 
             var outputs = ctrl.getOutputs();
             for (var i=0; i < outputs.length; i++) {
-                var port = outputs[i].getUI().getShape();
-                port.setX(that._rect.getWidth() - port.getRadius() - UIComponent.PORT_PADDING);
-                port.setY(that._rect.getHeight() / 2);
-                this._shape.add(port);
+                this._shape.add(outputs[i].getUI().getShape());
             }
 
-            this._updateDimensions();
+            this._computedWidth = computeWidth(this._ctrl.getInputs(), this._ctrl.getOutputs(), this._rect.getWidth())
+            this._computedHeight = computeHeight(this._ctrl.getInputs(), this._ctrl.getOutputs(), this._rect.getHeight());
 
             this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
         }
@@ -68,25 +60,34 @@ define(
                 var parent = this._ctrl.getParent().getUI();
                 var offset = parent.getChildOffset(this);
                 this._shape.setOffset(-offset.x, -offset.y);
+
             } else {
-                this._updateDimensions();
+                this._rect.setWidth(this._computedWidth);
             }
 
-            this._rect.setHeight(this._headerName.getHeight());
+            this._rect.setHeight(this._computedHeight);
 
             var inputs = this._ctrl.getInputs();
+            var dividedHeight = (inputs.length == 0) ? 0 : (this._computedHeight / inputs.length+1);
             for (var i=0; i < inputs.length; i++) {
-                var port = inputs[i].getUI().getShape();
-                port.setPosition(port.getRadius() + 10, this._rect.getHeight() / 2);
+                var port = inputs[i].getUI(),
+                    portShape = port.getShape(),
+                    y_off = dividedHeight*(i+1);
+                portShape.setPosition(port.getRadius() + 10, y_off - port.getHeight()/2 - 15);
             }
 
             var outputs = this._ctrl.getOutputs();
+            var dividedHeight = (outputs.length == 0) ? 0 : (this._computedHeight / outputs.length+1);
             for (var i=0; i < outputs.length; i++) {
-                var port = outputs[i].getUI().getShape();
-                port.setPosition(this._rect.getWidth() - port.getRadius() - 10, this._rect.getHeight() / 2);
+                var port = outputs[i].getUI(),
+                    portShape = port.getShape(),
+                    y_off = dividedHeight*(i+1);
+                portShape.setPosition(this._rect.getWidth() - port.getRadius() - 10, y_off - port.getHeight()/2 - 15);
             }
 
-            this._headerName.setOffset(- (this.getWidth()/2 - this._headerName.getWidth()/2), 0);
+            this._headerName.setOffset(
+                -(this.getWidth()/2 - this._headerName.getWidth()/2),
+                -(this.getHeight()/2 - this._headerName.getHeight()/2));
         }
 
         // Override UINestableEntity.c2pMouseOut()
@@ -99,14 +100,32 @@ define(
             this._shape.getLayer().draw();
         }
 
-        UIComponent.prototype._updateDimensions = function () {
-            var portSpace = 0;
-            if (this._ctrl.getInputs().length > 0 || this._ctrl.getOutputs().length > 0) {
-                portSpace = (this._ctrl.getInputs()[0] || this._ctrl.getOutputs()[0]).getUI().getWidth()*2 + UIComponent.PORT_PADDING;
+        UIComponent.prototype.getHeight = function () {
+            return this._rect.getHeight();
+        }
+
+        function computeHeight(inputs, outputs, currentHeight) {
+            var ret = currentHeight;
+
+            if (inputs.length > 0 || outputs.length > 0) {
+                var defaultPortHeight = 0;
+                if (inputs.length > 0) defaultPortHeight = inputs[0].getUI().getHeight();
+                else defaultPortHeight = outputs[0].getUI().getHeight();
+
+                var max = (inputs.length >= outputs.length) ? inputs.length : outputs.length;
+                ret = currentHeight + ((defaultPortHeight+10) * (max-1)) + 20;
             }
 
-            this._rect.setWidth(this._headerName.getWidth()+this._headerName.getPadding() + portSpace);
-            this._rect.setHeight(this._headerName.getHeight()+this._headerName.getPadding());
+            return ret;
+        }
+
+        function computeWidth(inputs, outputs, currentWidth) {
+            var ret = currentWidth;
+
+            if (inputs.length > 0)  ret += inputs[0].getUI().getRadius();
+            if (outputs.length > 0) ret += outputs[0].getUI().getRadius();
+
+            return ret;
         }
 
         return UIComponent;

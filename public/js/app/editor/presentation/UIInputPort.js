@@ -15,7 +15,7 @@ define(
         function UIInputPort (ctrl) {
             UIPort.prototype.constructor.call(this, ctrl);
 
-            this._shape.setStroke(STROKE);
+            this._circle.setStroke(STROKE);
             this._shape.setName(UIInputPort.NAME);
         }
 

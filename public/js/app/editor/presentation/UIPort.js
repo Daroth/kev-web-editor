@@ -5,7 +5,7 @@ define(
         function UIPort (ctrl) {
             this._ctrl = ctrl;
 
-            this._shape = new Kinetic.Circle({
+            this._circle = new Kinetic.Circle({
                 radius: RADIUS,
                 fillLinearGradientStartPoint: [0, 0],
                 fillLinearGradientEndPoint: [0, RADIUS*2],
@@ -13,17 +13,39 @@ define(
                 strokeWidth: 2
             });
 
+            this._text = new Kinetic.Text({
+                text: ctrl.getName().substr(0, 5),
+                fontSize: 9,
+                fontStyle: 'bold',
+                fontFamily: 'Helvetica',
+                fill: '#FFF',
+                align: 'center'
+            });
+
+            this._text.move(
+                -this._text.getWidth()/2,
+                (-this._text.getHeight()/2) + (RADIUS+5)
+            );
+
+            this._shape = new Kinetic.Group({
+                x: 100,
+                y: 100
+            });
+
+            this._shape.add(this._circle);
+            this._shape.add(this._text);
+
             //==========================
             // Event handling
             //==========================
             var that = this;
             this._shape.on('mouseenter touchstart', function () {
-                that._shape.setStrokeWidth(that._shape.getStrokeWidth()+1);
+                that._circle.setStrokeWidth(that._circle.getStrokeWidth()+1);
                 that._shape.getLayer().draw();
             });
 
             this._shape.on('mouseout touchend', function () {
-                that._shape.setStrokeWidth(that._shape.getStrokeWidth()-1);
+                that._circle.setStrokeWidth(that._circle.getStrokeWidth()-1);
                 that._shape.getLayer().draw();
             });
 
@@ -58,8 +80,12 @@ define(
             this._ctrl.getComponent().getUI().setDraggable(isDraggable, parentsToo, childrenToo);
         }
 
-        UIPort.prototype.getWidth = function () {
-            return RADIUS*2;
+        UIPort.prototype.getRadius = function () {
+            return RADIUS;
+        }
+
+        UIPort.prototype.getHeight = function () {
+            return RADIUS*2 + this._text.getHeight();
         }
 
         return UIPort;
