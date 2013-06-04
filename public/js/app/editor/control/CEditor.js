@@ -8,12 +8,11 @@ define(
         'abstraction/KNode',
         'control/AController',
         'presentation/UIEditor',
-        'util/ModelHelper',
         'util/DebugLoggerHelper',
         'require'
     ],
 
-    function (Pooffs, KEditor, KGroup, KComponent, KChannel, KNode, AController, UIEditor, ModelHelper, DebugLoggerHelper, require) {
+    function (Pooffs, KEditor, KGroup, KComponent, KChannel, KNode, AController, UIEditor, DebugLoggerHelper, require) {
         Pooffs.extends(CEditor, KEditor);
         Pooffs.extends(CEditor, AController);
 
@@ -24,7 +23,6 @@ define(
             this._debug = new DebugLoggerHelper();
             this._currentWire = null;
             this._draggedEntity = null;
-            this._modelHelper = new ModelHelper();
             this._libTreeDisplayed = true;
             this._foldedLibTree = false;
         }

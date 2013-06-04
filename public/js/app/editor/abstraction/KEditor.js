@@ -9,7 +9,6 @@ define(
             this._entities = new Array();
             this._typeCounter = new Array();
             this._model = null;
-            this._modelHelper = new ModelHelper();
         }
 
         KEditor.prototype.addEntity = function(entity) {
@@ -21,7 +20,7 @@ define(
 
             // update model
             if (this._model) {
-                this._modelHelper.addInstance(this._model, entity);
+                ModelHelper.addInstance(this._model, entity);
             }
         }
 
@@ -35,7 +34,7 @@ define(
 
                 // update model
                 if (this._model) {
-                    this._modelHelper.removeInstance(this._model, entity);
+                    ModelHelper.removeInstance(this._model, entity);
                 }
             }
         }
@@ -47,7 +46,7 @@ define(
 
             // update model
             if (this._model) {
-                this._modelHelper.addInstance(this._model, entity);
+                ModelHelper.addInstance(this._model, entity);
             }
         }
 
@@ -57,7 +56,7 @@ define(
 
             // update model
             if (this._model) {
-                this._modelHelper.removeInstance(this._model, entity);
+                ModelHelper.removeInstance(this._model, entity);
             }
         }
 

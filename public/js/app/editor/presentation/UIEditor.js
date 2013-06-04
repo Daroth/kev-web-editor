@@ -26,7 +26,6 @@ define(
             this._currentWire = null;
             this._modelLayer = new Kinetic.Layer();
             this._wireLayer = new Kinetic.Layer();
-            this._modelHelper = new ModelHelper();
             this._scale = 1;
         }
 
@@ -429,7 +428,7 @@ define(
             libTreeFolded = false; // reset fold status
             $('#lib-tree-content li, #lib-tree-content ul').remove(); // remove old content
 
-            var libz = this._modelHelper.getLibraries(this._ctrl.getModel());
+            var libz = ModelHelper.getLibraries(this._ctrl.getModel());
 
             var libTree = "";
             var libItems = "";

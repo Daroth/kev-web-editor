@@ -20,6 +20,19 @@ define(
             this._name = 'comp' + (COUNT++);
             this._inputs = [];
             this._outputs = [];
+
+            var compTDef = editor.getModel().findTypeDefinitionsByID(this._type),
+                inputs = compTDef.getProvided(),
+                outputs = compTDef.getRequired();
+
+            for (var i=0; i < inputs.size(); i++) {
+                this._inputs.push(new CInputPort(inputs.get(i).getName()));
+            }
+
+            for (var i=0; i < outputs.size(); i++) {
+                this._outputs.push(new COutputPort(outputs.get(i).getName()));
+            }
+
             for (var i=0; i < this._inputs.length; i++) this._inputs[i].setComponent(this);
             for (var i=0; i < this._outputs.length; i++) this._outputs[i].setComponent(this);
         }

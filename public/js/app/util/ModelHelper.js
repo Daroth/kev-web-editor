@@ -11,7 +11,6 @@ define(
 
         function ModelHelper () {
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
-            //this._serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
         }
 
         ModelHelper.prototype.getLibraries = function (model) {
@@ -61,8 +60,7 @@ define(
         }
 
         ModelHelper.prototype.addInstance = function (model, entity) {
-            var instance = {},
-                type = {};
+            var instance = {};
 
             switch (entity.getEntityType()) {
                 case KComponent.ENTITY_TYPE:
@@ -104,12 +102,24 @@ define(
                     model.addNodes(instance);
                     break;
             }
-
-            console.log("after add instance: ", model);
         }
 
         ModelHelper.prototype.removeInstance = function (model, entity) {
             console.warn("ModelHelper.removeInstance(model, entity): Not implemented yet!");
+        }
+
+        ModelHelper.prototype.updateComponent = function (model, comp) {
+            var compTDef = model.findTypeDefinitionsByID(comp.getType()),
+                inputs = compTDef.getProvided(),
+                outputs = compTDef.getRequired();
+
+            for (var i=0; i < inputs.size(); i++) {
+                console.log("input", inputs.get(i));
+            }
+
+            for (var i=0; i < outputs.size(); i++) {
+                console.log("output", outputs.get(i));
+            }
         }
 
         // private method
@@ -146,6 +156,6 @@ define(
             return false;
         }
 
-        return ModelHelper;
+        return new ModelHelper();
     }
 );

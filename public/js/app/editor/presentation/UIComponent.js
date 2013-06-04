@@ -102,8 +102,7 @@ define(
         UIComponent.prototype._updateDimensions = function () {
             var portSpace = 0;
             if (this._ctrl.getInputs().length > 0 || this._ctrl.getOutputs().length > 0) {
-                portSpace = (this._ctrl.getInputs()[0].getUI().getWidth()*2
-                    || this._ctrl.getOutputs()[0].getUI().getWidth()*2) + UIComponent.PORT_PADDING;
+                portSpace = (this._ctrl.getInputs()[0] || this._ctrl.getOutputs()[0]).getUI().getWidth()*2 + UIComponent.PORT_PADDING;
             }
 
             this._rect.setWidth(this._headerName.getWidth()+this._headerName.getPadding() + portSpace);

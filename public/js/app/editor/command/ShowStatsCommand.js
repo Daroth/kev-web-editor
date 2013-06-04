@@ -17,8 +17,7 @@ define(
 
             // get model statistics
             if (model) {
-                var modelHelper = new ModelHelper();
-                var libz = modelHelper.getLibraries(model);
+                var libz = ModelHelper.getLibraries(model);
                 for (var i=0; i < libz.length; i++) {
                     var compz = libz[i].components;
                     for (var j=0; j < compz.length; j++) {
