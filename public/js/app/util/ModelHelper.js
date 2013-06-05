@@ -59,56 +59,6 @@ define(
             return ret;
         }
 
-        ModelHelper.prototype.addInstance = function (model, entity) {
-            var instance = {};
-
-            switch (entity.getEntityType()) {
-                case KComponent.ENTITY_TYPE:
-                    instance = this._factory.createComponentInstance();
-                    break;
-
-                case KChannel.ENTITY_TYPE:
-                    instance = this._factory.createChannel();
-                    break;
-
-                case KGroup.ENTITY_TYPE:
-                    instance = this._factory.createGroup();
-                    break;
-
-                case KNode.ENTITY_TYPE:
-                    instance = this._factory.createContainerNode();
-                    break;
-            }
-
-            instance.setName(entity.getName());
-            instance.setTypeDefinition(model.findTypeDefinitionsByID(entity.getType()));
-
-            switch (entity.getEntityType()) {
-                case KComponent.ENTITY_TYPE:
-                    var nodeEntity = entity.getParent(),
-                        node = model.findNodesByID(nodeEntity.getName());
-                    node.addComponents(instance);
-                    break;
-
-                case KChannel.ENTITY_TYPE:
-                    model.addHubs(instance);
-                    break;
-
-                case KGroup.ENTITY_TYPE:
-                    model.addGroups(instance);
-                    break;
-
-                case KNode.ENTITY_TYPE:
-                    model.addNodes(instance);
-                    break;
-            }
-        }
-
-        ModelHelper.prototype.removeInstance = function (model, entity) {
-            console.warn("ModelHelper.removeInstance(model, entity): Not implemented yet!");
-
-        }
-
         // private method
         function addTDefToArray(tDef, array) {
             var type = "UnknownType";

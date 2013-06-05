@@ -45,9 +45,9 @@ define(
             var index = this._children.indexOf(entity);
             if (index != -1) {
                 this._children.splice(index, 1);
-                entity.setParent(null); // TODO changethat; this is ugly, cause if you add before removing, you got a null on parent
                 // update typeCounter
                 this.getEditor().removeNestableEntity(entity);
+                entity.setParent(null); // TODO changethat; this is ugly, cause if you add before removing, you got a null on parent
             }
         }
 
@@ -71,8 +71,6 @@ define(
 
         // Override KEntity.remove()
         KNode.prototype.remove = function () {
-            KEntity.prototype.remove.call(this);
-
             // tell my children to kill themselves x.x
             var children = this._children.slice(0);
             for (var i = 0; i < children.length; i++) {
@@ -85,6 +83,9 @@ define(
             if (this._parent) {
                 this._parent.removeChild(this);
             }
+
+            
+            KEntity.prototype.remove.call(this);
         }
 
         /**
@@ -102,6 +103,36 @@ define(
                 if (depth > maxDepth) maxDepth = depth;
             }
             return maxDepth;
+        }
+
+        KNode.prototype.addInstanceToModel = function (factory) {
+            var model = this._editor.getModel(),
+                instance = factory.createContainerNode();
+
+            instance.setName(this._name);
+            instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
+
+            model.addNodes(instance);
+
+            if (this._parent) {
+                console.log(this._name+" thinks he haz a parent");
+                var node = model.findNodesByID(this._parent.getName());
+                node.addHosts(instance);
+            }
+
+            if (this._children.length > 0) {
+                console.log(this._name+" thinks he haz children");
+                for (var i=0; i< this._children.length; i++) {
+                    console.log(this._name+" haz "+this._children[i].getName()+" as a child");
+                    this._children[i].addInstanceToModel(factory);
+                }
+            }
+        }
+
+        KNode.prototype.removeInstanceFromModel = function () {
+            var model = this._editor.getModel(),
+                node = model.findNodesByID(this._name);
+            model.removeNodes(node);
         }
 
         return KNode;

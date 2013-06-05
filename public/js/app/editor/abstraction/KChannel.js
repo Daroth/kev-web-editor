@@ -21,6 +21,27 @@ define(
             return KChannel.ENTITY_TYPE;
         }
 
+        KChannel.prototype.addInstanceToModel = function (factory) {
+            var model = this._editor.getModel(),
+                instance = factory.createChannel();
+
+            instance.setName(this._name);
+            instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
+
+            if (this._parent) {
+                var node = model.findNodesByID(this._parent.getName());
+                node.addHosts(instance);
+            } else {
+                model.addNodes(instance);
+            }
+        }
+
+        KChannel.prototype.removeInstanceFromModel = function () {
+            var model = this._editor.getModel(),
+                hub = model.findHubsByID(this._name);
+            model.removeHubs(hub);
+        }
+
         return KChannel;
     }
 );

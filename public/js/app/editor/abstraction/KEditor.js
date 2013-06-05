@@ -1,14 +1,16 @@
 define(
     [
-        'util/ModelHelper'
+        'util/ModelHelper',
+        'kevoree'
     ],
 
-    function(ModelHelper) {
+    function(ModelHelper, Kevoree) {
 
         function KEditor() {
             this._entities = new Array();
             this._typeCounter = new Array();
             this._model = null;
+            this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
         }
 
         KEditor.prototype.addEntity = function(entity) {
@@ -19,9 +21,7 @@ define(
             this._typeCounter[entity.getType()]++;
 
             // update model
-            if (this._model) {
-                ModelHelper.addInstance(this._model, entity);
-            }
+            if (this._model) entity.addInstanceToModel(this._factory);
         }
 
         KEditor.prototype.removeEntity = function(entity) {
@@ -33,9 +33,7 @@ define(
                 this._typeCounter[entity.getType()]--;
 
                 // update model
-                if (this._model) {
-                    ModelHelper.removeInstance(this._model, entity);
-                }
+                if (this._model) entity.removeInstanceFromModel();
             }
         }
 
@@ -45,9 +43,7 @@ define(
             this._typeCounter[entity.getType()]++;
 
             // update model
-            if (this._model) {
-                ModelHelper.addInstance(this._model, entity);
-            }
+            if (this._model) entity.addInstanceToModel(this._factory);
         }
 
         KEditor.prototype.removeNestableEntity = function (entity) {
@@ -55,9 +51,7 @@ define(
             this._typeCounter[entity.getType()]--;
 
             // update model
-            if (this._model) {
-                ModelHelper.removeInstance(this._model, entity);
-            }
+            if (this._model) entity.removeInstanceFromModel();
         }
 
         KEditor.prototype.clear = function () {

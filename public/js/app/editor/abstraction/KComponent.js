@@ -87,6 +87,24 @@ define(
             return this._outputs;
         }
 
+        KComponent.prototype.addInstanceToModel = function (factory) {
+            var model = this._editor.getModel(),
+                instance = factory.createComponentInstance();
+
+            instance.setName(this._name);
+            instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
+
+            var node = model.findNodesByID(this._parent.getName());
+            node.addComponents(instance);
+        }
+
+        KComponent.prototype.removeInstanceFromModel = function () {
+            var model = this._editor.getModel(),
+                node = model.findNodesByID(this._parent.getName()),
+                comp = node.findComponentsByID(this._name);
+            node.removeComponents(comp);
+        }
+
         return KComponent;
     }
 );
