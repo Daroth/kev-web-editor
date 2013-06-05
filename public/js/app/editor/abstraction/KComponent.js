@@ -94,8 +94,6 @@ define(
             instance.setName(this._name);
             instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
 
-            console.log(this._name+" has "+this._parent.getName()+" as a parent");
-
             var node = model.findNodesByID(this._parent.getName());
             node.addComponents(instance);
         }

@@ -145,7 +145,6 @@ define(
 
         // Override KNode.addChild(KNode || KComponent)
         CNode.prototype.addChild = function (entity) {
-            console.log(this._name+" addChild() de "+entity._name);
             var success = KNode.prototype.addChild.call(this, entity);
             if (success) {
                 // success

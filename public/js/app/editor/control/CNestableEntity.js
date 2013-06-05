@@ -29,16 +29,11 @@ define(
             if (this.getEditor().getDraggedEntity()) {
                 this.getEditor().consumeDraggedEntity();
                 if (!this.getParent()) {
-                    console.log("drag end : et j'ai pas de parent");
                     if (this.getEditor().hasEntity(this)) {
-                        console.log("et l'editeur m'a deja dans sa liste d'entitée");
                         this.getEditor().removeEntity(this);
                     }
                     this._ui.getShape().remove();
                     this.getEditor().addEntity(this);
-                    console.log("et on vient de m'ajouter à l'editeur");
-                } else {
-                    console.log("dragend: et j'ai un parent");
                 }
             }
             this._isDragged = false;

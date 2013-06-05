@@ -77,10 +77,6 @@ define(
             return false;
         }
 
-        KEditor.prototype.getEntities = function () {
-            return this._entities;
-        }
-
         KEditor.prototype.setModel = function (model) {
             this._model = model;
         }

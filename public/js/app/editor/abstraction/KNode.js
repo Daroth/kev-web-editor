@@ -112,35 +112,23 @@ define(
             instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
 
             model.addNodes(instance);
-            console.log(this._name+" added to model");
 
             if (this._parent) {
-                console.log(this._name+" thinks he haz a parent");
                 var node = model.findNodesByID(this._parent.getName());
                 node.addHosts(instance);
-            } else {
-                console.log(this._name+" thinks he haz no parent");
             }
 
             if (this._children.length > 0) {
-                console.log(this._name+" thinks he haz children");
                 for (var i=0; i< this._children.length; i++) {
-                    console.log(this._name+" haz "+this._children[i].getName()+" as a child");
                     this._children[i].addInstanceToModel(factory);
                 }
-            } else {
-                console.log(this._name+" thinks he haz 0 children");
             }
         }
 
         KNode.prototype.removeInstanceFromModel = function () {
             var model = this._editor.getModel(),
                 node = model.findNodesByID(this._name);
-            if (node) {
-                model.removeNodes(node);
-                console.log(this._name+" removed from model");
-            }
-
+            if (node) model.removeNodes(node);
         }
 
         return KNode;
