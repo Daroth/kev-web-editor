@@ -62,12 +62,14 @@ define(
         }
 
         UIEntity.prototype.c2pRemoveEntity = function () {
-            // retrieve this shape's layer
-            var layer = this._shape.getLayer();
-            // remove shape from layer
-            this._shape.remove();
-            // redraw the layer
-            layer.draw();
+            if (this._shape.getLayer() !== undefined || this._shape.getLayer() !== null) {
+                // retrieve this shape's layer
+                var layer = this._shape.getLayer();
+                // remove shape from layer
+                this._shape.remove();
+                // redraw the layer
+                layer.draw();
+            }
         }
 
         UIEntity.prototype.setDOMItem = function (item) {

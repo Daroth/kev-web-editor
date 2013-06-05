@@ -136,8 +136,11 @@ define(
         KNode.prototype.removeInstanceFromModel = function () {
             var model = this._editor.getModel(),
                 node = model.findNodesByID(this._name);
-            model.removeNodes(node);
-            console.log(this._name+" removed from model");
+            if (node) {
+                model.removeNodes(node);
+                console.log(this._name+" removed from model");
+            }
+
         }
 
         return KNode;
