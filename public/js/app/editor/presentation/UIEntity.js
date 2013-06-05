@@ -170,7 +170,7 @@ define(
                     html += '<div class="span4">'+attr.getName()+'</div>';
                     if (attr.value) {
                         html += '\n';
-                        html += generatePropertyValueField(attr.value);
+                        html += generatePropertyValueField(attr.getDatatype(), attr.value);
                     }
                     html += '</div>';
                 }
@@ -180,18 +180,31 @@ define(
         }
 
         // private method
-        function generatePropertyValueField(value) {
-            switch (value) {
-                case 'true':
-                case 'false':
-                    var html = '<select class="span8">';
-                    html += '<option value="true" '+((value == 'true') ? 'selected' : '')+'>true</option>'
-                    html += '<option value="false" '+((value == 'false') ? 'selected' : '')+'>false</option>'
-                    html += '</select>';
-                    return html;
+        function generatePropertyValueField(datatype, defaultVal) {
+            var ENUM = 'enum=';
+            if (datatype.substr(0, ENUM.length) == ENUM) {
+                var str = datatype.substr(ENUM.length, datatype.length);
+                var values = str.split(',');
+                var html = '<select class="span8">';
+                for (var i=0; i < values.length; i++) {
+                    html += '<option value="'+values[i]+'">'+values[i]+'</option>';
+                }
+                html += '</select>';
+                return html;
 
-                default:
-                    return '<input type="text" class="span8" value="'+value+'"/>';
+            } else {
+                switch (defaultVal) {
+                    case 'true':
+                    case 'false':
+                        var html = '<select class="span8">';
+                        html += '<option value="true" '+((defaultVal == 'true') ? 'selected' : '')+'>true</option>'
+                        html += '<option value="false" '+((defaultVal == 'false') ? 'selected' : '')+'>false</option>'
+                        html += '</select>';
+                        return html;
+
+                    default:
+                        return '<input type="text" class="span8" value="'+defaultVal+'"/>';
+                }
             }
         }
 
