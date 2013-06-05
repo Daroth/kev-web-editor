@@ -47,6 +47,7 @@ app.get('/merge/:env', routes.merge);
 app.post('/save', routes.save);
 app.get('/saved/:model', routes.saved);
 app.get('/runtime', routes.runtime);
+app.get('/bench', routes.bench);
 
 app.use(function(req, res) {
     // if you end-up here, it means that I do not know the given url
