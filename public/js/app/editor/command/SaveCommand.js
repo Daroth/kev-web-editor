@@ -5,10 +5,18 @@ define(
         'util/AlertPopupHelper'
     ],
     function ($, Kevoree, AlertPopupHelper) {
+        var NAMESPACE = '.save-popup';
+
         function SaveCommand () {}
 
         SaveCommand.prototype.execute = function (editor) {
-            console.log("SaveCommand.execute(editor)");
+            // prevent listeners from being registered several times
+            $('body').off(NAMESPACE)
+            $('body').on('hidden'+NAMESPACE, '#save-popup', function () {
+                // resets popup fields on hide
+                $('#saved-model-link').hide();
+            });
+
             if (editor.getModel()) {
                 console.log("SaveCommand.execute(editor): editor.getModel() != null");
                 $('#save-popup').modal({show: true});

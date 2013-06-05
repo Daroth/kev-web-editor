@@ -20,9 +20,6 @@ define(
                     // TODO allow merge, this is not a merge, it replaces the old model if there is one
                     var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
                     var model = loader.loadModelFromString(JSON.stringify(data)).get(0);
-//                    var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
-//                    var os = new Kevoree.java.io.OutputStream();
-//                    serializer.serialize(root, os);
                     editor.setModel(model);
 
                     // update headsup for user

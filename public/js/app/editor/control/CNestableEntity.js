@@ -39,6 +39,20 @@ define(
             this._isDragged = false;
         }
 
+//        CNestableEntity.prototype.p2cDragEnd = function () {
+//            if (this.getEditor().getDraggedEntity()) {
+//                this.getEditor().consumeDraggedEntity();
+//                if (!this.getParent()) {
+//                    if (this.getEditor().hasEntity(this)) this.getEditor().removeEntity(this);
+//                    this._ui.getShape().remove();
+//                    this.getEditor().addEntity(this);
+//                }
+//            } else {
+//                this.getEditor().removeEntity(this);
+//            }
+//            this._isDragged = false;
+//        }
+
         return CNestableEntity;
     }
 );

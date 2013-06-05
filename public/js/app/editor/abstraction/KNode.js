@@ -123,6 +123,12 @@ define(
                     this._children[i].addInstanceToModel(factory);
                 }
             }
+
+            if (this._wires.length > 0) {
+                for (var i=0; i < this._wires.length; i++) {
+                    this._wires[i].getOrigin().addBindingInstanceToModel(this);
+                }
+            }
         }
 
         KNode.prototype.removeInstanceFromModel = function () {

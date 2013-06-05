@@ -25,16 +25,12 @@ define(
                 var fReader = new FileReader();
                 fReader.onload = function (event) {
                     // retrieve data from selected file
-                    var model = JSON.parse(event.target.result);
+                    var jsonModel = JSON.parse(event.target.result),
+                        strModel = JSON.stringify(jsonModel);
+                    console.log(strModel);
                     try {
                         var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
-                        var root = loader.loadModelFromString(model);
-                        console.log(root);
-                        var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
-                        var os = new Kevoree.java.io.OutputStream();
-                        serializer.serialize(root, os);
-                        console.log(os);
-
+                        var model = loader.loadModelFromString(strModel).get(0);
                         editor.setModel(model);
 
                         AlertPopupHelper.setText("Model \""+file.name+"\" loaded successfully");

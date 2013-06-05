@@ -16,9 +16,6 @@ define(
             KEntity.prototype.constructor.call(this, editor, lib, type);
 
             this._name = "group" + (COUNT++);
-            var factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
-            this._model = factory.createGroup();
-            this._model.setName(this._name);
         }
 
         KGroup.prototype.getEntityType = function () {
@@ -31,6 +28,11 @@ define(
 
             instance.setName(this._name);
             instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
+
+            if (this._wires.length > 0) {
+                for (var i=0; i < this._wires.length; i++)
+                    this.addBindingInstanceToModel(this._wires[i].getTarget());
+            }
 
             model.addGroups(instance);
         }
@@ -45,7 +47,7 @@ define(
             var model = this._editor.getModel(),
                 node = model.findNodesByID(target.getName()),
                 grp = model.findGroupsByID(this._name);
-            grp.addSubNodes(node);
+            if (node && grp) grp.addSubNodes(node);
         }
 
         return KGroup;
