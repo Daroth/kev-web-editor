@@ -28,12 +28,7 @@ define(
             instance.setName(this._name);
             instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
 
-            if (this._parent) {
-                var node = model.findNodesByID(this._parent.getName());
-                node.addHosts(instance);
-            } else {
-                model.addNodes(instance);
-            }
+            model.addHubs(instance);
         }
 
         KChannel.prototype.removeInstanceFromModel = function () {

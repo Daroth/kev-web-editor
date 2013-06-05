@@ -15,6 +15,10 @@ define(
 
         KWire.prototype.setTarget = function(entity) {
             this._target = entity;
+
+            // when this is called, it means that wire is plug from one hand to another
+            // so we can add it to the model
+            this._origin.addBindingInstanceToModel(this._target);
         }
 
         KWire.prototype.getOrigin = function() {

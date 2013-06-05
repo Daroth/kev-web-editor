@@ -41,6 +41,13 @@ define(
             model.removeGroups(grp);
         }
 
+        KGroup.prototype.addBindingInstanceToModel = function (target) {
+            var model = this._editor.getModel(),
+                node = model.findNodesByID(target.getName()),
+                grp = model.findGroupsByID(this._name);
+            grp.addSubNodes(node);
+        }
+
         return KGroup;
     }
 );

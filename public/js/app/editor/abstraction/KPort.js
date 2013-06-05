@@ -1,5 +1,9 @@
 define(
-    function () {
+    [
+        'kevoree'
+    ],
+
+    function (Kevoree) {
 
         /**
          * This should be considered as an abstract class
@@ -10,6 +14,7 @@ define(
             this._component = null;
             this._channel = null;
             this._name = name;
+            this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
         }
 
         KPort.prototype.connect = function (/* KChannel */ channel) {
