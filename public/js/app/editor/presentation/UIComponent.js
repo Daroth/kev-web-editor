@@ -44,7 +44,7 @@ define(
             this._computedWidth = computeWidth(this._ctrl.getInputs(), this._ctrl.getOutputs(), this._rect.getWidth())
             this._computedHeight = computeHeight(this._ctrl.getInputs(), this._ctrl.getOutputs(), this._rect.getHeight());
 
-            this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
+            this.setPopup();
         }
 
         UIComponent.prototype._drawHeader = function () {
@@ -104,6 +104,7 @@ define(
             return this._rect.getHeight();
         }
 
+        // private method
         function computeHeight(inputs, outputs, currentHeight) {
             var ret = currentHeight;
 
@@ -119,6 +120,7 @@ define(
             return ret;
         }
 
+        // private method
         function computeWidth(inputs, outputs, currentWidth) {
             var ret = currentWidth;
 
@@ -126,6 +128,54 @@ define(
             if (outputs.length > 0) ret += outputs[0].getUI().getRadius();
 
             return ret;
+        }
+
+        // private method
+        function getPropertiesPopupContent(model, compTDef) {
+            var compType = model.findTypeDefinitionsByID(compTDef);
+            var dicType = compType.getDictionaryType();
+            var html = "";
+
+            if (dicType) {
+                var attrs = dicType.getAttributes(),
+                    values = dicType.getDefaultValues();
+
+                for (var i=0; i < attrs.size(); i++) {
+                    html += '<div class="row-fluid">';
+                    var attr = attrs.get(i);
+                    attr['value'] = null;
+                    for (var j=0; j < values.size(); j++) {
+                        var value = values.get(j);
+                        if (attr.getName() == value.getAttribute().getName()) {
+                            attr['value'] = value.getValue();
+                        }
+                    }
+                    html += '<div class="span4">'+attr.getName()+'</div>';
+                    if (attr.value) {
+                        html += '\n';
+                        html += generatePropertyValueField(attr.value);
+                    }
+                    html += '</div>';
+                }
+            }
+
+            return html;
+        }
+
+        // private method
+        function generatePropertyValueField(value) {
+            switch (value) {
+                case 'true':
+                case 'false':
+                    var html = '<select class="span8">';
+                    html += '<option value="true" '+((value == 'true') ? 'selected' : '')+'>true</option>'
+                    html += '<option value="false" '+((value == 'false') ? 'selected' : '')+'>false</option>'
+                    html += '</select>';
+                    return html;
+
+                default:
+                    return '<input type="text" class="span8" value="'+value+'"/>';
+            }
         }
 
         return UIComponent;

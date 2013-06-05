@@ -69,7 +69,7 @@ define(
                 that._ctrl.p2cDragMove();
             });
 
-            this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
+            this.setPopup();
         }
 
         // Override UIEntity.getPosition()

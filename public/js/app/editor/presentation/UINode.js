@@ -29,7 +29,7 @@ define(
                 e.cancelBubble = true;
             });
 
-            this.setPopup('<p>'+ctrl.getName()+" : "+ctrl.getType()+'</p>');
+            this.setPopup();
         }
 
         UINode.prototype.c2pAddChild = function (entity) {

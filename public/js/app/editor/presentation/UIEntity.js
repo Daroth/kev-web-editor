@@ -22,7 +22,7 @@ define(
             return this._shape;
         }
 
-        UIEntity.prototype.setPopup = function(content) {
+        UIEntity.prototype.setPopup = function() {
             var that = this;
             this._shape.off('dblclick dbltap');
             this._shape.on('dblclick dbltap', function(e) {
@@ -42,7 +42,7 @@ define(
 
                 $('#prop-popup-subtitle').html(that._ctrl.getEntityType());
                 $('#prop-popup-name').val(that._ctrl.getName());
-                $('#prop-popup-content').html(content);
+                $('#prop-popup-content').html(getPropertiesPopupContent(that._ctrl.getEditor().getModel(), that._ctrl.getType()));
                 $('#prop-popup').modal({ show: true });
             });
         }
@@ -144,6 +144,54 @@ define(
                 for (var i=0; i < children.length; i++) {
                     children[i].getUI().setDraggable(isDraggable, false, true);
                 }
+            }
+        }
+
+        // private method
+        function getPropertiesPopupContent(model, _tDef) {
+            var tDef = model.findTypeDefinitionsByID(_tDef);
+            var dicType = tDef.getDictionaryType();
+            var html = "";
+
+            if (dicType) {
+                var attrs = dicType.getAttributes(),
+                    values = dicType.getDefaultValues();
+
+                for (var i=0; i < attrs.size(); i++) {
+                    html += '<div class="row-fluid">';
+                    var attr = attrs.get(i);
+                    attr['value'] = null;
+                    for (var j=0; j < values.size(); j++) {
+                        var value = values.get(j);
+                        if (attr.getName() == value.getAttribute().getName()) {
+                            attr['value'] = value.getValue();
+                        }
+                    }
+                    html += '<div class="span4">'+attr.getName()+'</div>';
+                    if (attr.value) {
+                        html += '\n';
+                        html += generatePropertyValueField(attr.value);
+                    }
+                    html += '</div>';
+                }
+            }
+
+            return html;
+        }
+
+        // private method
+        function generatePropertyValueField(value) {
+            switch (value) {
+                case 'true':
+                case 'false':
+                    var html = '<select class="span8">';
+                    html += '<option value="true" '+((value == 'true') ? 'selected' : '')+'>true</option>'
+                    html += '<option value="false" '+((value == 'false') ? 'selected' : '')+'>false</option>'
+                    html += '</select>';
+                    return html;
+
+                default:
+                    return '<input type="text" class="span8" value="'+value+'"/>';
             }
         }
 
