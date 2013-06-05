@@ -84,7 +84,6 @@ define(
                 this._parent.removeChild(this);
             }
 
-            
             KEntity.prototype.remove.call(this);
         }
 
@@ -113,11 +112,14 @@ define(
             instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
 
             model.addNodes(instance);
+            console.log(this._name+" added to model");
 
             if (this._parent) {
                 console.log(this._name+" thinks he haz a parent");
                 var node = model.findNodesByID(this._parent.getName());
                 node.addHosts(instance);
+            } else {
+                console.log(this._name+" thinks he haz no parent");
             }
 
             if (this._children.length > 0) {
@@ -126,6 +128,8 @@ define(
                     console.log(this._name+" haz "+this._children[i].getName()+" as a child");
                     this._children[i].addInstanceToModel(factory);
                 }
+            } else {
+                console.log(this._name+" thinks he haz 0 children");
             }
         }
 
@@ -133,6 +137,7 @@ define(
             var model = this._editor.getModel(),
                 node = model.findNodesByID(this._name);
             model.removeNodes(node);
+            console.log(this._name+" removed from model");
         }
 
         return KNode;

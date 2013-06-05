@@ -14,11 +14,8 @@ define(
                 $('#save-popup').modal({show: true});
 //                try {
                     var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
-                    console.log("SaveCommand.execute(editor): serializer created");
                     var os = new Kevoree.java.io.OutputStream();
-                    console.log("SaveCommand.execute(editor): outputstream created");
                     serializer.serialize(editor.getModel(), os);
-                    console.log("SaveCommand.execute(editor): model serialized");
                     var jsonModel = JSON.parse(os.get_result());
                     console.log(jsonModel);
 

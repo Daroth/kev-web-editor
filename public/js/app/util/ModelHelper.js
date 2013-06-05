@@ -76,7 +76,7 @@ define(
                 type = "NodeType";
 
             } else {
-                console.log("not handled for now", tDef.getName());
+                //console.log("not handled for now", tDef.getName());
             }
 
             array.push({

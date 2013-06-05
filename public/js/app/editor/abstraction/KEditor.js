@@ -72,7 +72,7 @@ define(
 
         KEditor.prototype.hasEntity = function (entity) {
             for (var i=0; i < this._entities.length; i++) {
-                if (this._entities[i] == entity) return true;
+                if (this._entities[i].getName() == entity.getName()) return true;
             }
             return false;
         }
