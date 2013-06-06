@@ -140,6 +140,16 @@ define(
             this._libTreeDisplayed = !this._libTreeDisplayed;
         }
 
+        CEditor.prototype.p2cHideLibTree = function () {
+            this._ui.c2pHideLibTree();
+            this._libTreeDisplayed = !this._libTreeDisplayed;
+        }
+
+        CEditor.prototype.p2cShowLibTree = function () {
+            this._ui.c2pShowLibTree();
+            this._libTreeDisplayed = !this._libTreeDisplayed;
+        }
+
         CEditor.prototype.p2cFoldAllLibTree = function () {
             if (this.getModel()) {
                 if (this._foldedLibTree) {

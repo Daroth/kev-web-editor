@@ -99,9 +99,9 @@ define(
             menu: function (value) {
                 var hide = (value == 'hide' || value == '0');
                 if (hide) {
-                    editor.getUI().c2pHideLibTree();
+                    editor.p2cHideLibTree();
                 } else {
-                    editor.getUI().c2pShowLibTree();
+                    editor.p2cShowLibTree();
                 }
             }
         });

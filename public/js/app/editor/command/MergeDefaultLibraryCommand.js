@@ -25,6 +25,10 @@ define(
                     // update headsup for user
                     AlertPopupHelper.setText("Core library ("+lib+") loaded successfully");
                     AlertPopupHelper.show(5000);
+
+                    // update url
+                    window.history.replaceState(null, "Core library "+lib+" loaded", "/?corelib="+lib);
+
                 } catch (err) {
                     // update headsup for user
                     AlertPopupHelper.setText("Unable to load library ("+lib+")");
