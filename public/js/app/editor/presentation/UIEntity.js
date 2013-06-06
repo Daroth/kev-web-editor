@@ -168,10 +168,8 @@ define(
                         }
                     }
                     html += '<div class="span4">'+attr.getName()+'</div>';
-                    if (attr.value) {
-                        html += '\n';
-                        html += generatePropertyValueField(attr.getDatatype(), attr.value);
-                    }
+                    html += '\n';
+                    html += generatePropertyValueField(attr.getDatatype(), attr.value);
                     html += '</div>';
                 }
             }
@@ -181,8 +179,9 @@ define(
 
         // private method
         function generatePropertyValueField(datatype, defaultVal) {
-            var ENUM = 'enum=';
-            if (datatype.substr(0, ENUM.length) == ENUM) {
+            var ENUM    = 'enum=',
+                RAW     = 'raw=';
+            if (datatype.substr(0, ENUM.length) == ENUM) { // datatype starts with enum=
                 var str = datatype.substr(ENUM.length, datatype.length);
                 var values = str.split(',');
                 var html = '<select class="span8">';
@@ -191,6 +190,17 @@ define(
                 }
                 html += '</select>';
                 return html;
+
+            } else if (datatype.substr(0, RAW.length) == RAW) { // datatype starts with raw=
+                var value = datatype.substr(RAW.length, datatype.length);
+                switch (value) {
+                    case 'java.lang.Long':
+                    case 'java.lang.Integer':
+                        return '<input type="number" class="span8" value="'+defaultVal+'"/>';
+
+                    default:
+                        break;
+                }
 
             } else {
                 switch (defaultVal) {
@@ -203,9 +213,11 @@ define(
                         return html;
 
                     default:
-                        return '<input type="text" class="span8" value="'+defaultVal+'"/>';
+                        break;
                 }
             }
+
+            return '<input type="text" class="span8" value="'+defaultVal+'"/>';
         }
 
         return UIEntity;
