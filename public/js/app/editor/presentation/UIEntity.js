@@ -177,32 +177,55 @@ define(
                             attr['value'] = value.getValue();
                         }
                     }
-                    builder.append('<div class="span4">'+attr.getName()+'</div>');
-                    builder.append('\n');
-                    builder.append(generatePropertyValueField(attr.getDatatype(), attr.value));
-                    builder.append('</div>');
+                    builder.append('<div class="span4">'+attr.getName()+'</div>')
+                        .append('\n')
+                        .append(generatePropertyValueField(attr.getDatatype(), attr.value))
+                        .append('</div>');
                 }
             }
 
             if (Kotlin.isType(tDef, Kevoree.org.kevoree.impl.NodeTypeImpl)) {
-                builder.append('<div class="row-fluid">');
-                builder.append('<div class="span4">Reachable from</div>');
-                builder.append('<select id="node-network-init-by" class="span8" multiple="multiple">');
-                builder.append(generateOptions());
-                builder.append('</select>');
+                // if this entity is a node, add some special properties
+                builder.append('<div class="row-fluid">')
+                    .append('<div class="span4">Reachable from</div>')
+                    .append('<select id="node-network-init-by" multiple="multiple">')
+                    .append(generateOptions())
+                    .append('</select>')
+                    .append('</div>');
+
 
                 function generateOptions() {
                     var nodes = model.getNodes();
                     var opts = new StringBuilder();
                     for (var i=0; i < nodes.size(); i++) {
                         if (nodes.get(i).getName() != ui._ctrl.getName()) {
-                            opts.append('<option value="'+nodes.get(i).getName()+'">'+nodes.get(i).getName()+'</option>');
+                            opts.append('<option value="')
+                                .append(nodes.get(i).getName())
+                                .append('">')
+                                .append(nodes.get(i).getName())
+                                .append('</option>');
                         }
                     }
                     return opts.toString();
                 }
 
                 builder.append('</div>');
+
+                builder.append('<div class="row-fluid" style="margin-top: 10px;">')
+                    .append('<div class="span4">Network address</div>')
+                    .append('<input type="text" class="span8" placeholder="Network address" />')
+                    .append('</div>');
+
+                builder.append('<div class="row-fluid">')
+                    .append('<button type="button" class="btn btn-inverse span4 offset1">Push</button>')
+                    .append('<button type="button" class="btn btn-inverse span4 offset2">Pull</button>')
+                    .append('</div>');
+
+                builder.append('<div class="row-fluid" style="margin-top: 10px;">')
+                    .append('<div class="progress progress-info progress-striped active">')
+                    .append('<div class="bar" style="width: 0%"></div>')
+                    .append('</div>')
+                    .append('</div>');
             }
 
             return builder.toString();
