@@ -233,7 +233,7 @@ define(
                 switch (value) {
                     case 'java.lang.Long':
                     case 'java.lang.Integer':
-                        return new StringBuilder('<input type="number" class="span8" value="').append(defaultVal).append('"/>');
+                        return ['<input type="number" class="span8" value="', defaultVal, '"/>'].join('');
 
                     default:
                         break;
@@ -257,7 +257,7 @@ define(
                 }
             }
 
-            return new StringBuilder().append('<input type="text" class="span8" value="').append(defaultVal).append('"/>').toString();
+            return ['<input type="text" class="span8" value="', defaultVal, '"/>'].join('');
         }
 
         return UIEntity;

@@ -6,9 +6,7 @@ define(
         }
 
         StringBuilder.prototype.append = function (str) {
-            if (str) {
-                this.strings.push(str);
-            }
+            if (str) this.strings.push(str);
             return this;
         }
 
