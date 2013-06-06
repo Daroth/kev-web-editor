@@ -4,9 +4,15 @@
  * This should be considered as an Abstract Class
  */
 define(
-    ["jquery"],
+    [
+        "jquery",
+        "util/StringBuilder",
+        "kotlin/kotlin-lib-ecma3",
+        "kevoree",
+        "bootstrap/multiselect"
+    ],
 
-    function($) {
+    function($, StringBuilder, Kotlin, Kevoree) {
         /**
          * You shouldn't use this object directly, it should be considered
          * as an abstract object that facilitate the work in sub-classes
@@ -42,7 +48,11 @@ define(
 
                 $('#prop-popup-subtitle').html(that._ctrl.getEntityType());
                 $('#prop-popup-name').val(that._ctrl.getName());
-                $('#prop-popup-content').html(getPropertiesPopupContent(that._ctrl.getEditor().getModel(), that._ctrl.getType()));
+                $('#prop-popup-content').html(getPropertiesPopupContent(that._ctrl.getEditor().getModel(), that._ctrl.getType(), that));
+                $('#node-network-init-by').multiselect({
+                    includeSelectAllOption: true,
+                    maxHeight: 200
+                });
                 $('#prop-popup').modal({ show: true });
             });
         }
@@ -148,17 +158,17 @@ define(
         }
 
         // private method
-        function getPropertiesPopupContent(model, _tDef) {
-            var tDef = model.findTypeDefinitionsByID(_tDef);
-            var dicType = tDef.getDictionaryType();
-            var html = "";
+        function getPropertiesPopupContent(model, _tDef, ui) {
+            var tDef = model.findTypeDefinitionsByID(_tDef),
+                dicType = tDef.getDictionaryType(),
+                builder = new StringBuilder();
 
             if (dicType) {
                 var attrs = dicType.getAttributes(),
                     values = dicType.getDefaultValues();
 
                 for (var i=0; i < attrs.size(); i++) {
-                    html += '<div class="row-fluid">';
+                    builder.append('<div class="row-fluid">');
                     var attr = attrs.get(i);
                     attr['value'] = null;
                     for (var j=0; j < values.size(); j++) {
@@ -167,14 +177,35 @@ define(
                             attr['value'] = value.getValue();
                         }
                     }
-                    html += '<div class="span4">'+attr.getName()+'</div>';
-                    html += '\n';
-                    html += generatePropertyValueField(attr.getDatatype(), attr.value);
-                    html += '</div>';
+                    builder.append('<div class="span4">'+attr.getName()+'</div>');
+                    builder.append('\n');
+                    builder.append(generatePropertyValueField(attr.getDatatype(), attr.value));
+                    builder.append('</div>');
                 }
             }
 
-            return html;
+            if (Kotlin.isType(tDef, Kevoree.org.kevoree.impl.NodeTypeImpl)) {
+                builder.append('<div class="row-fluid">');
+                builder.append('<div class="span4">Reachable from</div>');
+                builder.append('<select id="node-network-init-by" class="span8" multiple="multiple">');
+                builder.append(generateOptions());
+                builder.append('</select>');
+
+                function generateOptions() {
+                    var nodes = model.getNodes();
+                    var opts = new StringBuilder();
+                    for (var i=0; i < nodes.size(); i++) {
+                        if (nodes.get(i).getName() != ui._ctrl.getName()) {
+                            opts.append('<option value="'+nodes.get(i).getName()+'">'+nodes.get(i).getName()+'</option>');
+                        }
+                    }
+                    return opts.toString();
+                }
+
+                builder.append('</div>');
+            }
+
+            return builder.toString();
         }
 
         // private method
@@ -184,19 +215,25 @@ define(
             if (datatype.substr(0, ENUM.length) == ENUM) { // datatype starts with enum=
                 var str = datatype.substr(ENUM.length, datatype.length);
                 var values = str.split(',');
-                var html = '<select class="span8">';
+                var builder = new StringBuilder('<select class="span8">');
                 for (var i=0; i < values.length; i++) {
-                    html += '<option value="'+values[i]+'">'+values[i]+'</option>';
+                    builder.append('<option value="')
+                        .append(values[i])
+                        .append('" ')
+                        .append(((defaultVal == values[i]) ? 'selected' : ''))
+                        .append('>')
+                        .append(values[i])
+                        .append('</option>');
                 }
-                html += '</select>';
-                return html;
+                builder.append('</select>');
+                return builder.toString();
 
             } else if (datatype.substr(0, RAW.length) == RAW) { // datatype starts with raw=
                 var value = datatype.substr(RAW.length, datatype.length);
                 switch (value) {
                     case 'java.lang.Long':
                     case 'java.lang.Integer':
-                        return '<input type="number" class="span8" value="'+defaultVal+'"/>';
+                        return new StringBuilder('<input type="number" class="span8" value="').append(defaultVal).append('"/>');
 
                     default:
                         break;
@@ -206,18 +243,21 @@ define(
                 switch (defaultVal) {
                     case 'true':
                     case 'false':
-                        var html = '<select class="span8">';
-                        html += '<option value="true" '+((defaultVal == 'true') ? 'selected' : '')+'>true</option>'
-                        html += '<option value="false" '+((defaultVal == 'false') ? 'selected' : '')+'>false</option>'
-                        html += '</select>';
-                        return html;
+                        var builder = new StringBuilder('<select class="span8">');
+                        builder.append('<option value="true" ');
+                        if (defaultVal == 'true') builder.append('selected');
+                        builder.append('>true</option>');
+                        builder.append('<option value="false" ');
+                        if (defaultVal == 'false') builder.append('selected');
+                        builder.append('>false</option>');
+                        return builder.toString();
 
                     default:
                         break;
                 }
             }
 
-            return '<input type="text" class="span8" value="'+defaultVal+'"/>';
+            return new StringBuilder().append('<input type="text" class="span8" value="').append(defaultVal).append('"/>').toString();
         }
 
         return UIEntity;
