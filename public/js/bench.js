@@ -7,7 +7,7 @@ requirejs.config({
     //never includes a ".js" extension since
     //the paths config could be for a directory.
     paths: {
-        app:        '../app'
+        app:    '../app'
     }
 });
 
@@ -18,16 +18,62 @@ define(
     ],
 
     function (Kevoree, $) {
-        $.getJSON('/merge/all', function (data) {
-            var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
-            var count = 20;
 
-            var start = Date.now();
-            for (var i=0; i < count; i++) {
-                loader.loadModelFromString(JSON.stringify(data)).get(0);
+        var model = null;
+
+        $('#start-bench').on('click', function () {
+            if (!model) {
+                $.getJSON('/merge/all', function (data) {
+                    model = JSON.stringify(data);
+                    doBench();
+                });
+
+            } else {
+                doBench();
             }
-            var stop = Date.now();
-            $('#results').html("Took me "+(stop-start)+"ms to loadModelFromString() "+count+" times !");
         });
+
+        function doBench() {
+            var loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
+                serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer(),
+                os = new Kevoree.java.io.OutputStream(),
+                action = $('#action-type option:selected').val(),
+                count = 20; // default
+
+            var rawCount = $('#loop-count').val();
+            if (isNumber(rawCount)) {
+                count = rawCount;
+            } else {
+                $('#loop-count').val(count);
+            }
+
+            switch (action) {
+                case 'load':
+                    console.log('Starting load bench');
+                    var start = Date.now();
+                    for (var i=0; i < count; i++) {
+                        loader.loadModelFromString(model).get(0);
+                    }
+                    var stop = Date.now();
+                    break;
+
+                case 'save':
+                    console.log('Starting save bench');
+                    var root = loader.loadModelFromString(model).get(0);
+
+                    var start = Date.now();
+                    for (var i=0; i < count; i++) {
+                        serializer.serialize(root, os);
+                    }
+                    var stop = Date.now();
+                    break;
+            }
+
+            $('#results').append('<div class="row-fluid">Took me '+(stop-start)+'ms to <b>'+action+'</b> '+count+' times !</li>');
+        }
+
+        function isNumber(n) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
+        }
     }
 );

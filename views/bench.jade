@@ -8,6 +8,7 @@ html.fill
       link(rel='stylesheet', href='/css/bootstrap.css')
       link(rel='stylesheet', href='/css/bootstrap-responsive.css')
       link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css')
+      link(rel='stylesheet', href='/css/bench.css')
 
       //- HTML5 shim, for IE6-8 support of HTML5 elements
       //if lt IE 9
@@ -15,7 +16,22 @@ html.fill
 
       title= title
 
-    body.container-fluid
-      p#results
+    body
+      div#header.navbar.navbar-inverse.navbar-fixed-top
+        div.navbar-inner
+          div.container-fluid
+            a.brand(href='#')
+              img(src='/img/kevoree-logo-small.png')
+              | Bench
+
+      div#container.container-fluid
+        div.row-fluid
+          div.input-append
+            select#action-type
+              option(value='load') Load
+              option(value='save') Save
+            input#loop-count(type='text', value='20', placeholder='Loop counter')
+            button#start-bench.btn.btn-success(type='button') Start
+        div#results
 
       script(data-main='/js/bench.js', src='/js/require.js')
