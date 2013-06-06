@@ -143,6 +143,16 @@ define(
             }
         }
 
+        CNode.prototype.p2cPushModel = function () {
+            this._ui.c2pPushModelStarted();
+            setTimeout(this._ui.c2pPushModelEndedWell, 3000);
+        }
+
+        CNode.prototype.p2cPullModel = function () {
+            this._ui.c2pPullModelStarted();
+            setTimeout(this._ui.c2pPullModelEndedWell, 3000);
+        }
+
         // Override KNode.addChild(KNode || KComponent)
         CNode.prototype.addChild = function (entity) {
             var success = KNode.prototype.addChild.call(this, entity);

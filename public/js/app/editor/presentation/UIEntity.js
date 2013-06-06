@@ -9,10 +9,13 @@ define(
         "util/StringBuilder",
         "kotlin/kotlin-lib-ecma3",
         "kevoree",
+        "abstraction/KNode",
         "bootstrap/multiselect"
     ],
 
-    function($, StringBuilder, Kotlin, Kevoree) {
+    function($, StringBuilder, Kotlin, Kevoree, KNode) {
+        var NAMESPACE = "ui-entity";
+
         /**
          * You shouldn't use this object directly, it should be considered
          * as an abstract object that facilitate the work in sub-classes
@@ -49,10 +52,22 @@ define(
                 $('#prop-popup-subtitle').html(that._ctrl.getEntityType());
                 $('#prop-popup-name').val(that._ctrl.getName());
                 $('#prop-popup-content').html(getPropertiesPopupContent(that._ctrl.getEditor().getModel(), that._ctrl.getType(), that));
-                $('#node-network-init-by').multiselect({
-                    includeSelectAllOption: true,
-                    maxHeight: 200
-                });
+                if (that._ctrl.getEntityType() == KNode.ENTITY_TYPE) {
+                    $('#node-network-init-by').multiselect({
+                        includeSelectAllOption: true,
+                        maxHeight: 200
+                    });
+
+                    $('#node-push-action').off(NAMESPACE);
+                    $('#node-push-action').on('click', function () {
+                        that._ctrl.p2cPushModel();
+                    });
+
+                    $('#node-pull-action').off(NAMESPACE);
+                    $('#node-pull-action').on('click', function () {
+                        that._ctrl.p2cPullModel();
+                    });
+                }
                 $('#prop-popup').modal({ show: true });
             });
         }
@@ -185,15 +200,6 @@ define(
             }
 
             if (Kotlin.isType(tDef, Kevoree.org.kevoree.impl.NodeTypeImpl)) {
-                // if this entity is a node, add some special properties
-                builder.append('<div class="row-fluid">')
-                    .append('<div class="span4">Reachable from</div>')
-                    .append('<select id="node-network-init-by" multiple="multiple">')
-                    .append(generateOptions())
-                    .append('</select>')
-                    .append('</div>');
-
-
                 function generateOptions() {
                     var nodes = model.getNodes();
                     var opts = new StringBuilder();
@@ -209,6 +215,29 @@ define(
                     return opts.toString();
                 }
 
+                function getThisNodeGroups() {
+                    var grps = model.getGroups();
+                    var ret = [];
+                    for (var i=0; i < grps.size(); i++) {
+                        var nodes = grps.get(i).getSubNodes();
+                        for (var j=0; j < nodes.size(); j++) {
+                            if (nodes.get(j).getName() == ui._ctrl.getName()) {
+                                ret.push(grps.get(i));
+                            }
+                        }
+                    }
+
+                    return ret;
+                }
+
+                // if this entity is a node, add some special properties
+                builder.append('<div class="row-fluid">')
+                    .append('<div class="span4">Reachable from</div>')
+                    .append('<select id="node-network-init-by" multiple="multiple">')
+                    .append(generateOptions())
+                    .append('</select>')
+                    .append('</div>');
+
                 builder.append('</div>');
 
                 builder.append('<div class="row-fluid" style="margin-top: 10px;">')
@@ -217,14 +246,21 @@ define(
                     .append('</div>');
 
                 builder.append('<div class="row-fluid">')
-                    .append('<button type="button" class="btn btn-inverse span4 offset1">Push</button>')
-                    .append('<button type="button" class="btn btn-inverse span4 offset2">Pull</button>')
+                    .append('<button id="node-push-action" type="button" class="btn btn-inverse span4">Push</button>')
+                    .append('<div class="span4">')
+                    .append('<select class="row-fluid">');
+
+                var grps = getThisNodeGroups();
+                for (var i=0; i < grps.length; i++) {
+                    builder.append('<option value="'+grps[i].getName()+'">'+grps[i].getName()+'</option>');
+                }
+                builder.append('</select>')
+                    .append('</div>')
+                    .append('<button id="node-pull-action" type="button" class="btn btn-inverse span4">Pull</button>')
                     .append('</div>');
 
-                builder.append('<div class="row-fluid" style="margin-top: 10px;">')
-                    .append('<div class="progress progress-info progress-striped active">')
-                    .append('<div class="bar" style="width: 0%"></div>')
-                    .append('</div>')
+                builder.append('<div id="node-progress-bar" class="progress progress-info progress-striped active row-fluid hide" style="margin-top: 10px;">')
+                    .append('<div class="bar" style="width: 100%"></div>')
                     .append('</div>');
             }
 

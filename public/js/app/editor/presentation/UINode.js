@@ -186,6 +186,28 @@ define(
             }
         }
 
+        UINode.prototype.c2pPushModelStarted = function () {
+            $('#node-progress-bar').addClass('progress-info progress-striped');
+            $('#node-progress-bar').removeClass('bar-success bar-danger');
+            $('#node-progress-bar').show();
+        }
+
+        UINode.prototype.c2pPushModelEndedWell = function () {
+            $('#node-progress-bar').removeClass('progress-info progress-striped');
+            $('#node-progress-bar .bar').addClass('bar-success');
+        }
+
+        UINode.prototype.c2pPullModelStarted = function () {
+            $('#node-progress-bar').addClass('progress-info progress-striped');
+            $('#node-progress-bar').removeClass('bar-success bar-danger');
+            $('#node-progress-bar').show();
+        }
+
+        UINode.prototype.c2pPullModelEndedWell = function () {
+            $('#node-progress-bar').removeClass('progress-info progress-striped');
+            $('#node-progress-bar .bar').addClass('bar-success');
+        }
+
         return UINode;
     }
 );
