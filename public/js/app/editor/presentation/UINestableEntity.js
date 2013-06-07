@@ -202,6 +202,12 @@ define(
             this._rect.setWidth(width);
         }
 
+        UINestableEntity.prototype.c2pRemoveDraggedEntity = function () {
+            if (this._shape) {
+                this._shape.remove();
+            }
+        }
+
         UINestableEntity.prototype.setHeight = function (height) {
             this._rect.setHeight(height);
         }

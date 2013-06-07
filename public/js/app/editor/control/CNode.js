@@ -14,12 +14,12 @@ define(
         Pooffs.extends(CNode, AController);
         Pooffs.extends(CNode, CNestableEntity);
 
-        function CNode(editor, lib, type) {
-            // CNestableEntity.super(editor, lib, type)
-            CNestableEntity.prototype.constructor.call(this, editor, lib, type);
+        function CNode(editor, type) {
+            // CNestableEntity.super(editor, type)
+            CNestableEntity.prototype.constructor.call(this, editor, type);
 
-            // KNode.super(editor, lib, type)
-            KNode.prototype.constructor.call(this, editor, lib, type);
+            // KNode.super(editor, type)
+            KNode.prototype.constructor.call(this, editor, type);
 
             // instantiate UI
             this._ui = new UINode(this);
@@ -59,6 +59,10 @@ define(
                         // this entity is valid and can be added to this node
                         // I'm in charge of adding this to the model, not CEditor
                         this.getEditor().consumeDraggedEntity();
+
+                        if (this.getEditor().hasEntity(draggedEntity)) {
+                            this.getEditor().removeEntity(draggedEntity);
+                        }
                         // actually add the entity to my children
                         this.addChild(draggedEntity);
                     }

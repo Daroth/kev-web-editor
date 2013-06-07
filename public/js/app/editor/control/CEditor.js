@@ -60,29 +60,29 @@ define(
             this._draggedEntity = null;
         }
 
-        CEditor.prototype.p2cEntityDraggedOver = function (libItem, entity_type, lib, name) {
+        CEditor.prototype.p2cEntityDraggedOver = function (libItem, entity_type, name) {
             if (!this._draggedEntity) {
                 var cFactory = require('factory/CFactory').getInstance();
 
                 switch (entity_type) {
                     case KGroup.ENTITY_TYPE:
-                        this._draggedEntity = cFactory.newGroup(this, lib, name);
+                        this._draggedEntity = cFactory.newGroup(this, name);
                         break;
 
                     case KChannel.ENTITY_TYPE:
-                        this._draggedEntity = cFactory.newChannel(this, lib, name);
+                        this._draggedEntity = cFactory.newChannel(this, name);
                         break;
 
                     case KNode.ENTITY_TYPE:
-                        this._draggedEntity = cFactory.newNode(this, lib, name);
+                        this._draggedEntity = cFactory.newNode(this, name);
                         break;
 
                     case KComponent.ENTITY_TYPE:
-                        this._draggedEntity = cFactory.newComponent(this, lib, name);
+                        this._draggedEntity = cFactory.newComponent(this, name);
                         break;
 
                     default:
-                        console.error("CEditor.p2cEntityDraggedOver(libItem, entity_type, lib, name): I don't know this entity type: "+entity_type);
+                        console.error("CEditor.p2cEntityDraggedOver(libItem, entity_type, name): I don't know this entity type: "+entity_type);
                         return;
                 }
 

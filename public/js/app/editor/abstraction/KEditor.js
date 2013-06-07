@@ -7,14 +7,15 @@ define(
     function(ModelHelper, Kevoree) {
 
         function KEditor() {
-            this._entities = new Array();
-            this._typeCounter = new Array();
+            this._entities = [];
+            this._typeCounter = [];
             this._model = null;
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
         }
 
         KEditor.prototype.addEntity = function(entity) {
             this._entities.push(entity);
+            console.log("Editor.addEntity ", entity);
 
             // update typeCounter
             if (!this._typeCounter[entity.getType()]) this._typeCounter[entity.getType()] = 0;
@@ -28,6 +29,7 @@ define(
             var index = this._entities.indexOf(entity);
             if (index != -1) {
                 this._entities.splice(index, 1);
+                console.log("Editor.removedEntity ", entity);
 
                 // update typeCounter
                 this._typeCounter[entity.getType()]--;
@@ -44,6 +46,8 @@ define(
 
             // update model
             if (this._model) entity.addInstanceToModel(this._factory);
+
+            console.log("Editor.addNestableEntity ", entity);
         }
 
         KEditor.prototype.removeNestableEntity = function (entity) {
@@ -52,6 +56,8 @@ define(
 
             // update model
             if (this._model) entity.removeInstanceFromModel();
+
+            console.log("Editor.removeNestableEntity ", entity);
         }
 
         KEditor.prototype.clear = function () {
@@ -66,8 +72,8 @@ define(
                 entities[i].remove();
             }
 
-            this._entities = [];
-            this._typeCounter = [];
+            this._entities.length = 0;
+            this._typeCounter.length = 0;
         }
 
         KEditor.prototype.hasEntity = function (entity) {

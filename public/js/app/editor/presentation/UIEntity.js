@@ -87,7 +87,7 @@ define(
         }
 
         UIEntity.prototype.c2pRemoveEntity = function () {
-            if (this._shape.getLayer() !== undefined || this._shape.getLayer() !== null) {
+            if (this._shape.getLayer()) {
                 // retrieve this shape's layer
                 var layer = this._shape.getLayer();
                 // remove shape from layer

@@ -26,32 +26,22 @@ define(
         }
 
         CNestableEntity.prototype.p2cDragEnd = function () {
+            // check if no one already consume dragged entity
             if (this.getEditor().getDraggedEntity()) {
+                // consume entity (= I'll handle it from now on) + dragged entity is me (because p2cDragEnd)
                 this.getEditor().consumeDraggedEntity();
+
                 if (!this.getParent()) {
                     if (this.getEditor().hasEntity(this)) {
-                        this.getEditor().removeEntity(this);
+                    } else {
+                        this._ui.c2pRemoveDraggedEntity();
+                        this.getEditor().addEntity(this);
                     }
-                    this._ui.getShape().remove();
-                    this.getEditor().addEntity(this);
                 }
+
             }
             this._isDragged = false;
         }
-
-//        CNestableEntity.prototype.p2cDragEnd = function () {
-//            if (this.getEditor().getDraggedEntity()) {
-//                this.getEditor().consumeDraggedEntity();
-//                if (!this.getParent()) {
-//                    if (this.getEditor().hasEntity(this)) this.getEditor().removeEntity(this);
-//                    this._ui.getShape().remove();
-//                    this.getEditor().addEntity(this);
-//                }
-//            } else {
-//                this.getEditor().removeEntity(this);
-//            }
-//            this._isDragged = false;
-//        }
 
         return CNestableEntity;
     }

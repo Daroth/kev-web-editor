@@ -13,12 +13,12 @@ define(
         Pooffs.extends(CGroup, CEntity);
         Pooffs.extends(CGroup, AController);
 
-        function CGroup(editor, lib, type) {
+        function CGroup(editor, type) {
             // KGroup.super(type)
-            KGroup.prototype.constructor.call(this, editor, lib, type);
+            KGroup.prototype.constructor.call(this, editor, type);
 
             // CEntity.super(editor, type)
-            CEntity.prototype.constructor.call(this, editor, lib, type);
+            CEntity.prototype.constructor.call(this, editor, type);
 
             // instantiate UI
             this._ui = new UIGroup(this);

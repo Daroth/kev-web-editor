@@ -2,12 +2,11 @@ define(
     function(require) {
         KEntity._COUNT = 0;
 
-        function KEntity(editor, lib, type) {
+        function KEntity(editor, type) {
             this._editor = editor;
-            this._library = lib;
             this._type = type;
             this._name = type + KEntity._COUNT++;
-            this._wires = new Array();
+            this._wires = [];
         }
 
         KEntity.prototype.getName = function() {
@@ -57,6 +56,7 @@ define(
             for (var i=0; i < wires.length; i++) {
                 wires[i].disconnect();
             }
+            this._wires.length = 0;
         }
 
         KEntity.prototype.hasWires = function () {
@@ -69,10 +69,6 @@ define(
                 }
             }
             return false;
-        }
-
-        KEntity.prototype.getLibrary = function () {
-            return this._library;
         }
 
         return KEntity;

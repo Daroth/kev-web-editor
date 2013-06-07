@@ -251,9 +251,8 @@ define(
                 },
                 over: function(event, ui) {
                     var entity = ui.draggable.attr('data-entity');
-                    var lib = ui.draggable.attr('data-lib');
                     var name = ui.draggable.find('.lib-item-name').text();
-                    that._ctrl.p2cEntityDraggedOver(ui.draggable, entity, lib, name);
+                    that._ctrl.p2cEntityDraggedOver(ui.draggable, entity, name);
                 },
                 out: function (e, ui) {
                     that._ctrl.p2cEntityDraggedOut();
@@ -437,7 +436,7 @@ define(
                 for (var compIndex=0; compIndex < compz.length; compIndex++) {
                     var comp = compz[compIndex];
                     libItems +=
-                        "<li class='lib-item' data-entity='"+comp.type+"' data-lib='"+libz[i].name +"'>"+
+                        "<li class='lib-item' data-entity='"+comp.type+"'>"+
                             "<div class='lib-item-name'>"+comp.name+"</div>"+
                         "</li>";
                     // if comp.type field in displayableItems is not defined, default value is true
@@ -497,9 +496,8 @@ define(
 
         UIEditor.prototype._addEntity = function (jqyItem) {
             var entity = jqyItem.attr('data-entity');
-            var lib = jqyItem.attr('data-lib');
             var name = jqyItem.find('.lib-item-name').text();
-            this._ctrl.p2cEntityDraggedOver(jqyItem, entity, lib, name);
+            this._ctrl.p2cEntityDraggedOver(jqyItem, entity, name);
             this._ctrl.p2cEntityDropped({x: 100, y: 100});
             var badgeCount = this._ctrl.getEntityCount(name);
 

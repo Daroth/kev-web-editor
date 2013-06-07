@@ -7,7 +7,7 @@ define(
     function(KEntity, Pooffs) {
         Pooffs.extends(CEntity, KEntity);
 
-        function CEntity(editor, lib, type) {}
+        function CEntity(editor, type) {}
 
         CEntity.prototype.p2cRemoveEntity = function () {
             this.remove();

@@ -13,21 +13,19 @@ define(
         Pooffs.extends(CComponent, AController);
         Pooffs.extends(CComponent, CNestableEntity);
 
-        function CComponent(editor, lib, type) {
+        function CComponent(editor, type) {
             // super(type)
-            KComponent.prototype.constructor.call(this, editor, lib, type);
+            KComponent.prototype.constructor.call(this, editor, type);
 
             // CNestableEntity.super(editor, type)
-            CNestableEntity.prototype.constructor.call(this, editor, lib, type);
+            CNestableEntity.prototype.constructor.call(this, editor, type);
 
             // instantiate UI
             this._ui = new UIComponent(this);
-            this._parentCache = null;
         }
 
         // Override CNestableEntity.p2cDragStart()
         CComponent.prototype.p2cDragStart = function () {
-            this._parentCache = this.getParent();
             CNestableEntity.prototype.p2cDragStart.call(this);
         }
 
@@ -45,11 +43,6 @@ define(
                 // then user is trying to drop me in the wild without
                 // any parent and it's not possible
                 this.remove();
-                // so we put the component back where it was
-                if (this._parentCache) {
-                    this._parentCache.addChild(this);
-                    this._parentCache = null;
-                }
                 // forget draggedEntity
                 this.getEditor().consumeDraggedEntity();
             }
