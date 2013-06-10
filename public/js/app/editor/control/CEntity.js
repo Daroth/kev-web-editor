@@ -1,10 +1,11 @@
 define(
     [
         'abstraction/KEntity',
-        'util/Pooffs'
+        'util/Pooffs',
+        'kevoree'
     ],
 
-    function(KEntity, Pooffs) {
+    function(KEntity, Pooffs, Kevoree) {
         Pooffs.extends(CEntity, KEntity);
 
         function CEntity(editor, type) {}
@@ -33,9 +34,32 @@ define(
         }
 
         CEntity.prototype.p2cSaveProperties = function (props) {
-            // TODO
-            this.setName(props['name']);
             console.log(this.getName(), props);
+
+            this.setName(props['name']);
+
+            var model = this._editor.getModel(),
+                tDef = model.findTypeDefinitionsByID(this._type),
+                dicType = tDef.getDictionaryType(),
+                instDic = this._instance.getDictionary(),
+                factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
+
+            if (dicType) {
+                var attrs = dicType.getAttributes(),
+                    instDic = (instDic) ? instDic : factory.createDictionary();
+
+                for (var i=0; i < attrs.size(); i++) {
+                    var attr = attrs.get(i);
+                    if (props[attr.getName()]) {
+                        var dicVal = factory.createDictionaryValue();
+                        dicVal.setAttribute(attr);
+                        dicVal.setTargetNode(this._instance);
+                        dicVal.setValue(props[attr.getName()]);
+                        instDic.addValues(dicVal);
+                    }
+                }
+            }
+            this._instance.setDictionary(instDic);
 
             this._ui.c2pPropertiesUpdated();
         }

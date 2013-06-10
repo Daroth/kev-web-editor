@@ -23,18 +23,18 @@ define(
         }
 
         KGroup.prototype.addInstanceToModel = function (factory) {
-            var model = this._editor.getModel(),
-                instance = factory.createGroup();
+            var model = this._editor.getModel();
+            this._instance = factory.createGroup();
 
-            instance.setName(this._name);
-            instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
+            this._instance.setName(this._name);
+            this._instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
 
             if (this._wires.length > 0) {
                 for (var i=0; i < this._wires.length; i++)
                     this.addBindingInstanceToModel(this._wires[i].getTarget());
             }
 
-            model.addGroups(instance);
+            model.addGroups(this._instance);
         }
 
         KGroup.prototype.removeInstanceFromModel = function () {

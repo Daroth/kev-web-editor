@@ -3,12 +3,14 @@ define(
         'abstraction/KNode',
         'abstraction/KGroup',
         'presentation/UINode',
+        'presentation/property/UINodeProps',
         'control/AController',
         'control/CNestableEntity',
+        'kevoree',
         'util/Pooffs'
     ],
 
-    function(KNode, KGroup, UINode, AController, CNestableEntity, Pooffs) {
+    function(KNode, KGroup, UINode, UINodeProps, AController, CNestableEntity, Kevoree, Pooffs) {
 
         Pooffs.extends(CNode, KNode);
         Pooffs.extends(CNode, AController);
@@ -167,6 +169,85 @@ define(
                 // error, 'entity' is not a KNode or a KComponent
                 // or it has already been added to this node children
                 // TODO well it is not supposed to happen because the controller is supposed to check those things
+            }
+        }
+
+        CNode.prototype.p2cSaveProperties = function (props) {
+            CNestableEntity.prototype.p2cSaveProperties.call(this, props);
+
+            if (props[UINodeProps.INIT_BY_NODES] && props[UINodeProps.NODE_NETWORK_IP]) {
+                var model = this._editor.getModel(),
+                    factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
+
+                for (var index=0; index < props[UINodeProps.INIT_BY_NODES].length; index++) {
+                    var initByName = props[UINodeProps.INIT_BY_NODES][index],
+                        nodeNetwork = null,
+                        thisNodeFound = null,
+                        nns = model.getNodeNetworks();
+
+                    for (var i=0; i < nns.size(); i++) {
+                        var nn = nns.get(i);
+                        if (nn.getInitBy() && nn.getTarget()) {
+                            if (nn.getInitBy().getName() == initByName && nn.getTarget().getName() == this._name) {
+                                nodeNetwork = nn;
+                            }
+                        }
+                    }
+
+                    if (nodeNetwork == null) {
+                        nodeNetwork = factory.createNodeNetwork()
+
+                        thisNodeFound = model.findNodesByID(initByName);
+                        if (thisNodeFound == null) {
+                            thisNodeFound = factory.createContainerNode();
+                            thisNodeFound.setName(this._name);
+                            model.addNodes(thisNodeFound);
+                        }
+
+                        var targetNode = model.findNodesByID(this._name);
+                        if (targetNode == null) {
+                            console.log("Unknown node {} add to model", this._name);
+                            targetNode = factory.createContainerNode();
+                            targetNode.setName(this._name);
+                            model.addNodes(targetNode);
+                        }
+                        nodeNetwork.setTarget(targetNode);
+                        nodeNetwork.setInitBy(thisNodeFound);
+                        model.addNodeNetworks(nodeNetwork);
+                    }
+
+                    /* Found node link */
+                    var nodeLink = null,
+                        nls = nodeNetwork.getLink();
+                    for (var i=0; i < nls.size(); i++) {
+                        var l = nls.get(i);
+                        if (l.getNetworkType() == "") { // TODO change that
+                            nodeLink = l;
+                            break;
+                        }
+                    }
+                    if (nodeLink == null) {
+                        nodeLink = factory.createNodeLink();
+                        nodeLink.setNetworkType("");
+                        nodeNetwork.addLink(nodeLink);
+                    }
+
+                    try {
+                        nodeLink.setEstimatedRate(100);
+                    } catch (err) {
+                        console.error("Unexpected estimate rate", err.message);
+                    }
+
+                    /* Found Property and SET remote IP */
+                    var prop = nodeLink.findNetworkPropertiesByID("ip");
+                    if (prop == null) {
+                        prop = factory.createNetworkProperty();
+                        prop.setName("ip");
+                        nodeLink.addNetworkProperties(prop);
+                    }
+                    prop.setValue(props[UINodeProps.NODE_NETWORK_IP]);
+                    prop.setLastCheck(Date.now());
+                }
             }
         }
 

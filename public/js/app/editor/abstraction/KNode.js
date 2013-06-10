@@ -105,17 +105,17 @@ define(
         }
 
         KNode.prototype.addInstanceToModel = function (factory) {
-            var model = this._editor.getModel(),
-                instance = factory.createContainerNode();
+            var model = this._editor.getModel();
+            this._instance = factory.createContainerNode();
 
-            instance.setName(this._name);
-            instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
+            this._instance.setName(this._name);
+            this._instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
 
-            model.addNodes(instance);
+            model.addNodes(this._instance);
 
             if (this._parent) {
                 var node = model.findNodesByID(this._parent.getName());
-                node.addHosts(instance);
+                node.addHosts(this._instance);
             }
 
             if (this._children.length > 0) {

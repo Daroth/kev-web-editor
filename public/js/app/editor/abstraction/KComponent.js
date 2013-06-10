@@ -88,14 +88,14 @@ define(
         }
 
         KComponent.prototype.addInstanceToModel = function (factory) {
-            var model = this._editor.getModel(),
-                instance = factory.createComponentInstance();
+            var model = this._editor.getModel();
+            this._instance = factory.createComponentInstance();
 
-            instance.setName(this._name);
-            instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
+            this._instance.setName(this._name);
+            this._instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
 
             var node = model.findNodesByID(this._parent.getName());
-            node.addComponents(instance);
+            node.addComponents(this._instance);
         }
 
         KComponent.prototype.removeInstanceFromModel = function () {

@@ -10,9 +10,10 @@ define(
             PUSH_ACTION     = "node-push-action",
             PULL_ACTION     = "node-pull-action",
             GROUP_ACTION    = "node-group-action",
-            INIT_BY_NODE    = "node-network-init-by",
-            NODE_NETWORK_IP = "node-network-ip",
             PROGRESS_BAR    = "node-progress-bar";
+
+        UINodeProps.INIT_BY_NODES   = "node-network-init-by";
+        UINodeProps.NODE_NETWORK_IP = "node-network-ip";
 
         Pooffs.extends(UINodeProps, UIInstanceProps);
 
@@ -28,14 +29,13 @@ define(
             function generateOptions(ui) {
                 var nodes = model.getNodes();
                 var opts = new StringBuilder();
+                var selected = '';
                 for (var i=0; i < nodes.size(); i++) {
-                    if (nodes.get(i).getName() != ui._ctrl.getName()) {
-                        opts.append('<option value="')
-                            .append(nodes.get(i).getName())
-                            .append('">')
-                            .append(nodes.get(i).getName())
-                            .append('</option>');
-                    }
+                    if (nodes.get(i).getName() == ui._ctrl.getName()) selected = ' selected';
+                    opts.append('<option value="'+nodes.get(i).getName()+'"'+selected+'>')
+                        .append(nodes.get(i).getName())
+                        .append('</option>');
+                    selected = '';
                 }
                 return opts.toString();
             }
@@ -58,7 +58,7 @@ define(
             // if this entity is a node, add some special properties
             builder.append('<div class="row-fluid">')
                 .append('<div class="span4">Reachable from</div>')
-                .append('<select id="'+INIT_BY_NODE+'" multiple="multiple">')
+                .append('<select id="'+UINodeProps.INIT_BY_NODES+'" multiple="multiple">')
                 .append(generateOptions(this._ui))
                 .append('</select>')
                 .append('</div>');
@@ -67,7 +67,7 @@ define(
 
             builder.append('<div class="row-fluid" style="margin-top: 10px;">')
                 .append('<div class="span4">Network address</div>')
-                .append('<input id="'+NODE_NETWORK_IP+'" type="text" class="span8" placeholder="Network address" />')
+                .append('<input id="'+UINodeProps.NODE_NETWORK_IP+'" type="text" class="span8" placeholder="Network address" />')
                 .append('</div>');
 
             builder.append('<div class="row-fluid">')
@@ -92,7 +92,7 @@ define(
         }
 
         UINodeProps.prototype.onHTMLAppended = function () {
-            $('#'+INIT_BY_NODE).multiselect({
+            $('#'+UINodeProps.INIT_BY_NODES).multiselect({
                 includeSelectAllOption: true,
                 maxHeight: 200
             });
@@ -115,8 +115,14 @@ define(
         UINodeProps.prototype.getPropertiesValues = function () {
             var props = UIInstanceProps.prototype.getPropertiesValues.call(this);
 
-            props[NODE_NETWORK_IP] = $('#'+NODE_NETWORK_IP).val();
-            props[GROUP_ACTION] = $('#'+GROUP_ACTION+' option:selected').val();
+            props[UINodeProps.NODE_NETWORK_IP] = $('#'+UINodeProps.NODE_NETWORK_IP).val();
+//            props[GROUP_ACTION] = $('#'+GROUP_ACTION+' option:selected').val();
+
+            var nodes = [];
+            $('#'+UINodeProps.INIT_BY_NODES+' option:selected').each(function () {
+                nodes.push($(this).val());
+            });
+            props[UINodeProps.INIT_BY_NODES] =  nodes;
 
             return props;
         }

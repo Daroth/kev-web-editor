@@ -22,13 +22,13 @@ define(
         }
 
         KChannel.prototype.addInstanceToModel = function (factory) {
-            var model = this._editor.getModel(),
-                instance = factory.createChannel();
+            var model = this._editor.getModel();
+            this._instance = factory.createChannel();
 
-            instance.setName(this._name);
-            instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
+            this._instance.setName(this._name);
+            this._instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
 
-            model.addHubs(instance);
+            model.addHubs(this._instance);
         }
 
         KChannel.prototype.removeInstanceFromModel = function () {
