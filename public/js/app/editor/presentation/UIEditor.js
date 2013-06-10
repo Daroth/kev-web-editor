@@ -114,7 +114,7 @@ define(
             $('#lib-tree-content .nav-header').on('click'+NAMESPACE, function() {
                 var header = $(this),
                     icon = header.find('.lib-subtree-icon');
-                
+
                 if (icon.hasClass('icon-arrow-right')) {
                     // all items are showed, hide them
                     displayableSubTrees[header.text()] = false;
@@ -517,7 +517,7 @@ define(
         //==========================
         function showLibTreeItems(elem, icon) {
             elem.siblings().each(function () {
-                if (displayableItems[$(this).attr('data-entity')] && displayableSubTrees[$(this).attr('data-lib')]) {
+                if (displayableItems[$(this).attr('data-entity')] && displayableSubTrees[elem.text()]) {
                     $(this).show('fast');
                 }
             });

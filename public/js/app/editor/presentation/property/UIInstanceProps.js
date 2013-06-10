@@ -22,7 +22,7 @@ define(
             this._name = $('#prop-popup-name');
 
             $('#prop-popup').on('hidden', function () {
-                $('#prop-popup-content').empty();
+                $('#prop-popup-content').empty(); // clear props content when hide
             });
         }
 
