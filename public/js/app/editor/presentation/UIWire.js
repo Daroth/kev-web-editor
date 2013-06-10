@@ -99,7 +99,7 @@ define(
         }
 
         UIWire.prototype.remove = function () {
-            if (this._shape !== undefined) {
+            if (this._shape) {
                 var layer = this._shape.getLayer();
                 this._shape.destroy();
                 layer.draw();

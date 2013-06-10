@@ -21,15 +21,8 @@ define(
 
             this._name = $('#prop-popup-name');
 
-            var that = this;
-            $('#prop-popup-delete').off('click'); // get rid of old listeners on '#delete'
-            $('#prop-popup-delete').on('click', function() {
-                that.onDeleteInstance();
-            });
-
-            $('#prop-popup-save').off('click');
-            $('#prop-popup-save').on('click', function () {
-                that.onSaveProperties();
+            $('#prop-popup').on('hidden', function () {
+                $('#prop-popup-content').empty();
             });
         }
 
@@ -42,19 +35,13 @@ define(
         }
 
         UIInstanceProps.prototype.getPropertiesValues = function () {
-            var props = [];
-            props.push({
-                name: 'name',
-                value: this._name.val()
-            });
+            var props = {};
+            props['name'] = this._name.val();
 
             if (this._attrs) {
                 for (var i=0; i < this._attrs.size(); i++) {
                     var attr = this._attrs.get(i);
-                    props.push({
-                        name: attr.getName(),
-                        value: $('#'+attr.getName()+'-'+this._ctrl.getName()).val()
-                    });
+                    props[attr.getName()] = $('#'+attr.getName()+'-'+this._ctrl.getName()).val();
                 }
             }
 
@@ -62,6 +49,17 @@ define(
         }
 
         UIInstanceProps.prototype.show = function () {
+            var that = this;
+            $('#prop-popup-delete').off('click'); // get rid of old listeners on '#delete'
+            $('#prop-popup-delete').on('click', function() {
+                that.onDeleteInstance();
+            });
+
+            $('#prop-popup-save').off('click');
+            $('#prop-popup-save').on('click', function () {
+                that.onSaveProperties();
+            });
+
             $('#prop-popup-subtitle').html(this._ctrl.getEntityType());
             this._name.val(this._ctrl.getName());
             $('#prop-popup-content').html(this.getHTML());
@@ -72,20 +70,22 @@ define(
         UIInstanceProps.prototype.getHTML = function () {
             var builder = new StringBuilder();
 
-            for (var i=0; i < this._attrs.size(); i++) {
-                builder.append('<div class="row-fluid">');
-                var attr = this._attrs.get(i);
-                attr['value'] = null;
-                for (var j=0; j < this._values.size(); j++) {
-                    var value = this._values.get(j);
-                    if (attr.getName() == value.getAttribute().getName()) {
-                        attr['value'] = value.getValue();
+            if (this._attrs) {
+                for (var i=0; i < this._attrs.size(); i++) {
+                    builder.append('<div class="row-fluid">');
+                    var attr = this._attrs.get(i);
+                    attr['value'] = null;
+                    for (var j=0; j < this._values.size(); j++) {
+                        var value = this._values.get(j);
+                        if (attr.getName() == value.getAttribute().getName()) {
+                            attr['value'] = value.getValue();
+                        }
                     }
+                    builder.append('<div class="span4">'+attr.getName()+'</div>')
+                        .append('\n')
+                        .append(generatePropertyValueField(attr.getName()+'-'+this._ctrl.getName(), attr.getDatatype(), attr.value))
+                        .append('</div>');
                 }
-                builder.append('<div class="span4">'+attr.getName()+'</div>')
-                    .append('\n')
-                    .append(generatePropertyValueField(attr.getName()+'-'+this._ctrl.getName(), attr.getDatatype(), attr.value))
-                    .append('</div>');
             }
 
 

@@ -4,7 +4,7 @@
  * This should be considered as an Abstract Class
  */
 define(
-    [],
+    [    ],
 
     function() {
 
@@ -38,14 +38,14 @@ define(
         }
 
         UIEntity.prototype.c2pRemoveEntity = function () {
-            if (this._shape.getLayer()) {
+            try {
                 // retrieve this shape's layer
                 var layer = this._shape.getLayer();
                 // remove shape from layer
                 this._shape.remove();
                 // redraw the layer
                 layer.draw();
-            }
+            } catch (err) {}
         }
 
         UIEntity.prototype.setDOMItem = function (item) {

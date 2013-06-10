@@ -34,8 +34,9 @@ define(
 
         CEntity.prototype.p2cSaveProperties = function (props) {
             // TODO
+            this.setName(props['name']);
             console.log(this.getName(), props);
-            //this.setName(name);
+
             this._ui.c2pPropertiesUpdated();
         }
 

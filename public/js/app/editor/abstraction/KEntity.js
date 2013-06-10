@@ -1,5 +1,10 @@
 define(
-    function(require) {
+    [
+        'require',
+        'kevoree'
+    ],
+
+    function(require, Kevoree) {
         KEntity._COUNT = 0;
 
         function KEntity(editor, type) {
@@ -14,7 +19,10 @@ define(
         }
 
         KEntity.prototype.setName = function(name) {
+            var factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
+            this.removeInstanceFromModel();
             this._name = name;
+            this.addInstanceToModel(factory);
         }
 
         KEntity.prototype.getType = function() {

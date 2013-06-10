@@ -2,9 +2,10 @@ define(
     [
         'util/Pooffs',
         'util/StringBuilder',
-        'presentation/property/UIInstanceProps'
+        'presentation/property/UIInstanceProps',
+        'bootstrap/multiselect'
     ],
-    function (Pooffs, StringBuilder, UIInstanceProps) {
+    function (Pooffs, StringBuilder, UIInstanceProps, _bootstrap) {
         var NAMESPACE       = "ui-node-props",
             PUSH_ACTION     = "node-push-action",
             PULL_ACTION     = "node-pull-action",
@@ -114,15 +115,8 @@ define(
         UINodeProps.prototype.getPropertiesValues = function () {
             var props = UIInstanceProps.prototype.getPropertiesValues.call(this);
 
-            props.push({
-                name: NODE_NETWORK_IP,
-                value: $('#'+NODE_NETWORK_IP).val()
-            });
-
-            props.push({
-                name: GROUP_ACTION,
-                value: $('#'+GROUP_ACTION+' option:selected').val()
-            });
+            props[NODE_NETWORK_IP] = $('#'+NODE_NETWORK_IP).val();
+            props[GROUP_ACTION] = $('#'+GROUP_ACTION+' option:selected').val();
 
             return props;
         }
