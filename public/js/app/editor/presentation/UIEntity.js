@@ -7,13 +7,13 @@ define(
     [
         "jquery",
         "util/StringBuilder",
-        "kotlin/kotlin-lib-ecma3",
+        "presentation/property/UIInstanceProps",
         "kevoree",
         "abstraction/KNode",
         "bootstrap/multiselect"
     ],
 
-    function($, StringBuilder, Kotlin, Kevoree, KNode) {
+    function($, StringBuilder, UIInstanceProps, Kevoree, KNode) {
         var NAMESPACE = "ui-entity";
 
         /**
@@ -25,6 +25,7 @@ define(
         function UIEntity(ctrl) {
             this._ctrl = ctrl;
             this._isReady = false;
+            this._props = new UIInstanceProps(this, ctrl);
         }
 
         UIEntity.prototype.getShape = function() {
@@ -51,7 +52,7 @@ define(
 
                 $('#prop-popup-subtitle').html(that._ctrl.getEntityType());
                 $('#prop-popup-name').val(that._ctrl.getName());
-                $('#prop-popup-content').html(getPropertiesPopupContent(that._ctrl.getEditor().getModel(), that._ctrl.getType(), that));
+                $('#prop-popup-content').html(that._props.getHTML());
                 if (that._ctrl.getEntityType() == KNode.ENTITY_TYPE) {
                     $('#node-network-init-by').multiselect({
                         includeSelectAllOption: true,
@@ -170,153 +171,6 @@ define(
                     children[i].getUI().setDraggable(isDraggable, false, true);
                 }
             }
-        }
-
-        // private method
-        function getPropertiesPopupContent(model, _tDef, ui) {
-            var tDef = model.findTypeDefinitionsByID(_tDef),
-                dicType = tDef.getDictionaryType(),
-                builder = new StringBuilder();
-
-            if (dicType) {
-                var attrs = dicType.getAttributes(),
-                    values = dicType.getDefaultValues();
-
-                for (var i=0; i < attrs.size(); i++) {
-                    builder.append('<div class="row-fluid">');
-                    var attr = attrs.get(i);
-                    attr['value'] = null;
-                    for (var j=0; j < values.size(); j++) {
-                        var value = values.get(j);
-                        if (attr.getName() == value.getAttribute().getName()) {
-                            attr['value'] = value.getValue();
-                        }
-                    }
-                    builder.append('<div class="span4">'+attr.getName()+'</div>')
-                        .append('\n')
-                        .append(generatePropertyValueField(attr.getDatatype(), attr.value))
-                        .append('</div>');
-                }
-            }
-
-            if (Kotlin.isType(tDef, Kevoree.org.kevoree.impl.NodeTypeImpl)) {
-                function generateOptions() {
-                    var nodes = model.getNodes();
-                    var opts = new StringBuilder();
-                    for (var i=0; i < nodes.size(); i++) {
-                        if (nodes.get(i).getName() != ui._ctrl.getName()) {
-                            opts.append('<option value="')
-                                .append(nodes.get(i).getName())
-                                .append('">')
-                                .append(nodes.get(i).getName())
-                                .append('</option>');
-                        }
-                    }
-                    return opts.toString();
-                }
-
-                function getThisNodeGroups() {
-                    var grps = model.getGroups();
-                    var ret = [];
-                    for (var i=0; i < grps.size(); i++) {
-                        var nodes = grps.get(i).getSubNodes();
-                        for (var j=0; j < nodes.size(); j++) {
-                            if (nodes.get(j).getName() == ui._ctrl.getName()) {
-                                ret.push(grps.get(i));
-                            }
-                        }
-                    }
-
-                    return ret;
-                }
-
-                // if this entity is a node, add some special properties
-                builder.append('<div class="row-fluid">')
-                    .append('<div class="span4">Reachable from</div>')
-                    .append('<select id="node-network-init-by" multiple="multiple">')
-                    .append(generateOptions())
-                    .append('</select>')
-                    .append('</div>');
-
-                builder.append('</div>');
-
-                builder.append('<div class="row-fluid" style="margin-top: 10px;">')
-                    .append('<div class="span4">Network address</div>')
-                    .append('<input type="text" class="span8" placeholder="Network address" />')
-                    .append('</div>');
-
-                builder.append('<div class="row-fluid">')
-                    .append('<button id="node-push-action" type="button" class="btn btn-inverse span4">Push</button>')
-                    .append('<div class="span4">')
-                    .append('<select class="row-fluid">');
-
-                var grps = getThisNodeGroups();
-                for (var i=0; i < grps.length; i++) {
-                    builder.append('<option value="'+grps[i].getName()+'">'+grps[i].getName()+'</option>');
-                }
-                builder.append('</select>')
-                    .append('</div>')
-                    .append('<button id="node-pull-action" type="button" class="btn btn-inverse span4">Pull</button>')
-                    .append('</div>');
-
-                builder.append('<div id="node-progress-bar" class="progress progress-info progress-striped active row-fluid hide" style="margin-top: 10px;">')
-                    .append('<div class="bar" style="width: 100%"></div>')
-                    .append('</div>');
-            }
-
-            return builder.toString();
-        }
-
-        // private method
-        function generatePropertyValueField(datatype, defaultVal) {
-            var ENUM    = 'enum=',
-                RAW     = 'raw=';
-            if (datatype.substr(0, ENUM.length) == ENUM) { // datatype starts with enum=
-                var str = datatype.substr(ENUM.length, datatype.length);
-                var values = str.split(',');
-                var builder = new StringBuilder('<select class="span8">');
-                for (var i=0; i < values.length; i++) {
-                    builder.append('<option value="')
-                        .append(values[i])
-                        .append('" ')
-                        .append(((defaultVal == values[i]) ? 'selected' : ''))
-                        .append('>')
-                        .append(values[i])
-                        .append('</option>');
-                }
-                builder.append('</select>');
-                return builder.toString();
-
-            } else if (datatype.substr(0, RAW.length) == RAW) { // datatype starts with raw=
-                var value = datatype.substr(RAW.length, datatype.length);
-                switch (value) {
-                    case 'java.lang.Long':
-                    case 'java.lang.Integer':
-                        return ['<input type="number" class="span8" value="', defaultVal, '"/>'].join('');
-
-                    default:
-                        break;
-                }
-
-            } else {
-                switch (defaultVal) {
-                    case 'true':
-                    case 'false':
-                        var builder = new StringBuilder('<select class="span8">');
-                        builder.append('<option value="true" ');
-                        if (defaultVal == 'true') builder.append('selected');
-                        builder.append('>true</option>');
-                        builder.append('<option value="false" ');
-                        if (defaultVal == 'false') builder.append('selected');
-                        builder.append('>false</option>');
-                        return builder.toString();
-
-                    default:
-                        break;
-                }
-            }
-
-            return ['<input type="text" class="span8" value="', defaultVal, '"/>'].join('');
         }
 
         return UIEntity;

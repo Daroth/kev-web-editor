@@ -1,10 +1,11 @@
 define(
     [
         'presentation/UINestableEntity',
+        'presentation/property/UIComponentProps',
         'util/Pooffs'
     ],
 
-    function(UINestableEntity, Pooffs) {
+    function(UINestableEntity, UIComponentProps, Pooffs) {
             var STROKE = 2;
 
         UIComponent.PORT_PADDING = 10;
@@ -44,6 +45,7 @@ define(
             this._computedWidth = computeWidth(this._ctrl.getInputs(), this._ctrl.getOutputs(), this._rect.getWidth())
             this._computedHeight = computeHeight(this._ctrl.getInputs(), this._ctrl.getOutputs(), this._rect.getHeight());
 
+            this._props = new UIComponentProps(this, ctrl);
             this.setPopup();
         }
 

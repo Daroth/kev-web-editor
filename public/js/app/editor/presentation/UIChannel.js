@@ -1,7 +1,10 @@
 define(
-    ["presentation/UIEntity"],
+    [
+        "presentation/UIEntity",
+        'presentation/property/UIChannelProps'
+    ],
 
-    function(UIEntity) {
+    function(UIEntity, UIChannelProps) {
         // GLOBAL CONSTANTS
         var STROKE = 3,
             RADIUS = 45,
@@ -69,6 +72,7 @@ define(
                 that._ctrl.p2cDragMove();
             });
 
+            this._props = new UIChannelProps(this, ctrl);
             this.setPopup();
         }
 

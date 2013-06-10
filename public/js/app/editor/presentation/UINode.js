@@ -1,10 +1,11 @@
 define(
     [
         'presentation/UINestableEntity',
+        'presentation/property/UINodeProps',
         'util/Pooffs'
     ],
 
-    function(UINestableEntity, Pooffs) {
+    function(UINestableEntity, UINodeProps, Pooffs) {
         // GLOBAL CONSTANTS
         var STROKE = 3,
             DEFAULT_STROKE_COLOR = '#FFF',
@@ -29,6 +30,7 @@ define(
                 e.cancelBubble = true;
             });
 
+            this._props = new UINodeProps(this, ctrl);
             this.setPopup();
         }
 
