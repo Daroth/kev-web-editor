@@ -32,8 +32,10 @@ define(
             this._ui.c2pRemoveEntity();
         }
 
-        CEntity.prototype.p2cSaveProperties = function (name) {
-            this.setName(name);
+        CEntity.prototype.p2cSaveProperties = function (props) {
+            // TODO
+            console.log(this.getName(), props);
+            //this.setName(name);
             this._ui.c2pPropertiesUpdated();
         }
 

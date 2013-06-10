@@ -1,10 +1,11 @@
 define(
     [
+        'util/Pooffs',
         "presentation/UIEntity",
         'presentation/property/UIChannelProps'
     ],
 
-    function(UIEntity, UIChannelProps) {
+    function(Pooffs, UIEntity, UIChannelProps) {
         // GLOBAL CONSTANTS
         var STROKE = 3,
             RADIUS = 45,
@@ -12,8 +13,7 @@ define(
             KO_STROKE_COLOR = 'red',
             OK_STROKE_COLOR = 'green';
 
-        // inherit from UIEntity
-        UIChannel.prototype = new UIEntity();
+        Pooffs.extends(UIChannel, UIEntity);
 
         function UIChannel(ctrl) {
             UIEntity.prototype.constructor.call(this, ctrl);
@@ -72,8 +72,13 @@ define(
                 that._ctrl.p2cDragMove();
             });
 
-            this._props = new UIChannelProps(this, ctrl);
-            this.setPopup();
+            var props = new UIChannelProps(this, ctrl);
+            this._shape.on('dblclick dbltap', function(e) {
+                // prevent children from getting the event too
+                e.cancelBubble = true;
+                // display the properties popup
+                props.show();
+            });
         }
 
         // Override UIEntity.getPosition()

@@ -7,8 +7,7 @@ define(
 
     function(UINestableEntity, UINodeProps, Pooffs) {
         // GLOBAL CONSTANTS
-        var STROKE = 3,
-            DEFAULT_STROKE_COLOR = '#FFF',
+        var DEFAULT_STROKE_COLOR = '#FFF',
             KO_STROKE_COLOR = '#F00',
             OK_STROKE_COLOR = '#0F0';
 
@@ -30,8 +29,13 @@ define(
                 e.cancelBubble = true;
             });
 
-            this._props = new UINodeProps(this, ctrl);
-            this.setPopup();
+            var props = new UINodeProps(this, ctrl);
+            this._shape.on('dblclick dbltap', function(e) {
+                // prevent children from getting the event too
+                e.cancelBubble = true;
+                // display the properties popup
+                props.show();
+            });
         }
 
         UINode.prototype.c2pAddChild = function (entity) {

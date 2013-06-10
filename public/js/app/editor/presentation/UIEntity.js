@@ -4,17 +4,9 @@
  * This should be considered as an Abstract Class
  */
 define(
-    [
-        "jquery",
-        "util/StringBuilder",
-        "presentation/property/UIInstanceProps",
-        "kevoree",
-        "abstraction/KNode",
-        "bootstrap/multiselect"
-    ],
+    [],
 
-    function($, StringBuilder, UIInstanceProps, Kevoree, KNode) {
-        var NAMESPACE = "ui-entity";
+    function() {
 
         /**
          * You shouldn't use this object directly, it should be considered
@@ -25,37 +17,10 @@ define(
         function UIEntity(ctrl) {
             this._ctrl = ctrl;
             this._isReady = false;
-            this._props = new UIInstanceProps(this, ctrl);
         }
 
         UIEntity.prototype.getShape = function() {
             return this._shape;
-        }
-
-        UIEntity.prototype.setPopup = function() {
-            var that = this;
-            this._shape.off('dblclick dbltap');
-            this._shape.on('dblclick dbltap', function(e) {
-                // prevent children from getting the event too
-                e.cancelBubble = true;
-
-                $('#prop-popup-delete').off('click'); // get rid of old listeners on '#delete'
-                $('#prop-popup-delete').on('click', function() {
-                    that._ctrl.p2cRemoveEntity();
-                });
-
-                $('#prop-popup-save').off('click');
-                $('#prop-popup-save').on('click', function () {
-                    var name = $('#prop-popup-name').val();
-                    that._ctrl.p2cSaveProperties(name);
-                });
-
-                $('#prop-popup-subtitle').html(that._ctrl.getEntityType());
-                $('#prop-popup-name').val(that._ctrl.getName());
-                $('#prop-popup-content').html(that._props.getHTML());
-                that._props.onHTMLAppended();
-                $('#prop-popup').modal({ show: true });
-            });
         }
 
         /**

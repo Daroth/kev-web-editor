@@ -41,6 +41,10 @@ define(
             return KWire.ENTITY_TYPE;
         }
 
+        KWire.prototype.getEditor = function () {
+            return this._origin.getEditor();
+        }
+
         KWire.prototype.canConnect = function (entity) {
             for (var i=0; i < this._origin.getWires().length; i++) {
                 var wire = this._origin.getWires()[i];

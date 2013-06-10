@@ -45,8 +45,13 @@ define(
             this._computedWidth = computeWidth(this._ctrl.getInputs(), this._ctrl.getOutputs(), this._rect.getWidth())
             this._computedHeight = computeHeight(this._ctrl.getInputs(), this._ctrl.getOutputs(), this._rect.getHeight());
 
-            this._props = new UIComponentProps(this, ctrl);
-            this.setPopup();
+            var props = new UIComponentProps(this, ctrl);
+            this._shape.on('dblclick dbltap', function(e) {
+                // prevent children from getting the event too
+                e.cancelBubble = true;
+                // display the properties popup
+                props.show();
+            });
         }
 
         UIComponent.prototype._drawHeader = function () {

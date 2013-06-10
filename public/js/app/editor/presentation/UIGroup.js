@@ -1,15 +1,16 @@
  define(
     [
-        "presentation/UIEntity"
+        'util/Pooffs',
+        "presentation/UIEntity",
+        'presentation/property/UIGroupProps'
     ],
 
-    function(UIEntity) {
+    function(Pooffs, UIEntity, UIGroupProps) {
         // GLOBAL CONSTANTS
         var STROKE = 4,
             RADIUS = 12;
 
-        // inherit from KEntity
-        UIGroup.prototype = new UIEntity();
+        Pooffs.extends(UIGroup, UIEntity);
 
         function UIGroup(ctrl) {
             this._ctrl = ctrl;
@@ -87,7 +88,13 @@
             //===========================
             // Properties popup content
             //===========================
-            this.setPopup();
+            var props = new UIGroupProps(this, ctrl);
+            this._shape.on('dblclick dbltap', function(e) {
+                // prevent children from getting the event too
+                e.cancelBubble = true;
+                // display the properties popup
+                props.show();
+            });
         }
 
         // Override UIEntity.c2pWireCreationStarted(UIWire)

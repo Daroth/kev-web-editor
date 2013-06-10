@@ -1,10 +1,11 @@
 define(
     [
+        'util/Pooffs',
         'presentation/UIEntity',
-        'util/Pooffs'
+        'presentation/property/UIWireProps'
     ],
 
-    function(UIEntity, Pooffs) {
+    function(Pooffs, UIEntity, UIWireProps) {
         Pooffs.extends(UIWire, UIEntity);
 
         // GLOBAL CONSTANTS
@@ -64,7 +65,13 @@ define(
             // ================
             // Properties popup
             // ================
-            this.setPopup();
+            var props = new UIWireProps(this, ctrl);
+            this._shape.on('dblclick dbltap', function(e) {
+                // prevent children from getting the event too
+                e.cancelBubble = true;
+                // display the properties popup
+                props.show();
+            });
         }
 
         UIWire.prototype.setOrigin = function(entityUI) {

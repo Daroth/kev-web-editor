@@ -5,9 +5,13 @@ define(
         'presentation/property/UIInstanceProps'
     ],
     function (Pooffs, StringBuilder, UIInstanceProps) {
-        var NAMESPACE = "ui-node-props",
-            PUSH_ACTION = "node-push-action",
-            PULL_ACTION = "node-pull-action";
+        var NAMESPACE       = "ui-node-props",
+            PUSH_ACTION     = "node-push-action",
+            PULL_ACTION     = "node-pull-action",
+            GROUP_ACTION    = "node-group-action",
+            INIT_BY_NODE    = "node-network-init-by",
+            NODE_NETWORK_IP = "node-network-ip",
+            PROGRESS_BAR    = "node-progress-bar";
 
         Pooffs.extends(UINodeProps, UIInstanceProps);
 
@@ -16,7 +20,7 @@ define(
         }
 
         UINodeProps.prototype.getHTML = function () {
-            var html = UIInstanceProps.prototype.getHTML.call(this),
+            var html = UIInstanceProps.prototype.getHTML.call(this), // super.getHTML()
                 builder = new StringBuilder(html),
                 model = this._ctrl.getEditor().getModel();
 
@@ -53,7 +57,7 @@ define(
             // if this entity is a node, add some special properties
             builder.append('<div class="row-fluid">')
                 .append('<div class="span4">Reachable from</div>')
-                .append('<select id="node-network-init-by" multiple="multiple">')
+                .append('<select id="'+INIT_BY_NODE+'" multiple="multiple">')
                 .append(generateOptions(this._ui))
                 .append('</select>')
                 .append('</div>');
@@ -62,13 +66,13 @@ define(
 
             builder.append('<div class="row-fluid" style="margin-top: 10px;">')
                 .append('<div class="span4">Network address</div>')
-                .append('<input type="text" class="span8" placeholder="Network address" />')
+                .append('<input id="'+NODE_NETWORK_IP+'" type="text" class="span8" placeholder="Network address" />')
                 .append('</div>');
 
             builder.append('<div class="row-fluid">')
                 .append('<button id="'+PUSH_ACTION+'" type="button" class="btn btn-inverse span4">Push</button>')
                 .append('<div class="span4">')
-                .append('<select class="row-fluid">');
+                .append('<select id="'+GROUP_ACTION+'" class="row-fluid">');
 
             var grps = getThisNodeGroups(this._ui);
             for (var i=0; i < grps.length; i++) {
@@ -79,7 +83,7 @@ define(
                 .append('<button id="'+PULL_ACTION+'" type="button" class="btn btn-inverse span4">Pull</button>')
                 .append('</div>');
 
-            builder.append('<div id="node-progress-bar" class="progress progress-info progress-striped active row-fluid hide" style="margin-top: 10px;">')
+            builder.append('<div id="'+PROGRESS_BAR+'" class="progress progress-info progress-striped active row-fluid hide" style="margin-top: 10px;">')
                 .append('<div class="bar" style="width: 100%"></div>')
                 .append('</div>');
 
@@ -87,7 +91,7 @@ define(
         }
 
         UINodeProps.prototype.onHTMLAppended = function () {
-            $('#node-network-init-by').multiselect({
+            $('#'+INIT_BY_NODE).multiselect({
                 includeSelectAllOption: true,
                 maxHeight: 200
             });
@@ -95,7 +99,7 @@ define(
             var ctrl = this._ctrl,
                 pushBtn = $('#'+PUSH_ACTION),
                 pullBtn = $('#'+PULL_ACTION);
-            
+
             pushBtn.off(NAMESPACE);
             pushBtn.on('click', function () {
                 ctrl.p2cPushModel();
@@ -105,6 +109,22 @@ define(
             pullBtn.on('click', function () {
                 ctrl.p2cPullModel();
             });
+        }
+
+        UINodeProps.prototype.getPropertiesValues = function () {
+            var props = UIInstanceProps.prototype.getPropertiesValues.call(this);
+
+            props.push({
+                name: NODE_NETWORK_IP,
+                value: $('#'+NODE_NETWORK_IP).val()
+            });
+
+            props.push({
+                name: GROUP_ACTION,
+                value: $('#'+GROUP_ACTION+' option:selected').val()
+            });
+
+            return props;
         }
 
         return UINodeProps;
