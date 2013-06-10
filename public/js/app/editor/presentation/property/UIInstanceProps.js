@@ -92,6 +92,10 @@ define(
             return ['<input type="text" class="span8" value="', defaultVal, '"/>'].join('');
         }
 
+        UIInstanceProps.prototype.onHTMLAppended = function () {
+
+        }
+
         return UIInstanceProps;
     }
 );

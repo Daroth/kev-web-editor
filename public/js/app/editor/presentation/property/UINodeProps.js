@@ -5,6 +5,10 @@ define(
         'presentation/property/UIInstanceProps'
     ],
     function (Pooffs, StringBuilder, UIInstanceProps) {
+        var NAMESPACE = "ui-node-props",
+            PUSH_ACTION = "node-push-action",
+            PULL_ACTION = "node-pull-action";
+
         Pooffs.extends(UINodeProps, UIInstanceProps);
 
         function UINodeProps(ui, ctrl) {
@@ -62,7 +66,7 @@ define(
                 .append('</div>');
 
             builder.append('<div class="row-fluid">')
-                .append('<button id="node-push-action" type="button" class="btn btn-inverse span4">Push</button>')
+                .append('<button id="'+PUSH_ACTION+'" type="button" class="btn btn-inverse span4">Push</button>')
                 .append('<div class="span4">')
                 .append('<select class="row-fluid">');
 
@@ -72,7 +76,7 @@ define(
             }
             builder.append('</select>')
                 .append('</div>')
-                .append('<button id="node-pull-action" type="button" class="btn btn-inverse span4">Pull</button>')
+                .append('<button id="'+PULL_ACTION+'" type="button" class="btn btn-inverse span4">Pull</button>')
                 .append('</div>');
 
             builder.append('<div id="node-progress-bar" class="progress progress-info progress-striped active row-fluid hide" style="margin-top: 10px;">')
@@ -80,6 +84,27 @@ define(
                 .append('</div>');
 
             return builder.toString();
+        }
+
+        UINodeProps.prototype.onHTMLAppended = function () {
+            $('#node-network-init-by').multiselect({
+                includeSelectAllOption: true,
+                maxHeight: 200
+            });
+
+            var ctrl = this._ctrl,
+                pushBtn = $('#'+PUSH_ACTION),
+                pullBtn = $('#'+PULL_ACTION);
+            
+            pushBtn.off(NAMESPACE);
+            pushBtn.on('click', function () {
+                ctrl.p2cPushModel();
+            });
+
+            pullBtn.off(NAMESPACE);
+            pullBtn.on('click', function () {
+                ctrl.p2cPullModel();
+            });
         }
 
         return UINodeProps;

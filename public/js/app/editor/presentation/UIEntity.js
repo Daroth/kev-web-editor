@@ -53,22 +53,7 @@ define(
                 $('#prop-popup-subtitle').html(that._ctrl.getEntityType());
                 $('#prop-popup-name').val(that._ctrl.getName());
                 $('#prop-popup-content').html(that._props.getHTML());
-                if (that._ctrl.getEntityType() == KNode.ENTITY_TYPE) {
-                    $('#node-network-init-by').multiselect({
-                        includeSelectAllOption: true,
-                        maxHeight: 200
-                    });
-
-                    $('#node-push-action').off(NAMESPACE);
-                    $('#node-push-action').on('click', function () {
-                        that._ctrl.p2cPushModel();
-                    });
-
-                    $('#node-pull-action').off(NAMESPACE);
-                    $('#node-pull-action').on('click', function () {
-                        that._ctrl.p2cPullModel();
-                    });
-                }
+                that._props.onHTMLAppended();
                 $('#prop-popup').modal({ show: true });
             });
         }
