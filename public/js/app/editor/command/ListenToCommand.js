@@ -1,9 +1,10 @@
 define(
     [
-        'util/AlertPopupHelper'
+        'util/AlertPopupHelper',
+        'kevoree'
     ],
 
-    function (AlertPopupHelper) {
+    function (AlertPopupHelper, Kevoree) {
 
         function ListenToCommand() {}
 
@@ -22,7 +23,9 @@ define(
             }
 
             ws.onclose = function () {
-                loadFailed(uri);
+                AlertPopupHelper.setHTML('Listen to aborted. <br/> Connection closed by server.');
+                AlertPopupHelper.setType(AlertPopupHelper.WARN);
+                AlertPopupHelper.show(5000);
             }
 
             ws.onerror = function () {
@@ -32,7 +35,7 @@ define(
 
         // private method
         function loadSucceed(uri) {
-            AlertPopupHelper.setText("Listening on ws://"+uri);
+            AlertPopupHelper.setText("New model received from ws://"+uri);
             AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
             AlertPopupHelper.show(5000);
         }
