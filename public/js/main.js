@@ -47,6 +47,7 @@ define(
         'command/CheckModelCommand',
         'command/LoadSettingsCommand',
         'command/MergeCommand',
+        'command/ListenToCommand',
         'bootstrap/tooltip',
         'bootstrap/modal',
         'bootstrap/collapse',
@@ -62,7 +63,7 @@ define(
               SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, RunKevScriptCommand,
               SettingsCommand, DebugCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
               OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomToCommand, ZoomOutCommand, ShowStatsCommand,
-              CheckModelCommand, LoadSettingsCommand, MergeCommand,
+              CheckModelCommand, LoadSettingsCommand, MergeCommand, ListenToCommand,
               _bootstrap) {
 
         // init editor
@@ -261,6 +262,12 @@ define(
             var cmd = new MergeDefaultLibraryCommand();
             cmd.execute($(this).attr('data-lib'), editor);
             e.preventDefault();
+        });
+
+        $('#listen-to').click(function () {
+            var cmd = new ListenToCommand(),
+                uri = $('#listen-to-uri').val();
+            cmd.execute(editor, uri);
         });
         // END Listeners that trigger Cmd.execute()
         // ========================================

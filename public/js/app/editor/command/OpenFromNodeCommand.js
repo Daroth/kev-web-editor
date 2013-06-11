@@ -39,7 +39,9 @@ define(
                                 dataType: 'json',
                                 success: function (data) {
                                     // load model into editor
-                                    editor.setModel(data);
+                                    var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
+                                    var model = loader.loadModelFromString(JSON.stringify(data)).get(0);
+                                    editor.setModel(model);
                                     loadSucceed();
                                 },
                                 error: function () {
@@ -52,7 +54,9 @@ define(
                             uri = protocol + uri;
                             var ws = new WebSocket(uri);
                             ws.onmessage = function (event) {
-                                editor.setModel(JSON.parse(event.data));
+                                var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
+                                var model = loader.loadModelFromString(event.data).get(0);
+                                editor.setModel(model);
                                 loadSucceed();
                             }
 

@@ -47,6 +47,9 @@ html
                     a#save(href='#', data-toggle='modal') Save
                     a#save-kevs(href='#') Save as KevScript
                     a#save-png(href='#') Save as PNG
+                  li.divider
+                  li
+                    a(href='#listen-to-popup', data-toggle='modal') Listen to
               li.dropdown
                 a.dropdown-toggle(href='#', data-toggle='dropdown') Model&nbsp;
                   b.caret
@@ -149,6 +152,23 @@ html
         div#stats-popup-content
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
+    //- ===============
+
+    //- ===============
+    //- LISTEN TO POPUP
+    div#listen-to-popup.modal.hide.fade(tabindex='-1', role='dialog')
+      div.modal-header
+        button.close(href='#', type='button', data-dismiss='modal') &times;
+        h3 Listen to
+      div.modal-body
+        div.row-fluid
+          div.input-prepend
+            span.add-on ws://
+            input#listen-to-uri(type='text', placeholder='URL')
+
+      div.modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Close
+        button#listen-to.btn(data-dismiss='modal', aria-hidden='true') Listen
     //- ===============
 
     //- ===============
