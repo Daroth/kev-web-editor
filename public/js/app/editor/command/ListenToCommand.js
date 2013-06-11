@@ -9,10 +9,10 @@ define(
         function ListenToCommand() {}
 
         ListenToCommand.prototype.execute = function (editor, uri) {
-            var ws = new WebSocket('ws://'+uri);
+            var ws = new WebSocket('ws://'+uri),
+                loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
 
             ws.onmessage = function (event) {
-                var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
                 var model = loader.loadModelFromString(event.data).get(0);
                 editor.setModel(model);
                 loadSucceed(uri);
@@ -23,9 +23,7 @@ define(
             }
 
             ws.onclose = function () {
-                AlertPopupHelper.setHTML('Listen to aborted. <br/> Connection closed by server.');
-                AlertPopupHelper.setType(AlertPopupHelper.WARN);
-                AlertPopupHelper.show(5000);
+                connectionClosed();
             }
 
             ws.onerror = function () {
@@ -38,12 +36,24 @@ define(
             AlertPopupHelper.setText("New model received from ws://"+uri);
             AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
             AlertPopupHelper.show(5000);
+
+            $('#listen-to-content').html('Currently listening to ws://'+uri);
         }
 
         function loadFailed(uri) {
             AlertPopupHelper.setHTML("Unable to connect to "+uri+".<br/> Aborting listening process...");
             AlertPopupHelper.setType(AlertPopupHelper.ERROR);
             AlertPopupHelper.show(5000);
+
+            $('#listen-to-content').empty();
+        }
+
+        function connectionClosed() {
+            AlertPopupHelper.setHTML('Listen to aborted. <br/> Connection closed by server.');
+            AlertPopupHelper.setType(AlertPopupHelper.WARN);
+            AlertPopupHelper.show(5000);
+
+            $('#listen-to-content').empty();
         }
 
         return ListenToCommand;
