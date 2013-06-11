@@ -168,7 +168,9 @@ html
         div#listen-to-content.row-fluid
 
       div.modal-footer
-        button.btn(data-dismiss='modal', aria-hidden='true') Close
+        button#listen-to-close.btn.btn-danger.hide(data-dismiss='modal', aria-hidden='true')
+          i.icon-trash.icon-white
+          | &nbsp;Close connection
         button#listen-to.btn(data-dismiss='modal', aria-hidden='true') Listen
     //- ===============
 

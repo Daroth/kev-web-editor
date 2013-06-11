@@ -15,7 +15,7 @@ define(
             ws.onmessage = function (event) {
                 var model = loader.loadModelFromString(event.data).get(0);
                 editor.setModel(model);
-                loadSucceed(uri);
+                loadSucceed(ws, uri);
             }
 
             ws.onopen = function () {
@@ -32,12 +32,18 @@ define(
         }
 
         // private method
-        function loadSucceed(uri) {
+        function loadSucceed(ws, uri) {
             AlertPopupHelper.setText("New model received from ws://"+uri);
             AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
             AlertPopupHelper.show(5000);
 
-            $('#listen-to-content').html('Currently listening to ws://'+uri);
+            $('#listen-to-content').html(['Currently listening to <span class="text-info">', uri, '</span>'].join(''));
+            $('#listen-to-close').show();
+            $('#listen-to-close').off('click');
+            $('#listen-to-close').on('click', function () {
+                ws.close();
+            });
+            $('#listen-to').hide();
         }
 
         function loadFailed(uri) {
@@ -46,14 +52,18 @@ define(
             AlertPopupHelper.show(5000);
 
             $('#listen-to-content').empty();
+            $('#listen-to-close').hide();
+            $('#listen-to').show();
         }
 
         function connectionClosed() {
-            AlertPopupHelper.setHTML('Listen to aborted. <br/> Connection closed by server.');
+            AlertPopupHelper.setHTML('Listen to aborted. <br/> Connection closed.');
             AlertPopupHelper.setType(AlertPopupHelper.WARN);
             AlertPopupHelper.show(5000);
 
             $('#listen-to-content').empty();
+            $('#listen-to-close').hide();
+            $('#listen-to').show();
         }
 
         return ListenToCommand;
