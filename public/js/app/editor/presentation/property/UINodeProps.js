@@ -67,7 +67,10 @@ define(
 
             builder.append('<div class="row-fluid" style="margin-top: 10px;">')
                 .append('<div class="span4">Network address</div>')
-                .append('<input id="'+UINodeProps.NODE_NETWORK_IP+'" type="text" class="span8" placeholder="Network address" />')
+                .append('<div class="input-append input-fullwidth span8">')
+                .append('<div class="input-wrapper"><input id="'+UINodeProps.NODE_NETWORK_IP+'" type="text" placeholder="Network address"/></div>')
+                .append('<button class="btn"><i class="icon-plus"></i></span>')
+                .append('</div>')
                 .append('</div>');
 
             builder.append('<div class="row-fluid">')

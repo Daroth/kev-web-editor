@@ -231,12 +231,7 @@ define(
                         nodeLink.setNetworkType("");
                         nodeNetwork.addLink(nodeLink);
                     }
-
-                    try {
-                        nodeLink.setEstimatedRate(100);
-                    } catch (err) {
-                        console.error("Unexpected estimate rate", err.message);
-                    }
+                    nodeLink.setEstimatedRate(100);
 
                     /* Found Property and SET remote IP */
                     var prop = nodeLink.findNetworkPropertiesByID("ip");
