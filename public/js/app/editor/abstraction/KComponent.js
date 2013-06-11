@@ -96,6 +96,14 @@ define(
 
             var node = model.findNodesByID(this._parent.getName());
             node.addComponents(this._instance);
+
+            for (var i=0; i < this._inputs.length; i++) {
+                this._inputs[i].addInstanceToModel(factory);
+            }
+
+            for (var i=0; i < this._outputs.length; i++) {
+                this._outputs[i].addInstanceToModel(factory);
+            }
         }
 
         KComponent.prototype.removeInstanceFromModel = function () {
