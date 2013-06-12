@@ -88,13 +88,19 @@ define(
             grp._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(grp._type));
 
             if (grp._wires.length > 0) {
-                for (var i=0; i < grp._wires.length; i++)
-                    grp.addBindingInstanceToModel(grp._wires[i].getTarget());
+                for (var i=0; i < grp._wires.length; i++) {
+                    grp._wires[i].accept(this);
+//                    grp.addBindingInstanceToModel(grp._wires[i].getTarget());
+                }
             }
 
             this._model.addGroups(grp._instance);
 
             this._listener.call(this);
+        }
+
+        UpdateModelVisitor.prototype.visitWire = function (wire) {
+            // TODO
         }
 
         UpdateModelVisitor.prototype.visitOutputPort = function (port) {

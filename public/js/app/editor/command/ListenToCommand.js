@@ -34,12 +34,9 @@ define(
 
             editor.setModelListener({
                 onUpdates: function () {
-                    console.log("MODEL UPDATED (d'après le visitor)");
+                    console.log("MODEL UPDATED");
                     serializer.serialize(editor.getModel(), os);
-                    var jsonModel = JSON.parse(os.get_result());
-                    console.log(jsonModel);
-                    ws.send(JSON.stringify(jsonModel));
-
+                    ws.send(os.get_result());
                     os.set_result(''); // reset OutputStream
                 }
             });

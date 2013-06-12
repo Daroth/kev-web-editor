@@ -60,6 +60,10 @@ define(
             this._target = null;
         }
 
+        KWire.prototype.accept = function (visitor) {
+            visitor.visitWire(this);
+        }
+
         return KWire;
     }
 );

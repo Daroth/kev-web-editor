@@ -56,6 +56,10 @@ define(
             // TODO ?
         }
 
+        RemoveModelVisitor.prototype.visitWire = function (wire) {
+            // TODO
+        }
+
         return RemoveModelVisitor;
     }
 );
