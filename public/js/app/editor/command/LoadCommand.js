@@ -27,7 +27,6 @@ define(
                     // retrieve data from selected file
                     var jsonModel = JSON.parse(event.target.result),
                         strModel = JSON.stringify(jsonModel);
-                    console.log(strModel);
                     try {
                         var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
                         var model = loader.loadModelFromString(strModel).get(0);

@@ -12,9 +12,9 @@ define(
 
     function(KNode, KGroup, UINode, UINodeProps, AController, CNestableEntity, Kevoree, Pooffs) {
 
-        Pooffs.extends(CNode, KNode);
         Pooffs.extends(CNode, AController);
         Pooffs.extends(CNode, CNestableEntity);
+        Pooffs.extends(CNode, KNode);
 
         function CNode(editor, type) {
             // CNestableEntity.super(editor, type)

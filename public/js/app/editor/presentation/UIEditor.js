@@ -387,11 +387,12 @@ define(
         UIEditor.prototype.c2pEntityRemoved = function(entity) {
             var badgeCount = this._ctrl.getEntityCount(entity.getCtrl().getType());
 
-            if (badgeCount == 0) {
-                entity.getDOMItem().find('.lib-item-count').remove();
-            } else {
-                entity.getDOMItem().find('.lib-item-count').children('.badge').text(badgeCount);;
-            }
+//            if (badgeCount == 0) {
+//
+//                entity.getDOMItem().find('.lib-item-count').remove();
+//            } else {
+//                entity.getDOMItem().find('.lib-item-count').children('.badge').text(badgeCount);;
+//            }
         }
 
         UIEditor.prototype.c2pUpdateWire = function (wire, position) {

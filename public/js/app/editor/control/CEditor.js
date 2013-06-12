@@ -97,7 +97,7 @@ define(
                         return;
                 }
 
-                this._draggedEntity.getUI().setDOMItem(libItem);
+//                this._draggedEntity.getUI().setDOMItem(libItem);
             }
         }
 

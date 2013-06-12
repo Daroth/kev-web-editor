@@ -54,7 +54,7 @@ define(
 
             if (node._wires.length > 0) {
                 for (var i=0; i < node._wires.length; i++) {
-                    node._wires[i].getOrigin().addBindingInstanceToModel(node);
+                    node._wires[i].getOrigin().accept(this);
                 }
             }
 
@@ -90,7 +90,6 @@ define(
             if (grp._wires.length > 0) {
                 for (var i=0; i < grp._wires.length; i++) {
                     grp._wires[i].accept(this);
-//                    grp.addBindingInstanceToModel(grp._wires[i].getTarget());
                 }
             }
             this._model.addGroups(grp._instance);
@@ -99,7 +98,9 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitWire = function (wire) {
-            // TODO
+            var node = this._model.findNodesByID(wire.getTarget().getName()),
+                grp = this._model.findGroupsByID(wire.getOrigin().getName());
+            if (node && grp) grp.addSubNodes(node);
         }
 
         UpdateModelVisitor.prototype.visitOutputPort = function (port) {

@@ -57,7 +57,10 @@ define(
 
         KEntity.prototype.disconnect = function (wire) {
             var index = this._wires.indexOf(wire);
-            this._wires.splice(index, 1);
+            if (index != -1) {
+                this._wires.splice(index, 1);
+                this.getEditor().removeWire(wire);
+            }
         }
 
         KEntity.prototype.clearWires = function () {

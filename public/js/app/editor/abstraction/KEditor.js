@@ -49,6 +49,23 @@ define(
             }
         }
 
+        KEditor.prototype.getEntity = function (name) {
+            for (var i=0; i < this._entities.length; i++) {
+                if (this._entities[i].getName() == name) return this._entities[i];
+            }
+            return null;
+        }
+
+        KEditor.prototype.addWire = function (wire) {
+            wire.accept(this._updateVisitor);
+            console.log("Editor.addWire ", wire);
+        }
+
+        KEditor.prototype.removeWire = function (wire) {
+            wire.accept(this._removeVisitor);
+            console.log("Editor.removedWire ", wire);
+        }
+
         KEditor.prototype.addNestableEntity = function (entity) {
             // update typeCounter
             if (!this._typeCounter[entity.getType()]) this._typeCounter[entity.getType()] = 0;

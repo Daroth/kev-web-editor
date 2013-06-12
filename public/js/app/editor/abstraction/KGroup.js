@@ -22,13 +22,6 @@ define(
             return KGroup.ENTITY_TYPE;
         }
 
-        KGroup.prototype.addBindingInstanceToModel = function (target) {
-            var model = this._editor.getModel(),
-                node = model.findNodesByID(target.getName()),
-                grp = model.findGroupsByID(this._name);
-            if (node && grp) grp.addSubNodes(node);
-        }
-
         KGroup.prototype.accept = function (visitor) {
             visitor.visitGroup(this);
         }
