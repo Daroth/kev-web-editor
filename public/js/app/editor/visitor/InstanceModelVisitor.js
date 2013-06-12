@@ -35,6 +35,6 @@ define(
             // TODO
         }
 
-        InstanceModelVisitor.prototype.visit
+        return InstanceModelVisitor;
     }
 );

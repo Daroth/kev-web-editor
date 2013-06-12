@@ -7,7 +7,7 @@ define(
         'kevoree'
     ],
 
-    function(ModelHelper, UpdateModelVisitor, RemoveModelVisitor, Kevoree) {
+    function(ModelHelper, UpdateModelVisitor, RemoveModelVisitor, InstanceModelVisitor, Kevoree) {
 
         function KEditor() {
             this._entities = [];
