@@ -7,6 +7,7 @@ define(
 
         function RemoveModelVisitor() {
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
+            this._listener = function () {};
         }
 
         RemoveModelVisitor.prototype.setModel = function (model) {

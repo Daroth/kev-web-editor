@@ -17,6 +17,7 @@ define(
             ws.onmessage = function (event) {
                 var model = loader.loadModelFromString(event.data).get(0);
                 editor.setModel(model);
+
                 loadSucceed(ws, uri);
             }
 
@@ -34,10 +35,9 @@ define(
 
             editor.setModelListener({
                 onUpdates: function () {
-                    console.log("MODEL UPDATED");
                     serializer.serialize(editor.getModel(), os);
-                    ws.send(os.get_result());
-                    os.set_result(''); // reset OutputStream
+                    console.log("MODEL UPDATED", os.$result);
+                    ws.send(os.$result);
                 }
             });
         }
@@ -68,7 +68,7 @@ define(
         }
 
         function connectionClosed() {
-            AlertPopupHelper.setHTML('Listen to aborted. <br/> Connection closed.');
+            AlertPopupHelper.setHTML('\"Listen to\" aborted. <br/> Connection closed.');
             AlertPopupHelper.setType(AlertPopupHelper.WARN);
             AlertPopupHelper.show(5000);
 

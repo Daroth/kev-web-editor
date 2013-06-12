@@ -4,6 +4,7 @@ define(
         'kotlin/kotlin-lib',
         'kotlin/kotlin-maps'
     ],
+
     function (Kotlin) {
         (function () {
             'use strict';
@@ -1470,27 +1471,34 @@ define(
                                 var node0 = factory.createContainerNode();
                                 node0.setName('node0');
                                 root.addNodes(node0);
+                                var lookupNode = root.findNodesByID('node0');
+                                var tmp$0, tmp$1, tmp$2, tmp$3, tmp$4, tmp$5, tmp$6, tmp$7, tmp$8, tmp$9, tmp$10, tmp$11, tmp$12, tmp$13, tmp$14, tmp$15, tmp$16, tmp$17;
+                                element.appendChild((tmp$0 = document.createElement('br')) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE());
+                                element.appendChild((tmp$1 = document.createTextNode('lookupNode')) !== null && tmp$1 !== undefined ? tmp$1 : Kotlin.throwNPE());
+                                element.appendChild((tmp$3 = document.createTextNode(((tmp$2 = lookupNode) !== null && tmp$2 !== undefined ? tmp$2 : Kotlin.throwNPE()).getName())) !== null && tmp$3 !== undefined ? tmp$3 : Kotlin.throwNPE());
+                                element.appendChild((tmp$4 = document.createElement('br')) !== null && tmp$4 !== undefined ? tmp$4 : Kotlin.throwNPE());
                                 var oo = new _.java.io.OutputStream();
                                 var saver = new _.org.kevoree.serializer.JSONModelSerializer();
                                 saver.serialize(root, oo);
-                                var tmp$0, tmp$1, tmp$2, tmp$3, tmp$4, tmp$5, tmp$6, tmp$7, tmp$8, tmp$9, tmp$10, tmp$11, tmp$12;
-                                element.appendChild((tmp$0 = document.createTextNode('Direct Creation Saved')) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE());
-                                element.appendChild((tmp$1 = document.createElement('br')) !== null && tmp$1 !== undefined ? tmp$1 : Kotlin.throwNPE());
-                                element.appendChild((tmp$2 = document.createTextNode(oo.get_result())) !== null && tmp$2 !== undefined ? tmp$2 : Kotlin.throwNPE());
-                                element.appendChild((tmp$3 = document.createElement('br')) !== null && tmp$3 !== undefined ? tmp$3 : Kotlin.throwNPE());
-                                var loader = new _.org.kevoree.loader.JSONModelLoader();
-                                var modelLoaded = ((tmp$4 = loader.loadModelFromString(oo.get_result())) !== null && tmp$4 !== undefined ? tmp$4 : Kotlin.throwNPE()).get(0);
-                                element.appendChild((tmp$5 = document.createTextNode('Node Size')) !== null && tmp$5 !== undefined ? tmp$5 : Kotlin.throwNPE());
+                                element.appendChild((tmp$5 = document.createTextNode('Direct Creation Saved')) !== null && tmp$5 !== undefined ? tmp$5 : Kotlin.throwNPE());
                                 element.appendChild((tmp$6 = document.createElement('br')) !== null && tmp$6 !== undefined ? tmp$6 : Kotlin.throwNPE());
-                                element.appendChild((tmp$7 = document.createTextNode(',size=' + _.kotlin.get_size(modelLoaded.getNodes()))) !== null && tmp$7 !== undefined ? tmp$7 : Kotlin.throwNPE());
+                                element.appendChild((tmp$7 = document.createTextNode(oo.get_result())) !== null && tmp$7 !== undefined ? tmp$7 : Kotlin.throwNPE());
                                 element.appendChild((tmp$8 = document.createElement('br')) !== null && tmp$8 !== undefined ? tmp$8 : Kotlin.throwNPE());
+                                var loader = new _.org.kevoree.loader.JSONModelLoader();
+                                var modelLoaded = ((tmp$9 = loader.loadModelFromString(oo.get_result())) !== null && tmp$9 !== undefined ? tmp$9 : Kotlin.throwNPE()).get(0);
+                                element.appendChild((tmp$10 = document.createTextNode('Node Size')) !== null && tmp$10 !== undefined ? tmp$10 : Kotlin.throwNPE());
+                                element.appendChild((tmp$11 = document.createElement('br')) !== null && tmp$11 !== undefined ? tmp$11 : Kotlin.throwNPE());
+                                element.appendChild((tmp$12 = document.createTextNode(',size=' + _.kotlin.get_size(modelLoaded.getNodes()))) !== null && tmp$12 !== undefined ? tmp$12 : Kotlin.throwNPE());
+                                element.appendChild((tmp$13 = document.createElement('br')) !== null && tmp$13 !== undefined ? tmp$13 : Kotlin.throwNPE());
                                 var oo2 = new _.java.io.OutputStream();
                                 saver.serialize(modelLoaded, oo2);
-                                element.appendChild((tmp$9 = document.createTextNode('After reload in browser')) !== null && tmp$9 !== undefined ? tmp$9 : Kotlin.throwNPE());
-                                element.appendChild((tmp$10 = document.createElement('br')) !== null && tmp$10 !== undefined ? tmp$10 : Kotlin.throwNPE());
-                                element.appendChild((tmp$11 = document.createTextNode(oo2.get_result())) !== null && tmp$11 !== undefined ? tmp$11 : Kotlin.throwNPE());
-                                element.appendChild((tmp$12 = document.createElement('br')) !== null && tmp$12 !== undefined ? tmp$12 : Kotlin.throwNPE());
+                                element.appendChild((tmp$14 = document.createTextNode('After reload in browser')) !== null && tmp$14 !== undefined ? tmp$14 : Kotlin.throwNPE());
+                                element.appendChild((tmp$15 = document.createElement('br')) !== null && tmp$15 !== undefined ? tmp$15 : Kotlin.throwNPE());
+                                element.appendChild((tmp$16 = document.createTextNode(oo2.get_result())) !== null && tmp$16 !== undefined ? tmp$16 : Kotlin.throwNPE());
+                                element.appendChild((tmp$17 = document.createElement('br')) !== null && tmp$17 !== undefined ? tmp$17 : Kotlin.throwNPE());
+                                return root;
                             }
+                            return null;
                         }
                     }),
                     java: Kotlin.definePackage({
@@ -19519,14 +19527,15 @@ define(
                                             }
                                             else {
                                                 if (builder !== null && builder !== undefined) {
-                                                    builder = _.jet.plus(builder, c);
+                                                    var tmp$2;
+                                                    builder = ((tmp$2 = builder) !== null && tmp$2 !== undefined ? tmp$2 : Kotlin.throwNPE()) + c;
                                                 }
                                                 i++;
                                             }
                                         }
                                         if (builder !== null && builder !== undefined) {
-                                            var tmp$2;
-                                            return (tmp$2 = builder) !== null && tmp$2 !== undefined ? tmp$2 : Kotlin.throwNPE();
+                                            var tmp$3;
+                                            return (tmp$3 = builder) !== null && tmp$3 !== undefined ? tmp$3 : Kotlin.throwNPE();
                                         }
                                         else {
                                             return src;
@@ -24507,7 +24516,7 @@ define(
                                         var tmp$0, tmp$1, tmp$2;
                                         for (tmp$1 = 0, tmp$0 = selfObject; tmp$1 < 2; ++tmp$1) {
                                             if (tmp$1 === 0)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.CompositeType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.CompositeType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.CompositeTypeImpl)) {
                                                     {
                                                         tmp$2 = this.CompositeTypetoJson(selfObject, addrs, ostream);
                                                     }
@@ -25235,14 +25244,14 @@ define(
                                         var tmp$0, tmp$1, tmp$2;
                                         for (tmp$1 = 0, tmp$0 = selfObject; tmp$1 < 3; ++tmp$1) {
                                             if (tmp$1 === 0)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ServicePortType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ServicePortType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ServicePortTypeImpl)) {
                                                     {
                                                         tmp$2 = this.ServicePortTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 1)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.MessagePortType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.MessagePortType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.MessagePortTypeImpl)) {
                                                     {
                                                         tmp$2 = this.MessagePortTypetoJson(selfObject, addrs, ostream);
                                                     }
@@ -26446,7 +26455,7 @@ define(
                                         var tmp$0, tmp$1, tmp$2;
                                         for (tmp$1 = 0, tmp$0 = selfObject; tmp$1 < 2; ++tmp$1) {
                                             if (tmp$1 === 0)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.DictionaryAttribute)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.DictionaryAttribute) || Kotlin.isType(tmp$0, _.org.kevoree.impl.DictionaryAttributeImpl)) {
                                                     {
                                                         tmp$2 = this.DictionaryAttributetoJson(selfObject, addrs, ostream);
                                                     }
@@ -26967,112 +26976,112 @@ define(
                                         var tmp$0, tmp$1, tmp$2;
                                         for (tmp$1 = 0, tmp$0 = selfObject; tmp$1 < 17; ++tmp$1) {
                                             if (tmp$1 === 0)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ComponentType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ComponentType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ComponentTypeImpl)) {
                                                     {
                                                         tmp$2 = this.ComponentTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 1)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Namespace)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Namespace) || Kotlin.isType(tmp$0, _.org.kevoree.impl.NamespaceImpl)) {
                                                     {
                                                         tmp$2 = this.NamespacetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 2)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.PortTypeRef)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.PortTypeRef) || Kotlin.isType(tmp$0, _.org.kevoree.impl.PortTypeRefImpl)) {
                                                     {
                                                         tmp$2 = this.PortTypeReftoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 3)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ServicePortType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ServicePortType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ServicePortTypeImpl)) {
                                                     {
                                                         tmp$2 = this.ServicePortTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 4)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Operation)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Operation) || Kotlin.isType(tmp$0, _.org.kevoree.impl.OperationImpl)) {
                                                     {
                                                         tmp$2 = this.OperationtoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 5)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Parameter)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Parameter) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ParameterImpl)) {
                                                     {
                                                         tmp$2 = this.ParametertoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 6)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.TypedElement)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.TypedElement) || Kotlin.isType(tmp$0, _.org.kevoree.impl.TypedElementImpl)) {
                                                     {
                                                         tmp$2 = this.TypedElementtoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 7)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.MessagePortType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.MessagePortType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.MessagePortTypeImpl)) {
                                                     {
                                                         tmp$2 = this.MessagePortTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 8)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.TypeLibrary)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.TypeLibrary) || Kotlin.isType(tmp$0, _.org.kevoree.impl.TypeLibraryImpl)) {
                                                     {
                                                         tmp$2 = this.TypeLibrarytoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 9)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.IntegrationPattern)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.IntegrationPattern) || Kotlin.isType(tmp$0, _.org.kevoree.impl.IntegrationPatternImpl)) {
                                                     {
                                                         tmp$2 = this.IntegrationPatterntoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 10)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.NetworkProperty)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.NetworkProperty) || Kotlin.isType(tmp$0, _.org.kevoree.impl.NetworkPropertyImpl)) {
                                                     {
                                                         tmp$2 = this.NetworkPropertytoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 11)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ChannelType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ChannelType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ChannelTypeImpl)) {
                                                     {
                                                         tmp$2 = this.ChannelTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 12)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Instance)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Instance) || Kotlin.isType(tmp$0, _.org.kevoree.impl.InstanceImpl)) {
                                                     {
                                                         tmp$2 = this.InstancetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 13)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.GroupType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.GroupType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.GroupTypeImpl)) {
                                                     {
                                                         tmp$2 = this.GroupTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 14)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.NodeType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.NodeType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.NodeTypeImpl)) {
                                                     {
                                                         tmp$2 = this.NodeTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 15)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.AdaptationPrimitiveType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.AdaptationPrimitiveType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.AdaptationPrimitiveTypeImpl)) {
                                                     {
                                                         tmp$2 = this.AdaptationPrimitiveTypetoJson(selfObject, addrs, ostream);
                                                     }
@@ -27777,42 +27786,42 @@ define(
                                         var tmp$0, tmp$1, tmp$2;
                                         for (tmp$1 = 0, tmp$0 = selfObject; tmp$1 < 7; ++tmp$1) {
                                             if (tmp$1 === 0)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ComponentType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ComponentType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ComponentTypeImpl)) {
                                                     {
                                                         tmp$2 = this.ComponentTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 1)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ServicePortType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ServicePortType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ServicePortTypeImpl)) {
                                                     {
                                                         tmp$2 = this.ServicePortTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 2)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.MessagePortType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.MessagePortType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.MessagePortTypeImpl)) {
                                                     {
                                                         tmp$2 = this.MessagePortTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 3)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ChannelType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ChannelType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ChannelTypeImpl)) {
                                                     {
                                                         tmp$2 = this.ChannelTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 4)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.GroupType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.GroupType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.GroupTypeImpl)) {
                                                     {
                                                         tmp$2 = this.GroupTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 5)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.NodeType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.NodeType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.NodeTypeImpl)) {
                                                     {
                                                         tmp$2 = this.NodeTypetoJson(selfObject, addrs, ostream);
                                                     }
@@ -27966,28 +27975,28 @@ define(
                                         var tmp$0, tmp$1, tmp$2;
                                         for (tmp$1 = 0, tmp$0 = selfObject; tmp$1 < 5; ++tmp$1) {
                                             if (tmp$1 === 0)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ComponentInstance)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ComponentInstance) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ComponentInstanceImpl)) {
                                                     {
                                                         tmp$2 = this.ComponentInstancetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 1)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ContainerNode)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ContainerNode) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ContainerNodeImpl)) {
                                                     {
                                                         tmp$2 = this.ContainerNodetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 2)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Channel)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Channel) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ChannelImpl)) {
                                                     {
                                                         tmp$2 = this.ChanneltoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 3)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Group)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.Group) || Kotlin.isType(tmp$0, _.org.kevoree.impl.GroupImpl)) {
                                                     {
                                                         tmp$2 = this.GrouptoJson(selfObject, addrs, ostream);
                                                     }
@@ -28088,28 +28097,28 @@ define(
                                         var tmp$0, tmp$1, tmp$2;
                                         for (tmp$1 = 0, tmp$0 = selfObject; tmp$1 < 5; ++tmp$1) {
                                             if (tmp$1 === 0)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ComponentType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ComponentType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ComponentTypeImpl)) {
                                                     {
                                                         tmp$2 = this.ComponentTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 1)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ChannelType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.ChannelType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.ChannelTypeImpl)) {
                                                     {
                                                         tmp$2 = this.ChannelTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 2)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.GroupType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.GroupType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.GroupTypeImpl)) {
                                                     {
                                                         tmp$2 = this.GroupTypetoJson(selfObject, addrs, ostream);
                                                     }
                                                     break;
                                                 }
                                             if (tmp$1 === 3)
-                                                if (Kotlin.isType(tmp$0, _.org.kevoree.NodeType)) {
+                                                if (Kotlin.isType(tmp$0, _.org.kevoree.NodeType) || Kotlin.isType(tmp$0, _.org.kevoree.impl.NodeTypeImpl)) {
                                                     {
                                                         tmp$2 = this.NodeTypetoJson(selfObject, addrs, ostream);
                                                     }

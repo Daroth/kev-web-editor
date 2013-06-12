@@ -93,7 +93,6 @@ define(
 //                    grp.addBindingInstanceToModel(grp._wires[i].getTarget());
                 }
             }
-
             this._model.addGroups(grp._instance);
 
             this._listener.call(this);
