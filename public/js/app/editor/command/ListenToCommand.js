@@ -10,7 +10,9 @@ define(
 
         ListenToCommand.prototype.execute = function (editor, uri) {
             var ws = new WebSocket('ws://'+uri),
-                loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
+                loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
+                serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer(),
+                os = new Kevoree.java.io.OutputStream();
 
             ws.onmessage = function (event) {
                 var model = loader.loadModelFromString(event.data).get(0);
@@ -33,11 +35,12 @@ define(
             editor.setModelListener({
                 onUpdates: function () {
                     console.log("MODEL UPDATED (d'après le visitor)");
-                    var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
-                    var os = new Kevoree.java.io.OutputStream();
                     serializer.serialize(editor.getModel(), os);
-                    ws.send(os.get_result());
+                    var jsonModel = JSON.parse(os.get_result());
+                    console.log(jsonModel);
+                    ws.send(JSON.stringify(jsonModel));
 
+                    os.set_result(''); // reset OutputStream
                 }
             });
         }
