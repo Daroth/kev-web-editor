@@ -3,6 +3,7 @@ define(
         'util/ModelHelper',
         'visitor/UpdateModelVisitor',
         'visitor/RemoveModelVisitor',
+        'visitor/InstanceModelVisitor',
         'kevoree'
     ],
 
@@ -14,6 +15,7 @@ define(
             this._model = null;
             this._updateVisitor = new UpdateModelVisitor();
             this._removeVisitor = new RemoveModelVisitor();
+            this._instanceVisitor = new InstanceModelVisitor();
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
         }
 
@@ -28,7 +30,6 @@ define(
             // update model
             if (this._model) {
                 entity.accept(this._updateVisitor);
-//                entity.addInstanceToModel(this._factory);
             }
         }
 
@@ -44,7 +45,6 @@ define(
                 // update model
                 if (this._model) {
                     entity.accept(this._removeVisitor);
-//                    entity.removeInstanceFromModel();
                 }
             }
         }
@@ -57,7 +57,6 @@ define(
             // update model
             if (this._model) {
                 entity.accept(this._updateVisitor);
-//                entity.addInstanceToModel(this._factory);
             }
 
             console.log("Editor.addNestableEntity ", entity);
@@ -70,7 +69,6 @@ define(
             // update model
             if (this._model) {
                 entity.accept(this._removeVisitor);
-//                entity.removeInstanceFromModel();
             }
 
             console.log("Editor.removeNestableEntity ", entity);
@@ -104,6 +102,7 @@ define(
             this._model = model;
             this._updateVisitor.setModel(model);
             this._removeVisitor.setModel(model);
+            this._instanceVisitor.visitEditor(this);
         }
 
         KEditor.prototype.getModel = function () {
