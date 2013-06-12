@@ -22,32 +22,15 @@ define(
             return KGroup.ENTITY_TYPE;
         }
 
-        KGroup.prototype.addInstanceToModel = function (factory) {
-            var model = this._editor.getModel();
-            this._instance = factory.createGroup();
-
-            this._instance.setName(this._name);
-            this._instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
-
-            if (this._wires.length > 0) {
-                for (var i=0; i < this._wires.length; i++)
-                    this.addBindingInstanceToModel(this._wires[i].getTarget());
-            }
-
-            model.addGroups(this._instance);
-        }
-
-        KGroup.prototype.removeInstanceFromModel = function () {
-            var model = this._editor.getModel(),
-                grp = model.findGroupsByID(this._name);
-            model.removeGroups(grp);
-        }
-
         KGroup.prototype.addBindingInstanceToModel = function (target) {
             var model = this._editor.getModel(),
                 node = model.findNodesByID(target.getName()),
                 grp = model.findGroupsByID(this._name);
             if (node && grp) grp.addSubNodes(node);
+        }
+
+        KGroup.prototype.accept = function (visitor) {
+            visitor.visitGroup(this);
         }
 
         return KGroup;

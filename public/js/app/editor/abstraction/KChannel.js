@@ -21,20 +21,8 @@ define(
             return KChannel.ENTITY_TYPE;
         }
 
-        KChannel.prototype.addInstanceToModel = function (factory) {
-            var model = this._editor.getModel();
-            this._instance = factory.createChannel();
-
-            this._instance.setName(this._name);
-            this._instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
-
-            model.addHubs(this._instance);
-        }
-
-        KChannel.prototype.removeInstanceFromModel = function () {
-            var model = this._editor.getModel(),
-                hub = model.findHubsByID(this._name);
-            model.removeHubs(hub);
+        KChannel.prototype.accept = function (visitor) {
+            visitor.visitChannel(this);
         }
 
         return KChannel;

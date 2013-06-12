@@ -35,6 +35,11 @@ Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side 
     <td>Float value [0..Inf]</td>
     <td>Sets the editor scale (default zoom is 1, range is from 0.1 to Inf)</td>
   </tr>
+  <tr>
+    <td>listen</td>
+    <td>URI (without ws://)</td>
+    <td>Initiate the listen process by connecting to the given URI WebSocket server</td>
+  </tr>
 </table>
 
 So an usage could be something like that:

@@ -30,16 +30,8 @@ define(
             model.addMBindings(binding);
         }
 
-        KInputPort.prototype.addInstanceToModel = function (factory) {
-            var model = this._component.getEditor().getModel(),
-                node = model.findNodesByID(this._component.getParent().getName()),
-                comp = node.findComponentsByID(this._component.getName()),
-                portRef = comp.getTypeDefinition().findProvidedByID(this._name);
-
-            this._instance = factory.createPort();
-
-            comp.addProvided(this._instance);
-            this._instance.setPortTypeRef(portRef);
+        KInputPort.prototype.accept = function (visitor) {
+            visitor.visitInputPort(this);
         }
 
         return KInputPort;

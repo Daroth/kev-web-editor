@@ -60,18 +60,19 @@ define(
                 .append('<div class="span4">Reachable from</div>')
                 .append('<select id="'+UINodeProps.INIT_BY_NODES+'" multiple="multiple">')
                 .append(generateOptions(this._ui))
-                .append('</select>')
-                .append('</div>');
+                .append('</select></div></div>');
 
-            builder.append('</div>');
 
-            builder.append('<div class="row-fluid" style="margin-top: 10px;">')
-                .append('<div class="span4">Network address</div>')
-                .append('<div class="input-append input-fullwidth span8">')
-                .append('<div class="input-wrapper"><input id="'+UINodeProps.NODE_NETWORK_IP+'" type="text" placeholder="Network address"/></div>')
-                .append('<button class="btn"><i class="icon-plus"></i></span>')
-                .append('</div>')
-                .append('</div>');
+            builder.append('<ul class="nav nav-tabs">')
+                .append('<li><a href="#node-link-default">default</a></li>')
+                .append('</ul>');
+//            builder.append('<div class="row-fluid" style="margin-top: 10px;">')
+//                .append('<div class="span4">Network address</div>')
+//                .append('<div class="input-append input-fullwidth span8">')
+//                .append('<div class="input-wrapper"><input id="'+UINodeProps.NODE_NETWORK_IP+'" type="text" placeholder="Network address"/></div>')
+//                .append('<button class="btn" id="node-network-add-property"><i class="icon-plus"></i></span>')
+//                .append('</div>')
+//                .append('</div>');
 
             builder.append('<div class="row-fluid">')
                 .append('<button id="'+PUSH_ACTION+'" type="button" class="btn btn-inverse span4">Push</button>')

@@ -29,6 +29,17 @@ define(
             ws.onerror = function () {
                 loadFailed(uri);
             }
+
+            editor.setModelListener({
+                onUpdates: function () {
+                    console.log("MODEL UPDATED (d'après le visitor)");
+                    var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
+                    var os = new Kevoree.java.io.OutputStream();
+                    serializer.serialize(editor.getModel(), os);
+                    ws.send(os.get_result());
+
+                }
+            });
         }
 
         // private method

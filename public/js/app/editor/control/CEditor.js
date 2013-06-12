@@ -60,6 +60,17 @@ define(
             this._draggedEntity = null;
         }
 
+        CEditor.prototype.setModelListener = function (callback) {
+            if (callback && typeof(callback) == typeof({})) {
+                if (callback.onUpdates && typeof(callback.onUpdates) == "function") {
+                    this._updateVisitor.setListener(callback.onUpdates);
+                    this._removeVisitor.setListener(callback.onUpdates);
+                }
+            } else {
+                throw "Editor setModelListener's callback should be an object";
+            }
+        }
+
         CEditor.prototype.p2cEntityDraggedOver = function (libItem, entity_type, name) {
             if (!this._draggedEntity) {
                 var cFactory = require('factory/CFactory').getInstance();

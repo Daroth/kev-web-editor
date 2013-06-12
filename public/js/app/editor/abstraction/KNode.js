@@ -104,37 +104,8 @@ define(
             return maxDepth;
         }
 
-        KNode.prototype.addInstanceToModel = function (factory) {
-            var model = this._editor.getModel();
-            this._instance = factory.createContainerNode();
-
-            this._instance.setName(this._name);
-            this._instance.setTypeDefinition(model.findTypeDefinitionsByID(this._type));
-
-            model.addNodes(this._instance);
-
-            if (this._parent) {
-                var node = model.findNodesByID(this._parent.getName());
-                node.addHosts(this._instance);
-            }
-
-            if (this._children.length > 0) {
-                for (var i=0; i< this._children.length; i++) {
-                    this._children[i].addInstanceToModel(factory);
-                }
-            }
-
-            if (this._wires.length > 0) {
-                for (var i=0; i < this._wires.length; i++) {
-                    this._wires[i].getOrigin().addBindingInstanceToModel(this);
-                }
-            }
-        }
-
-        KNode.prototype.removeInstanceFromModel = function () {
-            var model = this._editor.getModel(),
-                node = model.findNodesByID(this._name);
-            if (node) model.removeNodes(node);
+        KNode.prototype.accept = function (visitor) {
+            visitor.visitNode(this);
         }
 
         return KNode;

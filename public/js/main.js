@@ -11,6 +11,7 @@ requirejs.config({
         app:            '../app',
         util:           '../app/util',
         abstraction:    '../app/editor/abstraction',
+        visitor:        '../app/editor/visitor',
         control:        '../app/editor/control',
         presentation:   '../app/editor/presentation',
         factory:        '../app/editor/factory',
@@ -104,6 +105,10 @@ define(
                 } else {
                     editor.p2cShowLibTree();
                 }
+            },
+            listen: function (uri) {
+                var cmd = new ListenToCommand();
+                cmd.execute(editor, uri);
             }
         });
 

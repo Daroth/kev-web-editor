@@ -1,15 +1,19 @@
 define(
     [
         'util/ModelHelper',
+        'visitor/UpdateModelVisitor',
+        'visitor/RemoveModelVisitor',
         'kevoree'
     ],
 
-    function(ModelHelper, Kevoree) {
+    function(ModelHelper, UpdateModelVisitor, RemoveModelVisitor, Kevoree) {
 
         function KEditor() {
             this._entities = [];
             this._typeCounter = [];
             this._model = null;
+            this._updateVisitor = new UpdateModelVisitor();
+            this._removeVisitor = new RemoveModelVisitor();
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
         }
 
@@ -22,7 +26,10 @@ define(
             this._typeCounter[entity.getType()]++;
 
             // update model
-            if (this._model) entity.addInstanceToModel(this._factory);
+            if (this._model) {
+                entity.accept(this._updateVisitor);
+//                entity.addInstanceToModel(this._factory);
+            }
         }
 
         KEditor.prototype.removeEntity = function(entity) {
@@ -35,7 +42,10 @@ define(
                 this._typeCounter[entity.getType()]--;
 
                 // update model
-                if (this._model) entity.removeInstanceFromModel();
+                if (this._model) {
+                    entity.accept(this._removeVisitor);
+//                    entity.removeInstanceFromModel();
+                }
             }
         }
 
@@ -45,7 +55,10 @@ define(
             this._typeCounter[entity.getType()]++;
 
             // update model
-            if (this._model) entity.addInstanceToModel(this._factory);
+            if (this._model) {
+                entity.accept(this._updateVisitor);
+//                entity.addInstanceToModel(this._factory);
+            }
 
             console.log("Editor.addNestableEntity ", entity);
         }
@@ -55,7 +68,10 @@ define(
             this._typeCounter[entity.getType()]--;
 
             // update model
-            if (this._model) entity.removeInstanceFromModel();
+            if (this._model) {
+                entity.accept(this._removeVisitor);
+//                entity.removeInstanceFromModel();
+            }
 
             console.log("Editor.removeNestableEntity ", entity);
         }
@@ -84,7 +100,10 @@ define(
         }
 
         KEditor.prototype.setModel = function (model) {
+            this.clear(); // clear editor before a new model is set
             this._model = model;
+            this._updateVisitor.setModel(model);
+            this._removeVisitor.setModel(model);
         }
 
         KEditor.prototype.getModel = function () {
