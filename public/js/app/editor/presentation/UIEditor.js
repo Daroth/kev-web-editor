@@ -291,8 +291,9 @@ define(
         }
 
         UIEditor.prototype.c2pDropImpossible = function (entity) {
-            entity.getDOMItem().effect('highlight', {color: '#f00'}, 500);
-            entity.getDOMItem().tooltip('show');
+            // TODO
+//            entity.getDOMItem().effect('highlight', {color: '#f00'}, 500);
+//            entity.getDOMItem().tooltip('show');
         }
 
         UIEditor.prototype.c2pZoomIn = function () {

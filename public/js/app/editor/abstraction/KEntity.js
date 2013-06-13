@@ -19,11 +19,9 @@ define(
         }
 
         KEntity.prototype.setName = function(name) {
-            // TODO
-//            var factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
-//            this.removeInstanceFromModel();
+            this.getEditor().removeFromModel(this);
             this._name = name;
-//            this.addInstanceToModel(factory);
+            this.getEditor().addToModel(this);
         }
 
         KEntity.prototype.getType = function() {

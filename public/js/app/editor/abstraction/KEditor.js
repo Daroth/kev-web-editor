@@ -53,6 +53,10 @@ define(
         KEditor.prototype.getEntity = function (name) {
             for (var i=0; i < this._entities.length; i++) {
                 if (this._entities[i].getName() == name) return this._entities[i];
+                if (typeof(this._entities[i].getEntity) === 'function') {
+                    var entity = this._entities[i].getEntity(name);
+                    if (entity != null) return entity;
+                }
             }
             return null;
         }
@@ -127,7 +131,15 @@ define(
         }
 
         KEditor.prototype.updateModel = function (entity) {
-            entity.accept(this._updateVisitor);
+            if (!this._lockedModel) entity.accept(this._updateVisitor);
+        }
+
+        KEditor.prototype.addToModel = function (entity) {
+            if (!this._lockedModel) entity.accept(this._updateVisitor);
+        }
+
+        KEditor.prototype.removeFromModel = function (entity) {
+            if (!this._lockedModel) entity.accept(this._removeVisitor);
         }
 
         KEditor.prototype.getModel = function () {

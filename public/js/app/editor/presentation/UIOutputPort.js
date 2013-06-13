@@ -18,12 +18,6 @@ define(
             this._shape.setName(UIOutputPort.NAME);
         }
 
-        // Override UIPort.c2pWireCreationStarted(UIWire)
-        UIOutputPort.prototype.c2pWireCreationStarted = function (wire) {
-            UIPort.prototype.c2pWireCreationStarted.call(this, wire); // super(wire)
-            wire.setColor(STROKE);
-        }
-
         return UIOutputPort;
     }
 );

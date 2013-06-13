@@ -35,7 +35,7 @@ define(
             if (wire) {
                 // there is a wire task in progress
                 var origin = wire.getOrigin();
-                if (typeof (origin.getEntityType) == 'function' && origin.getEntityType() == KGroup.ENTITY_TYPE) {
+                if (origin.getEntityType() == KGroup.ENTITY_TYPE) {
                     var alreadyConnected = false;
                     for (var i=0; i < origin.getWires().length; i++) {
                         var wire = origin.getWires()[i];

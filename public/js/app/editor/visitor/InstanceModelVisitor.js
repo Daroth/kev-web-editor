@@ -20,6 +20,9 @@ define(
             // visit components instances
             visitComponents(editor, this._factory, model.getNodes());
 
+            // visit bindings instances
+            visitBindings(editor, this._factory, model.getMBindings());
+
             // visit subNodes instances
             visitSubNodes(editor, this._factory, model.getGroups());
         }
@@ -92,6 +95,47 @@ define(
                         wire.setTarget(node);
                         grp.addWire(wire);
                         node.addWire(wire);
+                    }
+                }
+            }
+        }
+
+        function visitBindings(editor, factory, bindings) {
+            for (var i=0; i < bindings.size(); i++) {
+                var port = bindings.get(i).getPort(),
+                    hub = bindings.get(i).getHub();
+
+                if (port && hub) {
+                    var comp = editor.getEntity(port.eContainer().getName()),
+                        chan = editor.getEntity(hub.getName());
+                    if (comp && chan) {
+                        for (var j=0; j < port.eContainer().getProvided().size(); j++) {
+                            var provided = port.eContainer().getProvided().get(j);
+                            if (port.getPortTypeRef() == provided.getPortTypeRef()) {
+                                var portEntity = comp.getPort(port.getPortTypeRef().getName());
+                                if (portEntity != null) {
+                                    addPortToEditor(portEntity, comp, chan);
+                                }
+                            }
+                        }
+
+                        for (var j=0; j < port.eContainer().getRequired().size(); j++) {
+                            var required = port.eContainer().getRequired().get(j);
+                            if (port.getPortTypeRef() == required.getPortTypeRef()) {
+                                var portEntity = comp.getPort(port.getPortTypeRef().getName());
+                                if (portEntity != null) {
+                                    addPortToEditor(portEntity, comp, chan);
+                                }
+                            }
+                        }
+                    }
+
+                    function addPortToEditor(port, component, chan) {
+                        port.setComponent(component);
+                        var wire = port.createWire();
+                        wire.setTarget(chan);
+                        component.addWire(wire);
+                        chan.addWire(wire);
                     }
                 }
             }

@@ -7,6 +7,8 @@ define(
 
     function (KPort, Pooffs, require) {
 
+        KOutputPort.ENTITY_TYPE = 'OutputPortType';
+
         Pooffs.extends(KOutputPort, KPort);
 
         function KOutputPort (name) {
@@ -19,19 +21,12 @@ define(
             return wire;
         }
 
-        KOutputPort.prototype.addBindingInstanceToModel = function (target) {
-            var model = this._component.getEditor().getModel(),
-                hub = model.findHubsByID(target.getName()),
-                binding = this._factory.createMBinding();
-
-            binding.setPort(this._instance);
-            binding.setHub(hub);
-
-            model.addMBindings(binding);
-        }
-
         KOutputPort.prototype.accept = function (visitor) {
             visitor.visitOutputPort(this);
+        }
+
+        KOutputPort.prototype.getEntityType = function () {
+            return KOutputPort.ENTITY_TYPE;
         }
 
         return KOutputPort;

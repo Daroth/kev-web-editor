@@ -27,7 +27,7 @@ define(
                     // retrieve data from selected file
                     var jsonModel = JSON.parse(event.target.result),
                         strModel = JSON.stringify(jsonModel);
-                    try {
+//                    try {
                         var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
                         var model = loader.loadModelFromString(strModel).get(0);
                         editor.setModel(model);
@@ -36,11 +36,11 @@ define(
                         AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
                         AlertPopupHelper.show(5000);
 
-                    } catch (err) {
-                        AlertPopupHelper.setText(err.message);
-                        AlertPopupHelper.setType(AlertPopupHelper.ERROR);
-                        AlertPopupHelper.show(5000);
-                    }
+//                    } catch (err) {
+//                        AlertPopupHelper.setText(err.message);
+//                        AlertPopupHelper.setType(AlertPopupHelper.ERROR);
+//                        AlertPopupHelper.show(5000);
+//                    }
                 }
                 fReader.readAsText(file);
             });

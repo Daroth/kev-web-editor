@@ -1,9 +1,11 @@
 define(
     [
-        'kevoree'
+        'kevoree',
+        'abstraction/KGroup',
+        'abstraction/KPort'
     ],
 
-    function (Kevoree) {
+    function (Kevoree, KGroup, KPort) {
 
         function UpdateModelVisitor() {
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
@@ -81,6 +83,10 @@ define(
                 comp._outputs[i].accept(this);
             }
 
+            for (var i=0; i < comp._wires.length; i++) {
+                comp._wires[i].accept(this);
+            }
+
             this._listener.call(this);
         }
 
@@ -102,15 +108,29 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitWire = function (wire) {
-            var node = this._model.findNodesByID(wire.getTarget().getName()),
-                grp = this._model.findGroupsByID(wire.getOrigin().getName());
-            if (node && grp) grp.addSubNodes(node);
+            switch (wire.getOrigin().getEntityType()) {
+                case KGroup.ENTITY_TYPE:
+                    var node = this._model.findNodesByID(wire.getTarget().getName()),
+                        grp = this._model.findGroupsByID(wire.getOrigin().getName());
+                    if (node && grp) grp.addSubNodes(node);
+                    break;
+
+                case KPort.ENTITY_TYPE:
+                    var hub = this._model.findHubsByID(wire.getTarget().getName()),
+                        binding = this._factory.createMBinding();
+
+                    binding.setPort(wire.getOrigin()._instance);
+                    binding.setHub(hub);
+
+                    this._model.addMBindings(binding);
+                    break;
+            }
         }
 
         UpdateModelVisitor.prototype.visitOutputPort = function (port) {
             var node = this._model.findNodesByID(port._component.getParent().getName()),
                 comp = node.findComponentsByID(port._component.getName()),
-                portRef = comp.getTypeDefinition().findRequiredByID(port._name);
+                portRef = comp.getTypeDefinition().findRequiredByID(port.getName());
 
             port._instance = this._factory.createPort();
 
@@ -121,7 +141,7 @@ define(
         UpdateModelVisitor.prototype.visitInputPort = function (port) {
             var node = this._model.findNodesByID(port._component.getParent().getName()),
                 comp = node.findComponentsByID(port._component.getName()),
-                portRef = comp.getTypeDefinition().findProvidedByID(port._name);
+                portRef = comp.getTypeDefinition().findProvidedByID(port.getName());
 
             port._instance = this._factory.createPort();
 
@@ -134,7 +154,6 @@ define(
             if (typeof(entity.getUI) === 'function' && entity.getUI()) {
                 if (entity.getUI().getShape()) {
                     var pos = entity.getUI().getShape().getAbsolutePosition();
-                    console.log("setting position in model : ", pos);
                     entity._instance.setMetaData('x='+parseInt(pos.x)+',y='+parseInt(pos.y));
                 }
             }

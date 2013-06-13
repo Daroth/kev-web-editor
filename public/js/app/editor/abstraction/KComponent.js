@@ -79,6 +79,16 @@ define(
             return [];
         }
 
+        KComponent.prototype.getPort = function (name) {
+            for (var i=0; i < this._inputs.length; i++) {
+                if (this._inputs[i].getName() == name) return this._inputs[i];
+            }
+            for (var i=0; i < this._outputs.length; i++) {
+                if (this._outputs[i].getName() == name) return this._outputs[i];
+            }
+            return null;
+        }
+
         KComponent.prototype.getInputs = function () {
             return this._inputs;
         }

@@ -41,6 +41,15 @@ define(
             return this._children;
         }
 
+        KNode.prototype.getEntity = function (name) {
+            for (var i=0; i < this._children.length; i++) {
+                if (this._children[i].getName() == name) {
+                    return this._children[i];
+                }
+            }
+            return null;
+        }
+
         KNode.prototype.removeChild = function (entity) {
             var index = this._children.indexOf(entity);
             if (index != -1) {

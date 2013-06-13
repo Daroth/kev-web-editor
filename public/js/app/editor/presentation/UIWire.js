@@ -1,15 +1,19 @@
 define(
     [
         'util/Pooffs',
+        'abstraction/KInputPort',
+        'abstraction/KOutputPort',
         'presentation/UIEntity',
         'presentation/property/UIWireProps'
     ],
 
-    function(Pooffs, UIEntity, UIWireProps) {
+    function(Pooffs, KInputPort, KOutputPort, UIEntity, UIWireProps) {
         Pooffs.extends(UIWire, UIEntity);
 
         // GLOBAL CONSTANTS
-        var DEFAULT_COLOR = '#5aa564';
+        var DEFAULT_COLOR = '#5aa564',
+            OUTPUT_WIRE = '#C60808',
+            INPUT_WIRE = '#ECCA40';
 
         function UIWire(ctrl, layer) {
             // UIEntity.super(ctrl)
@@ -18,9 +22,22 @@ define(
             this._origin = ctrl.getOrigin().getUI();
             this._target = null;
 
+            var color = (function () {
+                switch (ctrl.getOrigin().getEntityType()) {
+                    case KOutputPort.ENTITY_TYPE:
+                        return OUTPUT_WIRE;
+
+                    case KInputPort.ENTITY_TYPE:
+                        return INPUT_WIRE;
+
+                    default:
+                        return DEFAULT_COLOR;
+                }
+            })();
+
             var that = this;
             this._shape = new Kinetic.Shape({
-                stroke: DEFAULT_COLOR,
+                stroke: color,
                 strokeWidth: 5,
                 lineCap: 'round',
                 lineJoin: 'round',

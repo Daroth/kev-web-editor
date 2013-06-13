@@ -4,6 +4,7 @@ define(
     ],
 
     function (Kevoree) {
+        KPort.ENTITY_TYPE = 'PortType';
 
         /**
          * This should be considered as an abstract class
@@ -12,22 +13,12 @@ define(
          */
         function KPort (name) {
             this._component = null;
-            this._channel = null;
             this._name = name;
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
         }
 
-        KPort.prototype.connect = function (/* KChannel */ channel) {
-            this._channel = channel;
-        }
-
         KPort.prototype.disconnect = function () {
             this._component.disconnectPort(this);
-            this._channel = null;
-        }
-
-        KPort.prototype.getChannel = function () {
-            return this._channel;
         }
 
         KPort.prototype.getComponent = function () {
@@ -48,6 +39,10 @@ define(
 
         KPort.prototype.getWires = function () {
             return this._component.getWires();
+        }
+
+        KPort.prototype.getEntityType = function () {
+            return KPort.ENTITY_TYPE;
         }
 
         return KPort;
