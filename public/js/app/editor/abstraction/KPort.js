@@ -4,8 +4,6 @@ define(
     ],
 
     function (Kevoree) {
-        KPort.ENTITY_TYPE = 'PortType';
-
         /**
          * This should be considered as an abstract class
          *
@@ -39,10 +37,6 @@ define(
 
         KPort.prototype.getWires = function () {
             return this._component.getWires();
-        }
-
-        KPort.prototype.getEntityType = function () {
-            return KPort.ENTITY_TYPE;
         }
 
         return KPort;

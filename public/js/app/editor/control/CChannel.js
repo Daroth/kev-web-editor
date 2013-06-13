@@ -2,14 +2,15 @@ define(
     [
         'abstraction/KChannel',
         'abstraction/KComponent',
-        'abstraction/KPort',
+        'abstraction/KInputPort',
+        'abstraction/KOutputPort',
         'presentation/UIChannel',
         'control/AController',
         'control/CEntity',
         'util/Pooffs'
     ],
 
-    function(KChannel, KComponent, KPort, UIChannel, AController, CEntity, Pooffs) {
+    function(KChannel, KComponent, KInputPort, KOutputPort, UIChannel, AController, CEntity, Pooffs) {
         Pooffs.extends(CChannel, AController);
         Pooffs.extends(CChannel, CEntity);
         Pooffs.extends(CChannel, KChannel);
@@ -30,7 +31,7 @@ define(
             if (wire) {
                 // there is a wire task in progress
                 var origin = wire.getOrigin();
-                if (origin.getEntityType() == KPort.ENTITY_TYPE) {
+                if (origin.getEntityType() == KInputPort.ENTITY_TYPE || origin.getEntityType() == KOutputPort.ENTITY_TYPE) {
                     if (isConnectable(origin, this)) {
                         // connection can be made
                         this._ui.c2pDropPossible();
@@ -53,7 +54,7 @@ define(
             if (wire) {
                 // there is a wire task in progress
                 var origin = wire.getOrigin();
-                if (origin.getEntityType() == KPort.ENTITY_TYPE) {
+                if (origin.getEntityType() == KInputPort.ENTITY_TYPE || origin.getEntityType() == KOutputPort.ENTITY_TYPE) {
                     if (isConnectable(origin, this)) {
                         // we are good to go
                         wire.setTarget(this);

@@ -2,10 +2,11 @@ define(
     [
         'kevoree',
         'abstraction/KGroup',
-        'abstraction/KPort'
+        'abstraction/KInputPort',
+        'abstraction/KOutputPort'
     ],
 
-    function (Kevoree, KGroup, KPort) {
+    function (Kevoree, KGroup, KInputPort, KOutputPort) {
 
         function UpdateModelVisitor() {
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
@@ -115,7 +116,8 @@ define(
                     if (node && grp) grp.addSubNodes(node);
                     break;
 
-                case KPort.ENTITY_TYPE:
+                case KInputPort.ENTITY_TYPE:
+                case KOutputPort.ENTITY_TYPE:
                     var hub = this._model.findHubsByID(wire.getTarget().getName()),
                         binding = this._factory.createMBinding();
 
