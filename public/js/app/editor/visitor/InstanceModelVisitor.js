@@ -17,8 +17,8 @@ define(
             // visit channel instances
             visitChannels(editor, this._factory, model.getHubs());
 
-            //            // visit components instances
-//            visitComponents(editor, this._factory, model.getCompo());
+            // visit components instances
+            visitComponents(editor, this._factory, model.getNodes());
 
             // visit subNodes instances
             visitSubNodes(editor, this._factory, model.getGroups());
@@ -49,14 +49,23 @@ define(
             }
         }
 
-        function visitComponents(editor, factory, compz) {
+        function visitComponents(editor, factory, nodes) {
             var entity = null;
-            var comp = null;
-            for (var i=0; i < compz.size(); i++) {
-                comp = compz.get(i);
-                entity = factory.newComponent(editor, comp.getTypeDefinition().getName());
-                entity.setName(comp.getName());
-                editor.addEntity(entity);
+            var node = null;
+            for (var i=0; i < nodes.size(); i++) {
+                node = nodes.get(i);
+                var entityNode = editor.getEntity(node.getName());
+                if (entityNode != null) {
+                    var compz = node.getComponents();
+                    for (var j=0; j < compz.size(); j++) {
+                        var comp = compz.get(j);
+                        entity = factory.newComponent(editor, comp.getTypeDefinition().getName());
+                        entity.setName(comp.getName());
+                        entity.setParent(entityNode);
+                        entityNode.addChild(entity);
+                        editor.addNestableEntity(entity);
+                    }
+                }
             }
         }
 

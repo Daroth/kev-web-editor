@@ -44,8 +44,8 @@ define(
             this._model.addNodes(node._instance);
 
             if (node._parent) {
-                var node = this._model.findNodesByID(node._parent.getName());
-                node.addHosts(node._instance);
+                var parent = this._model.findNodesByID(node._parent.getName());
+                parent.addHosts(node._instance);
             }
 
             if (node._children.length > 0) {
