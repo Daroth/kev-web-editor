@@ -33,7 +33,7 @@ define(
                 entity = factory.newNode(editor, node.getTypeDefinition().getName());
                 entity.setName(node.getName());
                 editor.addEntity(entity);
-                entity.getUI().getShape().move(100, 100);
+                loadMetaData(entity, node);
             }
         }
 
@@ -45,6 +45,7 @@ define(
                 entity = factory.newGroup(editor, grp.getTypeDefinition().getName());
                 entity.setName(grp.getName());
                 editor.addEntity(entity);
+                loadMetaData(entity, grp);
             }
         }
 
@@ -67,20 +68,16 @@ define(
                 entity = factory.newChannel(editor, chan.getTypeDefinition().getName());
                 entity.setName(chan.getName());
                 editor.addEntity(entity);
-                entity.getUI().getShape().move(100, 100);
+                loadMetaData(entity, chan);
             }
         }
 
         function visitSubNodes(editor, factory, grps) {
-            console.log("visitSubNodes");
             for (var i=0; i < grps.size(); i++) {
-                console.log("grp ", grps.get(i));
                 var subNodes = grps.get(i).getSubNodes();
-                console.log(grps.get(i).getSubNodes().size());
-                for (var j=0; j < subNodes.size(); j++) {
-                    console.log("SI TU VOIS CA C'COOL");
+                for (var j=0; j < subNodes.$size; j++) {
                     var grp = editor.getEntity(grps.get(i).getName());
-                    var node = editor.getEntity(subNodes.get(i).getName());
+                    var node = editor.getEntity(subNodes.get(j).getName());
                     if (grp != null && node != null) {
                         var wire = factory.newWire(grp);
                         wire.setTarget(node);
@@ -89,6 +86,27 @@ define(
                     }
                 }
             }
+        }
+
+        function loadMetaData(entity, instance) {
+            var metaData = instance.getMetaData(),
+                x = 100,
+                y = 100;
+
+            if (metaData != null) {
+                var commaSplitted = metaData.split(',');
+                for (var i=0; i < commaSplitted.length; i++) {
+                    if (commaSplitted[i].substr(0, 'x='.length) == 'x=') {
+                        x = parseInt(commaSplitted[i].substr('x='.length, commaSplitted[i].length-1));
+                    }
+
+                    if (commaSplitted[i].substr(0, 'y='.length) == 'y=') {
+                        y = parseInt(commaSplitted[i].substr('y='.length, commaSplitted[i].length-1));
+                    }
+                }
+            }
+
+            entity.getUI().getShape().setAbsolutePosition(x, y);
         }
 
         return InstanceModelVisitor;

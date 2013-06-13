@@ -6,11 +6,12 @@ define(
         'presentation/property/UINodeProps',
         'control/AController',
         'control/CNestableEntity',
+        'visitor/UpdateModelVisitor',
         'kevoree',
         'util/Pooffs'
     ],
 
-    function(KNode, KGroup, UINode, UINodeProps, AController, CNestableEntity, Kevoree, Pooffs) {
+    function(KNode, KGroup, UINode, UINodeProps, AController, CNestableEntity, UpdateModelVisitor, Kevoree, Pooffs) {
 
         Pooffs.extends(CNode, AController);
         Pooffs.extends(CNode, CNestableEntity);

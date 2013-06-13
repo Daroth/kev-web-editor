@@ -64,6 +64,10 @@ define(
             this._ui.c2pPropertiesUpdated();
         }
 
+        CEntity.prototype.p2cDragEnd = function () {
+            this.getEditor().updateModel(this);
+        }
+
         return CEntity;
     }
 );

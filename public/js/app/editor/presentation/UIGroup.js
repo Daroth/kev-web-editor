@@ -85,6 +85,10 @@
                 that._plug.getLayer().draw();
             });
 
+            this._shape.on('dragend', function () {
+                that._ctrl.p2cDragEnd();
+            });
+
             //===========================
             // Properties popup content
             //===========================

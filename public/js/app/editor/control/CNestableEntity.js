@@ -41,6 +41,9 @@ define(
 
             }
             this._isDragged = false;
+
+            // super.p2cDragEnd();
+            CEntity.prototype.p2cDragEnd.call(this);
         }
 
         return CNestableEntity;

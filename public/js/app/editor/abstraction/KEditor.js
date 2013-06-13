@@ -17,6 +17,7 @@ define(
             this._removeVisitor = new RemoveModelVisitor();
             this._instanceVisitor = new InstanceModelVisitor();
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
+            this._lockedModel = false;
         }
 
         KEditor.prototype.addEntity = function(entity) {
@@ -28,7 +29,7 @@ define(
             this._typeCounter[entity.getType()]++;
 
             // update model
-            if (this._model) {
+            if (!this._lockedModel) {
                 entity.accept(this._updateVisitor);
             }
         }
@@ -43,7 +44,7 @@ define(
                 this._typeCounter[entity.getType()]--;
 
                 // update model
-                if (this._model) {
+                if (!this._lockedModel) {
                     entity.accept(this._removeVisitor);
                 }
             }
@@ -72,7 +73,7 @@ define(
             this._typeCounter[entity.getType()]++;
 
             // update model
-            if (this._model) {
+            if (!this._lockedModel) {
                 entity.accept(this._updateVisitor);
             }
 
@@ -84,7 +85,7 @@ define(
             this._typeCounter[entity.getType()]--;
 
             // update model
-            if (this._model) {
+            if (!this._lockedModel) {
                 entity.accept(this._removeVisitor);
             }
 
@@ -119,7 +120,14 @@ define(
             this._model = model;
             this._updateVisitor.setModel(model);
             this._removeVisitor.setModel(model);
+
+            this._lockedModel = true;
             this._instanceVisitor.visitEditor(this);
+            this._lockedModel = false;
+        }
+
+        KEditor.prototype.updateModel = function (entity) {
+            entity.accept(this._updateVisitor);
         }
 
         KEditor.prototype.getModel = function () {

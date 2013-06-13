@@ -36,6 +36,10 @@ define(
                 // display the properties popup
                 props.show();
             });
+
+            this._shape.on('dragend', function () {
+                that._ctrl.p2cDragEnd();
+            });
         }
 
         UINode.prototype.c2pAddChild = function (entity) {

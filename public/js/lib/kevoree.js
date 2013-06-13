@@ -10678,6 +10678,7 @@ define(
                                         }
                                     },
                                     getSubNodes: function () {
+                                        console.log("getSubNodes", _.kotlin.toList(this.get__subNodes().values()));
                                         return _.kotlin.toList(this.get__subNodes().values());
                                     },
                                     setSubNodes: function (subNodes) {

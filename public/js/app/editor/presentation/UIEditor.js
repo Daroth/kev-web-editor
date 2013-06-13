@@ -469,6 +469,9 @@ define(
                     $(this).hide();
                 }
             });
+
+            // redraw the whole stage
+            this._stage.draw();
         }
 
         UIEditor.prototype.c2pClear = function () {

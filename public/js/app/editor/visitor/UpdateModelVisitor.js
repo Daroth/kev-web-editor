@@ -27,6 +27,7 @@ define(
 
             chan._instance.setName(chan._name);
             chan._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(chan._type));
+            saveMetaData(chan);
 
             this._model.addHubs(chan._instance);
 
@@ -38,6 +39,7 @@ define(
 
             node._instance.setName(node._name);
             node._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(node._type));
+            saveMetaData(node);
 
             this._model.addNodes(node._instance);
 
@@ -66,6 +68,7 @@ define(
 
             comp._instance.setName(comp._name);
             comp._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(comp._type));
+            saveMetaData(comp);
 
             var node = this._model.findNodesByID(comp._parent.getName());
             node.addComponents(comp._instance);
@@ -86,6 +89,7 @@ define(
 
             grp._instance.setName(grp._name);
             grp._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(grp._type));
+            saveMetaData(grp);
 
             if (grp._wires.length > 0) {
                 for (var i=0; i < grp._wires.length; i++) {
@@ -125,7 +129,16 @@ define(
             port._instance.setPortTypeRef(portRef);
         }
 
-
+        // private method
+        function saveMetaData(entity) {
+            if (typeof(entity.getUI) === 'function' && entity.getUI()) {
+                if (entity.getUI().getShape()) {
+                    var pos = entity.getUI().getShape().getAbsolutePosition();
+                    console.log("setting position in model : ", pos);
+                    entity._instance.setMetaData('x='+parseInt(pos.x)+',y='+parseInt(pos.y));
+                }
+            }
+        }
 
         return UpdateModelVisitor;
     }
