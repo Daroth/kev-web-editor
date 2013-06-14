@@ -49,17 +49,11 @@ define(
             this._listener.call(this);
         }
 
-        RemoveModelVisitor.prototype.visitOutputPort = function (port) {
-            // TODO ?
-        }
+        RemoveModelVisitor.prototype.visitOutputPort = function (port) {}
 
-        RemoveModelVisitor.prototype.visitInputPort = function (port) {
-            // TODO ?
-        }
+        RemoveModelVisitor.prototype.visitInputPort = function (port) {}
 
-        RemoveModelVisitor.prototype.visitWire = function (wire) {
-            // TODO
-        }
+        RemoveModelVisitor.prototype.visitWire = function (wire) {}
 
         return RemoveModelVisitor;
     }

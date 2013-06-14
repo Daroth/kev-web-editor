@@ -11,8 +11,8 @@ define(
 
         Pooffs.extends(KChannel, KEntity);
 
-        function KChannel(editor, lib, type) {
-            KEntity.prototype.constructor.call(this, editor, lib, type);
+        function KChannel(editor, type) {
+            KEntity.prototype.constructor.call(this, editor, type);
 
             this._name = 'chan' + (COUNT++);
         }

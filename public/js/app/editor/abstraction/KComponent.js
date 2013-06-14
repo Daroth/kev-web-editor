@@ -13,8 +13,8 @@ define(
 
         Pooffs.extends(KComponent, KEntity);
 
-        function KComponent(editor, lib, type) {
-            KEntity.prototype.constructor.call(this, editor, lib, type);
+        function KComponent(editor, type) {
+            KEntity.prototype.constructor.call(this, editor, type);
 
             this._parent = null;
             this._name = 'comp' + (COUNT++);

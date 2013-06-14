@@ -12,8 +12,8 @@ define(
 
         Pooffs.extends(KGroup, KEntity);
 
-        function KGroup(editor, lib, type) {
-            KEntity.prototype.constructor.call(this, editor, lib, type);
+        function KGroup(editor, type) {
+            KEntity.prototype.constructor.call(this, editor, type);
 
             this._name = "group" + (COUNT++);
         }
