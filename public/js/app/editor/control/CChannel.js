@@ -84,6 +84,13 @@ define(
             if (wires.length > 0) this.getEditor().getUI().getWiresLayer().draw();
         }
 
+        // Override remove() because we extend KChannel after CEntity which
+        // override the redefined method in CEntity (well, this might not be clear,
+        // but trust me, this is mandatory)
+        CChannel.prototype.remove = function () {
+            CEntity.prototype.remove.call(this);
+        }
+
         function isConnectable(origin, target) {
             var originWires = origin.getWires();
 

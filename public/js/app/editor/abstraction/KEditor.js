@@ -38,7 +38,7 @@ define(
             var index = this._entities.indexOf(entity);
             if (index != -1) {
                 this._entities.splice(index, 1);
-                console.log("Editor.removedEntity ", entity);
+                console.log("Editor.removedEntity (index: "+index+")", entity);
 
                 // update typeCounter
                 this._typeCounter[entity.getType()]--;

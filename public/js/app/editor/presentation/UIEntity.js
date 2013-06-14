@@ -45,7 +45,9 @@ define(
                 this._shape.remove();
                 // redraw the layer
                 layer.draw();
-            } catch (err) {}
+            } catch (err) {
+                console.warn("UIEntity.c2pRemoveEntity: "+err.message);
+            }
         }
 
         UIEntity.prototype.setDOMItem = function (item) {
