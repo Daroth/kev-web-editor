@@ -152,11 +152,13 @@ define(
 
         CNode.prototype.p2cPushModel = function () {
             this._ui.c2pPushModelStarted();
+            // TODO real implem needed here
             setTimeout(this._ui.c2pPushModelEndedWell, 3000);
         }
 
         CNode.prototype.p2cPullModel = function () {
             this._ui.c2pPullModelStarted();
+            // TODO real implem needed here
             setTimeout(this._ui.c2pPullModelEndedWell, 3000);
         }
 

@@ -13,7 +13,9 @@ define(['jquery'], function ($) {
             NET_PROP_VAL_TAG        = 'network-prop-val-',
             DEL_NET_PROP_TAG        = 'network-prop-del-',
             ADD_NET_PROP_TAG        = 'network-prop-add-',
-            HTML5_ATTR_TAG          = 'data-node-link';
+            HTML5_ATTR_TAG          = 'data-node-link',
+            RATE_MAX                = 100,
+            RATE_MIN                = 0;
 
         function UINodeLinkWidget(id) {
             this._id = id;
@@ -91,9 +93,7 @@ define(['jquery'], function ($) {
         }
 
         UINodeLinkWidget.prototype.serialize = function () {
-            var type = this._ui[NODE_LINK_TYPE_TAG].val(),
-                rate = this._ui[NODE_LINK_RATE_TAG].val(),
-                propz = [];
+            var propz = [];
 
             for (var i=0; i < this._propsIDs.length; i++) {
                 var idPair = getPropIDPair(this._id, this._propsIDs[i]);
@@ -104,8 +104,8 @@ define(['jquery'], function ($) {
             }
 
             return {
-                type: type,
-                rate: rate,
+                type: this._type,
+                rate: this._rate,
                 props: propz
             };
         }
@@ -126,8 +126,7 @@ define(['jquery'], function ($) {
             // selectable table
             widget._ui[NET_PROP_TABLE_TAG].selectable({
                 filter: 'tbody tr',
-                selecting: function( event, ui ) {
-                    console.log('selected', event, ui);
+                selecting: function() {
                     widget._ui[DEL_NET_PROP_TAG].removeClass('disabled');
                 },
                 unselecting: function () {
@@ -140,8 +139,14 @@ define(['jquery'], function ($) {
 
             // change tab name dynamically
             widget._ui[NODE_LINK_TYPE_TAG].off(NAMESPACE);
-            widget._ui[NODE_LINK_TYPE_TAG].on('keyup'+NAMESPACE, function () {
-                widget._ui[NODE_LINK_TAB_VAL_TAG].text($(this).val());
+            widget._ui[NODE_LINK_TYPE_TAG].on('keyup'+NAMESPACE, function (e) {
+                var value = widget._ui[NODE_LINK_TYPE_TAG].val();
+                console.log('on event type', value);
+                var matcher = value.match(/\S+/g);
+                if (matcher) {
+                    widget._type = matcher[0];
+                }
+                widget._ui[NODE_LINK_TAB_VAL_TAG].text(widget._type);
             });
 
             // remove network property
@@ -155,6 +160,24 @@ define(['jquery'], function ($) {
             widget._ui[ADD_NET_PROP_TAG].off(NAMESPACE);
             widget._ui[ADD_NET_PROP_TAG].on('click'+NAMESPACE, function () {
                 widget._ui[NET_PROP_LIST_TAG].append(generateNetworkPropRow(widget));
+            });
+
+            widget._ui[NODE_LINK_RATE_TAG].off(NAMESPACE);
+            widget._ui[NODE_LINK_RATE_TAG].on('input', function () {
+                var val = parseInt($(this).val());
+
+                if (isNaN(val)) {
+                    val = widget._rate;
+
+                } else if (val > RATE_MAX) {
+                    val = RATE_MAX;
+
+                } else if (val < RATE_MIN) {
+                    val = RATE_MIN;
+                }
+
+                widget._rate = val;
+                $(this).val(widget._rate);
             });
         }
 
@@ -171,11 +194,11 @@ define(['jquery'], function ($) {
                 '<div class="row-fluid">' +
                     '<div class="input-prepend span4">' +
                         '<span class="add-on add-on-gray">Type</span>' +
-                        '<input id="'+NODE_LINK_TYPE_TAG+ui._id+'" type="text" class="input-medium" placeholder="type" value="'+ui._type+'" />' +
+                        '<input id="'+NODE_LINK_TYPE_TAG+ui._id+'" type="text" class="input-medium" placeholder="LAN, Wifi..." value="'+ui._type+'" />' +
                     '</div>' +
                     '<div class="input-prepend offset4 span3">' +
                         '<span class="add-on add-on-gray">Rate</span>' +
-                        '<input id="'+NODE_LINK_RATE_TAG+ui._id+'" type="number" class="input-small" placeholder="100" value="'+ui._rate+'" />' +
+                        '<input id="'+NODE_LINK_RATE_TAG+ui._id+'" type="number" class="input-small" placeholder="100" min="0" max="100" value="'+ui._rate+'" />' +
                     '</div>' +
                 '</div>' +
                 '<div class="row-fluid">' +
@@ -204,8 +227,8 @@ define(['jquery'], function ($) {
                 idPair = createNewNetPropPair(ui);
 
             return  '<tr>' +
-                        '<td><input id="'+idPair.key+'" class="input-small" type="text" placeholder="IP" '+htmlKey+'/></td>' +
-                        '<td><input id="'+idPair.value+'" type="text" placeholder="192.168.1.1"  '+htmlVal+'/></td>' +
+                        '<td><input id="'+idPair.key+'" class="input-small" type="text" placeholder="IP" '+htmlKey+' style="width: 80px;" /></td>' +
+                        '<td><input id="'+idPair.value+'" type="text" placeholder="192.168.1.1"  '+htmlVal+' style="width: 95%; min-width: 80px;" /></td>' +
                     '</tr>';
         }
 

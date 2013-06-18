@@ -36,6 +36,7 @@ define(
 
             // reset nodeLinks
             this._nodeLinks.clear();
+            NODE_LINK_ID_COUNT = 0;
 
             function generateOptions(ui) {
                 var nodes = model.getNodes();
