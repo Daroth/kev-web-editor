@@ -55,8 +55,10 @@ define(
         'bootstrap/dropdown',
         'bootstrap/alert',
         'bootstrap/popover',
+        'bootstrap/tab',
         'hammer',
-        'touchpunch'
+        'touchpunch',
+        'jqueryui/selectable'
     ],
 
 

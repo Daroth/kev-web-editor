@@ -127,6 +127,8 @@ define(
                     this._model.addMBindings(binding);
                     break;
             }
+
+            this._listener.call(this);
         }
 
         UpdateModelVisitor.prototype.visitOutputPort = function (port) {
@@ -138,6 +140,8 @@ define(
 
             comp.addRequired(port._instance);
             port._instance.setPortTypeRef(portRef);
+
+            this._listener.call(this);
         }
 
         UpdateModelVisitor.prototype.visitInputPort = function (port) {
@@ -149,6 +153,8 @@ define(
 
             comp.addProvided(port._instance);
             port._instance.setPortTypeRef(portRef);
+
+            this._listener.call(this);
         }
 
         // private method

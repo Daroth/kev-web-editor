@@ -17,7 +17,6 @@ define(
             ws.onmessage = function (event) {
                 var model = loader.loadModelFromString(event.data).get(0);
                 editor.setModel(model);
-
                 loadSucceed(ws, uri);
             }
 
@@ -36,7 +35,6 @@ define(
             editor.setModelListener({
                 onUpdates: function () {
                     serializer.serialize(editor.getModel(), os);
-                    console.log("MODEL UPDATED", os.$result);
                     ws.send(os.$result);
                 }
             });

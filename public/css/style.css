@@ -263,29 +263,20 @@ div.shadow {
     background: #666 url('../img/scrollbar_thumb_bg.png') no-repeat center;
 }
 
-.input-append.input-fullwidth {
-    position: relative;
-    margin-left: 0;
+.input-prepend .add-on-gray {
+    background-color: #dfdfdf;
 }
-.input-append.input-fullwidth .btn {
-    position: absolute;
-    right: 0;
-    width: 40px;
+
+.table-striped tbody > tr:nth-child(odd) > td, .table-striped tbody > tr:nth-child(odd) > th {
+    background-color: transparent;
 }
-.input-append.input-fullwidth .input-wrapper {
-    position: absolute;
-    display: block;
-    right: 40px; /* 40 + 2*5 - 1 */
-    left: 0;
-    top: 0;
-    bottom: 0;
+
+.table-striped tbody input {
+    margin-bottom: 0;
 }
-.input-append.input-fullwidth .input-wrapper input {
-    width: 100%;
-    height: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+
+.ui-selecting, .ui-selected {
+    background: lightgray;
 }
 
 @media (max-width: 980px) {
@@ -314,5 +305,11 @@ div.shadow {
     #kevs-editor {
         width: auto;
         margin-left: auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .modal-body {
+        max-height: 600px;
     }
 }
