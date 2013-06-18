@@ -14,6 +14,7 @@ define(['jquery'], function ($) {
             DEL_NET_PROP_TAG        = 'network-prop-del-',
             ADD_NET_PROP_TAG        = 'network-prop-add-',
             HTML5_ATTR_TAG          = 'data-node-link',
+            NET_PROP_ROW_CLASS      = 'network-prop-row',
             RATE_MAX                = 100,
             RATE_MIN                = 0;
 
@@ -124,8 +125,8 @@ define(['jquery'], function ($) {
 
         function registerStaticListeners(widget) {
             // selectable table
-            widget._ui[NET_PROP_TABLE_TAG].selectable({
-                filter: 'tbody tr',
+            widget._ui[NET_PROP_LIST_TAG].selectable({
+                filter: '.'+NET_PROP_ROW_CLASS,
                 selecting: function() {
                     widget._ui[DEL_NET_PROP_TAG].removeClass('disabled');
                 },
@@ -210,10 +211,8 @@ define(['jquery'], function ($) {
                                 '<button id="'+ADD_NET_PROP_TAG+ui._id+'" class="btn btn-info btn-mini"><i class="icon-plus icon-white"></i></button>' +
                             '</div>' +
                         '</h5>' +
-                        '<table id="'+NET_PROP_TABLE_TAG+ui._id+'" class="table table-striped" style="margin-bottom: 10px;">' +
-                            '<tbody id="'+NET_PROP_LIST_TAG+ui._id+'">' +
-                                generateNetworkPropRow(ui) +
-                            '</tbody>' +
+                        '<div id="'+NET_PROP_LIST_TAG+ui._id+'" class="row-fluid">' +
+                            generateNetworkPropRow(ui) +
                         '</table>' +
                     '</div>' +
                 '</div>' +
@@ -226,10 +225,10 @@ define(['jquery'], function ($) {
                 htmlVal = (value && value.length > 0) ? ' value="'+value+'"': '',
                 idPair = createNewNetPropPair(ui);
 
-            return  '<tr>' +
-                        '<td><input id="'+idPair.key+'" class="input-small" type="text" placeholder="IP" '+htmlKey+' style="width: 80px;" /></td>' +
-                        '<td><input id="'+idPair.value+'" type="text" placeholder="192.168.1.1"  '+htmlVal+' style="width: 95%; min-width: 80px;" /></td>' +
-                    '</tr>';
+            return  '<div class="row-fluid '+NET_PROP_ROW_CLASS+'">' +
+                        '<div class="span3"><input id="'+idPair.key+'" type="text" placeholder="IP" '+htmlKey+' /></div>' +
+                        '<div class="span7 offset2"><input id="'+idPair.value+'" type="text" placeholder="192.168.1.1"  '+htmlVal+' /></div>' +
+                    '</div>';
         }
 
         function createNewNetPropPair(ui) {
