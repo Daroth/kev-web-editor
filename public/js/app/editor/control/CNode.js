@@ -178,7 +178,7 @@ define(
         CNode.prototype.p2cSaveProperties = function (props) {
             CNestableEntity.prototype.p2cSaveProperties.call(this, props);
 
-            if (props[UINodeProps.INIT_BY_NODES] && props[UINodeProps.NODE_NETWORK_IP]) {
+            if (props[UINodeProps.INIT_BY_NODES] && props[UINodeProps.NODE_LINKS_PROP]) {
                 var model = this._editor.getModel(),
                     factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
 
@@ -219,32 +219,39 @@ define(
                         model.addNodeNetworks(nodeNetwork);
                     }
 
-                    /* Found node link */
-                    var nodeLink = null,
-                        nls = nodeNetwork.getLink();
-                    for (var i=0; i < nls.size(); i++) {
-                        var l = nls.get(i);
-                        if (l.getNetworkType() == "") { // TODO change that
-                            nodeLink = l;
-                            break;
+                    var nodeLinks = props[UINodeProps.NODE_LINKS_PROP];
+                    for (var i=0; i < nodeLinks.length; i++) {
+
+                        var nodeLink = null,
+                            nls = nodeNetwork.getLink();
+                        for (var k=0; k < nls.size(); k++) {
+                            var l = nls.get(k);
+                            if (l.getNetworkType() == nodeLinks[i].type) {
+                                // node link already present in model (update it)
+                                nodeLink = l;
+                                break;
+                            }
+                        }
+                        if (nodeLink == null) {
+                            // new node link: create it
+                            nodeLink = factory.createNodeLink();
+                            nodeLink.setNetworkType(nodeLinks[i].type);
+                            nodeNetwork.addLink(nodeLink);
+                        }
+                        nodeLink.setEstimatedRate(nodeLinks[i].rate);
+
+                        for (var j=0; j < nodeLinks[i].props.length; j++) {
+                            var prop = nodeLink.findNetworkPropertiesByID(nodeLinks[i].props[j].key);
+                            if (prop == null) {
+                                // network property does not exist yet: create it
+                                prop = factory.createNetworkProperty();
+                                prop.setName(nodeLinks[i].props[j].key);
+                                nodeLink.addNetworkProperties(prop);
+                            }
+                            prop.setValue(nodeLinks[i].props[j].value);
+                            prop.setLastCheck(Date.now());
                         }
                     }
-                    if (nodeLink == null) {
-                        nodeLink = factory.createNodeLink();
-                        nodeLink.setNetworkType("");
-                        nodeNetwork.addLink(nodeLink);
-                    }
-                    nodeLink.setEstimatedRate(100);
-
-                    /* Found Property and SET remote IP */
-                    var prop = nodeLink.findNetworkPropertiesByID("ip");
-                    if (prop == null) {
-                        prop = factory.createNetworkProperty();
-                        prop.setName("ip");
-                        nodeLink.addNetworkProperties(prop);
-                    }
-                    prop.setValue(props[UINodeProps.NODE_NETWORK_IP]);
-                    prop.setLastCheck(Date.now());
                 }
             }
         }
