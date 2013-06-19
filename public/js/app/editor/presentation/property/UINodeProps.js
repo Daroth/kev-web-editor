@@ -101,7 +101,7 @@ define(
                     '<div id="'+NODE_LINKS_CONTENT+'" class="tab-content">' +
                         defaultNodeLink.getTabContentHTML() +
                     '</div>' +
-                '</div>'+
+                '</div>' +
                 '<div class="row-fluid">' +
                     '<button id="'+PUSH_ACTION+'" type="button" class="btn btn-inverse span4">Push</button>' +
                     '<div class="span4">' +
@@ -110,9 +110,10 @@ define(
                         '</select>' +
                     '</div>' +
                     '<button id="'+PULL_ACTION+'" type="button" class="btn btn-inverse span4">Pull</button>' +
-                '</div>' +
-                '<div id="'+PROGRESS_BAR+'" class="progress progress-info progress-striped active row-fluid hide" style="margin-top: 10px;">' +
-                    '<div class="bar" style="width: 100%"></div>' +
+                    '</div>' +
+                    '<div id="'+PROGRESS_BAR+'" class="progress progress-info progress-striped active row-fluid hide" style="margin-top: 10px;">' +
+                        '<div class="bar" style="width: 100%"></div>' +
+                    '</div>' +
                 '</div>';
 
             return html;

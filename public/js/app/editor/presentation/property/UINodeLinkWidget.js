@@ -36,7 +36,6 @@ define(
             this._active = false;
             this._DOMready = false;
             this._model = new NodeLinkModel();
-            this._loopID = null;
 
             // create HTML associated with this widget
             createView(this);
@@ -272,7 +271,7 @@ define(
                     '</div>' +
                 '</div>' +
                 '<div class="row-fluid">' +
-                    '<div class="well" style="padding-top: 0; margin-bottom: 10px">' +
+                    '<div class="well" style="padding: 0 10px; margin-bottom: 10px">' +
                         '<h5>' +
                             '<span class="span4">Network properties</span>' +
                             '<div class="btn-group span2 offset6">' +
@@ -282,7 +281,7 @@ define(
                         '</h5>' +
                         '<div id="'+NET_PROP_LIST_TAG+ui._id+'" class="row-fluid">' +
                             generateNetworkPropRow(ui) +
-                        '</table>' +
+                        '</div>' +
                     '</div>' +
                 '</div>' +
             '</div>';
@@ -304,7 +303,7 @@ define(
                             '</div>' +
                         '</div>' +
                         '<div id="'+idPair.error+'" class="row-fluid hide">' +
-                            '<small class="span12 text-error"></small>'
+                            '<small class="text-error"></small>' +
                         '</div>' +
                     '</div>';
         }
