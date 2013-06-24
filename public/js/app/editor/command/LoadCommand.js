@@ -6,6 +6,8 @@ define(
         'kevoree'
     ],
     function ($, ModelHelper, AlertPopupHelper, Kevoree) {
+        var NAMESPACE = '.load-file-command';
+
         function LoadCommand () {}
 
         LoadCommand.prototype.execute = function (editor) {
@@ -23,7 +25,8 @@ define(
                 $('#file').trigger('click');
 
                 // called when a file is selected
-                $('#file').change(function () {
+                $('#file').off(NAMESPACE);
+                $('#file').on('change'+NAMESPACE, function () {
                     var file = $('#file').get(0).files[0]; // yeah, we do not want multiple file selection
                     if ($('#file').get(0).files.length > 1) {
                         console.warn("You have selected multiple files ("
@@ -53,6 +56,9 @@ define(
                         }
                     }
                     fReader.readAsText(file);
+
+                    // reset input field
+                    $(this).val('');
                 });
             }
         }

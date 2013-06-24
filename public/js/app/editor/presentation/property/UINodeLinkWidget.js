@@ -213,6 +213,7 @@ define(
                                         // so this is not possible, display error message
                                         displayError(keyValue);
                                     } else {
+                                        // we are good to go, this key is available
                                         updateModel(keyValue);
                                     }
                                 } else {
@@ -220,6 +221,7 @@ define(
                                         // someone else already has this key
                                         displayError(keyValue);
                                     } else {
+                                        // we are good to go, this key is available
                                         updateModel(keyValue);
                                     }
                                 }
@@ -238,9 +240,7 @@ define(
                         }
 
                         function updateModel(value) {
-                            if (value.length != 0) {
-                                console.log("update model wiith "+value);
-                                // we are good to go, this key is available
+                            if (value.length != 0) { // do not save an empty key
                                 props.setKey(idPair.key, value);
                             }
                         }
