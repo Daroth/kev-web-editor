@@ -80,9 +80,7 @@ define(
                         var comp = compz.get(j);
                         entity = factory.newComponent(editor, comp.getTypeDefinition().getName());
                         entity.setName(comp.getName());
-                        entity.setParent(entityNode);
                         entityNode.addChild(entity);
-                        editor.addNestableEntity(entity);
                     }
                 }
             }

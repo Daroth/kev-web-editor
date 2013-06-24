@@ -45,6 +45,11 @@ define(
             for (var i=0; i < this._children.length; i++) {
                 if (this._children[i].getName() == name) {
                     return this._children[i];
+                } else {
+                    if (this._children[i].getEntity && typeof(this._children[i].getEntity) == "function") {
+                        var entity = this._children[i].getEntity(name);
+                        if (entity != null) return entity;
+                    }
                 }
             }
             return null;
