@@ -33,14 +33,26 @@ define(
 
         // private methods
         function visitNodes(editor, factory, nodes) {
-            var entity = null;
-            var node = null;
             for (var i=0; i < nodes.size(); i++) {
-                node = nodes.get(i);
-                entity = factory.newNode(editor, node.getTypeDefinition().getName());
+                var node = nodes.get(i);
+                var entity = factory.newNode(editor, node.getTypeDefinition().getName());
                 entity.setName(node.getName());
-                editor.addEntity(entity);
-                loadMetaData(entity, node);
+
+                // check if this node has already been added to editor
+                if (!editor.hasEntity(entity)) {
+                    // this is a new node for the editor
+                    if (!node.getHost()) {
+                        // this node has no parent, add it to editor
+                        editor.addEntity(entity);
+                        loadMetaData(entity, node);
+                    }
+
+                    if (node.getHost()) {
+                        // this node has a parent
+                        var parent = editor.getEntity(node.getHost().getName());
+                        parent.addChild(entity);
+                    }
+                }
             }
         }
 

@@ -50,6 +50,15 @@ define(
             return null;
         }
 
+        KNode.prototype.hasChild = function (entity) {
+            for (var i=0; i < this._children.length; i++) {
+                if (this._children[i].getName() == entity.getName()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         KNode.prototype.removeChild = function (entity) {
             var index = this._children.indexOf(entity);
             if (index != -1) {

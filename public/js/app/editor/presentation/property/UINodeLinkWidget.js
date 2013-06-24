@@ -1,10 +1,10 @@
 define(
     [
         'jquery',
-        'presentation/property/NodeLinkModel',
+        'abstraction/NodeLink',
         'util/Delay'
     ],
-    function ($, NodeLinkModel, Delay) {
+    function ($, NodeLink, Delay) {
 
         var NAMESPACE               = '.node-link-widget',
             NODE_LINK_TAG           = 'node-link-',
@@ -27,7 +27,7 @@ define(
 
         function UINodeLinkWidget(id) {
             this._id = id;
-            this._type = 'default';
+            this._type = 'type';
             this._rate = 100;
             this._propsIDCounter = 0;
             this._propsIDs = [];
@@ -35,7 +35,7 @@ define(
             this._contentHTML = '';
             this._active = false;
             this._DOMready = false;
-            this._model = new NodeLinkModel();
+            this._model = new NodeLink();
 
             // create HTML associated with this widget
             createView(this);
@@ -60,6 +60,10 @@ define(
             } else {
                 createView(this);
             }
+        }
+
+        UINodeLinkWidget.prototype.getType = function () {
+            return this._type;
         }
 
         UINodeLinkWidget.prototype.setActive = function (isActive) {
@@ -348,14 +352,6 @@ define(
         function getActiveStatus(ui) {
             return (ui._active) ? 'active' : '';
         }
-
-//        var delay = (function() {
-//            var timer = 0;
-//            return function(callback, ms){
-//                clearTimeout (timer);
-//                timer = setTimeout(callback, ms);
-//            };
-//        })();
 
         return UINodeLinkWidget;
     }

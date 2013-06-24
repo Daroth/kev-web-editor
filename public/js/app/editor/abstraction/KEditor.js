@@ -115,6 +115,11 @@ define(
         KEditor.prototype.hasEntity = function (entity) {
             for (var i=0; i < this._entities.length; i++) {
                 if (this._entities[i].getName() == entity.getName()) return true;
+                else {
+                    if (this._entities[i].hasChild && typeof(this._entities[i].hasChild) == "function") {
+                        if (this._entities[i].hasChild(entity)) return true;
+                    }
+                }
             }
             return false;
         }

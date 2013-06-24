@@ -14,6 +14,7 @@ define(
             PROGRESS_BAR        = "node-progress-bar",
             NODE_LINKS_TABS     = 'node-links-tabs',
             NODE_LINKS_CONTENT  = 'node-links-content',
+            INIT_BY_NODE        = 'init-by-node',
             ADD_NODE_LINK       = 'add-node-link',
             DEL_NODE_LINK       = 'del-node-link';
 
@@ -44,7 +45,7 @@ define(
                 var selected = '';
                 for (var i=0; i < nodes.size(); i++) {
                     if (nodes.get(i).getName() == ui._ctrl.getName()) selected = ' selected';
-                    opts += '<option value="'+nodes.get(i).getName()+'"'+selected+'>'+nodes.get(i).getName()+'</option>';
+                    opts += '<option value="'+nodes.get(i).getName()+'"'+selected+' class="'+INIT_BY_NODE+'">'+nodes.get(i).getName()+'</option>';
                     selected = '';
                 }
                 return opts;
@@ -74,10 +75,70 @@ define(
                 return html;
             }
 
-            var defaultNodeLink = new UINodeLinkWidget(NODE_LINK_ID_COUNT);
-            defaultNodeLink.setActive(true);
-            this._nodeLinks.put(NODE_LINK_ID_COUNT, defaultNodeLink);
-            NODE_LINK_ID_COUNT++;
+            var nodeNetworks = model.getNodeNetworks(),
+                linkInstances = [];
+            for (var i=0; i < nodeNetworks.size(); i++) {
+                var nodeNet = nodeNetworks.get(i);
+                if (nodeNet.getTarget().getName() == this._ctrl.getName()) {
+                    for (var j=0; j < nodeNet.getLink().size(); j++) {
+                        var nodeLinkWidget = new UINodeLinkWidget(NODE_LINK_ID_COUNT);
+                        nodeLinkWidget.setType(nodeNet.getLink().get(j).getNetworkType());
+                        if (j==0) nodeLinkWidget.setActive(true);
+                        this._nodeLinks.put(NODE_LINK_ID_COUNT, nodeLinkWidget);
+                        NODE_LINK_ID_COUNT++;
+                        linkInstances.push(nodeLinkWidget);
+                        console.log("j'ai trouvé "+nodeLinkWidget.getType()+" dans le model pour les node links du noeud "+this._ctrl.getName());
+                    }
+                    // when you get one nodeLinks list, you can stop
+                    // because they will all be the same
+                    // (as I did it, for each initBy nodes you get the same nodeLinks props)
+                    break;
+                }
+            }
+            console.log('after read model linkInstances.length = '+linkInstances.length);
+
+            function generateNodeLinks(nodeLinks) {
+                if (linkInstances.length == 0) {
+                    var defaultWidget = new UINodeLinkWidget(NODE_LINK_ID_COUNT);
+                    defaultWidget.setActive(true);
+                    nodeLinks.put(NODE_LINK_ID_COUNT, defaultWidget);
+                    NODE_LINK_ID_COUNT++;
+                    linkInstances.push(defaultWidget);
+                }
+
+                function generateNodeLinksTabs() {
+                    var html = '';
+                    for (var i=0; i < linkInstances.length; i++) {
+                        html += linkInstances[i].getTabHTML();
+                    }
+                    return html;
+                }
+
+                function generateNodeLinksContents() {
+                    var html = '';
+                    for (var i=0; i < linkInstances.length; i++) {
+                        html += linkInstances[i].getTabContentHTML();
+                    }
+                    return html;
+                }
+
+                return '' +
+                    '<div class="well" style="margin-top: 10px;">' +
+                        '<ul id="'+NODE_LINKS_TABS+'" class="nav nav-tabs">' +
+                            generateNodeLinksTabs() +
+                            '<li class="pull-right">' +
+                                '<div class="btn-group">' +
+                                    '<button id="'+DEL_NODE_LINK+'" class="btn btn-danger disabled"><i class="icon-trash icon-white"></i></button>' +
+                                    '<button id="'+ADD_NODE_LINK+'" class="btn btn-info"><i class="icon-plus icon-white"></i></button>' +
+                                '</div>' +
+                            '</li>' +
+                        '</ul>' +
+
+                        '<div id="'+NODE_LINKS_CONTENT+'" class="tab-content">' +
+                            generateNodeLinksContents() +
+                        '</div>' +
+                    '</div>';
+            }
 
             html +=
                 '<div class="row-fluid">' +
@@ -87,21 +148,7 @@ define(
                         '</select>' +
                     '</div>' +
                 '</div>' +
-                '<div class="well" style="margin-top: 10px;">' +
-                    '<ul id="'+NODE_LINKS_TABS+'" class="nav nav-tabs">' +
-                        defaultNodeLink.getTabHTML() +
-                        '<li class="pull-right">' +
-                            '<div class="btn-group">' +
-                                '<button id="'+DEL_NODE_LINK+'" class="btn btn-danger disabled"><i class="icon-trash icon-white"></i></button>' +
-                                '<button id="'+ADD_NODE_LINK+'" class="btn btn-info"><i class="icon-plus icon-white"></i></button>' +
-                            '</div>' +
-                        '</li>' +
-                    '</ul>' +
-
-                    '<div id="'+NODE_LINKS_CONTENT+'" class="tab-content">' +
-                        defaultNodeLink.getTabContentHTML() +
-                    '</div>' +
-                '</div>' +
+                generateNodeLinks(this._nodeLinks) +
                 '<div class="row-fluid">' +
                     '<button id="'+PUSH_ACTION+'" type="button" class="btn btn-inverse span4">Push</button>' +
                     '<div class="span4">' +
@@ -143,7 +190,7 @@ define(
             $('#'+ADD_NODE_LINK).off(NAMESPACE);
             $('#'+ADD_NODE_LINK).on('click'+NAMESPACE, function () {
                 var nodeLinkWidget = new UINodeLinkWidget(NODE_LINK_ID_COUNT);
-                nodeLinkWidget.setType('default'+NODE_LINK_ID_COUNT);
+                nodeLinkWidget.setType('type'+NODE_LINK_ID_COUNT);
                 $('#'+NODE_LINKS_TABS).append(nodeLinkWidget.getTabHTML());
                 $('#'+NODE_LINKS_CONTENT).append(nodeLinkWidget.getTabContentHTML());
                 nodeLinkWidget.addedToDOM();
@@ -164,6 +211,21 @@ define(
                 if (widgetID != 0) {
                     that._nodeLinks.remove(widgetID);
                     widget.removeFromDOM();
+                    var model = that._ctrl.getEditor().getModel(),
+                        nns = model.getNodeNetworks();
+                    for (var i=0; i < nns.size(); i++) {
+                        var nn = nns.get(i);
+                        if (nn.getTarget().getName() == that._ctrl.getName()) {
+                            var nls = nn.getLink();
+                            for (var j=0; j < nls.size(); j++) {
+                                var nl = nls.get(j);
+                                if (nl.getNetworkType() == widget.getType()) {
+                                    nn.removeLink(nl);
+                                    console.log("je viens de remove "+nl.getNetworkType()+" des nodelinks de "+ that._ctrl.getName());
+                                }
+                            }
+                        }
+                    }
                 }
 
                 // set default tab (O-indexed tab to active)
@@ -175,6 +237,7 @@ define(
                 widget.addedToDOM();
             });
 
+            registerListenerForTabs();
             function registerListenerForTabs() {
                 $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').off(NAMESPACE);
                 $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').on('shown'+NAMESPACE, function () {
@@ -196,12 +259,13 @@ define(
 
             props[UINodeProps.NODE_LINKS_PROP] = [];
 
+            console.log("BEFORE SAVE nodeLinks.size() = "+this._nodeLinks.size());
             this._nodeLinks.each(function (widgetID, widget) {
                 props[UINodeProps.NODE_LINKS_PROP].push(widget.serialize());
             });
 
             var nodes = [];
-            $('#'+UINodeProps.INIT_BY_NODES+' option:selected').each(function () {
+            $('#'+UINodeProps.INIT_BY_NODES+' option.'+INIT_BY_NODE+':selected').each(function () {
                 nodes.push($(this).val());
             });
             props[UINodeProps.INIT_BY_NODES] =  nodes;

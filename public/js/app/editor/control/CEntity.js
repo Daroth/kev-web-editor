@@ -60,7 +60,7 @@ define(
                 }
             }
             this._instance.setDictionary(instDic);
-            this.getEditor().updateModel(this);
+//            this.getEditor().updateModel(this);
             this._ui.c2pPropertiesUpdated();
         }
 

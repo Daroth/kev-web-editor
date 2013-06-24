@@ -198,22 +198,9 @@ define(
                     }
 
                     if (nodeNetwork == null) {
-                        nodeNetwork = factory.createNodeNetwork()
-
+                        nodeNetwork = factory.createNodeNetwork();
                         thisNodeFound = model.findNodesByID(initByName);
-                        if (thisNodeFound == null) {
-                            thisNodeFound = factory.createContainerNode();
-                            thisNodeFound.setName(this._name);
-                            model.addNodes(thisNodeFound);
-                        }
-
                         var targetNode = model.findNodesByID(this._name);
-                        if (targetNode == null) {
-                            console.log("Unknown node {} add to model", this._name);
-                            targetNode = factory.createContainerNode();
-                            targetNode.setName(this._name);
-                            model.addNodes(targetNode);
-                        }
                         nodeNetwork.setTarget(targetNode);
                         nodeNetwork.setInitBy(thisNodeFound);
                         model.addNodeNetworks(nodeNetwork);
@@ -221,7 +208,6 @@ define(
 
                     var nodeLinks = props[UINodeProps.NODE_LINKS_PROP];
                     for (var i=0; i < nodeLinks.length; i++) {
-
                         var nodeLink = null,
                             nls = nodeNetwork.getLink();
                         for (var k=0; k < nls.size(); k++) {
