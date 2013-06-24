@@ -5,6 +5,10 @@ define(
 
     function (Kevoree) {
 
+        /**
+         * Visit editor entities list in order to remove instances from model
+         * @constructor
+         */
         function RemoveModelVisitor() {
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
             this._listener = function () {};

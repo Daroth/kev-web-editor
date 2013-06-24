@@ -45,6 +45,14 @@ define(
         }
 
         UIInstanceProps.prototype.show = function () {
+            // update attributes values if any
+            if (this._ctrl._instance) {
+                var dicInst = this._ctrl._instance.getDictionary();
+                if (dicInst) {
+                    this._values = dicInst.getValues();
+                }
+            }
+
             var that = this;
             $('#prop-popup-delete').off('click'); // get rid of old listeners on '#delete'
             $('#prop-popup-delete').on('click', function() {

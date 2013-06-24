@@ -37,7 +37,11 @@ define(
                 fontWeight: 'bold',
                 fill: '#FFF',
                 align: 'center',
-                width: this._circle.getWidth()-10
+                width: this._circle.getWidth()-10,
+                drawFunc: function (canvas) {
+                    this.drawFunc(canvas);
+                    text.setText(ctrl.getName() + '\n' + ctrl.getType());
+                }
             });
 
             text.move(-text.getWidth()/2, -text.getHeight()/2);

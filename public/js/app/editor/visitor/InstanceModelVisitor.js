@@ -1,6 +1,10 @@
 define(
     function (require) {
 
+        /**
+         * Visit model in order to load instances in the editor
+         * @constructor
+         */
         function InstanceModelVisitor() {
             this._factory = require('factory/CFactory').getInstance();
         }

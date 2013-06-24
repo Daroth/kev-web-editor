@@ -140,7 +140,6 @@ define(
             widget._ui[NODE_LINK_TYPE_TAG].off(NAMESPACE);
             widget._ui[NODE_LINK_TYPE_TAG].on('keyup'+NAMESPACE, function (e) {
                 var value = widget._ui[NODE_LINK_TYPE_TAG].val();
-                console.log('on event type', value);
                 var matcher = value.match(/\S+/g);
                 if (matcher) {
                     widget._type = matcher[0];

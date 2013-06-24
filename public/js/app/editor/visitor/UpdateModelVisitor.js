@@ -8,6 +8,11 @@ define(
 
     function (Kevoree, KGroup, KInputPort, KOutputPort) {
 
+        /*
+         * Visit the editor entities list in order to add/update instances
+         * in the model
+         * @constructor
+         */
         function UpdateModelVisitor() {
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
             this._listener = function () {};
@@ -26,7 +31,7 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitChannel = function (chan) {
-            chan._instance = this._factory.createChannel();
+            chan._instance = chan._instance || this._factory.createChannel();
 
             chan._instance.setName(chan._name);
             chan._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(chan._type));
@@ -38,7 +43,7 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitNode = function (node) {
-            node._instance = this._factory.createContainerNode();
+            node._instance = node._instance || this._factory.createContainerNode();
 
             node._instance.setName(node._name);
             node._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(node._type));
@@ -67,7 +72,7 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitComponent = function (comp) {
-            comp._instance = this._factory.createComponentInstance();
+            comp._instance = comp._instance || this._factory.createComponentInstance();
 
             comp._instance.setName(comp._name);
             comp._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(comp._type));
@@ -92,7 +97,7 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitGroup = function (grp) {
-            grp._instance = this._factory.createGroup();
+            grp._instance = grp._instance || this._factory.createGroup();
 
             grp._instance.setName(grp._name);
             grp._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(grp._type));
