@@ -204,7 +204,6 @@ define(
                             errorDiv.hide();
 
                             Delay(function delayedKeyupValidation() {
-                                console.log("validation...");
                                 if (props.containsKeyID(idPair.key)) {
                                     // we already have a value set for this key input field
                                     // check if another key field as this value

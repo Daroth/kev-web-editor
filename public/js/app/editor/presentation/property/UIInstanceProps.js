@@ -1,9 +1,5 @@
 define(
-    [
-        'util/StringBuilder'
-    ],
-
-    function (StringBuilder) {
+    function () {
 
         function UIInstanceProps(ui, ctrl) {
             this._ui = ui;
@@ -68,11 +64,11 @@ define(
         }
 
         UIInstanceProps.prototype.getHTML = function () {
-            var builder = new StringBuilder();
+            var html = '';
 
             if (this._attrs) {
                 for (var i=0; i < this._attrs.size(); i++) {
-                    builder.append('<div class="row-fluid">');
+                    html += '<div class="row-fluid">';
                     var attr = this._attrs.get(i);
                     attr['value'] = null;
                     for (var j=0; j < this._values.size(); j++) {
@@ -81,15 +77,13 @@ define(
                             attr['value'] = value.getValue();
                         }
                     }
-                    builder.append('<div class="span4">'+attr.getName()+'</div>')
-                        .append('\n')
-                        .append(generatePropertyValueField(attr.getName()+'-'+this._ctrl.getName(), attr.getDatatype(), attr.value))
-                        .append('</div>');
+                    html += '<div class="span4">'+attr.getName()+'</div>' +
+                                generatePropertyValueField(attr.getName()+'-'+this._ctrl.getName(), attr.getDatatype(), attr.value) +
+                            '</div>';
                 }
             }
 
-
-            return builder.toString();
+            return html;
         }
 
         // private method
@@ -99,25 +93,20 @@ define(
             if (datatype.substr(0, ENUM.length) == ENUM) { // datatype starts with enum=
                 var str = datatype.substr(ENUM.length, datatype.length);
                 var values = str.split(',');
-                var builder = new StringBuilder('<select id="'+attrID+'" class="span8">');
+                var html = '<select id="'+attrID+'" class="span8">';
                 for (var i=0; i < values.length; i++) {
-                    builder.append('<option value="')
-                        .append(values[i])
-                        .append('" ')
-                        .append(((defaultVal == values[i]) ? 'selected' : ''))
-                        .append('>')
-                        .append(values[i])
-                        .append('</option>');
+                    var selected = ((defaultVal == values[i]) ? 'selected' : '');
+                    html += '<option value="' + values[i] + '" ' + selected + '>' + values[i] + '</option>';
                 }
-                builder.append('</select>');
-                return builder.toString();
+                html += '</select>';
+                return html;
 
             } else if (datatype.substr(0, RAW.length) == RAW) { // datatype starts with raw=
                 var value = datatype.substr(RAW.length, datatype.length);
                 switch (value) {
                     case 'java.lang.Long':
                     case 'java.lang.Integer':
-                        return ['<input id="'+attrID+'" type="number" class="span8" value="', defaultVal, '"/>'].join('');
+                        return '<input id="'+attrID+'" type="number" class="span8" value="' +defaultVal+'"/>';
 
                     default:
                         break;
@@ -127,21 +116,19 @@ define(
                 switch (defaultVal) {
                     case 'true':
                     case 'false':
-                        var builder = new StringBuilder('<select id="'+attrID+'" class="span8">');
-                        builder.append('<option value="true" ');
-                        if (defaultVal == 'true') builder.append('selected');
-                        builder.append('>true</option>');
-                        builder.append('<option value="false" ');
-                        if (defaultVal == 'false') builder.append('selected');
-                        builder.append('>false</option>');
-                        return builder.toString();
-
+                        var trueSelected = (defaultVal == 'true') ? 'selected' : '',
+                            falseSelected = (defaultVal == 'false') ? 'selected' : '';
+                        return '' +
+                            '<select id="'+attrID+'" class="span8">' +
+                                '<option value="true" ' + trueSelected + '>true</option>' +
+                                '<option value="false" ' + falseSelected + '>false</option>' +
+                            '</select>';
                     default:
                         break;
                 }
             }
 
-            return ['<input id="', attrID, '" type="text" class="span8" value="', defaultVal, '"/>'].join('');
+            return '<input id="'+ attrID+ '" type="text" class="span8" value="'+ defaultVal+ '"/>';
         }
 
         UIInstanceProps.prototype.onHTMLAppended = function () {
