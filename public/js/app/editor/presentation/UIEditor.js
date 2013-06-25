@@ -166,10 +166,13 @@ define(
                 if (isChecked) {
                     // show 'type'
                     displayableItems[entity] = true;
-                    $('.lib-item[data-entity='+entity+']').each(function () {
-                        if (displayableSubTrees[$(this).attr('data-lib')]) {
-                            $(this).show('fast');
-                        }
+                    $('.lib-tree-library').each(function () {
+                        var lib = $(this);
+                        lib.siblings('.lib-item[data-entity='+entity+']').each(function () {
+                            if (displayableSubTrees[lib.text()]) {
+                                $(this).show('fast');
+                            }
+                        });
                     });
                 } else {
                     // hide 'type'
@@ -447,7 +450,7 @@ define(
 
                 var htmlContent =
                     "<ul class='nav nav-list'>" +
-                        "<li class='nav-header cursor-pointer'>" +
+                        "<li class='nav-header cursor-pointer lib-tree-library'>" +
                         "<i class='lib-subtree-icon icon-arrow-right icon-white'></i>"+
                         libz[i].name+
                         "</li>"+
