@@ -46,12 +46,13 @@ define(
         KWire.prototype.canConnect = function (entity) {
             for (var i=0; i < this._origin.getWires().length; i++) {
                 var wire = this._origin.getWires()[i];
-                if (wire.getTarget() && wire.getTarget() == entity) return false;
+                if (wire.getTarget() && wire.getTarget() != null && wire.getTarget() == entity) return false;
             }
             return true;
         }
 
         KWire.prototype.disconnect = function() {
+            console.log("WIRE DISCONNECTION", this);
             if (this._origin) this._origin.disconnect(this);
             if (this._target) this._target.disconnect(this);
             this._origin = null;

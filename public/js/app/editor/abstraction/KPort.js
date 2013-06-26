@@ -1,9 +1,5 @@
 define(
-    [
-        'kevoree'
-    ],
-
-    function (Kevoree) {
+    function () {
         /**
          * This should be considered as an abstract class
          *
@@ -12,11 +8,10 @@ define(
         function KPort (name) {
             this._component = null;
             this._name = name;
-            this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
         }
 
-        KPort.prototype.disconnect = function () {
-            this._component.disconnectPort(this);
+        KPort.prototype.disconnect = function (wire) {
+            this._component.disconnect(wire);
         }
 
         KPort.prototype.getComponent = function () {

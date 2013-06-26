@@ -1,12 +1,11 @@
 define(
     [
         'abstraction/KEntity',
-        'control/CInputPort',
-        'control/COutputPort',
-        'util/Pooffs'
+        'util/Pooffs',
+        'require'
     ],
 
-    function(KEntity, CInputPort, COutputPort, Pooffs) {
+    function(KEntity, Pooffs, require) {
         var COUNT = 0;
 
         KComponent.ENTITY_TYPE = 'ComponentType';
@@ -23,14 +22,15 @@ define(
 
             var compTDef = editor.getModel().findTypeDefinitionsByID(this._type),
                 inputs = compTDef.getProvided(),
-                outputs = compTDef.getRequired();
+                outputs = compTDef.getRequired(),
+                factory = require('factory/CFactory').getInstance();
 
             for (var i=0; i < inputs.size(); i++) {
-                this._inputs.push(new CInputPort(inputs.get(i).getName()));
+                this._inputs.push(factory.newInputPort(inputs.get(i).getName()));
             }
 
             for (var i=0; i < outputs.size(); i++) {
-                this._outputs.push(new COutputPort(outputs.get(i).getName()));
+                this._outputs.push(factory.newOutputPort(outputs.get(i).getName()));
             }
 
             for (var i=0; i < this._inputs.length; i++) this._inputs[i].setComponent(this);
@@ -49,18 +49,6 @@ define(
             this._parent = node;
         }
 
-        KComponent.prototype.disconnectPort = function (/* KPort */ port) {
-            var index = this._inputs.indexOf(port);
-            if (index == -1) {
-                index = this._outputs.indexOf(port);
-                if (index != -1) {
-                    this._outputs.slice(index, 1);
-                }
-            } else {
-                this._inputs.slice(index, 1);
-            }
-        }
-
         // Override KEntity.remove()
         KComponent.prototype.remove = function () {
             KEntity.prototype.remove.call(this);
@@ -76,6 +64,7 @@ define(
         }
 
         KComponent.prototype.getChildren = function () {
+            // components do not have children, but they need this method (TODO: refactor, need superclass for Node and component!)
             return [];
         }
 

@@ -114,6 +114,7 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitWire = function (wire) {
+            console.log("visit wire", wire);
             switch (wire.getOrigin().getEntityType()) {
                 case KGroup.ENTITY_TYPE:
                     var node = this._model.findNodesByID(wire.getTarget().getName()),
@@ -123,13 +124,16 @@ define(
 
                 case KInputPort.ENTITY_TYPE:
                 case KOutputPort.ENTITY_TYPE:
-                    var hub = this._model.findHubsByID(wire.getTarget().getName()),
-                        binding = this._factory.createMBinding();
+                    var hub = this._model.findHubsByID(wire.getTarget().getName());
 
-                    binding.setPort(wire.getOrigin()._instance);
-                    binding.setHub(hub);
+                    var update = (wire._instance) ? true : false;
+                    console.log("visitWire "+wire.getName()+" > update ? "+update);
+                    wire._instance = wire._instance || this._factory.createMBinding();
 
-                    this._model.addMBindings(binding);
+                    wire._instance.setPort(wire.getOrigin()._instance);
+                    wire._instance.setHub(hub);
+
+                    if (!update) this._model.addMBindings(wire._instance);
                     break;
             }
 
@@ -141,9 +145,11 @@ define(
                 comp = node.findComponentsByID(port._component.getName()),
                 portRef = comp.getTypeDefinition().findRequiredByID(port.getName());
 
-            port._instance = this._factory.createPort();
+            var update = (port._instance) ? true : false;
+            console.log("visitOutputPort "+port.getName()+" > update ? "+update);
+            port._instance = port._instance || this._factory.createPort();
 
-            comp.addRequired(port._instance);
+            if (!update) comp.addRequired(port._instance);
             port._instance.setPortTypeRef(portRef);
 
             this._listener.call(this);
@@ -154,9 +160,11 @@ define(
                 comp = node.findComponentsByID(port._component.getName()),
                 portRef = comp.getTypeDefinition().findProvidedByID(port.getName());
 
-            port._instance = this._factory.createPort();
+            var update = (port._instance) ? true : false;
+            console.log("visitInputPort "+port.getName()+" > update ? "+update);
+            port._instance = port._instance || this._factory.createPort();
 
-            comp.addProvided(port._instance);
+            if (!update) comp.addProvided(port._instance);
             port._instance.setPortTypeRef(portRef);
 
             this._listener.call(this);

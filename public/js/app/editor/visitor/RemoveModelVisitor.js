@@ -53,11 +53,18 @@ define(
             this._listener.call(this);
         }
 
-        RemoveModelVisitor.prototype.visitOutputPort = function (port) {}
+        RemoveModelVisitor.prototype.visitOutputPort = function (port) {
 
-        RemoveModelVisitor.prototype.visitInputPort = function (port) {}
+        }
 
-        RemoveModelVisitor.prototype.visitWire = function (wire) {}
+        RemoveModelVisitor.prototype.visitInputPort = function (port) {
+
+        }
+
+        RemoveModelVisitor.prototype.visitWire = function (wire) {
+            this._model.removeMBindings(wire._instance);
+            this._listener.call(this);
+        }
 
         return RemoveModelVisitor;
     }

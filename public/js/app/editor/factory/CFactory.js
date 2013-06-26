@@ -5,10 +5,12 @@ define(
         'control/CChannel',
         'control/CNode',
         'control/CComponent',
-        'control/CWire'
+        'control/CWire',
+        'control/CInputPort',
+        'control/COutputPort'
     ],
 
-    function (CEditor, CGroup, CChannel, CNode, CComponent, CWire) {
+    function (CEditor, CGroup, CChannel, CNode, CComponent, CWire, CInputPort, COutputPort) {
 
         function CFactory() {
             if (CFactory.prototype._instance) {
@@ -48,6 +50,14 @@ define(
 
         CFactory.prototype.newWire = function (origin) {
             return new CWire(origin);
+        };
+
+        CFactory.prototype.newInputPort = function (name) {
+            return new CInputPort(name);
+        };
+
+        CFactory.prototype.newOutputPort = function (name) {
+            return new COutputPort(name);
         };
 
         return CFactory;
