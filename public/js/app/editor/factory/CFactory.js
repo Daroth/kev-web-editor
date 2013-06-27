@@ -60,6 +60,10 @@ define(
             return new COutputPort(name);
         };
 
+        CFactory.prototype.newOutputPort = function (name) {
+            return new COutputPort(name);
+        };
+
         return CFactory;
     }
 );

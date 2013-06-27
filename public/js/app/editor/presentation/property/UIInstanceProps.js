@@ -1,5 +1,11 @@
 define(
-    function () {
+    [
+        'templates/instance-props'
+    ],
+    function (instancePropsTemplate) {
+
+        var ENUM    = 'enum=',
+            RAW     = 'raw=';
 
         function UIInstanceProps(ui, ctrl) {
             this._ui = ui;
@@ -14,8 +20,6 @@ define(
                 this._attrs = dicType.getAttributes();
                 this._values = dicType.getDefaultValues();
             }
-
-            this._name = $('#prop-popup-name');
 
             $('#prop-popup').on('hidden', function () {
                 $('#prop-popup-content').empty(); // clear props content when hide
@@ -32,12 +36,12 @@ define(
 
         UIInstanceProps.prototype.getPropertiesValues = function () {
             var props = {};
-            props['name'] = this._name.val();
+            props['name'] = $('#instance-prop-name').val();
 
             if (this._attrs) {
                 for (var i=0; i < this._attrs.size(); i++) {
                     var attr = this._attrs.get(i);
-                    props[attr.getName()] = $('#'+attr.getName()+'-'+this._ctrl.getName()).val();
+                    props[attr.getName()] = $('#instance-prop-'+attr.getName()).val();
                 }
             }
 
@@ -57,7 +61,7 @@ define(
             });
 
             $('#prop-popup-subtitle').html(this._ctrl.getEntityType());
-            this._name.val(this._ctrl.getName());
+            $('#instance-prop-name').val(this._ctrl.getName());
             $('#prop-popup-content').html(this.getHTML());
             this.onHTMLAppended();
             $('#prop-popup').modal({ show: true });
@@ -75,8 +79,8 @@ define(
                     }
                 }
 
+                var attrs = [];
                 for (var i=0; i < this._attrs.size(); i++) {
-                    html += '<div class="row-fluid">';
                     var attr = this._attrs.get(i);
                     attr['value'] = null;
                     for (var j=0; j < this._values.size(); j++) {
@@ -85,62 +89,44 @@ define(
                             attr['value'] = value.getValue();
                         }
                     }
-                    html += '<div class="span4">'+attr.getName()+'</div>' +
-                                generatePropertyValueField(attr.getName()+'-'+this._ctrl.getName(), attr.getDatatype(), attr.value) +
-                            '</div>';
+
+                    // default attr
+                    var obj = {
+                        name: attr.getName(),
+                        type: 'raw',
+                        value: attr.value
+                    };
+
+                    // if RAW or ENUM, process content a bit
+                    if (attr.getDatatype().substr(0, ENUM.length) == ENUM) { // attr.getDatatype() starts with enum=
+                        var str = attr.getDatatype().substr(ENUM.length, attr.getDatatype().length);
+                        obj.value = str.split(',');
+                        obj.type = 'enum';
+                        obj.selected = obj.value.indexOf(attr.value);
+
+                    } else if (attr.getDatatype().substr(0, RAW.length) == RAW) { // attr.getDatatype() starts with raw=
+                        obj.value = attr.getDatatype().substr(RAW.length, attr.getDatatype().length);
+                    }
+
+                    // add obj to attrs array
+                    attrs.push(obj);
                 }
+
+                // give attrs array to jade template and retrieve HTML
+                return instancePropsTemplate({
+                    name: this._ctrl.getName(),
+                    attrs: attrs
+                });
             }
 
             return html;
         }
 
-        // private method
-        function generatePropertyValueField(attrID, datatype, defaultVal) {
-            var ENUM    = 'enum=',
-                RAW     = 'raw=';
-            if (datatype.substr(0, ENUM.length) == ENUM) { // datatype starts with enum=
-                var str = datatype.substr(ENUM.length, datatype.length);
-                var values = str.split(',');
-                var html = '<select id="'+attrID+'" class="span8">';
-                for (var i=0; i < values.length; i++) {
-                    var selected = ((defaultVal == values[i]) ? 'selected' : '');
-                    html += '<option value="' + values[i] + '" ' + selected + '>' + values[i] + '</option>';
-                }
-                html += '</select>';
-                return html;
+        UIInstanceProps.prototype.onHTMLAppended = function () {}
 
-            } else if (datatype.substr(0, RAW.length) == RAW) { // datatype starts with raw=
-                var value = datatype.substr(RAW.length, datatype.length);
-                switch (value) {
-                    case 'java.lang.Long':
-                    case 'java.lang.Integer':
-                        return '<input id="'+attrID+'" type="number" class="span8" value="' +defaultVal+'"/>';
-
-                    default:
-                        break;
-                }
-
-            } else {
-                switch (defaultVal) {
-                    case 'true':
-                    case 'false':
-                        var trueSelected = (defaultVal == 'true') ? 'selected' : '',
-                            falseSelected = (defaultVal == 'false') ? 'selected' : '';
-                        return '' +
-                            '<select id="'+attrID+'" class="span8">' +
-                                '<option value="true" ' + trueSelected + '>true</option>' +
-                                '<option value="false" ' + falseSelected + '>false</option>' +
-                            '</select>';
-                    default:
-                        break;
-                }
-            }
-
-            return '<input id="'+ attrID+ '" type="text" class="span8" value="'+ defaultVal+ '"/>';
-        }
-
-        UIInstanceProps.prototype.onHTMLAppended = function () {
-
+        UIInstanceProps.prototype.refreshHTML = function (html) {
+            $('#prop-popup-content').html(html || this.getHTML());
+            this.onHTMLAppended();
         }
 
         return UIInstanceProps;

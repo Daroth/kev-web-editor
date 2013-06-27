@@ -15,7 +15,8 @@ requirejs.config({
         control:        '../app/editor/control',
         presentation:   '../app/editor/presentation',
         factory:        '../app/editor/factory',
-        command:        '../app/editor/command'
+        command:        '../app/editor/command',
+        templates:      '../app/templates'
     }
 });
 

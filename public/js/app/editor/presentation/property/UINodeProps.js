@@ -1,169 +1,139 @@
 define(
     [
+        'jquery',
         'util/Pooffs',
         'presentation/property/UIInstanceProps',
-        'presentation/property/UINodeLinkWidget',
-        'kotlin/kotlin-maps',
+        'templates/node-network',
+        'util/Delay',
         'bootstrap/multiselect'
     ],
-    function (Pooffs, UIInstanceProps, UINodeLinkWidget, Kotlin, _bootstrap) {
+    function ($, Pooffs, UIInstanceProps, nodeNetworkTemplate, Delay, _bootstrap) {
         var NAMESPACE           = ".ui-node-props",
             PUSH_ACTION         = "node-push-action",
             PULL_ACTION         = "node-pull-action",
-            GROUP_ACTION        = "node-group-action",
-            PROGRESS_BAR        = "node-progress-bar",
             NODE_LINKS_TABS     = 'node-links-tabs',
-            NODE_LINKS_CONTENT  = 'node-links-content',
-            INIT_BY_NODE        = 'init-by-node',
-            ADD_NODE_LINK       = 'add-node-link',
-            DEL_NODE_LINK       = 'del-node-link';
+            INIT_BY_NODE        = 'initby-node',
+            ADD_NODE_LINK       = 'node-link-add',
+            DEL_NODE_LINK       = 'node-link-delete',
+            NODE_LINK_TAG           = 'node-link-',
+            NODE_LINK_TYPE_TAG      = 'node-link-type-',
+            NODE_LINK_RATE_TAG      = 'node-link-rate-',
+            NODE_LINK_TAB_ROOT_TAG  = 'node-link-tab-root-',
+            NODE_LINK_TAB_VAL_TAG   = 'node-link-tab-val-',
+            NODE_LINK_TAB_TAG       = 'node-link-tab-',
+            NET_PROP_LIST_TAG       = 'network-property-list-',
+            NET_PROP_KEY_TAG        = 'network-property-key-',
+            NET_PROP_VAL_TAG        = 'network-property-val-',
+            NET_PROP_ERR_TAG        = 'network-property-err-',
+            DEL_NET_PROP_TAG        = 'network-property-delete-',
+            ADD_NET_PROP_TAG        = 'network-property-add-',
+            HTML5_ATTR_TAG          = 'data-node-link-id',
+            NET_PROP_ROW_CLASS      = 'network-property-row',
+            RATE_MAX                = 100,
+            RATE_MIN                = 0;
 
-        UINodeProps.INIT_BY_NODES   = "node-network-init-by";
+        UINodeProps.INIT_BY_NODES   = "initby-nodes";
         UINodeProps.NODE_NETWORK_IP = "node-network-ip";
-        UINodeProps.NODE_LINKS_PROP = "node-links-propz";
-
-        var NODE_LINK_ID_COUNT = 0;
+        UINodeProps.NODE_LINKS_PROP = "node-links-properties";
 
         Pooffs.extends(UINodeProps, UIInstanceProps);
 
         function UINodeProps(ui, ctrl) {
             UIInstanceProps.prototype.constructor.call(this, ui, ctrl);
-            this._nodeLinks = new Kotlin.HashTable();
+            this._ctrl = ctrl;
         }
 
         UINodeProps.prototype.getHTML = function () {
+            console.log("getHTML");
             var html = UIInstanceProps.prototype.getHTML.call(this), // super.getHTML()
-                model = this._ctrl.getEditor().getModel();
+                model = this._ctrl.getEditor().getModel(),
+                that = this;
 
-            // reset nodeLinks
-            this._nodeLinks.clear();
-            NODE_LINK_ID_COUNT = 0;
-
-            function generateOptions(ui) {
-                var nodes = model.getNodes();
-                var opts = '';
-                var selected = '';
-                for (var i=0; i < nodes.size(); i++) {
-                    if (nodes.get(i).getName() == ui._ctrl.getName()) selected = ' selected';
-                    opts += '<option value="'+nodes.get(i).getName()+'"'+selected+' class="'+INIT_BY_NODE+'">'+nodes.get(i).getName()+'</option>';
-                    selected = '';
-                }
-                return opts;
+            var templateParams = {
+                    initBy: getInitByNodes(),
+                    nodeLinks: getNodeLinks(),
+                    groups: getThisNodeGroups(this._ctrl.getName())
             }
 
-            function getThisNodeGroups(ui) {
+            function getInitByNodes() {
+                var initByNodes = [],
+                    nodes = model.getNodes(),
+                    nets = that._ctrl.getNodeNetworks();
+                console.log("nets", nets);
+
+                // check if ctrl already has nodeNetwork for those nodes
+                for (var i=0; i < nodes.size(); i++) {
+                    var hasNetwork = false;
+
+                    for (var j=0; j < nets.length; j++) {
+                        if (nets[j].getInitBy().getName() == nodes.get(i).getName()) {
+                            hasNetwork = true;
+                        }
+                    }
+
+                    initByNodes.push({
+                        selected: hasNetwork,
+                        name: nodes.get(i).getName()
+                    });
+                }
+
+                return initByNodes;
+            }
+
+            function getNodeLinks() {
+                var nodeLinks = [];
+
+                var nets = that._ctrl.getNodeNetworks();
+                for (var i=0; i < nets.length; i++) {
+                    var links = nets[i].getLinks();
+
+                    for (var j=0; j < links.length; j++) {
+                        var /* KNodeLink */ link = links[j];
+                        nodeLinks.push({
+                            id: link._id,
+                            type: link.getNetworkType(),
+                            isActive: (j==0) ? true : false,
+                            minRate: RATE_MIN,
+                            maxRate: RATE_MAX,
+                            rate: link.getEstimatedRate(),
+                            props: getNetworkProperties(link)
+                        });
+                    }
+                }
+
+                return nodeLinks;
+
+                function getNetworkProperties(/* KNodeLink */ link) {
+                    var ret = [],
+                        props = link.getNetworkProperties();
+
+                    for (var i=0; i < props.length; i++) {
+                        ret.push({
+                            id: props[i]._id,
+                            key: props[i].getKey(),
+                            value: props[i].getValue()
+                        });
+                    }
+
+                    return ret;
+                }
+            }
+
+            function getThisNodeGroups(name) {
                 var grps = model.getGroups();
                 var ret = [];
                 for (var i=0; i < grps.size(); i++) {
                     var nodes = grps.get(i).getSubNodes();
                     for (var j=0; j < nodes.size(); j++) {
-                        if (nodes.get(j).getName() == ui._ctrl.getName()) {
-                            ret.push(grps.get(i));
+                        if (nodes.get(j).getName() == name) {
+                            ret.push(grps.get(i).getName());
                         }
                     }
                 }
-
                 return ret;
             }
 
-            function generateNodeGroupOptions(ui) {
-                var grps = getThisNodeGroups(ui);
-                var html = '';
-                for (var i=0; i < grps.length; i++) {
-                    html += '<option value="'+grps[i].getName()+'">'+grps[i].getName()+'</option>';
-                }
-                return html;
-            }
-
-            var nodeNetworks = model.getNodeNetworks(),
-                linkInstances = [];
-            for (var i=0; i < nodeNetworks.size(); i++) {
-                var nodeNet = nodeNetworks.get(i);
-                if (nodeNet.getTarget().getName() == this._ctrl.getName()) {
-                    for (var j=0; j < nodeNet.getLink().size(); j++) {
-                        var nodeLinkWidget = new UINodeLinkWidget(NODE_LINK_ID_COUNT);
-                        nodeLinkWidget.setType(nodeNet.getLink().get(j).getNetworkType());
-                        if (j==0) nodeLinkWidget.setActive(true);
-                        this._nodeLinks.put(NODE_LINK_ID_COUNT, nodeLinkWidget);
-                        NODE_LINK_ID_COUNT++;
-                        linkInstances.push(nodeLinkWidget);
-                        console.log("j'ai trouvé "+nodeLinkWidget.getType()+" dans le model pour les node links du noeud "+this._ctrl.getName());
-                    }
-                    // when you get one nodeLinks list, you can stop
-                    // because they will all be the same
-                    // (as I did it, for each initBy nodes you get the same nodeLinks props)
-                    break;
-                }
-            }
-            console.log('after read model linkInstances.length = '+linkInstances.length);
-
-            function generateNodeLinks(nodeLinks) {
-                if (linkInstances.length == 0) {
-                    var defaultWidget = new UINodeLinkWidget(NODE_LINK_ID_COUNT);
-                    defaultWidget.setActive(true);
-                    nodeLinks.put(NODE_LINK_ID_COUNT, defaultWidget);
-                    NODE_LINK_ID_COUNT++;
-                    linkInstances.push(defaultWidget);
-                }
-
-                function generateNodeLinksTabs() {
-                    var html = '';
-                    for (var i=0; i < linkInstances.length; i++) {
-                        html += linkInstances[i].getTabHTML();
-                    }
-                    return html;
-                }
-
-                function generateNodeLinksContents() {
-                    var html = '';
-                    for (var i=0; i < linkInstances.length; i++) {
-                        html += linkInstances[i].getTabContentHTML();
-                    }
-                    return html;
-                }
-
-                return '' +
-                    '<div class="well" style="margin-top: 10px;">' +
-                        '<ul id="'+NODE_LINKS_TABS+'" class="nav nav-tabs">' +
-                            generateNodeLinksTabs() +
-                            '<li class="pull-right">' +
-                                '<div class="btn-group">' +
-                                    '<button id="'+DEL_NODE_LINK+'" class="btn btn-danger disabled"><i class="icon-trash icon-white"></i></button>' +
-                                    '<button id="'+ADD_NODE_LINK+'" class="btn btn-info"><i class="icon-plus icon-white"></i></button>' +
-                                '</div>' +
-                            '</li>' +
-                        '</ul>' +
-
-                        '<div id="'+NODE_LINKS_CONTENT+'" class="tab-content">' +
-                            generateNodeLinksContents() +
-                        '</div>' +
-                    '</div>';
-            }
-
-            html +=
-                '<div class="row-fluid">' +
-                    '<div class="span4">Reachable from</div>' +
-                        '<select id="'+UINodeProps.INIT_BY_NODES+'" multiple="multiple">' +
-                            generateOptions(this._ui) +
-                        '</select>' +
-                    '</div>' +
-                '</div>' +
-                generateNodeLinks(this._nodeLinks) +
-                '<div class="row-fluid">' +
-                    '<button id="'+PUSH_ACTION+'" type="button" class="btn btn-inverse span4">Push</button>' +
-                    '<div class="span4">' +
-                        '<select id="'+GROUP_ACTION+'" class="row-fluid">' +
-                            generateNodeGroupOptions(this._ui) +
-                        '</select>' +
-                    '</div>' +
-                    '<button id="'+PULL_ACTION+'" type="button" class="btn btn-inverse span4">Pull</button>' +
-                    '</div>' +
-                    '<div id="'+PROGRESS_BAR+'" class="progress progress-info progress-striped active row-fluid hide" style="margin-top: 10px;">' +
-                        '<div class="bar" style="width: 100%"></div>' +
-                    '</div>' +
-                '</div>';
-
-            return html;
+            return html + nodeNetworkTemplate(templateParams);
         }
 
         UINodeProps.prototype.onHTMLAppended = function () {
@@ -189,59 +159,26 @@ define(
 
             $('#'+ADD_NODE_LINK).off(NAMESPACE);
             $('#'+ADD_NODE_LINK).on('click'+NAMESPACE, function () {
-                var nodeLinkWidget = new UINodeLinkWidget(NODE_LINK_ID_COUNT);
-                nodeLinkWidget.setType('type'+NODE_LINK_ID_COUNT);
-                $('#'+NODE_LINKS_TABS).append(nodeLinkWidget.getTabHTML());
-                $('#'+NODE_LINKS_CONTENT).append(nodeLinkWidget.getTabContentHTML());
-                nodeLinkWidget.addedToDOM();
-                that._nodeLinks.put(NODE_LINK_ID_COUNT, nodeLinkWidget);
-
-                NODE_LINK_ID_COUNT++;
-
-                registerListenerForTabs();
+                console.log("ADD TAB");
+                that._ctrl.p2cAddNodeLink();
+                that.refreshHTML();
             });
 
             $('#'+DEL_NODE_LINK).off(NAMESPACE);
             $('#'+DEL_NODE_LINK).on('click'+NAMESPACE, function () {
-                var $widget = $('#'+NODE_LINKS_TABS+' li.active'),
-                    widgetID = parseInt($widget.attr(UINodeLinkWidget.HTML5_ID_TAG)),
-                    widget = that._nodeLinks.get(widgetID);
+                console.log("DELETE TAB");
+                var tab = $('#'+NODE_LINKS_TABS+' li.active'),
+                    tabID = parseInt(tab.attr(HTML5_ATTR_TAG));
 
-                // remove current active tab if != 0 (default)
-                if (widgetID != 0) {
-                    that._nodeLinks.remove(widgetID);
-                    widget.removeFromDOM();
-                    var model = that._ctrl.getEditor().getModel(),
-                        nns = model.getNodeNetworks();
-                    for (var i=0; i < nns.size(); i++) {
-                        var nn = nns.get(i);
-                        if (nn.getTarget().getName() == that._ctrl.getName()) {
-                            var nls = nn.getLink();
-                            for (var j=0; j < nls.size(); j++) {
-                                var nl = nls.get(j);
-                                if (nl.getNetworkType() == widget.getType()) {
-                                    nn.removeLink(nl);
-                                    console.log("je viens de remove "+nl.getNetworkType()+" des nodelinks de "+ that._ctrl.getName());
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // set default tab (O-indexed tab to active)
-                that._nodeLinks.get(0).setActive(true);
-                $('#'+DEL_NODE_LINK).addClass('disabled');
-            });
-
-            this._nodeLinks.each(function (widgetID, widget) {
-                widget.addedToDOM();
+                that._ctrl.p2cDeleteNodeLink(tabID);
+                that.refreshHTML();
             });
 
             registerListenerForTabs();
             function registerListenerForTabs() {
                 $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').off(NAMESPACE);
                 $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').on('shown'+NAMESPACE, function () {
-                    var widgetID = parseInt($(this).parent().attr(UINodeLinkWidget.HTML5_ID_TAG));
+                    var widgetID = parseInt($(this).parent().attr(HTML5_ATTR_TAG));
                     if (widgetID == 0) {
                         $('#'+DEL_NODE_LINK).addClass('disabled');
                     } else {
@@ -249,20 +186,26 @@ define(
                     }
                 });
             }
+
+            // cache jquery selectors
+            var nodeLinkID = 0;
+            var jqySelectors = [];
+            jqySelectors[NODE_LINK_TAB_TAG]     = $('#' + NODE_LINK_TAB_TAG + nodeLinkID);
+            jqySelectors[NODE_LINK_TAB_VAL_TAG] = $('#' + NODE_LINK_TAB_VAL_TAG + nodeLinkID);
+            jqySelectors[NODE_LINK_TAB_ROOT_TAG]= $('#' + NODE_LINK_TAB_ROOT_TAG + nodeLinkID);
+            jqySelectors[NODE_LINK_TAG]         = $('#' + NODE_LINK_TAG + nodeLinkID);
+            jqySelectors[NODE_LINK_TYPE_TAG]    = $('#' + NODE_LINK_TYPE_TAG + nodeLinkID);
+            jqySelectors[NODE_LINK_RATE_TAG]    = $('#' + NODE_LINK_RATE_TAG + nodeLinkID);
+            jqySelectors[NET_PROP_LIST_TAG]     = $('#' + NET_PROP_LIST_TAG + nodeLinkID);
+            jqySelectors[DEL_NET_PROP_TAG]      = $('#' + DEL_NET_PROP_TAG + nodeLinkID);
+            jqySelectors[ADD_NET_PROP_TAG]      = $('#' + ADD_NET_PROP_TAG + nodeLinkID);
+
+            // register listeners
+            registerNodeNetworkListeners(jqySelectors);
         }
 
         UINodeProps.prototype.getPropertiesValues = function () {
             var props = UIInstanceProps.prototype.getPropertiesValues.call(this);
-
-//            props[UINodeProps.NODE_NETWORK_IP] = $('#'+UINodeProps.NODE_NETWORK_IP).val();
-//            props[GROUP_ACTION] = $('#'+GROUP_ACTION+' option:selected').val();
-
-            props[UINodeProps.NODE_LINKS_PROP] = [];
-
-            console.log("BEFORE SAVE nodeLinks.size() = "+this._nodeLinks.size());
-            this._nodeLinks.each(function (widgetID, widget) {
-                props[UINodeProps.NODE_LINKS_PROP].push(widget.serialize());
-            });
 
             var nodes = [];
             $('#'+UINodeProps.INIT_BY_NODES+' option.'+INIT_BY_NODE+':selected').each(function () {
@@ -271,6 +214,133 @@ define(
             props[UINodeProps.INIT_BY_NODES] =  nodes;
 
             return props;
+        }
+
+        function registerNodeNetworkListeners(jqy) {
+            // selectable table
+            jqy[NET_PROP_LIST_TAG].selectable({
+                filter: '.'+NET_PROP_ROW_CLASS,
+                selecting: function() {
+                    jqy[DEL_NET_PROP_TAG].removeClass('disabled');
+                },
+                unselecting: function () {
+                    var size = jqy[NET_PROP_LIST_TAG].find('.ui-selected').size();
+                    if (size == 0) {
+                        jqy[DEL_NET_PROP_TAG].addClass('disabled');
+                    }
+                }
+            });
+
+            // change tab name dynamically
+            jqy[NODE_LINK_TYPE_TAG].off(NAMESPACE);
+            jqy[NODE_LINK_TYPE_TAG].on('keyup'+NAMESPACE, function () {
+                var value = jqy[NODE_LINK_TYPE_TAG].val();
+                var matcher = value.match(/\S+/g);
+                if (matcher) {
+                    //widget._type = matcher[0];
+                }
+                jqy[NODE_LINK_TAB_VAL_TAG].text(matcher[0]);
+            });
+
+            // remove network property
+            jqy[DEL_NET_PROP_TAG].off(NAMESPACE);
+            jqy[DEL_NET_PROP_TAG].on('click'+NAMESPACE, function () {
+                var rowElem = jqy[NET_PROP_LIST_TAG].find('.ui-selected');
+                rowElem.each(function () {
+                    var keyID = $(this).find('input[id*='+NET_PROP_KEY_TAG+']').attr('id');
+                    console.log("remove key id "+keyID);
+                });
+
+                // clear view
+                rowElem.remove();
+                $(this).addClass('disabled');
+            });
+
+            // add network property
+            jqy[ADD_NET_PROP_TAG].off(NAMESPACE);
+            jqy[ADD_NET_PROP_TAG].on('click'+NAMESPACE, function () {
+                console.log("ADD NET PROP");
+                registerListenersForProps();
+            });
+
+            jqy[NODE_LINK_RATE_TAG].off(NAMESPACE);
+            jqy[NODE_LINK_RATE_TAG].on('input', function () {
+                var val = parseInt($(this).val());
+
+                if (isNaN(val)) {
+                    // TODO use current value as default
+                    val = 100;
+
+                } else if (val > RATE_MAX) {
+                    val = RATE_MAX;
+
+                } else if (val < RATE_MIN) {
+                    val = RATE_MIN;
+                }
+
+                //widget._rate = val;
+                //$(this).val(widget._rate);
+            });
+
+            function registerListenersForProps() {
+//                for (var i=0; i < that.length; i++) {
+//                    // closure to ensure idPair is the right one for each jquery keyup callback
+//                    (function (idPair) {
+//                        var keyInput = $('#'+idPair.key),
+//                            valueInput = $('#'+idPair.value),
+//                            errorDiv = $('#'+idPair.error);
+//
+//                        keyInput.off(NAMESPACE);
+//                        keyInput.on('keyup'+NAMESPACE, function () {
+//                            var keyValue = keyInput.val();
+//                            // clear error fields
+//                            keyInput.closest('.control-group').removeClass('error');
+//                            errorDiv.hide();
+//
+//                            Delay(function delayedKeyupValidation() {
+//                                if (props.containsKeyID(idPair.key)) {
+//                                    // we already have a value set for this key input field
+//                                    // check if another key field as this value
+//                                    if (props.containsKey(keyValue, idPair.key)) {
+//                                        // someone else already has this key (other than me = idPair.key)
+//                                        // so this is not possible, display error message
+//                                        displayError(keyValue);
+//                                    } else {
+//                                        // we are good to go, this key is available
+//                                        updateModel(keyValue);
+//                                    }
+//                                } else {
+//                                    if (props.containsKey(keyValue)) {
+//                                        // someone else already has this key
+//                                        displayError(keyValue);
+//                                    } else {
+//                                        // we are good to go, this key is available
+//                                        updateModel(keyValue);
+//                                    }
+//                                }
+//                            }, 1000);
+//                        });
+//
+//                        valueInput.off(NAMESPACE);
+//                        valueInput.on('keyup'+NAMESPACE, function () {
+//                            props.setValue(idPair.key, $(this).val());
+//                        });
+//
+//                        function displayError(value) {
+//                            keyInput.closest('.control-group').addClass('error');
+//                            errorDiv.find('.text-error').html('"'+value+'" is already used');
+//                            errorDiv.show('fast');
+//                        }
+//
+//                        function updateModel(value) {
+//                            if (value.length != 0) { // do not save an empty key
+//                                props.setKey(idPair.key, value);
+//                            }
+//                        }
+//                    })(getPropIDPair(widget._id, widget._propsIDs[i]));
+//                }
+            }
+            registerListenersForProps();
         }
 
         return UINodeProps;

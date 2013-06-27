@@ -170,6 +170,54 @@ define(
             this._listener.call(this);
         }
 
+        UpdateModelVisitor.prototype.visitNodeNetwork = function (net) {
+            var target = this._model.findNodesByID(net._target.getName()),
+                initBy = this._model.findNodesByID(net._initBy.getName());
+
+            var update = (net._instance) ? true : false;
+            net._instance = net._instance || this._factory.createNodeNetwork();
+
+            net._instance.setTarget(target);
+            net._instance.setInitBy(initBy);
+
+            for (var i=0; i < net.getLinks().length; i++) {
+                var nodeLink = net.getLinks()[i];
+                nodeLink.accept(this);
+            }
+
+            if (!update) this._model.addNodeNetwork(net._instance);
+
+            this._listener.call(this);
+        }
+
+        UpdateModelVisitor.prototype.visitNodeLink = function (link) {
+            var nodeNetwork = link.getNodeNetwork()._instance,
+                rate = link.getEstimatedRate(),
+                type = link.getType();
+
+            var update = (link._instance) ? true : false;
+            link._instance = link._instance || this._factory.createNodeLink();
+
+            link._instance.setEstimatedRate(rate);
+            link._instance.setNetworkType(type);
+
+            if (!update) nodeNetwork.addLink(link._instance);
+            this._listener.call(this);
+        }
+
+        UpdateModelVisitor.prototype.visitNetworkProperty = function (prop) {
+            var nodeLink = prop.getNodeLink()._instance;
+
+            var update = (prop._instance) ? true : false;
+            prop._instance = prop._instance || this._factory.createNetworkProperty();
+
+            prop._instance.setName(prop.getKey());
+            prop._instance.setValue(prop.getValue());
+
+            if (!update) nodeLink.addNetworkProperties(prop._instance);
+            this._listener.call(this);
+        }
+
         // private method
         function saveMetaData(entity) {
             if (typeof(entity.getUI) === 'function' && entity.getUI()) {

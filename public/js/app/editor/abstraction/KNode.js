@@ -2,10 +2,11 @@ define(
     [
         'abstraction/KEntity',
         'abstraction/KComponent',
+        'abstraction/KNodeNetwork',
         'util/Pooffs'
     ],
 
-    function(KEntity, KComponent, Pooffs) {
+    function(KEntity, KComponent, KNodeNetwork, Pooffs) {
         var COUNT = 0;
 
         KNode.ENTITY_TYPE = 'NodeType';
@@ -18,6 +19,8 @@ define(
             this._parent = null;
             this._children = new Array();
             this._name = 'node'+ COUNT++;
+            this._nets = [];
+            this._nets.push(new KNodeNetwork(this, this)); // default
         }
 
         KNode.prototype.getEntityType = function () {
@@ -135,6 +138,24 @@ define(
                 if (depth > maxDepth) maxDepth = depth;
             }
             return maxDepth;
+        }
+
+        KNode.prototype.addNodeNetwork = function (net) {
+            var index = this._nets.indexOf(net);
+            if (index == -1) {
+                this._nets.push(net);
+            }
+        }
+
+        KNode.prototype.removeNodeNetwork = function (net) {
+            var index = this._nets.indexOf(net);
+            if (index != -1) {
+                this._nets.splice(index, 1);
+            }
+        }
+
+        KNode.prototype.getNodeNetworks = function () {
+            return this._nets;
         }
 
         KNode.prototype.accept = function (visitor) {

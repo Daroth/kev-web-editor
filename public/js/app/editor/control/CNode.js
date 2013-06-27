@@ -2,6 +2,8 @@ define(
     [
         'abstraction/KNode',
         'abstraction/KGroup',
+        'abstraction/KNodeLink',
+        'abstraction/KNetworkProperty',
         'presentation/UINode',
         'presentation/property/UINodeProps',
         'control/AController',
@@ -11,7 +13,7 @@ define(
         'util/Pooffs'
     ],
 
-    function(KNode, KGroup, UINode, UINodeProps, AController, CNestableEntity, UpdateModelVisitor, Kevoree, Pooffs) {
+    function(KNode, KGroup, KNodeLink, KNetworkProperty, UINode, UINodeProps, AController, CNestableEntity, UpdateModelVisitor, Kevoree, Pooffs) {
 
         Pooffs.extends(CNode, AController);
         Pooffs.extends(CNode, CNestableEntity);
@@ -172,6 +174,27 @@ define(
                 // error, 'entity' is not a KNode or a KComponent
                 // or it has already been added to this node children
                 // TODO well it is not supposed to happen because the controller is supposed to check those things
+            }
+        }
+
+        CNode.prototype.p2cAddNodeLink = function () {
+            var nets = this.getNodeNetworks();
+
+            for (var i=0; i < nets.length; i++) {
+                nets[i].addLink(new KNodeLink(nets[i]));
+            }
+        }
+
+        CNode.prototype.p2cDeleteNodeLink = function (id) {
+            console.log('wanna remove node link id : '+id);
+            var nets = this.getNodeNetworks();
+            for (var i=0; i < nets.length; i++) {
+                var links = nets[i].getLinks();
+                for (var j=0; j < links.length; j++) {
+                    if (links[j]._id == id) {
+                        nets[i].removeLink(links[j]);
+                    }
+                }
             }
         }
 
