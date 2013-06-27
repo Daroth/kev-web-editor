@@ -11,7 +11,7 @@ Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side 
         node app.js
 
 You need to pre-compile Jade template in order to use them dynamically client-side.  
-Node package 'jade-amd' will package your .jade from views/templates to AMD valid Javascript in public/js/app/templates
+Node package 'jade-amd' will package your .jade from views/templates to AMD valid Javascript in public/js/app/templates  
 But if you didn't do any changes on views/templates this is not mandatory
 
 ## 2. Features
