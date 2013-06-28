@@ -2,11 +2,10 @@ define(
     [
         'abstraction/KEntity',
         'abstraction/KComponent',
-        'abstraction/KNodeNetwork',
         'util/Pooffs'
     ],
 
-    function(KEntity, KComponent, KNodeNetwork, Pooffs) {
+    function(KEntity, KComponent, Pooffs) {
         var COUNT = 0;
 
         KNode.ENTITY_TYPE = 'NodeType';
@@ -20,7 +19,7 @@ define(
             this._children = new Array();
             this._name = 'node'+ COUNT++;
             this._nets = [];
-            this._nets.push(new KNodeNetwork(this, this)); // default
+            this._nets.push(require('factory/CFactory').getInstance().newNodeNetwork(this, this)); // default
         }
 
         KNode.prototype.getEntityType = function () {

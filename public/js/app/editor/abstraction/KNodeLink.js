@@ -1,7 +1,9 @@
 define(
-    ['abstraction/KNetworkProperty'],
+    [
+        'require'
+    ],
 
-    function (KNetworkProperty) {
+    function (require) {
 
         var id = 0;
 
@@ -10,7 +12,7 @@ define(
             this._nodeNetwork = nodeNetwork;
             this._type = "type";
             this._rate = 100;
-            this._props.push(new KNetworkProperty(this));
+            this._props.push(require('factory/CFactory').getInstance().newNetworkProperty(this));
             this._id = id++;
         }
 
@@ -34,108 +36,45 @@ define(
             return this._rate;
         }
 
+        KNodeLink.prototype.addNetworkProperty = function (prop) {
+            var index = this._props.indexOf(prop);
+            if (index == -1) {
+                this._props.push(prop);
+            }
+        }
+
+        KNodeLink.prototype.deleteNetworkProperty = function (prop) {
+            var index = this._props.indexOf(prop);
+            if (index != -1) {
+                this._props.splice(index, 1);
+            }
+        }
+
+        KNodeLink.prototype.hasNetworkProperty = function (id) {
+            for (var i=0; i < this._props.length; i++) {
+                if (this._props[i]._id == id) return true;
+            }
+            return false;
+        }
+
         KNodeLink.prototype.containsKey = function (key, exceptThisID) {
             for (var i=0; i < this._props.length; i++) {
                 var prop = this._props[i];
                 // if exceptThisID is given, we want to check if key value exists
                 // just for props that do not have exceptThisID as keyID
                 if (exceptThisID) {
-                    if (prop.keyID != exceptThisID && key == prop.key) {
+                    if (prop._id != exceptThisID && key == prop.getKey()) {
                         // this key already exists
                         return true;
                     }
                 } else {
-                    if (key == prop.key) {
+                    if (key == prop.getKey()) {
                         // this key already exists
                         return true;
                     }
                 }
             }
             return false;
-        }
-
-        KNodeLink.prototype.add = function (keyID, key, value) {
-            this._props.push({
-                keyID: keyID,
-                key: key,
-                value: value
-            });
-        }
-
-        KNodeLink.prototype.remove = function (id) {
-            if (this._props.length > 1) {
-                for (var i=0; i < this._props.length; i++) {
-                    var prop = this._props[i];
-                    if (id == prop.keyID) {
-                        this._props.splice(i, 1);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        KNodeLink.prototype.setKey = function (id, key) {
-            for (var i=0; i < this._props.length; i++) {
-                var prop = this._props[i];
-                if (id == prop.keyID) {
-                    // this key ID already exists
-                    prop.key = key;
-                    return true;
-                }
-            }
-            this.add(id, key, null);
-            return false;
-        }
-
-        KNodeLink.prototype.setValue = function (id, value) {
-            for (var i=0; i < this._props.length; i++) {
-                var prop = this._props[i];
-                if (id == prop.keyID) {
-                    // this key ID already exists
-                    prop.value = value;
-                    return true;
-                }
-            }
-            this.add(id, null, value);
-            return false;
-        }
-
-        KNodeLink.prototype.size = function() {
-            return this._props.length;
-        }
-
-        KNodeLink.prototype.containsKeyID = function (id) {
-            for (var i=0; i < this._props.length; i++) {
-                var prop = this._props[i];
-                if (id == prop.keyID) {
-                    // this key ID already exists
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        KNodeLink.prototype.getKey = function (id) {
-            for (var i=0; i < this._props.length; i++) {
-                var prop = this._props[i];
-                if (id == prop.keyID) {
-                    // this key ID already exists
-                    return prop.key;
-                }
-            }
-            return null;
-        }
-
-        KNodeLink.prototype.toArray = function () {
-            var ret = [];
-            for (var i=0; i < this._props.length; i++) {
-                ret.push({
-                    key:    this._props[i].key,
-                    value:  this._props[i].value
-                });
-            }
-            return ret;
         }
 
         KNodeLink.prototype.accept = function (visitor) {

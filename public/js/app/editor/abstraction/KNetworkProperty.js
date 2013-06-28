@@ -11,7 +11,7 @@ define(
             this._id = id++;
         }
 
-        KNetworkProperty.prototype.getNodeLink = function () {
+        KNetworkProperty.prototype.getLink = function () {
             return this._link;
         }
 

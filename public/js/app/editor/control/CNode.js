@@ -181,12 +181,11 @@ define(
             var nets = this.getNodeNetworks();
 
             for (var i=0; i < nets.length; i++) {
-                nets[i].addLink(new KNodeLink(nets[i]));
+                nets[i].addLink(require('factory/CFactory').getInstance().newNodeLink(nets[i]));
             }
         }
 
         CNode.prototype.p2cDeleteNodeLink = function (id) {
-            console.log('wanna remove node link id : '+id);
             var nets = this.getNodeNetworks();
             for (var i=0; i < nets.length; i++) {
                 var links = nets[i].getLinks();

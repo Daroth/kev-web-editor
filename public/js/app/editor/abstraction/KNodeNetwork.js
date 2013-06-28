@@ -1,7 +1,7 @@
 define(
-    ['abstraction/KNodeLink'],
+    [],
 
-    function (KNodeLink) {
+    function () {
 
         var id = 0;
 
@@ -9,7 +9,7 @@ define(
             this._links = [];
             this._target = target;
             this._initBy = initBy;
-            this._links.push(new KNodeLink(this));
+            this._links.push(require('factory/CFactory').getInstance().newNodeLink(this));
             this._id = id++;
         }
 

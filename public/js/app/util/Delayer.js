@@ -1,21 +1,24 @@
 define(
     function () {
 
+        function Delayer() {
+            this._timer = 0;
+        }
+
         /**
-         * Delay(callback, delay)
+         * delay(callback, delay)
          * Executes callback in delay ms
          * If called multiple times, old callback will be cleared
          * and timeout reset so the execution will happen in delay ms
          * from the new call
          */
-        var Delay = (function() {
-            var timer = 0;
+        Delayer.prototype.delay = (function () {
             return function (callback, ms) {
-                clearTimeout (timer);
-                timer = setTimeout(callback, ms);
+                clearTimeout (this._timer);
+                this._timer = setTimeout(callback, ms);
             };
         })();
 
-        return Delay;
+        return Delayer;
     }
 );

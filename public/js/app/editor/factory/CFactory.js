@@ -7,10 +7,13 @@ define(
         'control/CComponent',
         'control/CWire',
         'control/CInputPort',
-        'control/COutputPort'
+        'control/COutputPort',
+        'control/CNodeNetwork',
+        'control/CNodeLink',
+        'control/CNetworkProperty'
     ],
 
-    function (CEditor, CGroup, CChannel, CNode, CComponent, CWire, CInputPort, COutputPort) {
+    function (CEditor, CGroup, CChannel, CNode, CComponent, CWire, CInputPort, COutputPort, CNodeNetwork, CNodeLink, CNetworkProperty) {
 
         function CFactory() {
             if (CFactory.prototype._instance) {
@@ -62,6 +65,18 @@ define(
 
         CFactory.prototype.newOutputPort = function (name) {
             return new COutputPort(name);
+        };
+
+        CFactory.prototype.newNodeNetwork = function (initBy, target) {
+            return new CNodeNetwork(initBy, target);
+        };
+
+        CFactory.prototype.newNodeLink = function (net) {
+            return new CNodeLink(net);
+        };
+
+        CFactory.prototype.newNetworkProperty = function (link) {
+            return new CNetworkProperty(link);
         };
 
         return CFactory;

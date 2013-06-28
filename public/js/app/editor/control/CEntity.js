@@ -34,8 +34,6 @@ define(
         }
 
         CEntity.prototype.p2cSaveProperties = function (props) {
-            console.log(this.getName(), props);
-
             this.setName(props['name']);
 
             var model = this._editor.getModel(),

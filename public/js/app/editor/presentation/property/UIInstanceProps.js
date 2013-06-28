@@ -4,6 +4,7 @@ define(
     ],
     function (instancePropsTemplate) {
 
+        // kevoree model constants for attributes type
         var ENUM    = 'enum=',
             RAW     = 'raw=';
 
@@ -98,13 +99,13 @@ define(
                     };
 
                     // if RAW or ENUM, process content a bit
-                    if (attr.getDatatype().substr(0, ENUM.length) == ENUM) { // attr.getDatatype() starts with enum=
+                    if (attr.getDatatype().substr(0, ENUM.length) == ENUM) { // attr.getDatatype() starts with "enum="
                         var str = attr.getDatatype().substr(ENUM.length, attr.getDatatype().length);
                         obj.value = str.split(',');
                         obj.type = 'enum';
                         obj.selected = obj.value.indexOf(attr.value);
 
-                    } else if (attr.getDatatype().substr(0, RAW.length) == RAW) { // attr.getDatatype() starts with raw=
+                    } else if (attr.getDatatype().substr(0, RAW.length) == RAW) { // attr.getDatatype() starts with "raw="
                         obj.value = attr.getDatatype().substr(RAW.length, attr.getDatatype().length);
                     }
 
