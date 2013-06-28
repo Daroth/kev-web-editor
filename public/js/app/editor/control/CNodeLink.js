@@ -34,6 +34,12 @@ define(
             this._ui.c2pAddNetworkProperty(prop);
         }
 
+        // Override KNodeLink.deleteNetworkProperty
+        CNodeLink.prototype.deleteNetworkProperty = function (prop) {
+            KNodeLink.prototype.deleteNetworkProperty.call(this, prop);
+            this._ui.c2pDeleteNetworkProperty(prop);
+        }
+
         CNodeLink.prototype.p2cChangeType = function (type) {
             this.setNetworkType(type);
         }
@@ -47,8 +53,12 @@ define(
             this.addNetworkProperty(prop);
         }
 
-        CNodeLink.prototype.p2cDeleteSelectedNetworkProperties = function () {
-
+        CNodeLink.prototype.p2cDeleteNetworkProperties = function (ids) {
+            console.log("TODO delete ", ids);
+            for (var i=0; i < ids.length; i++) {
+                var prop = this.getNetworkProperty(ids[i]);
+                this.deleteNetworkProperty(prop);
+            }
         }
 
         return CNodeLink;

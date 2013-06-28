@@ -57,6 +57,13 @@ define(
             return false;
         }
 
+        KNodeLink.prototype.getNetworkProperty = function (id) {
+            for (var i=0; i < this._props.length; i++) {
+                if (this._props[i]._id == id) return this._props[i];
+            }
+            return null;
+        }
+
         KNodeLink.prototype.containsKey = function (key, exceptThisID) {
             for (var i=0; i < this._props.length; i++) {
                 var prop = this._props[i];

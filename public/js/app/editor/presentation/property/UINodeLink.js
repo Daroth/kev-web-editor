@@ -112,7 +112,12 @@ define(
             // delete network property button listener
             this._jqy[DEL_PROP].off(NAMESPACE);
             this._jqy[DEL_PROP].on('click'+NAMESPACE, function () {
-                that._ctrl.p2cDeleteSelectedNetworkProperties();
+                var selectedItems = that._jqy[PROP_LIST].find('.ui-selected'),
+                    propIDs = [];
+                selectedItems.each(function () {
+                    propIDs.push(parseInt($(this).attr(PROP_ID)));
+                });
+                that._ctrl.p2cDeleteNetworkProperties(propIDs);
             });
 
             // tell network properties that they were added to DOM
@@ -129,6 +134,11 @@ define(
         UINodeLink.prototype.c2pAddNetworkProperty = function (prop) {
             this._jqy[PROP_LIST].append(prop.getUI().getHTML());
             prop.getUI().onHTMLAppended();
+        }
+
+        UINodeLink.prototype.c2pDeleteNetworkProperty = function (prop) {
+            console.log(this._jqy[PROP_LIST].find(PROP_ID, prop._id));
+            this._jqy[PROP_LIST].find('['+PROP_ID+'='+prop._id+']').remove();
         }
 
         function getNetworkProperties(link) {
