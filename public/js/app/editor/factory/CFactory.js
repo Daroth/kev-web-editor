@@ -8,12 +8,14 @@ define(
         'control/CWire',
         'control/CInputPort',
         'control/COutputPort',
-        'control/CNodeNetwork',
-        'control/CNodeLink',
-        'control/CNetworkProperty'
+        'control/property/CNodeNetwork',
+        'control/property/CNodeLink',
+        'control/property/CNetworkProperty',
+        'control/property/CNodeProperties'
     ],
 
-    function (CEditor, CGroup, CChannel, CNode, CComponent, CWire, CInputPort, COutputPort, CNodeNetwork, CNodeLink, CNetworkProperty) {
+    function (CEditor, CGroup, CChannel, CNode, CComponent, CWire, CInputPort, COutputPort, CNodeNetwork, CNodeLink,
+              CNetworkProperty, CNodeProperties) {
 
         function CFactory() {
             if (CFactory.prototype._instance) {
@@ -77,6 +79,10 @@ define(
 
         CFactory.prototype.newNetworkProperty = function (link) {
             return new CNetworkProperty(link);
+        };
+
+        CFactory.prototype.newNodeProperties = function (node) {
+            return new CNodeProperties(node);
         };
 
         return CFactory;

@@ -2,8 +2,6 @@ define(
     [
         'abstraction/KNode',
         'abstraction/KGroup',
-        'abstraction/KNodeLink',
-        'abstraction/KNetworkProperty',
         'presentation/UINode',
         'presentation/property/UINodeProps',
         'control/AController',
@@ -13,7 +11,7 @@ define(
         'util/Pooffs'
     ],
 
-    function(KNode, KGroup, KNodeLink, KNetworkProperty, UINode, UINodeProps, AController, CNestableEntity, UpdateModelVisitor, Kevoree, Pooffs) {
+    function(KNode, KGroup, UINode, UINodeProps, AController, CNestableEntity, UpdateModelVisitor, Kevoree, Pooffs) {
 
         Pooffs.extends(CNode, AController);
         Pooffs.extends(CNode, CNestableEntity);
@@ -152,18 +150,6 @@ define(
             }
         }
 
-        CNode.prototype.p2cPushModel = function () {
-            this._ui.c2pPushModelStarted();
-            // TODO real implem needed here
-            setTimeout(this._ui.c2pPushModelEndedWell, 3000);
-        }
-
-        CNode.prototype.p2cPullModel = function () {
-            this._ui.c2pPullModelStarted();
-            // TODO real implem needed here
-            setTimeout(this._ui.c2pPullModelEndedWell, 3000);
-        }
-
         // Override KNode.addChild(KNode || KComponent)
         CNode.prototype.addChild = function (entity) {
             var success = KNode.prototype.addChild.call(this, entity);
@@ -177,31 +163,11 @@ define(
             }
         }
 
-        CNode.prototype.p2cAddNodeLink = function () {
-            var nets = this.getNodeNetworks();
-
-            for (var i=0; i < nets.length; i++) {
-                nets[i].addLink(require('factory/CFactory').getInstance().newNodeLink(nets[i]));
-            }
-        }
-
-        CNode.prototype.p2cDeleteNodeLink = function (id) {
-            var nets = this.getNodeNetworks();
-            for (var i=0; i < nets.length; i++) {
-                var links = nets[i].getLinks();
-                for (var j=0; j < links.length; j++) {
-                    if (links[j]._id == id) {
-                        nets[i].removeLink(links[j]);
-                    }
-                }
-            }
-        }
-
         CNode.prototype.p2cSaveProperties = function (props) {
             CNestableEntity.prototype.p2cSaveProperties.call(this, props);
 
             if (props[UINodeProps.INIT_BY_NODES] && props[UINodeProps.NODE_LINKS_PROP]) {
-                var model = this._editor.getModel(),
+                var model = this.getEditor().getModel(),
                     factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
 
                 for (var index=0; index < props[UINodeProps.INIT_BY_NODES].length; index++) {

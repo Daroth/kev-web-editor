@@ -8,12 +8,12 @@ define(
         var id = 0;
 
         function KNodeLink(nodeNetwork) {
+            this._id = id++;
             this._props = [];
             this._nodeNetwork = nodeNetwork;
-            this._type = "type";
+            this._type = "type"+this._id;
             this._rate = 100;
             this._props.push(require('factory/CFactory').getInstance().newNetworkProperty(this));
-            this._id = id++;
         }
 
         KNodeLink.prototype.getNodeNetwork = function () {

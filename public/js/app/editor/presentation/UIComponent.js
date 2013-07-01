@@ -45,7 +45,7 @@ define(
             this._computedWidth = computeWidth(this._ctrl.getInputs(), this._ctrl.getOutputs(), this._rect.getWidth())
             this._computedHeight = computeHeight(this._ctrl.getInputs(), this._ctrl.getOutputs(), this._rect.getHeight());
 
-            var props = new UIComponentProps(this, ctrl);
+            var props = new UIComponentProps(ctrl);
             this._shape.on('dblclick dbltap', function(e) {
                 // prevent children from getting the event too
                 e.cancelBubble = true;

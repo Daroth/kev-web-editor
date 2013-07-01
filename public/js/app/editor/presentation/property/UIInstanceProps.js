@@ -8,8 +8,7 @@ define(
         var ENUM    = 'enum=',
             RAW     = 'raw=';
 
-        function UIInstanceProps(ui, ctrl) {
-            this._ui = ui;
+        function UIInstanceProps(ctrl) {
             this._ctrl = ctrl;
             this._attrs = null;
             this._values = null;

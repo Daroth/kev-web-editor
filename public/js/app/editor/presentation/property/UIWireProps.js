@@ -1,8 +1,7 @@
 define(
     function () {
 
-        function UIWireProps(ui , ctrl) {
-            this._ui = ui;
+        function UIWireProps(ctrl) {
             this._ctrl = ctrl;
             this._name = $('#prop-popup-name');
         }

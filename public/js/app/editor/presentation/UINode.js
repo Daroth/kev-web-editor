@@ -1,11 +1,10 @@
 define(
     [
         'presentation/UINestableEntity',
-        'presentation/property/UINodeProps',
         'util/Pooffs'
     ],
 
-    function(UINestableEntity, UINodeProps, Pooffs) {
+    function(UINestableEntity, Pooffs) {
         // GLOBAL CONSTANTS
         var DEFAULT_STROKE_COLOR = '#FFF',
             KO_STROKE_COLOR = '#F00',
@@ -29,7 +28,7 @@ define(
                 e.cancelBubble = true;
             });
 
-            var props = new UINodeProps(this, ctrl);
+            var props = ctrl.getNodeProperties().getUI();
             this._shape.on('dblclick dbltap', function(e) {
                 // prevent children from getting the event too
                 e.cancelBubble = true;

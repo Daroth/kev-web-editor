@@ -8,14 +8,15 @@ define(
     ],
     function ($, Pooffs, UIInstanceProps, nodeNetworkTemplate, _bootstrap) {
 
-        var NAMESPACE       = ".ui-node-props",
-            PUSH_ACTION     = "node-push-action",
-            PULL_ACTION     = "node-pull-action",
-            NODE_LINKS_TABS = 'node-links-tabs',
-            INIT_BY_NODE    = 'initby-node',
-            ADD_NODE_LINK   = 'node-link-add',
-            DEL_NODE_LINK   = 'node-link-delete',
-            HTML5_ATTR_TAG  = 'data-node-link-id';
+        var NAMESPACE           = ".ui-node-props",
+            PUSH_ACTION         = "node-push-action",
+            PULL_ACTION         = "node-pull-action",
+            NODE_LINKS_TABS     = 'node-links-tabs',
+            NODE_LINKS_CONTENTS = 'node-links-contents',
+            INIT_BY_NODE        = 'initby-node',
+            ADD_NODE_LINK       = 'node-link-add',
+            DEL_NODE_LINK       = 'node-link-delete',
+            HTML5_ATTR_TAG      = 'data-node-link-id';
 
         UINodeProps.INIT_BY_NODES   = "initby-nodes";
         UINodeProps.NODE_NETWORK_IP = "node-network-ip";
@@ -23,8 +24,8 @@ define(
 
         Pooffs.extends(UINodeProps, UIInstanceProps);
 
-        function UINodeProps(ui, ctrl) {
-            UIInstanceProps.prototype.constructor.call(this, ui, ctrl);
+        function UINodeProps(ctrl) {
+            UIInstanceProps.prototype.constructor.call(this, ctrl);
         }
 
         // Override getHTML()
@@ -102,6 +103,7 @@ define(
         UINodeProps.prototype.onHTMLAppended = function () {
             var that = this;
 
+            // initby nodes multiselect
             $('#'+UINodeProps.INIT_BY_NODES).multiselect({
                 includeSelectAllOption: true,
                 maxHeight: 200
@@ -110,43 +112,34 @@ define(
             var pushBtn = $('#'+PUSH_ACTION),
                 pullBtn = $('#'+PULL_ACTION);
 
+            // push button click listener
             pushBtn.off(NAMESPACE);
             pushBtn.on('click'+NAMESPACE, function () {
                 that._ctrl.p2cPushModel();
             });
 
+            // pull btn click listener
             pullBtn.off(NAMESPACE);
             pullBtn.on('click'+NAMESPACE, function () {
                 that._ctrl.p2cPullModel();
             });
 
+            // add node link button click listener
             $('#'+ADD_NODE_LINK).off(NAMESPACE);
             $('#'+ADD_NODE_LINK).on('click'+NAMESPACE, function () {
                 that._ctrl.p2cAddNodeLink();
-                that.refreshHTML();
             });
 
+            // delete node link button click listener
             $('#'+DEL_NODE_LINK).off(NAMESPACE);
             $('#'+DEL_NODE_LINK).on('click'+NAMESPACE, function () {
                 var tab = $('#'+NODE_LINKS_TABS+' li.active'),
                     tabID = parseInt(tab.attr(HTML5_ATTR_TAG));
 
                 that._ctrl.p2cDeleteNodeLink(tabID);
-                that.refreshHTML();
             });
 
             registerListenerForTabs();
-            function registerListenerForTabs() {
-                $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').off(NAMESPACE);
-                $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').on('shown'+NAMESPACE, function () {
-                    var widgetID = parseInt($(this).parent().attr(HTML5_ATTR_TAG));
-                    if (widgetID == 0) {
-                        $('#'+DEL_NODE_LINK).addClass('disabled');
-                    } else {
-                        $('#'+DEL_NODE_LINK).removeClass('disabled');
-                    }
-                });
-            }
 
             // tell nodeLinks that they were added to DOM
             var nets = this._ctrl.getNodeNetworks();
@@ -168,6 +161,38 @@ define(
             props[UINodeProps.INIT_BY_NODES] =  nodes;
 
             return props;
+        }
+
+        UINodeProps.prototype.c2pNodeLinkAdded = function (link) {
+            $('#'+NODE_LINKS_TABS).append(link.getTabHTML());
+            $('#'+NODE_LINKS_CONTENTS).append(link.getContentHTML());
+            link.onHTMLAppended();
+            registerListenerForTabs();
+        }
+
+        UINodeProps.prototype.c2pNodeLinkRemoved = function (link) {
+            $('#node-link-root-'+link._ctrl._id).remove();
+            $('#node-link-'+link._ctrl._id).remove();
+        }
+
+        UINodeProps.prototype.c2pDisableDeleteNodeLinkButton = function () {
+            $('#'+DEL_NODE_LINK).addClass('disabled');
+        }
+
+        UINodeProps.prototype.c2pEnableDeleteNodeLinkButton = function () {
+            $('#'+DEL_NODE_LINK).removeClass('disabled');
+        }
+
+        function registerListenerForTabs() {
+            $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').off(NAMESPACE);
+            $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').on('shown'+NAMESPACE, function () {
+                var widgetID = parseInt($(this).parent().attr(HTML5_ATTR_TAG));
+                if (widgetID == 0) {
+                    $('#'+DEL_NODE_LINK).addClass('disabled');
+                } else {
+                    $('#'+DEL_NODE_LINK).removeClass('disabled');
+                }
+            });
         }
 
         return UINodeProps;

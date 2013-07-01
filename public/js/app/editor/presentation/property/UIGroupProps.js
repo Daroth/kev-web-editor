@@ -6,8 +6,8 @@ define(
     function (Pooffs, UIInstanceProps) {
         Pooffs.extends(UIGroupProps, UIInstanceProps);
 
-        function UIGroupProps(ui, ctrl) {
-            UIInstanceProps.prototype.constructor.call(this, ui, ctrl);
+        function UIGroupProps(ctrl) {
+            UIInstanceProps.prototype.constructor.call(this, ctrl);
         }
 
         return UIGroupProps;

@@ -1,6 +1,6 @@
 define(
     [
-        'abstraction/KNodeNetwork',
+        'abstraction/property/KNodeNetwork',
         'util/Pooffs'
     ],
     function (KNodeNetwork, Pooffs) {

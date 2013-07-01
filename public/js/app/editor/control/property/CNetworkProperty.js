@@ -1,6 +1,6 @@
 define(
     [
-        'abstraction/KNetworkProperty',
+        'abstraction/property/KNetworkProperty',
         'presentation/property/UINetworkProperty',
         'control/AController',
         'util/Pooffs'

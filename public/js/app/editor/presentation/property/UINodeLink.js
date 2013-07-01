@@ -44,6 +44,10 @@ define(
 
         UINodeLink.prototype.setActive = function (isActive) {
             this._isActive = isActive;
+
+            // if already added to DOM, this will update UI
+            $('#node-link-root-'+this._ctrl._id).addClass('active');
+            $('#node-link-'+this._ctrl._id).addClass('active');
         }
 
         UINodeLink.prototype.getContentHTML = function () {

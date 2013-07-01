@@ -1,6 +1,6 @@
 define(
     [
-        'abstraction/KNodeLink',
+        'abstraction/property/KNodeLink',
         'presentation/property/UINodeLink',
         'control/AController',
         'util/Pooffs'

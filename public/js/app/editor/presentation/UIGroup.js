@@ -96,7 +96,7 @@
             //===========================
             // Properties popup content
             //===========================
-            var props = new UIGroupProps(this, ctrl);
+            var props = new UIGroupProps(ctrl);
             this._shape.on('dblclick dbltap', function(e) {
                 // prevent children from getting the event too
                 e.cancelBubble = true;

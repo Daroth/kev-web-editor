@@ -6,8 +6,8 @@ define(
     function (Pooffs, UIInstanceProps) {
         Pooffs.extends(UIChannelProps, UIInstanceProps);
 
-        function UIChannelProps(ui, ctrl) {
-            UIInstanceProps.prototype.constructor.call(this, ui, ctrl);
+        function UIChannelProps(ctrl) {
+            UIInstanceProps.prototype.constructor.call(this, ctrl);
         }
 
         return UIChannelProps;

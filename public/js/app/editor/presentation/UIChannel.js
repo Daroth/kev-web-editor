@@ -76,7 +76,7 @@ define(
                 that._ctrl.p2cDragMove();
             });
 
-            var props = new UIChannelProps(this, ctrl);
+            var props = new UIChannelProps(ctrl);
             this._shape.on('dblclick dbltap', function(e) {
                 // prevent children from getting the event too
                 e.cancelBubble = true;

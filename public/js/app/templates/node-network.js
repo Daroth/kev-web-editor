@@ -52,7 +52,7 @@ buf.push(null == (jade.interp = link.tabHTML) ? "" : jade.interp);
   }
 }).call(this);
 
-buf.push("</ul><div id=\"node-links-content\" class=\"tab-content\">");
+buf.push("</ul><div id=\"node-links-contents\" class=\"tab-content\">");
 // iterate nodeLinks
 ;(function(){
   var $$obj = nodeLinks;
