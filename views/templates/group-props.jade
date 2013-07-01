@@ -1,0 +1,13 @@
+//- WARNING: remember to compile this .jade template each time you made a change using:
+    jade-amd --from views/templates --to public/js/app/templates
+    otherwise your pre-compiled Javascript template in public/js/app/templates won't be up-to-date
+
+each att in attrs
+  div.row-fluid
+    div.span4 #{att.name}
+    div.input-prepend.span4(style="margin-left: 0")
+      span.add-on.add-on-gray IP
+      input.input-small(type='text', placeholder='0.0.0.0', value=att.ip)
+    div.input-prepend.span3.offset1
+      span.add-on.add-on-gray Port
+      input.input-mini(type="number", value=att.port)

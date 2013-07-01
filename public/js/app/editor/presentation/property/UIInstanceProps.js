@@ -41,7 +41,9 @@ define(
             if (this._attrs) {
                 for (var i=0; i < this._attrs.size(); i++) {
                     var attr = this._attrs.get(i);
-                    props[attr.getName()] = $('#instance-prop-'+attr.getName()).val();
+                    if (attr.getFragmentDependant() == false) {
+                        props[attr.getName()] = $('#instance-prop-'+attr.getName()).val();
+                    }
                 }
             }
 
@@ -108,8 +110,10 @@ define(
                         obj.value = attr.getDatatype().substr(RAW.length, attr.getDatatype().length);
                     }
 
-                    // add obj to attrs array
-                    attrs.push(obj);
+                    // add obj to attrs array if attr is not fragment dependant
+                    if (attr.getFragmentDependant() == false) {
+                        attrs.push(obj);
+                    }
                 }
 
                 // give attrs array to jade template and retrieve HTML
