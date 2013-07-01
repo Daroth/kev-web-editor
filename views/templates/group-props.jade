@@ -7,7 +7,7 @@ each att in attrs
     div.span4 #{att.name}
     div.input-prepend.span4(style="margin-left: 0")
       span.add-on.add-on-gray IP
-      input.input-small(type='text', placeholder='0.0.0.0', value=att.ip)
+      input.input-small.group-prop-ip(id='group-prop-ip-'+att.name, type='text', placeholder='0.0.0.0', value=att.ip)
     div.input-prepend.span3.offset1
       span.add-on.add-on-gray Port
-      input.input-mini(type="number", value=att.port)
+      input.input-mini.group-prop-port(id='group-prop-port-'+att.name, type="number", value=att.port)

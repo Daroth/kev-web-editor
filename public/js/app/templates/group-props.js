@@ -10,7 +10,7 @@ with (locals || {}) {
     for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
       var att = $$obj[$index];
 
-buf.push("<div class=\"row-fluid\"><div class=\"span4\">" + (jade.escape((jade.interp = att.name) == null ? '' : jade.interp)) + "</div><div style=\"margin-left: 0\" class=\"input-prepend span4\"><span class=\"add-on add-on-gray\">IP</span><input" + (jade.attrs({ 'type':('text'), 'placeholder':('0.0.0.0'), 'value':(att.ip), "class": ('input-small') }, {"type":true,"placeholder":true,"value":true})) + "/></div><div class=\"input-prepend span3 offset1\"><span class=\"add-on add-on-gray\">Port</span><input" + (jade.attrs({ 'type':("number"), 'value':(att.port), "class": ('input-mini') }, {"type":true,"value":true})) + "/></div></div>");
+buf.push("<div class=\"row-fluid\"><div class=\"span4\">" + (jade.escape((jade.interp = att.name) == null ? '' : jade.interp)) + "</div><div style=\"margin-left: 0\" class=\"input-prepend span4\"><span class=\"add-on add-on-gray\">IP</span><input" + (jade.attrs({ 'id':('group-prop-ip-'+att.name), 'type':('text'), 'placeholder':('0.0.0.0'), 'value':(att.ip), "class": ('input-small') }, {"id":true,"type":true,"placeholder":true,"value":true})) + "/></div><div class=\"input-prepend span3 offset1\"><span class=\"add-on add-on-gray\">Port</span><input" + (jade.attrs({ 'id':('group-prop-port-'+att.name), 'type':("number"), 'value':(att.port), "class": ('input-mini') }, {"id":true,"type":true,"value":true})) + "/></div></div>");
     }
 
   } else {
@@ -18,7 +18,7 @@ buf.push("<div class=\"row-fluid\"><div class=\"span4\">" + (jade.escape((jade.i
     for (var $index in $$obj) {
       $$l++;      if ($$obj.hasOwnProperty($index)){      var att = $$obj[$index];
 
-buf.push("<div class=\"row-fluid\"><div class=\"span4\">" + (jade.escape((jade.interp = att.name) == null ? '' : jade.interp)) + "</div><div style=\"margin-left: 0\" class=\"input-prepend span4\"><span class=\"add-on add-on-gray\">IP</span><input" + (jade.attrs({ 'type':('text'), 'placeholder':('0.0.0.0'), 'value':(att.ip), "class": ('input-small') }, {"type":true,"placeholder":true,"value":true})) + "/></div><div class=\"input-prepend span3 offset1\"><span class=\"add-on add-on-gray\">Port</span><input" + (jade.attrs({ 'type':("number"), 'value':(att.port), "class": ('input-mini') }, {"type":true,"value":true})) + "/></div></div>");
+buf.push("<div class=\"row-fluid\"><div class=\"span4\">" + (jade.escape((jade.interp = att.name) == null ? '' : jade.interp)) + "</div><div style=\"margin-left: 0\" class=\"input-prepend span4\"><span class=\"add-on add-on-gray\">IP</span><input" + (jade.attrs({ 'id':('group-prop-ip-'+att.name), 'type':('text'), 'placeholder':('0.0.0.0'), 'value':(att.ip), "class": ('input-small') }, {"id":true,"type":true,"placeholder":true,"value":true})) + "/></div><div class=\"input-prepend span3 offset1\"><span class=\"add-on add-on-gray\">Port</span><input" + (jade.attrs({ 'id':('group-prop-port-'+att.name), 'type':("number"), 'value':(att.port), "class": ('input-mini') }, {"id":true,"type":true,"value":true})) + "/></div></div>");
       }
 
     }

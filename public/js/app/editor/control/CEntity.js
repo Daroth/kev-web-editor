@@ -51,14 +51,12 @@ define(
                     if (props[attr.getName()]) {
                         var dicVal = factory.createDictionaryValue();
                         dicVal.setAttribute(attr);
-                        dicVal.setTargetNode(this._instance);
                         dicVal.setValue(props[attr.getName()]);
                         instDic.addValues(dicVal);
                     }
                 }
             }
             this._instance.setDictionary(instDic);
-//            this.getEditor().updateModel(this);
             this._ui.c2pPropertiesUpdated();
         }
 
