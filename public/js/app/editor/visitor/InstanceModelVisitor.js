@@ -36,6 +36,7 @@ define(
             for (var i=0; i < nodes.size(); i++) {
                 var node = nodes.get(i);
                 var entity = factory.newNode(editor, node.getTypeDefinition().getName());
+                entity._instance = node;
                 entity.setName(node.getName());
 
                 // check if this node has already been added to editor
@@ -62,9 +63,11 @@ define(
             for (var i=0; i < grps.size(); i++) {
                 grp = grps.get(i);
                 entity = factory.newGroup(editor, grp.getTypeDefinition().getName());
+                entity._instance = grp;
                 entity.setName(grp.getName());
                 editor.addEntity(entity);
                 loadMetaData(entity, grp);
+
             }
         }
 
@@ -79,6 +82,7 @@ define(
                     for (var j=0; j < compz.size(); j++) {
                         var comp = compz.get(j);
                         entity = factory.newComponent(editor, comp.getTypeDefinition().getName());
+                        entity._instance = comp;
                         entity.setName(comp.getName());
                         entityNode.addChild(entity);
                     }
@@ -92,6 +96,7 @@ define(
             for (var i=0; i < chans.size(); i++) {
                 chan = chans.get(i);
                 entity = factory.newChannel(editor, chan.getTypeDefinition().getName());
+                entity._instance = chan;
                 entity.setName(chan.getName());
                 editor.addEntity(entity);
                 loadMetaData(entity, chan);
