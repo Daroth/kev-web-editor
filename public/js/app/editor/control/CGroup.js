@@ -46,6 +46,7 @@ define(
                 instDic = this._instance.getDictionary(),
                 factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
 
+
             if (dicType) {
                 var attrs = dicType.getAttributes(),
                     instDic = (instDic) ? instDic : factory.createDictionary();

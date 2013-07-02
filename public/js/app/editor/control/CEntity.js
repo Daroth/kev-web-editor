@@ -56,7 +56,10 @@ define(
                     }
                 }
             }
+
+            // Deep copy
             this._instance.setDictionary(instDic);
+            console.log("instDic", instDic);
             this._ui.c2pPropertiesUpdated();
         }
 

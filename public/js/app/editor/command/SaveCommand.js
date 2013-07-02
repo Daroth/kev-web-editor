@@ -21,6 +21,7 @@ define(
                 console.log("SaveCommand.execute(editor): editor.getModel() != null");
                 $('#save-popup').modal({show: true});
                 try {
+                    console.log(editor.getModel().findTypeDefinitionsByID('BasicGroup').getDictionaryType().getAttributes());
                     var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
                     var os = new Kevoree.java.io.OutputStream();
                     serializer.serialize(editor.getModel(), os);

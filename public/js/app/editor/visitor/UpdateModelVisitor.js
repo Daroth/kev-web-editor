@@ -114,7 +114,7 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitWire = function (wire) {
-            console.log("visit wire", wire);
+//            console.log("visit wire", wire);
             switch (wire.getOrigin().getEntityType()) {
                 case KGroup.ENTITY_TYPE:
                     var node = this._model.findNodesByID(wire.getTarget().getName()),
@@ -127,7 +127,7 @@ define(
                     var hub = this._model.findHubsByID(wire.getTarget().getName());
 
                     var update = (wire._instance) ? true : false;
-                    console.log("visitWire "+wire.getName()+" > update ? "+update);
+//                    console.log("visitWire "+wire.getName()+" > update ? "+update);
                     wire._instance = wire._instance || this._factory.createMBinding();
 
                     wire._instance.setPort(wire.getOrigin()._instance);
@@ -146,7 +146,7 @@ define(
                 portRef = comp.getTypeDefinition().findRequiredByID(port.getName());
 
             var update = (port._instance) ? true : false;
-            console.log("visitOutputPort "+port.getName()+" > update ? "+update);
+//            console.log("visitOutputPort "+port.getName()+" > update ? "+update);
             port._instance = port._instance || this._factory.createPort();
 
             if (!update) comp.addRequired(port._instance);
@@ -161,7 +161,7 @@ define(
                 portRef = comp.getTypeDefinition().findProvidedByID(port.getName());
 
             var update = (port._instance) ? true : false;
-            console.log("visitInputPort "+port.getName()+" > update ? "+update);
+//            console.log("visitInputPort "+port.getName()+" > update ? "+update);
             port._instance = port._instance || this._factory.createPort();
 
             if (!update) comp.addProvided(port._instance);

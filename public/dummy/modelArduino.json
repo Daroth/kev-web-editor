@@ -31,23 +31,23 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"coreLogLevel",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"logLevel",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"storageLocation",
-                        "optional":true,
-                        "state":false,
-                        "fragmentDependant":false}
+                        "optional":"true",
+                        "state":"false",
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -84,17 +84,17 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"apin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -111,8 +111,8 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"value",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -136,17 +136,17 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"dpin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -163,8 +163,8 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"range",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -198,36 +198,36 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"pmem",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=eeprom,sd",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"psize",
-                        "optional":true,
-                        "state":false,
-                        "fragmentDependant":false}
+                        "optional":"true",
+                        "state":"false",
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"incremental",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=true,false",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"timeout",
-                        "optional":false,
-                        "state":false,
-                        "fragmentDependant":false}
+                        "optional":"false",
+                        "state":"false",
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"boardTypeName",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=atmega328",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -263,17 +263,17 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"pin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"freq",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Integer",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -290,8 +290,8 @@
             "provided": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"toggle",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -306,8 +306,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"off",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -322,8 +322,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"on",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -347,31 +347,31 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"trigger_prealarme",
-                        "optional":false,
-                        "state":false,
+                        "optional":"false",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"trigger_alarme",
-                        "optional":false,
-                        "state":false,
+                        "optional":"false",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"sensibilite",
-                        "optional":false,
-                        "state":false,
+                        "optional":"false",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -396,22 +396,22 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"prealarme",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"alarme",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
             ,
             "provided": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"yaw",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -426,8 +426,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"roll",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -442,8 +442,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"pitch",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -458,8 +458,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"temperature",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -483,17 +483,17 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"pin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -510,8 +510,8 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"temp",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -525,15 +525,15 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"port",
-                        "optional":true,
-                        "state":false,
-                        "fragmentDependant":true}
+                        "optional":"true",
+                        "state":"false",
+                        "fragmentDependant":"true"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"ip",
-                        "optional":true,
-                        "state":false,
-                        "fragmentDependant":true}
+                        "optional":"true",
+                        "state":"false",
+                        "fragmentDependant":"true"}
                 ]
                 ,
                 "defaultValues": [
@@ -557,9 +557,9 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"pin",
-                        "optional":false,
-                        "state":false,
-                        "fragmentDependant":false}
+                        "optional":"false",
+                        "state":"false",
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -571,8 +571,8 @@
             "provided": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"input",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -596,17 +596,17 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"pin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -623,8 +623,8 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"out",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -638,17 +638,17 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"pin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -665,14 +665,14 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"click",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"release",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -686,10 +686,10 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"inverted",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -702,16 +702,16 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"norm",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
             ,
             "provided": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"input",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -739,9 +739,9 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"serialport",
-                        "optional":true,
-                        "state":false,
-                        "fragmentDependant":true}
+                        "optional":"true",
+                        "state":"false",
+                        "fragmentDependant":"true"}
                 ]
                 ,
                 "defaultValues": [
@@ -761,10 +761,10 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -777,26 +777,26 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"yaw",
-                    "optional":true,
-                    "noDependency":true,
+                    "optional":"true",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"roll",
-                    "optional":true,
-                    "noDependency":true,
+                    "optional":"true",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"acceleration",
-                    "optional":true,
-                    "noDependency":true,
+                    "optional":"true",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"pitch",
-                    "optional":true,
-                    "noDependency":true,
+                    "optional":"true",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -810,10 +810,10 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -826,8 +826,8 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"gpsADR",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -862,17 +862,17 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"coreLogLevel",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"logLevel",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=INFO,WARN,DEBUG,ERROR,FINE",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -906,10 +906,10 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -922,8 +922,8 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"temp",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -937,10 +937,10 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -953,8 +953,8 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"heartRate",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -967,8 +967,8 @@
             "provided": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"input",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -992,10 +992,10 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"pin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -1008,8 +1008,8 @@
             "provided": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"flash",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1024,8 +1024,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"toggle",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1040,8 +1040,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"off",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1056,8 +1056,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"on",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1081,17 +1081,17 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"pin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -1108,8 +1108,8 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"value",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -1123,10 +1123,10 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -1139,8 +1139,8 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"tick",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -1158,17 +1158,17 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"rxpin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"txpin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -1193,9 +1193,9 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"serialport",
-                        "optional":false,
-                        "state":false,
-                        "fragmentDependant":true}
+                        "optional":"false",
+                        "state":"false",
+                        "fragmentDependant":"true"}
                 ]
                 ,
                 "defaultValues": [
@@ -1215,10 +1215,10 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"dpin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -1231,8 +1231,8 @@
             "provided": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"red",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1247,8 +1247,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"blue",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1263,8 +1263,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"green",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1279,8 +1279,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"intensity",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1304,45 +1304,45 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"I1Bpin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"I1pin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"I2Bpin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"I2pin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"MAB",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"MA",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -1375,8 +1375,8 @@
             "provided": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"turnLeft",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1391,8 +1391,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"stop",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1407,8 +1407,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"goBack",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1423,8 +1423,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"turnRight",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1439,8 +1439,8 @@
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"goFront",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1464,39 +1464,39 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"level",
-                        "optional":false,
-                        "state":false,
+                        "optional":"false",
+                        "state":"false",
                         "datatype":"raw=java.lang.Integer",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"avgnb",
-                        "optional":false,
-                        "state":false,
+                        "optional":"false",
+                        "state":"false",
                         "datatype":"raw=java.lang.Integer",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
             }
             ,
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"high",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
                 ,
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"low",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
             ,
             "provided": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"input",
-                    "optional":false,
-                    "noDependency":false,
+                    "optional":"false",
+                    "noDependency":"false",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]",
                     "mappings": [
                         { "eClass":"org.kevoree:PortTypeMapping" ,
@@ -1520,17 +1520,17 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"pin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5,6,7,8,9,10,11,12,13",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -1547,8 +1547,8 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"currentW",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
@@ -1581,30 +1581,30 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"pmem",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=eeprom,sd",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"psize",
-                        "optional":true,
-                        "state":false,
-                        "fragmentDependant":false}
+                        "optional":"true",
+                        "state":"false",
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"incremental",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=true,false",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"boardTypeName",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=uno,atmega328,mega2560",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -1636,17 +1636,17 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"pin",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"enum=0,1,2,3,4,5",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                     ,
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -1663,15 +1663,15 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"light",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }
         ,
         { "eClass":"org.kevoree:MessagePortType" ,
             "name":"org.kevoree.framework.MessagePort",
-            "synchrone":false}
+            "synchrone":"false"}
         ,
         { "eClass":"org.kevoree:ComponentType" ,
             "name":"GasSensor",
@@ -1682,10 +1682,10 @@
                 "attributes": [
                     { "eClass":"org.kevoree:DictionaryAttribute" ,
                         "name":"period",
-                        "optional":true,
-                        "state":false,
+                        "optional":"true",
+                        "state":"false",
                         "datatype":"raw=java.lang.Long",
-                        "fragmentDependant":false}
+                        "fragmentDependant":"false"}
                 ]
                 ,
                 "defaultValues": [
@@ -1698,8 +1698,8 @@
             "required": [
                 { "eClass":"org.kevoree:PortTypeRef" ,
                     "name":"temp",
-                    "optional":false,
-                    "noDependency":true,
+                    "optional":"false",
+                    "noDependency":"true",
                     "ref":"typeDefinitions[org.kevoree.framework.MessagePort]"}
             ]
         }

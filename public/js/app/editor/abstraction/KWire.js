@@ -52,7 +52,6 @@ define(
         }
 
         KWire.prototype.disconnect = function() {
-            console.log("WIRE DISCONNECTION", this);
             if (this._origin) this._origin.disconnect(this);
             if (this._target) this._target.disconnect(this);
             this._origin = null;
