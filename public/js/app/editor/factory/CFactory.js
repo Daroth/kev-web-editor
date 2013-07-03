@@ -11,11 +11,14 @@ define(
         'control/property/CNodeNetwork',
         'control/property/CNodeLink',
         'control/property/CNetworkProperty',
-        'control/property/CNodeProperties'
+        'control/property/CNodeProperties',
+        'control/dictionary/CDictionary',
+        'control/dictionary/CAttribute',
+        'control/dictionary/CValue'
     ],
 
     function (CEditor, CGroup, CChannel, CNode, CComponent, CWire, CInputPort, COutputPort, CNodeNetwork, CNodeLink,
-              CNetworkProperty, CNodeProperties) {
+              CNetworkProperty, CNodeProperties, CDictionary, CAttribute, CValue) {
 
         function CFactory() {
             if (CFactory.prototype._instance) {
@@ -83,6 +86,18 @@ define(
 
         CFactory.prototype.newNodeProperties = function (node) {
             return new CNodeProperties(node);
+        };
+
+        CFactory.prototype.newDictionary = function (entity) {
+            return new CDictionary(entity);
+        };
+
+        CFactory.prototype.newAttribute = function (dict) {
+            return new CAttribute(dict);
+        };
+
+        CFactory.prototype.newValue = function (attr) {
+            return new CValue(attr);
         };
 
         return CFactory;

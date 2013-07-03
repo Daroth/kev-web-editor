@@ -11,6 +11,9 @@ define(
             this._type = type;
             this._name = type + KEntity._COUNT++;
             this._wires = [];
+            this._dictionary = require('factory/CFactory').getInstance().newDictionary(this);
+
+            console.log('new entity', this);
         }
 
         KEntity.prototype.getName = function() {
@@ -39,6 +42,10 @@ define(
             if (this._wires.indexOf(wire) == -1) { // do not duplicate wire in array
                 this._wires.push(wire);
             }
+        }
+
+        KEntity.prototype.getDictionary = function () {
+            return this._dictionary;
         }
 
         KEntity.prototype.createWire = function () {

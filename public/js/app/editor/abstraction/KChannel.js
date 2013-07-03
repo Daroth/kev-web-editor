@@ -33,6 +33,18 @@ define(
             if (this._wires.indexOf(wire) == -1) { // do not duplicate wire in array
                 this._wires.push(wire);
                 this.getEditor().addWire(wire);
+
+                // add default values for fragment dependant attributes
+                var dictionary = this._dictionary,
+                    attrs = dictionary.getAttributes(),
+                    factory = require('factory/CFactory').getInstance();
+                for (var i=0; i < attrs.length; i++) {
+                    if (attrs[i].getFragmentDependant()) {
+                        var value = factory.newValue(attrs[i]);
+                        value.setTargetNode(wire.getOrigin().getComponent().getParent());
+                        dictionary.addValue(value);
+                    }
+                }
             }
         }
 

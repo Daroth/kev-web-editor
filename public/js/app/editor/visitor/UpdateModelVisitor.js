@@ -220,9 +220,32 @@ define(
             this._listener.call(this);
         }
 
-        UpdateModelVisitor.prototype.visitAttribute = function (att) {
-            var dicInst = att.getEntity()._instance.getDictionary();
-            att._instance = att._instance || this._factory.createDictionaryValue();
+        UpdateModelVisitor.prototype.visitDictionary = function (dict) {
+            dict._instance = dict._instance || this._factory.createGroup();
+
+            dict._instance.setName(dict._name);
+            dict._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(dict._type));
+
+            for (var i=0; i < dict.getAttributes().length; i++) {
+                dict.getAttribute()[i].accept(this);
+            }
+            dict.getEntity()._instance.setDictionary(dict._instance);
+
+            this._listener.call(this);
+        }
+
+        UpdateModelVisitor.prototype.visitAttribute = function (attr) {
+            var update = (attr._instance) ? true : false;
+            attr._instance = attr._instance || this._factory.createDictionaryValue();
+
+            attr._instance.setName(attr.getName());
+            attr._instance.setValue(attr.getValue());
+            attr._instance.setFragmentDependant(attr.getFragmentDependant());
+            attr._instance.setTargetNode(attr.getTargetNode()._instance || null);
+
+            if (!update) attr.getDictionary()._instance.addValues(attr._instance);
+
+            this._listener.call(this);
         }
 
         // private method

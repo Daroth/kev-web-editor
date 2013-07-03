@@ -97,6 +97,33 @@ define(
             if (this._wires.indexOf(wire) == -1) { // do not duplicate wire in array
                 this._wires.push(wire);
                 this.getEditor().addWire(wire);
+
+                // add default values for fragment dependant attributes
+                var dictionary = wire.getOrigin()._dictionary,
+                    attrs = dictionary.getAttributes(),
+                    factory = require('factory/CFactory').getInstance();
+                for (var i=0; i < attrs.length; i++) {
+                    if (attrs[i].getFragmentDependant()) {
+                        var value = factory.newValue(attrs[i]);
+                        value.setTargetNode(this);
+                        dictionary.addValue(value);
+                    }
+                }
+            }
+        }
+
+        KNode.prototype.disconnect = function (wire) {
+            KEntity.prototype.disconnect.call(this, wire);
+
+            // remove fragment dependant values from dictionnary
+            var dictionary = wire.getOrigin()._dictionary,
+                values = dictionary.getValues().slice(0); // work on a copy otherwise just the first one will be deleted
+            for (var i=0; i < values.length; i++) {
+                if (values[i].getAttribute().getFragmentDependant()) {
+                    if (values[i].getTargetNode().getName() == this.getName()) {
+                        dictionary.removeValue(values[i]);
+                    }
+                }
             }
         }
 

@@ -36,47 +36,6 @@ define(
 
         CEntity.prototype.p2cSaveProperties = function (props) {
             this.setName(props['name']);
-
-            var model = this._editor.getModel(),
-                tDef = model.findTypeDefinitionsByID(this._type),
-                dicType = tDef.getDictionaryType(),
-                instDic = this._instance.getDictionary(),
-                factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory(),
-                nodes = this.getConnectedFragments();
-
-            if (dicType) {
-                var attrs = dicType.getAttributes(),
-                    instDic = (instDic) ? instDic : factory.createDictionary();
-
-                // clear old dictionary values
-                instDic.removeAllValues();
-
-                for (var i=0; i < attrs.size(); i++) {
-                    var attr = attrs.get(i);
-                    if (Util.parseBoolean(attr.getFragmentDependant())) {
-                        for (var j=0; j < nodes.size(); j++) {
-                            var node = nodes.get(j);
-                            if (props.fragDepAttrs[node.getName()][attr.getName()]) {
-                                var dicVal = factory.createDictionaryValue();
-                                dicVal.setAttribute(attr);
-                                dicVal.setValue(props.fragDepAttrs[node.getName()][attr.getName()]);
-                                dicVal.setTargetNode(model.findNodesByID(node.getName()));
-                                instDic.addValues(dicVal);
-                            }
-                        }
-
-                    } else {
-                        if (props[attr.getName()]) {
-                            var dicVal = factory.createDictionaryValue();
-                            dicVal.setAttribute(attr);
-                            dicVal.setValue(props[attr.getName()]);
-                            instDic.addValues(dicVal);
-                        }
-                    }
-                }
-            }
-
-            this._instance.setDictionary(instDic);
             this._ui.c2pPropertiesUpdated();
         }
 

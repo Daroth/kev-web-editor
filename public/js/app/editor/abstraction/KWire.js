@@ -6,6 +6,7 @@ define(
 
         function KWire(origin) {
             this._origin = origin;
+
             this._name = 'wire'+COUNT++;
         }
 
