@@ -1,7 +1,7 @@
 define(
     [
         'presentation/property/UIInstanceProps',
-        'util/Pooffs',
+        'util/Pooffs'
     ],
     function (UIInstanceProps, Pooffs) {
 

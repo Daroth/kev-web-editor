@@ -8,8 +8,8 @@ define(
     function (instancePropsTemplate, fragDepPropsTemplate, Util, Kotlin) {
 
         // kevoree model constants for attributes type
-        var ENUM    = 'enum=',
-            RAW     = 'raw=';
+        UIInstanceProps.ENUM    = 'enum=';
+        UIInstanceProps.RAW     = 'raw=';
 
         function UIInstanceProps(ctrl) {
             this._ctrl = ctrl;
@@ -89,29 +89,29 @@ define(
                         attr['value'] = value.getValue();
                     }
                 }
+            }
 
-                // default attr
-                var obj = {
-                    name: attr.getName(),
-                    type: 'raw',
-                    value: attr.value
-                };
+            // default attr
+            var obj = {
+                name: attr.getName(),
+                type: 'raw',
+                value: attr.value
+            };
 
-                // if RAW or ENUM, process content a bit
-                if (attr.getDatatype().substr(0, ENUM.length) == ENUM) { // attr.getDatatype() starts with "enum="
-                    var str = attr.getDatatype().substr(ENUM.length, attr.getDatatype().length);
-                    obj.value = str.split(',');
-                    obj.type = 'enum';
-                    obj.selected = obj.value.indexOf(attr.value);
+            // if RAW or ENUM, process content a bit
+            if (attr.getDatatype().substr(0, ENUM.length) == ENUM) { // attr.getDatatype() starts with "enum="
+                var str = attr.getDatatype().substr(ENUM.length, attr.getDatatype().length);
+                obj.value = str.split(',');
+                obj.type = 'enum';
+                obj.selected = obj.value.indexOf(attr.value);
 
-                } else if (attr.getDatatype().substr(0, RAW.length) == RAW) { // attr.getDatatype() starts with "raw="
-                    obj.value = attr.getDatatype().substr(RAW.length, attr.getDatatype().length);
-                }
+            } else if (attr.getDatatype().substr(0, RAW.length) == RAW) { // attr.getDatatype() starts with "raw="
+                obj.value = attr.getDatatype().substr(RAW.length, attr.getDatatype().length);
+            }
 
-                // add obj to attrs array if attr is not fragment dependant
-                if (!Util.parseBoolean(attr.getFragmentDependant())) {
-                    attrs.push(obj);
-                }
+            // add obj to attrs array if attr is not fragment dependant
+            if (!Util.parseBoolean(attr.getFragmentDependant())) {
+                attrs.push(obj);
             }
 
             var subNodes = this.getConnectedFragments(),
