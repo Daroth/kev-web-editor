@@ -1,9 +1,9 @@
 define(
     [
-        'require'
+        'kotlin/kotlin-maps'
     ],
 
-    function(require) {
+    function(Kotlin) {
         KEntity._COUNT = 0;
 
         function KEntity(editor, type) {
@@ -79,6 +79,10 @@ define(
                 }
             }
             return false;
+        }
+
+        KEntity.prototype.getConnectedFragments = function () {
+            return new Kotlin.ArrayList();
         }
 
         return KEntity;

@@ -1,10 +1,11 @@
 define(
     [
         'abstraction/KEntity',
-        'util/Pooffs'
+        'util/Pooffs',
+        'kotlin/kotlin-maps'
     ],
 
-    function(KEntity, Pooffs) {
+    function(KEntity, Pooffs, Kotlin) {
         var COUNT = 0;
 
         KChannel.ENTITY_TYPE = 'ChannelType';
@@ -33,6 +34,26 @@ define(
                 this._wires.push(wire);
                 this.getEditor().addWire(wire);
             }
+        }
+
+        KChannel.prototype.getConnectedFragments = function () {
+            var nodes = new Kotlin.ArrayList(),
+                alreadyAddedNode = {},
+                model = this.getEditor().getModel();
+
+            var wires = this.getWires();
+            for (var i=0; i < wires.length; i++) {
+                var nodeName = wires[i].getOrigin().getComponent().getParent().getName();
+                if (!alreadyAddedNode[nodeName]) {
+                    var instance = model.findNodesByID(nodeName);
+                    if (instance != null) {
+                        nodes.add(instance);
+                        alreadyAddedNode[nodeName] = nodeName;
+                    }
+                }
+            }
+
+            return nodes;
         }
 
         return KChannel;

@@ -38,13 +38,23 @@ define(
         }
 
         UIInstanceProps.prototype.getPropertiesValues = function () {
-            var props = {};
+            var props = {},
+                nodes = this._ctrl.getConnectedFragments();
+            props.fragDepAttrs = {};
+
             props['name'] = $('#instance-prop-name').val();
 
             for (var i=0; i < this._attrs.size(); i++) {
                 var attr = this._attrs.get(i);
                 if (!Util.parseBoolean(attr.getFragmentDependant())) {
                     props[attr.getName()] = $('#instance-prop-'+attr.getName()).val();
+
+                } else {
+                    for (var j=0; j < nodes.size(); j++) {
+                        var node = nodes.get(j);
+                        props.fragDepAttrs[node.getName()] = props.fragDepAttrs[node.getName()] || {};
+                        props.fragDepAttrs[node.getName()][attr.getName()] = $('#fragment-dependant-prop-'+node.getName()+'-'+attr.getName()).val();
+                    }
                 }
             }
 
@@ -77,8 +87,6 @@ define(
                 defaultValues[this._values.get(i).getAttribute().getName()] = this._values.get(i).getValue();
             }
 
-            console.log("defaultValues: ", defaultValues);
-
             var attrsTemplateHTML = instancePropsTemplate({
                 name: this._ctrl.getName(),
                 attrs: getAttributesParams(this._ctrl._instance.getDictionary(), this._attrs, defaultValues)
@@ -87,7 +95,7 @@ define(
             var fragDepAttrsTemplateHTML = fragDepPropsTemplate({
                 nodes: getFragDepAttributesParams(
                     this._ctrl._instance.getDictionary(),
-                    this.getConnectedFragments(),
+                    this._ctrl.getConnectedFragments(),
                     defaultValues,
                     this._attrs
                 )
@@ -97,10 +105,6 @@ define(
         }
 
         UIInstanceProps.prototype.onHTMLAppended = function () {}
-
-        UIInstanceProps.prototype.getConnectedFragments = function () {
-            return new Kotlin.ArrayList();
-        }
 
         function getAttributesParams(dictionary, dicAttrs, defaultValues) {
             var attrs = [];
@@ -183,7 +187,6 @@ define(
 
                 for (var i=0; i < values.size(); i++) {
                     var dicVal = values.get(i);
-
                     if (dicVal.getAttribute().getName() == attrName) {
                         if (fragmentDependant) {
                             if (dicVal.getTargetNode() && dicVal.getTargetNode().getName() == targetNode) {

@@ -26,6 +26,14 @@ define(
             visitor.visitGroup(this);
         }
 
+        KGroup.prototype.getConnectedFragments = function () {
+            if (this._instance) {
+                return this._instance.getSubNodes();
+            } else {
+                return KEntity.prototype.getConnectedFragments.call(this);
+            }
+        }
+
         return KGroup;
     }
 );
