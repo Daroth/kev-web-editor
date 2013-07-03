@@ -44,6 +44,8 @@ define(
 
         UpdateModelVisitor.prototype.visitNode = function (node) {
             node._instance = node._instance || this._factory.createContainerNode();
+            node._props._instance = node._instance; // we need to give node's instance to its node property
+                                                    // in order for node's properties to get displayed properly
 
             node._instance.setName(node._name);
             node._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(node._type));
@@ -216,6 +218,11 @@ define(
 
             if (!update) nodeLink.addNetworkProperties(prop._instance);
             this._listener.call(this);
+        }
+
+        UpdateModelVisitor.prototype.visitAttribute = function (att) {
+            var dicInst = att.getEntity()._instance.getDictionary();
+            att._instance = att._instance || this._factory.createDictionaryValue();
         }
 
         // private method

@@ -165,69 +165,6 @@ define(
 
         CNode.prototype.p2cSaveProperties = function (props) {
             CNestableEntity.prototype.p2cSaveProperties.call(this, props);
-
-            if (props[UINodeProps.INIT_BY_NODES] && props[UINodeProps.NODE_LINKS_PROP]) {
-                var model = this.getEditor().getModel(),
-                    factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
-
-                for (var index=0; index < props[UINodeProps.INIT_BY_NODES].length; index++) {
-                    var initByName = props[UINodeProps.INIT_BY_NODES][index],
-                        nodeNetwork = null,
-                        thisNodeFound = null,
-                        nns = model.getNodeNetworks();
-
-                    for (var i=0; i < nns.size(); i++) {
-                        var nn = nns.get(i);
-                        if (nn.getInitBy() && nn.getTarget()) {
-                            if (nn.getInitBy().getName() == initByName && nn.getTarget().getName() == this._name) {
-                                nodeNetwork = nn;
-                            }
-                        }
-                    }
-
-                    if (nodeNetwork == null) {
-                        nodeNetwork = factory.createNodeNetwork();
-                        thisNodeFound = model.findNodesByID(initByName);
-                        var targetNode = model.findNodesByID(this._name);
-                        nodeNetwork.setTarget(targetNode);
-                        nodeNetwork.setInitBy(thisNodeFound);
-                        model.addNodeNetworks(nodeNetwork);
-                    }
-
-                    var nodeLinks = props[UINodeProps.NODE_LINKS_PROP];
-                    for (var i=0; i < nodeLinks.length; i++) {
-                        var nodeLink = null,
-                            nls = nodeNetwork.getLink();
-                        for (var k=0; k < nls.size(); k++) {
-                            var l = nls.get(k);
-                            if (l.getNetworkType() == nodeLinks[i].type) {
-                                // node link already present in model (update it)
-                                nodeLink = l;
-                                break;
-                            }
-                        }
-                        if (nodeLink == null) {
-                            // new node link: create it
-                            nodeLink = factory.createNodeLink();
-                            nodeLink.setNetworkType(nodeLinks[i].type);
-                            nodeNetwork.addLink(nodeLink);
-                        }
-                        nodeLink.setEstimatedRate(nodeLinks[i].rate);
-
-                        for (var j=0; j < nodeLinks[i].props.length; j++) {
-                            var prop = nodeLink.findNetworkPropertiesByID(nodeLinks[i].props[j].key);
-                            if (prop == null) {
-                                // network property does not exist yet: create it
-                                prop = factory.createNetworkProperty();
-                                prop.setName(nodeLinks[i].props[j].key);
-                                nodeLink.addNetworkProperties(prop);
-                            }
-                            prop.setValue(nodeLinks[i].props[j].value);
-                            prop.setLastCheck(Date.now());
-                        }
-                    }
-                }
-            }
         }
 
         return CNode;

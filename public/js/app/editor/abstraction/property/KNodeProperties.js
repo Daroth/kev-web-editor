@@ -25,19 +25,32 @@ define(
         }
 
         KNodeProperties.prototype.getEditor = function () {
+            // node's proxy
             return this._node.getEditor();
         }
 
         KNodeProperties.prototype.getType = function () {
+            // node's proxy
             return this._node.getType();
         }
 
         KNodeProperties.prototype.getEntityType = function () {
+            // node's proxy
             return this._node.getEntityType();
         }
 
         KNodeProperties.prototype.getName = function () {
+            // node's proxy
             return this._node.getName();
+        }
+
+        KNodeProperties.prototype.getConnectedFragments = function () {
+            // node's proxy
+            return this._node.getConnectedFragments();
+        }
+
+        KNodeProperties.prototype.getNode = function () {
+            return this._node;
         }
 
         return KNodeProperties;

@@ -53,7 +53,6 @@ define(
         }
 
         KEntity.prototype.disconnect = function (wire) {
-            console.log("entity wiire disconnect "+this.getName()+", wire", wire);
             var index = this._wires.indexOf(wire);
             if (index != -1) {
                 this._wires.splice(index, 1);

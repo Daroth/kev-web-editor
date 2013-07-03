@@ -65,6 +65,11 @@ define(
             }
         }
 
+        CNodeProperties.prototype.p2cSaveProperties = function (props) {
+            // node's proxy
+            this.getNode().p2cSaveProperties(props);
+        }
+
         return CNodeProperties;
     }
 );

@@ -44,8 +44,6 @@ define(
                 factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory(),
                 nodes = this.getConnectedFragments();
 
-            console.log("instDic", instDic);
-
             if (dicType) {
                 var attrs = dicType.getAttributes(),
                     instDic = (instDic) ? instDic : factory.createDictionary();
