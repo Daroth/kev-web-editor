@@ -16,10 +16,9 @@ define(
             AlertPopupHelper.show();
 
             $.getJSON('/merge/'+lib, function (data) {
-//                try {
+                try {
                     // TODO allow merge, this is not a merge, it replaces the old model if there is one
                     var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
-                    console.log(data);
                     var model = loader.loadModelFromString(JSON.stringify(data)).get(0);
                     editor.setModel(model);
 
@@ -30,13 +29,13 @@ define(
                     // update url
                     window.history.replaceState(null, "Core library "+lib+" loaded", "/?corelib="+lib);
 
-//                } catch (err) {
-//                    // update headsup for user
-//                    AlertPopupHelper.setText("Unable to load library ("+lib+")");
-//                    AlertPopupHelper.setType(AlertPopupHelper.ERROR);
-//                    AlertPopupHelper.show(5000);
-//                    console.error("Unable to load library ("+lib+")", (err.message) ? err.message : err);
-//                }
+                } catch (err) {
+                    // update headsup for user
+                    AlertPopupHelper.setText("Unable to load library ("+lib+")");
+                    AlertPopupHelper.setType(AlertPopupHelper.ERROR);
+                    AlertPopupHelper.show(5000);
+                    console.error("Unable to load library ("+lib+")", (err.message) ? err.message : err);
+                }
             });
         }
 
