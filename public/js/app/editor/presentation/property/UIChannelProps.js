@@ -30,11 +30,12 @@ define(
 
             var wires = this._ctrl.getWires();
             for (var i=0; i < wires.length; i++) {
-                var node = wires[i].getOrigin().getComponent().getParent().getName();
-                if (!alreadyAddedNode[node]) {
-                    var instance = model.findNodesByID(node);
+                var nodeName = wires[i].getOrigin().getComponent().getParent().getName();
+                if (!alreadyAddedNode[nodeName]) {
+                    var instance = model.findNodesByID(nodeName);
                     if (instance != null) {
                         nodes.add(instance);
+                        alreadyAddedNode[nodeName] = nodeName;
                     }
                 }
             }

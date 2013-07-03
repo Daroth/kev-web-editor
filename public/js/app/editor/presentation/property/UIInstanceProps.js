@@ -71,75 +71,84 @@ define(
         }
 
         UIInstanceProps.prototype.getHTML = function () {
-            // update attributes values if any
-            if (this._ctrl._instance) {
-                var dicInst = this._ctrl._instance.getDictionary();
-                if (dicInst) {
-                    this._values = dicInst.getValues();
-                }
-            }
-
-            var attrs = [];
-            for (var i=0; i < this._attrs.size(); i++) {
-                var attr = this._attrs.get(i);
-                attr['value'] = null;
-                for (var j=0; j < this._values.size(); j++) {
-                    var value = this._values.get(j);
-                    if (attr.getName() == value.getAttribute().getName()) {
-                        attr['value'] = value.getValue();
-                    }
-                }
-            }
-
-            // default attr
-            var obj = {
-                name: attr.getName(),
-                type: 'raw',
-                value: attr.value
-            };
-
-            // if RAW or ENUM, process content a bit
-            if (attr.getDatatype().substr(0, ENUM.length) == ENUM) { // attr.getDatatype() starts with "enum="
-                var str = attr.getDatatype().substr(ENUM.length, attr.getDatatype().length);
-                obj.value = str.split(',');
-                obj.type = 'enum';
-                obj.selected = obj.value.indexOf(attr.value);
-
-            } else if (attr.getDatatype().substr(0, RAW.length) == RAW) { // attr.getDatatype() starts with "raw="
-                obj.value = attr.getDatatype().substr(RAW.length, attr.getDatatype().length);
-            }
-
-            // add obj to attrs array if attr is not fragment dependant
-            if (!Util.parseBoolean(attr.getFragmentDependant())) {
-                attrs.push(obj);
-            }
-
-            var subNodes = this.getConnectedFragments(),
-                defaultAttrs = {},
-                nodes = [];
-
+            var defaultValues = [];
             // retrieving default values from model
             for (var i=0; i < this._values.size(); i++) {
-                if (Util.parseBoolean(this._values.get(i).getAttribute().getFragmentDependant())) {
-                    defaultAttrs[this._values.get(i).getAttribute().getName()] = this._values.get(i).getValue();
+                defaultValues[this._values.get(i).getAttribute().getName()] = this._values.get(i).getValue();
+            }
+
+            console.log("defaultValues: ", defaultValues);
+
+            var attrsTemplateHTML = instancePropsTemplate({
+                name: this._ctrl.getName(),
+                attrs: getAttributesParams(this._ctrl._instance.getDictionary(), this._attrs, defaultValues)
+            });
+
+            var fragDepAttrsTemplateHTML = fragDepPropsTemplate({
+                nodes: getFragDepAttributesParams(
+                    this._ctrl._instance.getDictionary(),
+                    this.getConnectedFragments(),
+                    defaultValues,
+                    this._attrs
+                )
+            });
+
+            return attrsTemplateHTML + fragDepAttrsTemplateHTML;
+        }
+
+        UIInstanceProps.prototype.onHTMLAppended = function () {}
+
+        UIInstanceProps.prototype.getConnectedFragments = function () {
+            return new Kotlin.ArrayList();
+        }
+
+        function getAttributesParams(dictionary, dicAttrs, defaultValues) {
+            var attrs = [];
+
+            for (var i=0; i < dicAttrs.size(); i++) {
+                var attr = dicAttrs.get(i);
+                if (!Util.parseBoolean(attr.getFragmentDependant())) {
+                    // default attr
+                    var obj = {
+                        name: attr.getName(),
+                        type: 'raw',
+                        value: getDefaultOrSavedValue(dictionary, defaultValues, attr.getName(), null, false)
+                    };
+
+                    // if RAW or ENUM, process content a bit
+                    if (attr.getDatatype().substr(0, ENUM.length) == ENUM) { // attr.getDatatype() starts with "enum="
+                        var str = attr.getDatatype().substr(ENUM.length, attr.getDatatype().length);
+                        var valueToSelect = obj.value;
+                        obj.value = str.split(',');
+                        obj.type = 'enum';
+                        obj.selected = obj.value.indexOf(valueToSelect);
+
+                    } else if (attr.getDatatype().substr(0, RAW.length) == RAW) { // attr.getDatatype() starts with "raw="
+                        obj.value = attr.getDatatype().substr(RAW.length, attr.getDatatype().length);
+                    }
+
+                    attrs.push(obj);
                 }
             }
 
-            // browsing this group's subnodes
+            return attrs;
+        }
+
+        function getFragDepAttributesParams(dictionary, subNodes, defaultValues, dicAttrs) {
+            var nodes = [];
+
+            // browsing this instance's subnodes
             for (var j=0; j< subNodes.size(); j++) {
                 var attrs = [];
 
-                for (var i=0; i < this._attrs.size(); i++) {
-                    var attr = this._attrs.get(i);
+                for (var i=0; i < dicAttrs.size(); i++) {
+                    var attr = dicAttrs.get(i);
                     if (Util.parseBoolean(attr.getFragmentDependant())) {
                         // fragment dependant attribute
                         var obj = {
                             name: attr.getName(),
                             type: 'raw',
-                            value: getDefaultOrSavedValue(
-                                this._ctrl._instance.getDictionary(),
-                                attr.getName(),
-                                subNodes.get(j).getName())
+                            value: getDefaultOrSavedValue(dictionary, defaultValues, attr.getName(), subNodes.get(j).getName(), true)
                         };
 
                         // if RAW or ENUM, process content a bit
@@ -163,41 +172,33 @@ define(
                 });
             }
 
-            function getDefaultOrSavedValue(dictionary, attrName, targetNode) {
-                var savedVal = null;
+            return nodes;
+        }
 
-                if (dictionary) {
-                    var values = dictionary.getValues();
+        function getDefaultOrSavedValue(dictionary, defaultValues, attrName, targetNode, fragmentDependant) {
+            var savedVal = null;
 
-                    for (var i=0; i < values.size(); i++) {
-                        var dicVal = values.get(i);
+            if (dictionary) {
+                var values = dictionary.getValues();
 
-                        if (dicVal.getTargetNode() && dicVal.getTargetNode().getName() == targetNode) {
+                for (var i=0; i < values.size(); i++) {
+                    var dicVal = values.get(i);
+
+                    if (dicVal.getAttribute().getName() == attrName) {
+                        if (fragmentDependant) {
+                            if (dicVal.getTargetNode() && dicVal.getTargetNode().getName() == targetNode) {
+                                savedVal = dicVal.getValue();
+                                break;
+                            }
+                        } else {
                             savedVal = dicVal.getValue();
                             break;
                         }
                     }
                 }
-
-                return savedVal || defaultAttrs[attrName];
             }
 
-            var attrsTemplateHTML = instancePropsTemplate({
-                name: this._ctrl.getName(),
-                attrs: attrs
-            });
-
-            var fragDepAttrsTemplateHTML = fragDepPropsTemplate({
-                nodes: nodes
-            });
-
-            return attrsTemplateHTML + fragDepAttrsTemplateHTML;
-        }
-
-        UIInstanceProps.prototype.onHTMLAppended = function () {}
-
-        UIInstanceProps.prototype.getConnectedFragments = function () {
-            return new Kotlin.ArrayList();
+            return savedVal || defaultValues[attrName];
         }
 
         return UIInstanceProps;
