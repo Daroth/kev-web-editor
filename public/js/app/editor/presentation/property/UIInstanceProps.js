@@ -8,8 +8,8 @@ define(
     function (instancePropsTemplate, fragDepPropsTemplate, Util, Kotlin) {
 
         // kevoree model constants for attributes type
-        UIInstanceProps.ENUM    = 'enum=';
-        UIInstanceProps.RAW     = 'raw=';
+        var ENUM    = 'enum=',
+            RAW     = 'raw=';
 
         function UIInstanceProps(ctrl) {
             this._ctrl = ctrl;
