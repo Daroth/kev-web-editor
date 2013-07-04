@@ -25,7 +25,7 @@ define(
             var values = [],
                 attrs = this._ctrl.getAttributes();
 
-            
+            // TODO
 
             return values;
         }
@@ -55,7 +55,6 @@ define(
             }
 
             for (var name in tmpNodes) {
-                console.log(name, tmpNodes[name], tmpNodes);
                 nodes.push({
                     name: name,
                     fragDepAttrsHTML: tmpNodes[name]

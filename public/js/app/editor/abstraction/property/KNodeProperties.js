@@ -49,6 +49,11 @@ define(
             return this._node.getConnectedFragments();
         }
 
+        KNodeProperties.prototype.getDictionary = function () {
+            // node's proxy
+            return this._node.getDictionary();
+        }
+
         KNodeProperties.prototype.getNode = function () {
             return this._node;
         }
