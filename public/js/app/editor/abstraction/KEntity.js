@@ -12,8 +12,6 @@ define(
             this._name = type + KEntity._COUNT++;
             this._wires = [];
             this._dictionary = require('factory/CFactory').getInstance().newDictionary(this);
-
-            console.log('new entity', this);
         }
 
         KEntity.prototype.getName = function() {

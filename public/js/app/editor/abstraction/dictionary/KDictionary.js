@@ -82,59 +82,40 @@ define(
         }
 
         KDictionary.prototype.addValue = function (val) {
-            console.log("////////////////////////////////////");
-            console.log("BEFORE add======================");
-            var tab = this._values.slice(0);
-            for (var i in tab) {
-                console.log(tab[i]._attribute._name+' = '+tab[i]._value);
-            }
-            console.log("BEFORE add================END!!!");
-
             var index = this._values.indexOf(val);
             if (index == -1) {
                 // this value has not been added to this._values yet
                 if (val.getAttribute().getFragmentDependant()) {
                     // this value is fragment dependant
-//                    console.log("this value is frag dep", val.getValue());
                     var kVal = this.getValue(val.getAttribute().getName(), val.getTargetNode().getName());
                     if (kVal) {
                         // there is already a value for this attr name & targetNode => update it
                         kVal.setValue(val.getValue());
-//                        console.log("i already have a value for this attribute, updated! "+val.getValue());
                     } else {
                         this._values.push(val);
-//                        console.log("first time i saw this one, added! "+val.getValue());
                     }
                 } else {
                     // this value is not fragment dependant
-//                    console.log('this value is not fragment dependant');
                     var kVal = this.getValue(val.getAttribute().getName());
                     if (kVal) {
-//                        console.log('there is already a value for this attr name, update it');
                         // there is already a value for this attr name => update it
                         kVal.setValue(val.getValue());
                     } else {
-//                        console.log('no equivalent found in',this._values.slice(0),', add it');
                         this._values.push(val);
                     }
                 }
+                // update model
+                this._entity.getEditor().update(this);
             }
-            console.log("after add======================");
-            tab = this._values.slice(0);
-            for (var i in tab) {
-                console.log(tab[i]._attribute._name+' = '+tab[i]._value);
-            }
-            console.log("after add================END!!!");
-        }
-
-        KDictionary.prototype.removeAttribute = function (attr) {
-            var index = this._attrs.indexOf(attr);
-            if (index != -1) this._attrs.splice(index, 1);
         }
 
         KDictionary.prototype.removeValue = function (val) {
             var index = this._values.indexOf(val);
-            if (index != -1) this._values.splice(index, 1);
+            if (index != -1) {
+                this._values.splice(index, 1);
+                // update model
+                this._entity.getEditor().update(this);
+            }
         }
 
         KDictionary.prototype.accept = function (visitor) {

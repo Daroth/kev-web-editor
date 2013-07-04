@@ -36,6 +36,7 @@ define(
             chan._instance.setName(chan._name);
             chan._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(chan._type));
             saveMetaData(chan);
+            chan.getDictionary().accept(this);
 
             this._model.addHubs(chan._instance);
 
@@ -50,6 +51,7 @@ define(
             node._instance.setName(node._name);
             node._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(node._type));
             saveMetaData(node);
+            node.getDictionary().accept(this);
 
             this._model.addNodes(node._instance);
 
@@ -79,6 +81,7 @@ define(
             comp._instance.setName(comp._name);
             comp._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(comp._type));
             saveMetaData(comp);
+            comp.getDictionary().accept(this);
 
             var node = this._model.findNodesByID(comp._parent.getName());
             node.addComponents(comp._instance);
@@ -104,6 +107,7 @@ define(
             grp._instance.setName(grp._name);
             grp._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(grp._type));
             saveMetaData(grp);
+            grp.getDictionary().accept(this);
 
             if (grp._wires.length > 0) {
                 for (var i=0; i < grp._wires.length; i++) {
