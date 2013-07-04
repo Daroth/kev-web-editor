@@ -4,38 +4,61 @@ define(
     ],
 
     function (dictionaryTemplate) {
+        var NAMESPACE = '.entity-dictionary';
+
         function UIDictionary(ctrl) {
             this._ctrl = ctrl;
         }
 
         UIDictionary.prototype.getHTML = function () {
-            var attrs = this._ctrl.getAttributes(),
-                values = this._ctrl.getValues();
+            var values = this._ctrl.getValues();
 
             return dictionaryTemplate({
                 name: this._ctrl.getEntity().getName(),
-                attrsHTML: getAttributesHTML(attrs, false),
+                attrsHTML: getAttributesHTML(values),
                 nodes: getFragDepAttributesHTML(values)
             });
         }
 
-        UIDictionary.prototype.onHTMLAppended = function () {}
+        UIDictionary.prototype.onHTMLAppended = function () {
+            var that = this;
+            $('#prop-popup-save').off('click'+NAMESPACE);
+            $('#prop-popup-save').on('click'+NAMESPACE, function () {
+                // when user wants to save properties, tell dictionary to update its content
+                var attrs = [],
+                    fragDepAttrs = [],
+                    dicValues = that._ctrl.getValues();
 
-        UIDictionary.prototype.getAttributeValues = function () {
-            var values = [],
-                attrs = this._ctrl.getAttributes();
+                for (var i=0; i < dicValues.length; i++) {
+                    var name = dicValues[i].getAttribute().getName(),
+                        fragDep = dicValues[i].getAttribute().getFragmentDependant();
 
-            // TODO
+                    if (fragDep) {
+                        var nodeName = dicValues[i].getTargetNode().getName();
+                        if (fragDepAttrs[nodeName] == undefined) {
+                            fragDepAttrs[nodeName] = [];
+                            fragDepAttrs.length += 1;
+                        }
+                        fragDepAttrs[nodeName][name] = $('#instance-attr-'+nodeName+'-'+name).val();
+                        fragDepAttrs[nodeName].length += 1;
+                    } else {
+                        attrs[name] = $('#instance-attr-'+name).val();
+                        attrs.length += 1;
+                    }
+                }
 
-            return values;
+                that._ctrl.p2cSaveDictionary(attrs, fragDepAttrs);
+            });
+
+            for (var i=0; i < this._ctrl.getValues().length; i++) this._ctrl.getValues()[i].getUI().onHTMLAppended();
         }
 
-        function getAttributesHTML(attrs, fragmentDependant) {
+        function getAttributesHTML(values) {
             var html = '';
 
-            for (var i=0; i < attrs.length; i++) {
-                if (attrs[i].getFragmentDependant() == fragmentDependant) {
-                    html += attrs[i].getUI().getHTML();
+            for (var i=0; i < values.length; i++) {
+                if (!values[i].getAttribute().getFragmentDependant()) {
+                    html += values[i].getUI().getHTML();
                 }
             }
 

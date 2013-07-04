@@ -101,6 +101,8 @@ define(
         }
 
         UINodeProps.prototype.onHTMLAppended = function () {
+            UIInstanceProps.prototype.onHTMLAppended.call(this);
+
             var that = this;
 
             // initby nodes multiselect

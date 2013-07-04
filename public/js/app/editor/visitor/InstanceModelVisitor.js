@@ -1,5 +1,8 @@
 define(
-    function (require) {
+    [
+        'util/Util'
+    ],
+    function (Util) {
 
         /**
          * Visit model in order to load instances in the editor
@@ -37,6 +40,7 @@ define(
                 var node = nodes.get(i);
                 var entity = factory.newNode(editor, node.getTypeDefinition().getName());
                 entity._instance = node;
+                entity.getDictionary()._instance = node.getDictionary();
                 entity.setName(node.getName());
 
                 // check if this node has already been added to editor
@@ -46,12 +50,14 @@ define(
                         // this node has no parent, add it to editor
                         editor.addEntity(entity);
                         loadMetaData(entity, node);
+                        loadDictionaryValues(entity, node, factory);
                     }
 
                     if (node.getHost()) {
                         // this node has a parent
                         var parent = editor.getEntity(node.getHost().getName());
                         parent.addChild(entity);
+                        loadDictionaryValues(entity, node, factory);
                     }
                 }
             }
@@ -64,10 +70,11 @@ define(
                 grp = grps.get(i);
                 entity = factory.newGroup(editor, grp.getTypeDefinition().getName());
                 entity._instance = grp;
+                entity.getDictionary()._instance = grp.getDictionary();
                 entity.setName(grp.getName());
                 editor.addEntity(entity);
                 loadMetaData(entity, grp);
-
+                loadDictionaryValues(entity, grp, factory);
             }
         }
 
@@ -83,8 +90,10 @@ define(
                         var comp = compz.get(j);
                         entity = factory.newComponent(editor, comp.getTypeDefinition().getName());
                         entity._instance = comp;
+                        entity.getDictionary()._instance = comp.getDictionary();
                         entity.setName(comp.getName());
                         entityNode.addChild(entity);
+                        loadDictionaryValues(entity, comp, factory);
                     }
                 }
             }
@@ -97,9 +106,11 @@ define(
                 chan = chans.get(i);
                 entity = factory.newChannel(editor, chan.getTypeDefinition().getName());
                 entity._instance = chan;
+                entity.getDictionary()._instance = chan.getDictionary();
                 entity.setName(chan.getName());
                 editor.addEntity(entity);
                 loadMetaData(entity, chan);
+                loadDictionaryValues(entity, chan, factory);
             }
         }
 
@@ -153,7 +164,6 @@ define(
                         port.setComponent(component);
                         var wire = port.createWire();
                         wire.setTarget(chan);
-                        component.addWire(wire);
                         chan.addWire(wire);
                     }
                 }
@@ -179,6 +189,32 @@ define(
             }
 
             entity.getUI().getShape().setAbsolutePosition(x, y);
+        }
+
+        function loadDictionaryValues(entity, instance, factory) {
+            var dictionary = instance.getDictionary();
+            if (dictionary) {
+                var values = dictionary.getValues();
+                for (var i=0; i < values.size(); i++) {
+                    var dicVal = values.get(i),
+                        attrName = dicVal.getAttribute().getName(),
+                        fragDep = Util.parseBoolean(dicVal.getAttribute().getFragmentDependant()),
+                        kValue = null;
+
+                    kValue = factory.newValue(entity.getDictionary().getAttribute(attrName));
+                    kValue.setValue(dicVal.getValue());
+                    kValue._instance = dicVal;
+                    console.log("supposed to have given an instance for value : "+dicVal.getValue());
+                    if (fragDep) kValue.setTargetNode(entity.getEditor().getEntity(dicVal.getTargetNode().getName()));
+                    entity.getDictionary().addValue(kValue);
+                }
+                console.log("AFTER LOAD DICT");
+                var tab = entity.getDictionary()._values.slice(0);
+                for (var i in tab) {
+                    console.log(tab[i]._attribute._name+' = '+tab[i]._value);
+                }
+                console.log("AFTER LOAD DICT END");
+            }
         }
 
         return InstanceModelVisitor;

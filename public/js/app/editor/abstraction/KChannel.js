@@ -40,8 +40,7 @@ define(
                     factory = require('factory/CFactory').getInstance();
                 for (var i=0; i < attrs.length; i++) {
                     if (attrs[i].getFragmentDependant()) {
-                        var value = factory.newValue(attrs[i]);
-                        value.setTargetNode(wire.getOrigin().getComponent().getParent());
+                        var value = factory.newValue(attrs[i], wire.getOrigin().getComponent().getParent());
                         dictionary.addValue(value);
                     }
                 }

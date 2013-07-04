@@ -5,6 +5,7 @@ define(
             this._name = null;
             this._enum = [];
             this._fragmentDependant = false;
+            this._optional = false;
         }
 
         KAttribute.prototype.getDictionary = function () {
@@ -23,6 +24,10 @@ define(
             return this._fragmentDependant;
         }
 
+        KAttribute.prototype.getOptional = function () {
+            return this._optional;
+        }
+
         KAttribute.prototype.setName = function (name) {
             this._name = name;
         }
@@ -35,8 +40,8 @@ define(
             this._fragmentDependant = isDependant;
         }
 
-        KAttribute.prototype.accept = function (visitor) {
-            visitor.visitAttribute(this);
+        KAttribute.prototype.setOptional = function (isOptional) {
+            this._optional = isOptional;
         }
 
         return KAttribute;

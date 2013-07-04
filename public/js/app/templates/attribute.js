@@ -2,10 +2,17 @@ define(['jadeRuntime'], function(jade) {
 return function anonymous(locals) {
 var buf = [];
 with (locals || {}) {
-buf.push("<div class=\"row-fluid\"><div class=\"span4\">" + (jade.escape((jade.interp = name) == null ? '' : jade.interp)) + "</div>");
+var attrID = name;
+if (node) attrID = node+'-'+name;
+buf.push("<div class=\"row-fluid\"><div class=\"span4\">" + (jade.escape((jade.interp = name) == null ? '' : jade.interp)) + "");
+if (!optional)
+{
+buf.push("&nbsp<i title=\"Mandatory attribute\" class=\"icon-exclamation-sign mandatory-attribute\"></i>");
+}
+buf.push("</div>");
 if ( type == 'enum')
 {
-buf.push("<select" + (jade.attrs({ 'id':('instance-attr-'+name), "class": ('span8') }, {"id":true})) + ">");
+buf.push("<select" + (jade.attrs({ 'id':('instance-attr-'+attrID), "class": ('span8') }, {"id":true})) + ">");
 // iterate possibleValues
 ;(function(){
   var $$obj = possibleValues;
@@ -34,7 +41,7 @@ buf.push("</select>");
 }
 else
 {
-buf.push("<input" + (jade.attrs({ 'id':('instance-attr-'+name), 'type':('text'), 'value':(value), "class": ('span8') }, {"id":true,"type":true,"value":true})) + "/>");
+buf.push("<input" + (jade.attrs({ 'id':('instance-attr-'+attrID), 'type':('text'), 'value':(value), "class": ('span8') }, {"id":true,"type":true,"value":true})) + "/>");
 }
 buf.push("</div>");
 }

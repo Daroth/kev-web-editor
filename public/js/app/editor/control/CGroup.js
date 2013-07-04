@@ -11,8 +11,8 @@ define(
     function(KGroup, UIGroup, AController, CEntity, Kevoree, Pooffs) {
 
         Pooffs.extends(CGroup, AController);
-        Pooffs.extends(CGroup, CEntity);
         Pooffs.extends(CGroup, KGroup);
+        Pooffs.extends(CGroup, CEntity);
 
         function CGroup(editor, type) {
             // KGroup.super(type)

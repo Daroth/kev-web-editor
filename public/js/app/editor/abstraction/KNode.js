@@ -98,14 +98,13 @@ define(
                 this._wires.push(wire);
                 this.getEditor().addWire(wire);
 
-                // add default values for fragment dependant attributes
-                var dictionary = wire.getOrigin()._dictionary,
+                // add fragment dependant value to wire's origin dictionary
+                var dictionary = wire.getOrigin().getDictionary(),
                     attrs = dictionary.getAttributes(),
                     factory = require('factory/CFactory').getInstance();
                 for (var i=0; i < attrs.length; i++) {
                     if (attrs[i].getFragmentDependant()) {
-                        var value = factory.newValue(attrs[i]);
-                        value.setTargetNode(this);
+                        var value = factory.newValue(attrs[i], this);
                         dictionary.addValue(value);
                     }
                 }

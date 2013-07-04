@@ -96,8 +96,8 @@ define(
             return new CAttribute(dict);
         };
 
-        CFactory.prototype.newValue = function (attr) {
-            return new CValue(attr);
+        CFactory.prototype.newValue = function (attr, targetNode) {
+            return new CValue(attr, targetNode);
         };
 
         return CFactory;

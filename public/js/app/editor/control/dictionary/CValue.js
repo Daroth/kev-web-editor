@@ -10,8 +10,8 @@ define(
         Pooffs.extends(CValue, AController);
         Pooffs.extends(CValue, KValue);
 
-        function CValue(attr) {
-            KValue.prototype.constructor.call(this, attr);
+        function CValue(attr, targetNode) {
+            KValue.prototype.constructor.call(this, attr, targetNode);
 
             this._ui = new UIValue(this);
         }

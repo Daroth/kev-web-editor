@@ -30,12 +30,13 @@ define(
                         attr.setEnum(str.split(','));
                     }
                     attr.setFragmentDependant(Util.parseBoolean(dicAttr.getFragmentDependant()));
+                    attr.setOptional(Util.parseBoolean(dicAttr.getOptional()));
 
                     // actually add attribute to this dictionary
                     this.addAttribute(attr);
 
                     if (!attr.getFragmentDependant()) {
-                        // actually add default attribute value to this dictionary if not fragment dependant
+                        // add default attribute value to this dictionary if !fragmentDependant
                         this.addValue(factory.newValue(attr));
                     }
                 }
@@ -54,9 +55,24 @@ define(
             return this._values;
         }
 
-        KDictionary.prototype.getValue = function (attrName) {
+        KDictionary.prototype.getValue = function (attrName, nodeName) {
             for (var i=0; i < this._values.length; i++) {
-                if (this._values[i].getAttribute().getName() == attrName) return this._values[i];
+                if (nodeName != undefined && nodeName != null) {
+                    if (this._values[i].getAttribute().getName() == attrName
+                        && this._values[i].getTargetNode()
+                        && this._values[i].getTargetNode().getName() == nodeName) {
+                        return this._values[i];
+                    }
+                } else {
+                    if (this._values[i].getAttribute().getName() == attrName) return this._values[i];
+                }
+            }
+            return null;
+        }
+
+        KDictionary.prototype.getAttribute = function (name) {
+            for (var i=0; i < this._attrs.length; i++) {
+                if (this._attrs[i].getName() == name) return this._attrs[i];
             }
             return null;
         }
@@ -66,16 +82,49 @@ define(
         }
 
         KDictionary.prototype.addValue = function (val) {
-            for (var i=0; i < this._values.length; i++) {
-                if (this._values[i].getAttribute().getName() == val.getAttribute().getName()) {
-                    if (this._values[i].getTargetNode().getName() == val.getTargetNode().getName()) {
-                        // prevent kValues to be duplicated if they are referencing the same
-                        // attribute name && targetNode name
-                        this._values.splice(i, 1);
+            console.log("////////////////////////////////////");
+            console.log("BEFORE add======================");
+            var tab = this._values.slice(0);
+            for (var i in tab) {
+                console.log(tab[i]._attribute._name+' = '+tab[i]._value);
+            }
+            console.log("BEFORE add================END!!!");
+
+            var index = this._values.indexOf(val);
+            if (index == -1) {
+                // this value has not been added to this._values yet
+                if (val.getAttribute().getFragmentDependant()) {
+                    // this value is fragment dependant
+//                    console.log("this value is frag dep", val.getValue());
+                    var kVal = this.getValue(val.getAttribute().getName(), val.getTargetNode().getName());
+                    if (kVal) {
+                        // there is already a value for this attr name & targetNode => update it
+                        kVal.setValue(val.getValue());
+//                        console.log("i already have a value for this attribute, updated! "+val.getValue());
+                    } else {
+                        this._values.push(val);
+//                        console.log("first time i saw this one, added! "+val.getValue());
+                    }
+                } else {
+                    // this value is not fragment dependant
+//                    console.log('this value is not fragment dependant');
+                    var kVal = this.getValue(val.getAttribute().getName());
+                    if (kVal) {
+//                        console.log('there is already a value for this attr name, update it');
+                        // there is already a value for this attr name => update it
+                        kVal.setValue(val.getValue());
+                    } else {
+//                        console.log('no equivalent found in',this._values.slice(0),', add it');
+                        this._values.push(val);
                     }
                 }
             }
-            this._values.push(val);
+            console.log("after add======================");
+            tab = this._values.slice(0);
+            for (var i in tab) {
+                console.log(tab[i]._attribute._name+' = '+tab[i]._value);
+            }
+            console.log("after add================END!!!");
         }
 
         KDictionary.prototype.removeAttribute = function (attr) {

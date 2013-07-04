@@ -116,12 +116,13 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitWire = function (wire) {
-//            console.log("visit wire", wire);
             switch (wire.getOrigin().getEntityType()) {
                 case KGroup.ENTITY_TYPE:
                     var node = this._model.findNodesByID(wire.getTarget().getName()),
                         grp = this._model.findGroupsByID(wire.getOrigin().getName());
-                    if (node && grp) grp.addSubNodes(node);
+
+                    var update = (wire._instance) ? true : false;
+                    if (node && grp && !update) grp.addSubNodes(node);
                     break;
 
                 case KInputPort.ENTITY_TYPE:
@@ -129,7 +130,6 @@ define(
                     var hub = this._model.findHubsByID(wire.getTarget().getName());
 
                     var update = (wire._instance) ? true : false;
-//                    console.log("visitWire "+wire.getName()+" > update ? "+update);
                     wire._instance = wire._instance || this._factory.createMBinding();
 
                     wire._instance.setPort(wire.getOrigin()._instance);
@@ -148,7 +148,6 @@ define(
                 portRef = comp.getTypeDefinition().findRequiredByID(port.getName());
 
             var update = (port._instance) ? true : false;
-//            console.log("visitOutputPort "+port.getName()+" > update ? "+update);
             port._instance = port._instance || this._factory.createPort();
 
             if (!update) comp.addRequired(port._instance);
@@ -163,7 +162,6 @@ define(
                 portRef = comp.getTypeDefinition().findProvidedByID(port.getName());
 
             var update = (port._instance) ? true : false;
-//            console.log("visitInputPort "+port.getName()+" > update ? "+update);
             port._instance = port._instance || this._factory.createPort();
 
             if (!update) comp.addProvided(port._instance);
@@ -221,29 +219,32 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitDictionary = function (dict) {
-            dict._instance = dict._instance || this._factory.createGroup();
+            dict._instance = dict._instance || this._factory.createDictionary();
+            dict._instance.removeAllValues();
 
-            dict._instance.setName(dict._name);
-            dict._instance.setTypeDefinition(this._model.findTypeDefinitionsByID(dict._type));
-
-            for (var i=0; i < dict.getAttributes().length; i++) {
-                dict.getAttribute()[i].accept(this);
+            for (var i=0; i < dict.getValues().length; i++) {
+                dict.getValues()[i].accept(this);
             }
+
             dict.getEntity()._instance.setDictionary(dict._instance);
 
             this._listener.call(this);
         }
 
-        UpdateModelVisitor.prototype.visitAttribute = function (attr) {
-            var update = (attr._instance) ? true : false;
-            attr._instance = attr._instance || this._factory.createDictionaryValue();
+        UpdateModelVisitor.prototype.visitValue = function (val) {
+            var tDef = val.getAttribute().getDictionary().getEntity().getType(),
+                dicType = this._model.findTypeDefinitionsByID(tDef).getDictionaryType(),
+                value = this._factory.createDictionaryValue();
 
-            attr._instance.setName(attr.getName());
-            attr._instance.setValue(attr.getValue());
-            attr._instance.setFragmentDependant(attr.getFragmentDependant());
-            attr._instance.setTargetNode(attr.getTargetNode()._instance || null);
+            value.setAttribute(dicType.findAttributesByID(val.getAttribute().getName()));
+            value.setValue(val.getValue());
+            var node = null;
+            if (val.getAttribute().getFragmentDependant()) {
+                node = this._model.findNodesByID(val.getTargetNode().getName());
+            }
+            value.setTargetNode(node);
 
-            if (!update) attr.getDictionary()._instance.addValues(attr._instance);
+            val.getAttribute().getDictionary()._instance.addValues(value);
 
             this._listener.call(this);
         }

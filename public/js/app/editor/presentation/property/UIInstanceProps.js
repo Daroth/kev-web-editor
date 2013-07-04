@@ -14,14 +14,12 @@ define(
         }
 
         UIInstanceProps.prototype.onSaveProperties = function () {
-            // when user wants to save properties, tell dictionary to update its content
-            this._ctrl.getDictionary().p2cSaveDictionary();
             // tell controller that user wants to save properties
             this._ctrl.p2cSaveProperties(this.getPropertiesValues());
         }
 
         UIInstanceProps.prototype.getPropertiesValues = function () {
-            return { name: $('#instance-prop-name').val() };
+            return { name: $('#instance-attr-name').val() };
         }
 
         UIInstanceProps.prototype.show = function () {
@@ -47,7 +45,9 @@ define(
             return this._ctrl.getDictionary().getUI().getHTML();
         }
 
-        UIInstanceProps.prototype.onHTMLAppended = function () {}
+        UIInstanceProps.prototype.onHTMLAppended = function () {
+            this._ctrl.getDictionary().getUI().onHTMLAppended();
+        }
 
         return UIInstanceProps;
     }
