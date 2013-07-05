@@ -7,17 +7,17 @@ define(
 
         var id = 0;
 
-        function KNodeLink(nodeNetwork) {
+        function KNodeLink(nodeProperties) {
             this._id = id++;
             this._props = [];
-            this._nodeNetwork = nodeNetwork;
+            this._nodeProperties = nodeProperties;
             this._type = "type"+this._id;
             this._rate = 100;
             this._props.push(require('factory/CFactory').getInstance().newNetworkProperty(this));
         }
 
-        KNodeLink.prototype.getNodeNetwork = function () {
-            return this._nodeNetwork;
+        KNodeLink.prototype.getNodeProperties = function () {
+            return this._nodeProperties;
         }
 
         KNodeLink.prototype.setNetworkType = function (type) {
@@ -46,8 +46,15 @@ define(
         KNodeLink.prototype.deleteNetworkProperty = function (prop) {
             var index = this._props.indexOf(prop);
             if (index != -1) {
+                prop.remove();
                 this._props.splice(index, 1);
             }
+        }
+
+        KNodeLink.prototype.removeAllNetworkProperties = function () {
+            var props = this._props.slice(0);
+            for (var i in props) this.deleteNetworkProperty(props[i]);
+            this._props.length = 0;
         }
 
         KNodeLink.prototype.hasNetworkProperty = function (id) {
@@ -82,6 +89,10 @@ define(
                 }
             }
             return false;
+        }
+
+        KNodeLink.prototype.remove = function () {
+            this._nodeProperties.getNode().getEditor().removeFromModel(this);
         }
 
         KNodeLink.prototype.accept = function (visitor) {

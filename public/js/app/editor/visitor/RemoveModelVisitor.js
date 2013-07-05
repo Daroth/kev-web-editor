@@ -53,17 +53,51 @@ define(
             this._listener.call(this);
         }
 
-        RemoveModelVisitor.prototype.visitOutputPort = function (port) {
+        RemoveModelVisitor.prototype.visitOutputPort = function (port) {}
 
-        }
-
-        RemoveModelVisitor.prototype.visitInputPort = function (port) {
-
-        }
+        RemoveModelVisitor.prototype.visitInputPort = function (port) {}
 
         RemoveModelVisitor.prototype.visitWire = function (wire) {
             this._model.removeMBindings(wire._instance);
             this._listener.call(this);
+        }
+
+        RemoveModelVisitor.prototype.visitNodeProperties = function (nodeProps) {
+            var nets = nodeProps.getNodeNetworks();
+            for (var i=0; i < nets.length; i++) {
+                nets[i].accept(this);
+            }
+            this._listener.call(this);
+        }
+
+        RemoveModelVisitor.prototype.visitNodeNetwork = function (net) {
+            var nets = this._model.getNodeNetworks();
+            for (var i=0; i < nets.size(); i++) {
+                if (nets.get(i).getTarget().getName() == net.getTarget().getName()
+                    && nets.get(i).getInitBy().getName() == net.getInitBy().getName()) {
+                    this._model.removeNodeNetworks(nets.get(i));
+                    this._listener.call(this);
+                    break;
+                }
+            }
+        }
+
+        RemoveModelVisitor.prototype.visitNodeLink = function (link) {
+            var nets = link.getNodeProperties().getNodeNetworks();
+            for (var i in nets) {
+                if (nets[i]._instance) {
+                    nets[i]._instance.removeLink(link._instance);
+                    this._listener.call(this);
+                }
+            }
+        }
+
+        RemoveModelVisitor.prototype.visitNetworkProperty = function (prop) {
+            var link = prop.getLink();
+            if (link._instance) {
+                link._instance.removeNetworkProperties(prop._instance);
+                this._listener.call(this);
+            }
         }
 
         return RemoveModelVisitor;

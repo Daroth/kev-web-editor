@@ -39,6 +39,10 @@ define(
             return this._lastCheck;
         }
 
+        KNetworkProperty.prototype.remove = function () {
+            this._link.getNodeProperties().getNode().getEditor().removeFromModel(this);
+        }
+
         KNetworkProperty.prototype.accept = function (visitor) {
             visitor.visitNetworkProperty(this);
         }

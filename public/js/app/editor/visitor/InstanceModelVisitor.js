@@ -32,6 +32,9 @@ define(
 
             // visit subNodes instances
             visitSubNodes(editor, this._factory, model.getGroups());
+
+            // visit nodeNetworks instances
+            visitNodeNetworks(editor, this._factory, model.getNodeNetworks());
         }
 
         // private methods
@@ -170,6 +173,58 @@ define(
             }
         }
 
+        function visitNodeNetworks(editor, factory, nets) {
+            for (var i=0; i < nets.size(); i++) {
+                var initByNode = editor.getEntity(nets.get(i).getInitBy().getName()),
+                    targetNode = editor.getEntity(nets.get(i).getTarget().getName());
+
+                if (initByNode && targetNode) {
+                    // check if targetNode already has a node network for this initBy node
+                    var nodeNetwork = getNodeNetwork(initByNode, targetNode);
+                    if (!nodeNetwork) {
+                        nodeNetwork = factory.newNodeNetwork(initByNode, targetNode);
+                        nodeNetwork._instance = nets.get(i);
+                        targetNode.getNodeProperties().addNodeNetwork(nodeNetwork);
+                    }
+
+                    // create node links for targetNode if not already done
+                    var links = nets.get(i).getLink();
+                    if (links.size() > 0) targetNode.getNodeProperties().removeAllLinks();
+                    for (var j=0; j < links.size(); j++) {
+                        var link = factory.newNodeLink(targetNode.getNodeProperties());
+                        link._instance = links.get(j);
+                        link.setNetworkType(links.get(j).getNetworkType());
+                        link.setEstimatedRate(links.get(j).getEstimatedRate());
+
+                        // create network properties for this node link
+                        var props = links.get(j).getNetworkProperties();
+                        if (props.size() > 0) link.removeAllNetworkProperties();
+                        for (var k=0; k < props.size(); k++) {
+                            var prop = factory.newNetworkProperty(link);
+                            prop._instance = props.get(k);
+                            prop.setKey(props.get(k).getName());
+                            prop.setValue(props.get(k).getValue());
+                            link.addNetworkProperty(prop);
+                        }
+
+                        // add node link to node properties
+                        targetNode.getNodeProperties().addLink(link);
+                    }
+                }
+            }
+
+            function getNodeNetwork(initBy, target) {
+                var nets = target.getNodeProperties().getNodeNetworks();
+                for (var i in nets) {
+                    if (nets[i].getInitBy().getName() == initBy.getName()
+                        && nets[i].getTarget().getName() == target.getName()) {
+                        return nets[i];
+                    }
+                }
+                return null;
+            }
+        }
+
         function loadMetaData(entity, instance) {
             var metaData = instance.getMetaData(),
                 x = 100,
@@ -204,16 +259,9 @@ define(
                     kValue = factory.newValue(entity.getDictionary().getAttribute(attrName));
                     kValue.setValue(dicVal.getValue());
                     kValue._instance = dicVal;
-                    console.log("supposed to have given an instance for value : "+dicVal.getValue());
                     if (fragDep) kValue.setTargetNode(entity.getEditor().getEntity(dicVal.getTargetNode().getName()));
                     entity.getDictionary().addValue(kValue);
                 }
-                console.log("AFTER LOAD DICT");
-                var tab = entity.getDictionary()._values.slice(0);
-                for (var i in tab) {
-                    console.log(tab[i]._attribute._name+' = '+tab[i]._value);
-                }
-                console.log("AFTER LOAD DICT END");
             }
         }
 

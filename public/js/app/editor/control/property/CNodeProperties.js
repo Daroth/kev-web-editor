@@ -28,37 +28,68 @@ define(
             setTimeout(this._ui.c2pPullModelEndedWell, 3000);
         }
 
-        CNodeProperties.prototype.p2cAddNodeLink = function () {
-            var nets = this.getNodeNetworks();
+        CNodeProperties.prototype.p2cSelectedNodeNetwork = function (nodeName) {
+            var net = this.getNodeNetworkByInitByName(nodeName);
+            if (net == null) {
+                var initByNode = this.getNode().getEditor().getEntity(nodeName),
+                    nodeNetwork = require('factory/CFactory').getInstance().newNodeNetwork(initByNode, this);
+                this.addNodeNetwork(nodeNetwork);
+            }
+        }
 
-            for (var i=0; i < nets.length; i++) {
-                var link = require('factory/CFactory').getInstance().newNodeLink(nets[i]);
-                nets[i].addLink(link);
-                this._ui.c2pNodeLinkAdded(link.getUI());
+        CNodeProperties.prototype.p2cUnselectedNodeNetwork = function (nodeName) {
+            var nets = this.getNodeNetworks(),
+                removed = false;
+
+            if (nets.length > 1) {
+                for (var i=0; i < nets.length; i++) {
+                    if (nets[i].getInitBy().getName() == nodeName) {
+                        this.removeNodeNetwork(nets[i]);
+                        removed = true;
+                    }
+                }
+            }
+
+            if (!removed) this._ui.c2pSelectNodeNetwork(nodeName);
+        }
+
+        // Override KNodeProperties.addLink(link)
+        CNodeProperties.prototype.addLink = function (link) {
+            KNodeProperties.prototype.addLink.call(this, link);
+            this._ui.c2pNodeLinkAdded(link.getUI());
+        }
+
+        CNodeProperties.prototype.p2cAddNodeLink = function () {
+            var link = require('factory/CFactory').getInstance().newNodeLink(this);
+            this.addLink(link);
+        }
+
+        // Override KNodeProperties.removeLink(link)
+        CNodeProperties.prototype.removeLink = function (link) {
+            if (this.getLinks().length > 1) {
+                KNodeProperties.prototype.removeLink.call(this, link);
+                this._ui.c2pNodeLinkRemoved(link.getUI());
             }
         }
 
         CNodeProperties.prototype.p2cDeleteNodeLink = function (id) {
-            var nets = this.getNodeNetworks();
+            var links = this.getLinks();
 
             // always keep at least one node link
-            if (nets[0].getLinks().length > 1) {
-                for (var i=0; i < nets.length; i++) {
-                    var links = nets[i].getLinks();
-                    for (var j=0; j < links.length; j++) {
-                        if (links[j]._id == id) {
-                            var link = links[j];
-                            nets[i].removeLink(link);
-                            this._ui.c2pNodeLinkRemoved(link.getUI());
-                        }
+            if (links.length > 1) {
+                for (var i=0; i < links.length; i++) {
+                    if (links[i]._id == id) {
+                        var link = links[j];
+                        this.removeLink(link);
                     }
                 }
             }
 
             // set default node link to active
-            nets[0].getLinks()[0].getUI().setActive(true);
+            links[0].getUI().setActive(true);
 
-            if (nets[0].getLinks().length == 1) {
+            // check nodeLinks.length in order to tell to the UI to enable/disable delete button
+            if (links.length == 1) {
                 this._ui.c2pDisableDeleteNodeLinkButton();
             } else {
                 this._ui.c2pEnableDeleteNodeLinkButton();
@@ -68,6 +99,15 @@ define(
         CNodeProperties.prototype.p2cSaveProperties = function (props) {
             // node's proxy
             this.getNode().p2cSaveProperties(props);
+        }
+
+        CNodeProperties.prototype.p2cRemoveEntity = function () {
+            // node's proxy
+            this.getNode().p2cRemoveEntity();
+        }
+
+        CNodeProperties.prototype.p2cSaveNetworkProperties = function () {
+            this.getNode().getEditor().updateModel(this);
         }
 
         return CNodeProperties;

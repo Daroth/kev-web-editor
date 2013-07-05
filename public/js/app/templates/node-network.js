@@ -2,7 +2,7 @@ define(['jadeRuntime'], function(jade) {
 return function anonymous(locals) {
 var buf = [];
 with (locals || {}) {
-buf.push("<div class=\"row-fluid\"><div class=\"span4\">Reachable from</div><select id=\"initby-nodes\" multiple=\"multiple\">");
+buf.push("<div class=\"row-fluid\"><div class=\"span4\">Reachable from\n&nbsp<i title=\"Minimum selected = 1\" class=\"icon-info-sign\"></i></div><select id=\"initby-nodes\" multiple=\"multiple\">");
 // iterate initBy
 ;(function(){
   var $$obj = initBy;

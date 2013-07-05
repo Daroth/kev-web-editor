@@ -65,19 +65,15 @@ define(
             }
 
             function getNodeLinks() {
-                var nodeLinks = [];
+                var nodeLinks = [],
+                    links = that._ctrl.getLinks();
 
-                var nets = that._ctrl.getNodeNetworks();
-                for (var i=0; i < nets.length; i++) {
-                    var links = nets[i].getLinks();
-
-                    for (var j=0; j < links.length; j++) {
-                        if (j==0) links[j].getUI().setActive(true); // activate first tab by default
-                        nodeLinks.push({
-                            tabHTML: links[j].getUI().getTabHTML(),
-                            contentHTML: links[j].getUI().getContentHTML()
-                        });
-                    }
+                for (var j=0; j < links.length; j++) {
+                    if (j==0) links[j].getUI().setActive(true); // activate first tab by default
+                    nodeLinks.push({
+                        tabHTML: links[j].getUI().getTabHTML(),
+                        contentHTML: links[j].getUI().getContentHTML()
+                    });
                 }
 
                 return nodeLinks;
@@ -108,7 +104,19 @@ define(
             // initby nodes multiselect
             $('#'+UINodeProps.INIT_BY_NODES).multiselect({
                 includeSelectAllOption: true,
-                maxHeight: 200
+                maxHeight: 200,
+                onChange: function (element, checked) {
+                    console.log("onChange", $(element).val());
+                    if ($(element).hasClass('initby-node')) {
+                        if (checked) {
+                            // init by node selected
+                            that._ctrl.p2cSelectedNodeNetwork($(element).val());
+                        } else {
+                            // init by node unselected
+                            that._ctrl.p2cUnselectedNodeNetwork($(element).val());
+                        }
+                    }
+                }
             });
 
             var pushBtn = $('#'+PUSH_ACTION),
@@ -144,13 +152,16 @@ define(
             registerListenerForTabs();
 
             // tell nodeLinks that they were added to DOM
-            var nets = this._ctrl.getNodeNetworks();
-            for (var i=0; i < nets.length; i++) {
-                var links = nets[i].getLinks();
-                for (var j=0; j < links.length; j++) {
-                    links[j].getUI().onHTMLAppended();
-                }
+            var links = this._ctrl.getLinks();
+            for (var i=0; i < links.length; i++) {
+                links[i].getUI().onHTMLAppended();
             }
+        }
+
+        UINodeProps.prototype.onSaveProperties = function () {
+            UIInstanceProps.prototype.onSaveProperties.call(this);
+            // tell controller that user wants to save network properties too
+            this._ctrl.p2cSaveNetworkProperties();
         }
 
         UINodeProps.prototype.getPropertiesValues = function () {
@@ -163,6 +174,10 @@ define(
             props[UINodeProps.INIT_BY_NODES] =  nodes;
 
             return props;
+        }
+
+        UINodeProps.prototype.c2pSelectNodeNetwork = function (nodeName) {
+            $('#'+UINodeProps.INIT_BY_NODES).multiselect('select', nodeName);
         }
 
         UINodeProps.prototype.c2pNodeLinkAdded = function (link) {

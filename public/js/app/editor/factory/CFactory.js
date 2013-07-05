@@ -76,8 +76,8 @@ define(
             return new CNodeNetwork(initBy, target);
         };
 
-        CFactory.prototype.newNodeLink = function (net) {
-            return new CNodeLink(net);
+        CFactory.prototype.newNodeLink = function (nodeProps) {
+            return new CNodeLink(nodeProps);
         };
 
         CFactory.prototype.newNetworkProperty = function (link) {

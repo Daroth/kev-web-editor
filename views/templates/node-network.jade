@@ -4,6 +4,8 @@
 
 div.row-fluid
   div.span4 Reachable from
+    | &nbsp
+    i.icon-info-sign(title='Minimum selected = 1')
   select#initby-nodes(multiple='multiple')
     each node in initBy
       option.initby-node(value=node.name, selected=(node.selected)?'selected':null) #{node.name}

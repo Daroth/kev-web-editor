@@ -145,6 +145,9 @@ define(
                 this._parent.removeChild(this);
             }
 
+            // tell node properties object to remove too
+            this._props.remove();
+
             KEntity.prototype.remove.call(this);
         }
 
@@ -171,6 +174,10 @@ define(
 
         KNode.prototype.accept = function (visitor) {
             visitor.visitNode(this);
+        }
+
+        KNode.prototype.getNodeProperties = function () {
+            return this._props;
         }
 
         return KNode;

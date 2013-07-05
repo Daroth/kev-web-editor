@@ -132,17 +132,18 @@ define(
         }
 
         UINodeLink.prototype.c2pSetNetworkType = function (type) {
-            this._jqy[TYPE_TAB].text(type);
+            if (this._jqy[TYPE_TAB]) this._jqy[TYPE_TAB].text(type);
         }
 
         UINodeLink.prototype.c2pAddNetworkProperty = function (prop) {
-            this._jqy[PROP_LIST].append(prop.getUI().getHTML());
-            prop.getUI().onHTMLAppended();
+            if (this._jqy[PROP_LIST]) {
+                this._jqy[PROP_LIST].append(prop.getUI().getHTML());
+                prop.getUI().onHTMLAppended();
+            }
         }
 
         UINodeLink.prototype.c2pDeleteNetworkProperty = function (prop) {
-            console.log(this._jqy[PROP_LIST].find(PROP_ID, prop._id));
-            this._jqy[PROP_LIST].find('['+PROP_ID+'='+prop._id+']').remove();
+            if (this._jqy[PROP_LIST]) this._jqy[PROP_LIST].find('['+PROP_ID+'='+prop._id+']').remove();
         }
 
         function getNetworkProperties(link) {

@@ -25,7 +25,7 @@ define(
 
         // Override KNodeLink.setEstimatedRate
         CNodeLink.prototype.setEstimatedRate = function (rate) {
-            KNodeLink.prototype.setEstimatedRate.call(this, eate);
+            KNodeLink.prototype.setEstimatedRate.call(this, rate);
         }
 
         // Override KNodeLink.addNetworkProperty
@@ -54,7 +54,6 @@ define(
         }
 
         CNodeLink.prototype.p2cDeleteNetworkProperties = function (ids) {
-            console.log("TODO delete ", ids);
             for (var i=0; i < ids.length; i++) {
                 var prop = this.getNetworkProperty(ids[i]);
                 this.deleteNetworkProperty(prop);

@@ -15,17 +15,26 @@ define(
             KNetworkProperty.prototype.constructor.call(this, link);
 
             this._ui = new UINetworkProperty(this);
+
+            this._isKeyReady    = true;
+            this._isValueReady  = true;
+            var that = this;
+            setInterval(function zozozozozozo() {
+                that._ui.c2pValueSaved(that._isKeyReady && that._isValueReady);
+            }, 100);
         }
 
         // Override KNetworkProperty.setKey
         CNetworkProperty.prototype.setKey = function (key) {
             KNetworkProperty.prototype.setKey.call(this, key);
+            this._isKeyReady = true;
             this._ui.c2pKeyValueSaved();
         }
 
         // Override KNetworkProperty.setValue
         CNetworkProperty.prototype.setValue = function (val) {
             KNetworkProperty.prototype.setValue.call(this, val);
+            this._isValueReady = true;
             this._ui.c2pValueValueSaved();
         }
 
@@ -55,6 +64,14 @@ define(
 
         CNetworkProperty.prototype.p2cChangeValue = function (value) {
             this.setValue(value);
+        }
+
+        CNetworkProperty.prototype.p2cStartChangeKey = function () {
+            this._isKeyReady = false;
+        }
+
+        CNetworkProperty.prototype.p2cStartChangeValue = function () {
+            this._isValueReady = false;
         }
 
         return CNetworkProperty;

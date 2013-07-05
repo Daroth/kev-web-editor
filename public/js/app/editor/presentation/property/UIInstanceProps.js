@@ -31,7 +31,7 @@ define(
 
             $('#prop-popup-save').off('click');
             $('#prop-popup-save').on('click', function () {
-                that.onSaveProperties();
+                if (!$(this).hasClass('disabled')) that.onSaveProperties();
             });
 
             $('#prop-popup-subtitle').html(this._ctrl.getEntityType());

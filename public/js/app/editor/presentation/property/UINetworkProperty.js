@@ -44,6 +44,9 @@ define(
                 valueDelayer = new Delayer();
 
             this._jqy[KEY_VAL].off(NAMESPACE);
+            this._jqy[KEY_VAL].on('keypress'+NAMESPACE, function () {
+                that._ctrl.p2cStartChangeKey();
+            });
             this._jqy[KEY_VAL].on('keyup'+NAMESPACE, function () {
                 var keyValue = $(this).val();
                 // clear error fields
@@ -57,6 +60,9 @@ define(
             });
 
             this._jqy[VALUE_VAL].off(NAMESPACE);
+            this._jqy[VALUE_VAL].on('keypress'+NAMESPACE, function () {
+                that._ctrl.p2cStartChangeValue();
+            });
             this._jqy[VALUE_VAL].on('keyup'+NAMESPACE, function () {
                 var value = $(this).val();
                 // we use Delay to prevent model from being updated on each keyup event
@@ -78,6 +84,11 @@ define(
 
         UINetworkProperty.prototype.c2pValueValueSaved = function (value) {
             console.log("network property updated (value)");
+        }
+
+        UINetworkProperty.prototype.c2pValueSaved = function (isSaved) {
+            if (isSaved) $('#prop-popup-save').removeClass('disabled');
+            else $('#prop-popup-save').addClass('disabled');
         }
 
         return UINetworkProperty;
