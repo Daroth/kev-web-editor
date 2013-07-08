@@ -192,7 +192,6 @@ define(
                     if (links.size() > 0) targetNode.getNodeProperties().removeAllLinks();
                     for (var j=0; j < links.size(); j++) {
                         var link = factory.newNodeLink(targetNode.getNodeProperties());
-                        link._instance = links.get(j);
                         link.setNetworkType(links.get(j).getNetworkType());
                         link.setEstimatedRate(links.get(j).getEstimatedRate());
 
@@ -201,7 +200,6 @@ define(
                         if (props.size() > 0) link.removeAllNetworkProperties();
                         for (var k=0; k < props.size(); k++) {
                             var prop = factory.newNetworkProperty(link);
-                            prop._instance = props.get(k);
                             prop.setKey(props.get(k).getName());
                             prop.setValue(props.get(k).getValue());
                             link.addNetworkProperty(prop);
