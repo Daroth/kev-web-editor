@@ -54,17 +54,28 @@ define(
                 try {
                     var loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
                         strModel = msg.data,
-                        model = loader.loadModelFromString(strModel).get(0); // msg.data = stringify model
-                    that._started = initModelInstance(model, "WebNode", nodeName, grpName, that._factory);
+                        modelz = loader.loadModelFromString(strModel);
+
+                    if (modelz && modelz.size() > 0) {
+                        var model = modelz.get(0); // msg.data = stringify model
+                        that._started = initModelInstance(model, "WebNode", nodeName, grpName, that._factory);
+                    } else {
+                        Logger.warn('Unable to read message received from server.');
+                    }
 
                 } catch (err) {
-                    throw err;
                     Logger.err(err.message);
+                    throw err;
 
                 } finally {
                     callbackReturn();
                     socket.close();
                 }
+            }
+
+            socket.onopen = function () {
+                Logger.log('Connection to '+socket.url+' succeed. Retrieving model...');
+                socket.send('2');
             }
         }
 
