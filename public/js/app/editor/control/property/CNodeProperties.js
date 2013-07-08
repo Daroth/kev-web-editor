@@ -66,33 +66,35 @@ define(
 
         // Override KNodeProperties.removeLink(link)
         CNodeProperties.prototype.removeLink = function (link) {
-            if (this.getLinks().length > 1) {
-                KNodeProperties.prototype.removeLink.call(this, link);
-                this._ui.c2pNodeLinkRemoved(link.getUI());
-            }
-        }
+            KNodeProperties.prototype.removeLink.call(this, link);
 
-        CNodeProperties.prototype.p2cDeleteNodeLink = function (id) {
             var links = this.getLinks();
-
-            // always keep at least one node link
-            if (links.length > 1) {
-                for (var i=0; i < links.length; i++) {
-                    if (links[i]._id == id) {
-                        var link = links[j];
-                        this.removeLink(link);
-                    }
-                }
+            // set default node link to active (index: 0)
+            for (var i in links) {
+                if (i > 0) links[i].getUI().setActive(false);
+                else links[i].getUI().setActive(true);
             }
-
-            // set default node link to active
-            links[0].getUI().setActive(true);
 
             // check nodeLinks.length in order to tell to the UI to enable/disable delete button
             if (links.length == 1) {
                 this._ui.c2pDisableDeleteNodeLinkButton();
             } else {
                 this._ui.c2pEnableDeleteNodeLinkButton();
+            }
+
+            this._ui.c2pNodeLinkRemoved(link.getUI());
+        }
+
+        CNodeProperties.prototype.p2cDeleteNodeLink = function (id) {
+            // always keep at least one node link
+            var links = this.getLinks();
+            if (links.length > 1) {
+                for (var i in links) {
+                    if (links[i]._id == id) {
+                        this.removeLink(links[i]);
+                        break;
+                    }
+                }
             }
         }
 

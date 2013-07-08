@@ -44,9 +44,6 @@ define(
                 valueDelayer = new Delayer();
 
             this._jqy[KEY_VAL].off(NAMESPACE);
-            this._jqy[KEY_VAL].on('keypress'+NAMESPACE, function () {
-                that._ctrl.p2cStartChangeKey();
-            });
             this._jqy[KEY_VAL].on('keyup'+NAMESPACE, function () {
                 var keyValue = $(this).val();
                 // clear error fields
@@ -56,19 +53,16 @@ define(
                 // we use Delay to prevent model from being updated on each keyup event
                 keyDelayer.delay(function delayedKeyupValidation() {
                     that._ctrl.p2cChangeKey(keyValue);
-                }, 850);
+                }, 350);
             });
 
             this._jqy[VALUE_VAL].off(NAMESPACE);
-            this._jqy[VALUE_VAL].on('keypress'+NAMESPACE, function () {
-                that._ctrl.p2cStartChangeValue();
-            });
             this._jqy[VALUE_VAL].on('keyup'+NAMESPACE, function () {
                 var value = $(this).val();
                 // we use Delay to prevent model from being updated on each keyup event
                 valueDelayer.delay(function delayedKeyupValidation() {
                     that._ctrl.p2cChangeValue(value);
-                }, 850);
+                }, 350);
             });
         }
 
@@ -79,11 +73,11 @@ define(
         }
 
         UINetworkProperty.prototype.c2pKeyValueSaved = function () {
-            console.log("network property updated (key)");
+//            console.log("network property updated (key)");
         }
 
         UINetworkProperty.prototype.c2pValueValueSaved = function (value) {
-            console.log("network property updated (value)");
+//            console.log("network property updated (value)");
         }
 
         UINetworkProperty.prototype.c2pValueSaved = function (isSaved) {

@@ -14,14 +14,15 @@ define(
             var index = this._nets.indexOf(net);
             if (index == -1) {
                 this._nets.push(net);
+                this._node.getEditor().updateModel(this);
             }
         }
 
         KNodeProperties.prototype.removeNodeNetwork = function (net) {
             var index = this._nets.indexOf(net);
             if (index != -1) {
-                net.remove();
                 this._nets.splice(index, 1);
+                net.remove();
             }
         }
 
@@ -42,8 +43,8 @@ define(
         KNodeProperties.prototype.removeLink = function (link) {
             var index = this._links.indexOf(link);
             if (index != -1) {
-                link.remove();
                 this._links.splice(index, 1);
+                link.remove();
             }
         }
 

@@ -179,10 +179,12 @@ define(
                 links = nodeProps.getLinks();
 
             for (var i=0; i < nets.length; i++) {
+                console.log("visiting node network");
                 nets[i].accept(this);
             }
 
             for (var i=0; i < links.length; i++) {
+                console.log("visiting node link");
                 links[i].accept(this);
             }
         }
@@ -203,8 +205,6 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitNodeLink = function (link) {
-            var update = (link._instance) ? true : false;
-
             // create or re-use instance
             link._instance = link._instance || this._factory.createNodeLink();
 
@@ -217,11 +217,20 @@ define(
                 props[i].accept(this);
             }
 
-            if (!update) {
-                // this is the first time this link is created
-                // so add it to all node networks for the related node
-                var nets = link.getNodeProperties().getNodeNetworks();
-                for (var i in nets) {
+            var nets = link.getNodeProperties().getNodeNetworks();
+            for (var i in nets) {
+                if (!nets[i]._instance) {
+                    // this net's instance hasn't been added to model yet
+                    nets[i].accept(this);
+                }
+
+                var currentNetLinks = nets[i]._instance.getLink();
+                var alreadyAdded = false;
+                for (var j=0; j < currentNetLinks.size(); j++) {
+                    if (currentNetLinks.get(j) == link._instance) alreadyAdded = true;
+                }
+                if (!alreadyAdded) {
+                    console.log("add node link to node network");
                     nets[i]._instance.addLink(link._instance);
                 }
             }
@@ -232,14 +241,17 @@ define(
         UpdateModelVisitor.prototype.visitNetworkProperty = function (prop) {
             if (prop.getKey() != null && prop.getValue() != null) {
                 var nodeLink = prop.getLink()._instance;
+                if (nodeLink) {
+                    var update = (prop._instance) ? true : false;
+                    prop._instance = prop._instance || this._factory.createNetworkProperty();
 
-                var update = (prop._instance) ? true : false;
-                prop._instance = prop._instance || this._factory.createNetworkProperty();
+                    prop._instance.setName(prop.getKey());
+                    prop._instance.setValue(prop.getValue());
 
-                prop._instance.setName(prop.getKey());
-                prop._instance.setValue(prop.getValue());
-
-                if (!update) nodeLink.addNetworkProperties(prop._instance);
+                    if (!update) nodeLink.addNetworkProperties(prop._instance);
+                } else {
+                    prop.getLink().accept(this);
+                }
             }
             this._listener.call(this);
         }

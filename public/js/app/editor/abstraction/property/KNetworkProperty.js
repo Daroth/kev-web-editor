@@ -17,10 +17,12 @@ define(
 
         KNetworkProperty.prototype.setKey = function (key) {
             this._key = key;
+            this._link.getNodeProperties().getNode().getEditor().updateModel(this);
         }
 
         KNetworkProperty.prototype.setValue = function (value) {
             this._value = value;
+            this._link.getNodeProperties().getNode().getEditor().updateModel(this);
         }
 
         KNetworkProperty.prototype.getKey = function () {

@@ -46,8 +46,17 @@ define(
             this._isActive = isActive;
 
             // if already added to DOM, this will update UI
-            $('#node-link-root-'+this._ctrl._id).addClass('active');
-            $('#node-link-'+this._ctrl._id).addClass('active');
+            if (isActive) {
+                $('#node-link-root-'+this._ctrl._id).addClass('active');
+                $('#node-link-'+this._ctrl._id).addClass('active');
+            } else {
+                $('#node-link-root-'+this._ctrl._id).removeClass('active');
+                $('#node-link-'+this._ctrl._id).removeClass('active');
+            }
+        }
+
+        UINodeLink.prototype.isActive = function () {
+            return this._isActive;
         }
 
         UINodeLink.prototype.getContentHTML = function () {

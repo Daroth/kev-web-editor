@@ -3,10 +3,10 @@ define(
         'jquery',
         'util/Pooffs',
         'presentation/property/UIInstanceProps',
-        'templates/node-network',
+        'templates/node-properties',
         'bootstrap/multiselect'
     ],
-    function ($, Pooffs, UIInstanceProps, nodeNetworkTemplate, _bootstrap) {
+    function ($, Pooffs, UIInstanceProps, nodePropsTemplate, _bootstrap) {
 
         var NAMESPACE           = ".ui-node-props",
             PUSH_ACTION         = "node-push-action",
@@ -66,13 +66,17 @@ define(
 
             function getNodeLinks() {
                 var nodeLinks = [],
-                    links = that._ctrl.getLinks();
+                    links = that._ctrl.getLinks(),
+                    active = false;
 
-                for (var j=0; j < links.length; j++) {
-                    if (j==0) links[j].getUI().setActive(true); // activate first tab by default
+                // activate 0-indexed tab if none active
+                for (var i in links) if (links[i].getUI().isActive()) active = true;
+                if (!active) links[0].getUI().setActive(true);
+
+                for (var i in links) {
                     nodeLinks.push({
-                        tabHTML: links[j].getUI().getTabHTML(),
-                        contentHTML: links[j].getUI().getContentHTML()
+                        tabHTML: links[i].getUI().getTabHTML(),
+                        contentHTML: links[i].getUI().getContentHTML()
                     });
                 }
 
@@ -93,13 +97,14 @@ define(
                 return ret;
             }
 
-            return html + nodeNetworkTemplate(templateParams);
+            return html + nodePropsTemplate(templateParams);
         }
 
         UINodeProps.prototype.onHTMLAppended = function () {
             UIInstanceProps.prototype.onHTMLAppended.call(this);
 
             var that = this;
+            if (this._ctrl.getLinks().length > 1) this.c2pEnableDeleteNodeLinkButton();
 
             // initby nodes multiselect
             $('#'+UINodeProps.INIT_BY_NODES).multiselect({
@@ -143,16 +148,14 @@ define(
             // delete node link button click listener
             $('#'+DEL_NODE_LINK).off(NAMESPACE);
             $('#'+DEL_NODE_LINK).on('click'+NAMESPACE, function () {
-                var tab = $('#'+NODE_LINKS_TABS+' li.active'),
-                    tabID = parseInt(tab.attr(HTML5_ATTR_TAG));
-
-                that._ctrl.p2cDeleteNodeLink(tabID);
+                var tab = $('#'+NODE_LINKS_TABS+' li.active');
+                that._ctrl.p2cDeleteNodeLink(parseInt(tab.attr(HTML5_ATTR_TAG)));
             });
 
-            registerListenerForTabs();
+            var links = this._ctrl.getLinks();
+            registerListenersForTabs(links);
 
             // tell nodeLinks that they were added to DOM
-            var links = this._ctrl.getLinks();
             for (var i=0; i < links.length; i++) {
                 links[i].getUI().onHTMLAppended();
             }
@@ -181,10 +184,22 @@ define(
         }
 
         UINodeProps.prototype.c2pNodeLinkAdded = function (link) {
+            // set last added tab to selected (active)
+            var links = this._ctrl.getLinks();
+            for (var i=0; i < links.length; i++) links[i].getUI().setActive(false);
+            link.setActive(true);
+
+            // add HTML to DOM
             $('#'+NODE_LINKS_TABS).append(link.getTabHTML());
             $('#'+NODE_LINKS_CONTENTS).append(link.getContentHTML());
             link.onHTMLAppended();
-            registerListenerForTabs();
+            registerListenersForTabs(links);
+
+            if (links.length > 1) {
+                $('#'+DEL_NODE_LINK).removeClass('disabled');
+            } else {
+                $('#'+DEL_NODE_LINK).addClass('disabled');
+            }
         }
 
         UINodeProps.prototype.c2pNodeLinkRemoved = function (link) {
@@ -200,16 +215,15 @@ define(
             $('#'+DEL_NODE_LINK).removeClass('disabled');
         }
 
-        function registerListenerForTabs() {
-            $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').off(NAMESPACE);
-            $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').on('shown'+NAMESPACE, function () {
-                var widgetID = parseInt($(this).parent().attr(HTML5_ATTR_TAG));
-                if (widgetID == 0) {
-                    $('#'+DEL_NODE_LINK).addClass('disabled');
-                } else {
-                    $('#'+DEL_NODE_LINK).removeClass('disabled');
+        function registerListenersForTabs(links) {
+            $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').off('shown'+NAMESPACE);
+            $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').on('shown'+NAMESPACE, function (e) {
+                console.log("SHOWN", $(e.target));
+                for (var i in links) {
+
+                    links[i].getUI().setActive(links[i]._id == $(e.target).parent().attr(HTML5_ATTR_TAG));
                 }
-            });
+            })
         }
 
         return UINodeProps;

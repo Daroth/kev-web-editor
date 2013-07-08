@@ -18,10 +18,6 @@ define(
 
             this._isKeyReady    = true;
             this._isValueReady  = true;
-            var that = this;
-            setInterval(function zozozozozozo() {
-                that._ui.c2pValueSaved(that._isKeyReady && that._isValueReady);
-            }, 100);
         }
 
         // Override KNetworkProperty.setKey

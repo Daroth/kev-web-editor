@@ -154,7 +154,7 @@ define(
         }
 
         /**
-         * Returns the current count of that precise type in the model
+         * Returns the current count of instances of the given type
          * @param type specific type of entity
          */
         KEditor.prototype.getEntityCount = function(type) {

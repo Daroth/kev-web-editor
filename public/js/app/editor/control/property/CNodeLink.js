@@ -54,7 +54,12 @@ define(
         }
 
         CNodeLink.prototype.p2cDeleteNetworkProperties = function (ids) {
-            for (var i=0; i < ids.length; i++) {
+            var props = this.getNetworkProperties();
+            var i = 0;
+            if (ids.length >= props.length) {
+                i = 1;
+            }
+            for (i; i < ids.length; i++) {
                 var prop = this.getNetworkProperty(ids[i]);
                 this.deleteNetworkProperty(prop);
             }

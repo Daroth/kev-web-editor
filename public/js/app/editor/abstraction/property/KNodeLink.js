@@ -22,6 +22,7 @@ define(
 
         KNodeLink.prototype.setNetworkType = function (type) {
             this._type = type;
+            this._nodeProperties.getNode().getEditor().updateModel(this);
         }
 
         KNodeLink.prototype.getNetworkType = function () {
@@ -30,6 +31,7 @@ define(
 
         KNodeLink.prototype.setEstimatedRate = function (rate) {
             this._rate = rate;
+            this._nodeProperties.getNode().getEditor().updateModel(this);
         }
 
         KNodeLink.prototype.getEstimatedRate = function () {
