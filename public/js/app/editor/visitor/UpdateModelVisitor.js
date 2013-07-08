@@ -178,7 +178,6 @@ define(
             var nets = nodeProps.getNodeNetworks();
 
             for (var i=0; i < nets.length; i++) {
-                console.log("visiting node network");
                 nets[i].accept(this);
             }
         }
@@ -222,39 +221,6 @@ define(
 
         UpdateModelVisitor.prototype.visitNodeLink = function (link) {
             link.getNodeProperties().accept(this);
-//            // create or re-use instance
-//            link._instance = this._factory.createNodeLink();
-//
-//            // update content
-//            link._instance.setEstimatedRate(link.getEstimatedRate());
-//            link._instance.setNetworkType(link.getNetworkType());
-//
-//            var props = link.getNetworkProperties();
-//            for (var i=0; i < props.length; i++) {
-//                props[i].accept(this);
-//            }
-//
-//            var nets = link.getNodeProperties().getNodeNetworks();
-//            for (var i in nets) {
-//                if (!nets[i]._instance) {
-//                    // this net's instance hasn't been added to model yet
-//                    nets[i].accept(this); // now it should be added
-//                }
-//
-//                var currentNetLinks = nets[i]._instance.getLink();
-//                var alreadyAdded = false;
-//                for (var j=0; j < currentNetLinks.size(); j++) {
-//                    if (link._instance && currentNetLinks.get(j) == link._instance) alreadyAdded = true;
-//                }
-//                if (!alreadyAdded) {
-//                    console.log("add node link to node network "+nets[i].getInitBy().getName()+" -> "+nets[i].getTarget().getName());
-//                    nets[i]._instance.addLink(link._instance);
-//                } else {
-//                    console.log("node link already added apparently "+nets[i].getInitBy().getName()+" -> "+nets[i].getTarget().getName());
-//                }
-//            }
-
-            this._listener.call(this);
         }
 
         UpdateModelVisitor.prototype.visitNetworkProperty = function (prop) {
