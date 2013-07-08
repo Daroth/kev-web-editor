@@ -28,10 +28,15 @@ define(
                     grpName: grpName,
                     values: this.getEditor().getEntity(grpName).getDictionary().getValues(),
                     found: function (ip, port) {
-                        that._pushCmd.execute(ip, port, that.getEditor().getModel());
                         that._ui.c2pPushModelStarted();
-                        // TODO real implem needed here
-                        setTimeout(that._ui.c2pPushModelEndedWell, 3000);
+                        that._pushCmd.execute(ip, port, that.getEditor().getModel(), {
+                            sent: function () {
+                                that._ui.c2pPushModelEndedWell();
+                            },
+                            onerror: function () {
+                                console.error("Unable to push model");
+                            }
+                        });
                     },
                     none: function () {
                         that._ui.c2pUnableToPushNoIPPort(grpName);
@@ -48,7 +53,14 @@ define(
                     grpName: grpName,
                     values: this.getEditor().getEntity(grpName).getDictionary().getValues(),
                     found: function (ip, port) {
-                        var model = that._pullCmd.execute(ip, port);
+                        that._pullCmd.execute(ip, port, {
+                            success: function (model) {
+                                this.getEditor().setModel(model);
+                            },
+                            onerror: function () {
+                                console.error("Unable tu pull model from node");
+                            }
+                        });
                         that._ui.c2pPullModelStarted();
                         // TODO real implem needed here
                         setTimeout(that._ui.c2pPullModelEndedWell, 3000);
