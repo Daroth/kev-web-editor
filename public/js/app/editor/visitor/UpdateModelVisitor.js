@@ -175,17 +175,11 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitNodeProperties = function (nodeProps) {
-            var nets = nodeProps.getNodeNetworks(),
-                links = nodeProps.getLinks();
+            var nets = nodeProps.getNodeNetworks();
 
             for (var i=0; i < nets.length; i++) {
                 console.log("visiting node network");
                 nets[i].accept(this);
-            }
-
-            for (var i=0; i < links.length; i++) {
-                console.log("visiting node link");
-                links[i].accept(this);
             }
         }
 
@@ -193,67 +187,78 @@ define(
             var target = this._model.findNodesByID(net._target.getName()),
                 initBy = this._model.findNodesByID(net._initBy.getName());
 
-            var update = (net._instance) ? true : false;
-            net._instance = net._instance || this._factory.createNodeNetwork();
+            if (net._instance) {
+                this._model.removeNodeNetworks(net._instance);
+            }
+            net._instance = this._factory.createNodeNetwork();
 
             net._instance.setTarget(target);
             net._instance.setInitBy(initBy);
 
-            if (!update) this._model.addNodeNetworks(net._instance);
+            var links = net.getTarget().getNodeProperties().getLinks();
+            for (var i in links) {
+                var link = this._factory.createNodeLink();
+                link.setNetworkType(links[i].getNetworkType());
+                link.setEstimatedRate(links[i].getEstimatedRate());
+
+                var props = links[i].getNetworkProperties();
+                for (var j in props) {
+                    if (props[j].getKey() != null && props[j].getValue() != null) {
+                        var prop = this._factory.createNetworkProperty();
+
+                        prop.setName(props[j].getKey());
+                        prop.setValue(props[j].getValue());
+
+                        link.addNetworkProperties(prop);
+                    }
+                }
+                net._instance.addLink(link);
+            }
+
+            this._model.addNodeNetworks(net._instance);
 
             this._listener.call(this);
         }
 
         UpdateModelVisitor.prototype.visitNodeLink = function (link) {
-            // create or re-use instance
-            link._instance = link._instance || this._factory.createNodeLink();
-
-            // update content
-            link._instance.setEstimatedRate(link.getEstimatedRate());
-            link._instance.setNetworkType(link.getNetworkType());
-
-            var props = link.getNetworkProperties();
-            for (var i=0; i < props.length; i++) {
-                props[i].accept(this);
-            }
-
-            var nets = link.getNodeProperties().getNodeNetworks();
-            for (var i in nets) {
-                if (!nets[i]._instance) {
-                    // this net's instance hasn't been added to model yet
-                    nets[i].accept(this);
-                }
-
-                var currentNetLinks = nets[i]._instance.getLink();
-                var alreadyAdded = false;
-                for (var j=0; j < currentNetLinks.size(); j++) {
-                    if (currentNetLinks.get(j) == link._instance) alreadyAdded = true;
-                }
-                if (!alreadyAdded) {
-                    console.log("add node link to node network");
-                    nets[i]._instance.addLink(link._instance);
-                }
-            }
+            link.getNodeProperties().accept(this);
+//            // create or re-use instance
+//            link._instance = this._factory.createNodeLink();
+//
+//            // update content
+//            link._instance.setEstimatedRate(link.getEstimatedRate());
+//            link._instance.setNetworkType(link.getNetworkType());
+//
+//            var props = link.getNetworkProperties();
+//            for (var i=0; i < props.length; i++) {
+//                props[i].accept(this);
+//            }
+//
+//            var nets = link.getNodeProperties().getNodeNetworks();
+//            for (var i in nets) {
+//                if (!nets[i]._instance) {
+//                    // this net's instance hasn't been added to model yet
+//                    nets[i].accept(this); // now it should be added
+//                }
+//
+//                var currentNetLinks = nets[i]._instance.getLink();
+//                var alreadyAdded = false;
+//                for (var j=0; j < currentNetLinks.size(); j++) {
+//                    if (link._instance && currentNetLinks.get(j) == link._instance) alreadyAdded = true;
+//                }
+//                if (!alreadyAdded) {
+//                    console.log("add node link to node network "+nets[i].getInitBy().getName()+" -> "+nets[i].getTarget().getName());
+//                    nets[i]._instance.addLink(link._instance);
+//                } else {
+//                    console.log("node link already added apparently "+nets[i].getInitBy().getName()+" -> "+nets[i].getTarget().getName());
+//                }
+//            }
 
             this._listener.call(this);
         }
 
         UpdateModelVisitor.prototype.visitNetworkProperty = function (prop) {
-            if (prop.getKey() != null && prop.getValue() != null) {
-                var nodeLink = prop.getLink()._instance;
-                if (nodeLink) {
-                    var update = (prop._instance) ? true : false;
-                    prop._instance = prop._instance || this._factory.createNetworkProperty();
-
-                    prop._instance.setName(prop.getKey());
-                    prop._instance.setValue(prop.getValue());
-
-                    if (!update) nodeLink.addNetworkProperties(prop._instance);
-                } else {
-                    prop.getLink().accept(this);
-                }
-            }
-            this._listener.call(this);
+            prop.getLink().getNodeProperties().accept(this);
         }
 
         UpdateModelVisitor.prototype.visitDictionary = function (dict) {

@@ -415,10 +415,16 @@ define(
                                         }
                                         if (referencedElement !== null && referencedElement !== undefined) {
                                             this.get_target().reflexiveSetters(this.get_method(), referencedElement);
+                                            return;
                                         }
-                                        else {
-                                            throw new Kotlin.Exception('KMF Load error : reference ' + this.get_ref() + ' not found in map when trying to ' + this.get_method() + ' on ' + this.get_target().toString());
+                                        if (Kotlin.equals(this.get_ref(), '/0/') || Kotlin.equals(this.get_ref(), '/')) {
+                                            referencedElement = this.get_context().get_map().get('/0');
+                                            if (referencedElement !== null && referencedElement !== undefined) {
+                                                this.get_target().reflexiveSetters(this.get_method(), referencedElement);
+                                                return;
+                                            }
                                         }
+                                        throw new Kotlin.Exception('KMF Load error : reference ' + this.get_ref() + ' not found in map when trying to ' + this.get_method() + ' on ' + this.get_target().toString());
                                     }
                                 }),
                                 JsonReader: Kotlin.createClass({
@@ -833,7 +839,6 @@ define(
                                             tokenType = _.org.kevoree.loader.Type.get_COMMA();
                                         }
                                         else if (!this.isDone()) {
-                                            console.log('else if !this.isDone');
                                             while (this.isValueLetter(c)) {
                                                 currentValue.append(c);
                                                 if (!this.isValueLetter(this.peekChar())) {
@@ -844,7 +849,6 @@ define(
                                                 }
                                             }
                                             var v = currentValue.toString();
-                                            console.log('nextToken value: ', v);
                                             if (Kotlin.equals('true', v.toLowerCase())) {
                                                 jsonValue = true;
                                             }
@@ -5592,7 +5596,7 @@ define(
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
-                                            this.get__deployUnits().remove(this.get__deployUnits().indexOf(deployUnits));
+                                            this.get__deployUnits().remove(deployUnits);
                                         }
                                     },
                                     removeAllDeployUnits: function () {
@@ -6057,7 +6061,7 @@ define(
                                         }
                                         this.set__wires_java_cache(null);
                                         if (this.get__wires().size() !== 0 && this.get__wires().indexOf(wires) !== -1) {
-                                            this.get__wires().remove(this.get__wires().indexOf(wires));
+                                            this.get__wires().remove(wires);
                                             var tmp$0;
                                             ((tmp$0 = wires) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -6817,7 +6821,7 @@ define(
                                         }
                                         this.set__defaultValues_java_cache(null);
                                         if (this.get__defaultValues().size() !== 0 && this.get__defaultValues().indexOf(defaultValues) !== -1) {
-                                            this.get__defaultValues().remove(this.get__defaultValues().indexOf(defaultValues));
+                                            this.get__defaultValues().remove(defaultValues);
                                             var tmp$0;
                                             ((tmp$0 = defaultValues) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -7244,7 +7248,7 @@ define(
                                         }
                                         this.set__bindings_java_cache(null);
                                         if (this.get__bindings().size() !== 0 && this.get__bindings().indexOf(bindings) !== -1) {
-                                            this.get__bindings().remove(this.get__bindings().indexOf(bindings));
+                                            this.get__bindings().remove(bindings);
                                             bindings.noOpposite_setHub(null);
                                         }
                                     },
@@ -7269,7 +7273,7 @@ define(
                                         }
                                         this.set__bindings_java_cache(null);
                                         if (this.get__bindings().size() !== 0 && this.get__bindings().indexOf(bindings) !== -1) {
-                                            this.get__bindings().remove(this.get__bindings().indexOf(bindings));
+                                            this.get__bindings().remove(bindings);
                                         }
                                     },
                                     noOpposite_removeAllBindings: function () {
@@ -8735,7 +8739,7 @@ define(
                                         }
                                         this.set__provided_java_cache(null);
                                         if (this.get__provided().size() !== 0 && this.get__provided().indexOf(provided) !== -1) {
-                                            this.get__provided().remove(this.get__provided().indexOf(provided));
+                                            this.get__provided().remove(provided);
                                             var tmp$0;
                                             ((tmp$0 = provided) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -8806,7 +8810,7 @@ define(
                                         }
                                         this.set__required_java_cache(null);
                                         if (this.get__required().size() !== 0 && this.get__required().indexOf(required) !== -1) {
-                                            this.get__required().remove(this.get__required().indexOf(required));
+                                            this.get__required().remove(required);
                                             var tmp$0;
                                             ((tmp$0 = required) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -9317,7 +9321,7 @@ define(
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
-                                            this.get__deployUnits().remove(this.get__deployUnits().indexOf(deployUnits));
+                                            this.get__deployUnits().remove(deployUnits);
                                         }
                                     },
                                     removeAllDeployUnits: function () {
@@ -9888,7 +9892,7 @@ define(
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
-                                            this.get__deployUnits().remove(this.get__deployUnits().indexOf(deployUnits));
+                                            this.get__deployUnits().remove(deployUnits);
                                         }
                                     },
                                     removeAllDeployUnits: function () {
@@ -11582,7 +11586,7 @@ define(
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
-                                            this.get__deployUnits().remove(this.get__deployUnits().indexOf(deployUnits));
+                                            this.get__deployUnits().remove(deployUnits);
                                         }
                                     },
                                     removeAllDeployUnits: function () {
@@ -11777,7 +11781,7 @@ define(
                                         }
                                         this.set__managedPrimitiveTypeRefs_java_cache(null);
                                         if (this.get__managedPrimitiveTypeRefs().size() !== 0 && this.get__managedPrimitiveTypeRefs().indexOf(managedPrimitiveTypeRefs) !== -1) {
-                                            this.get__managedPrimitiveTypeRefs().remove(this.get__managedPrimitiveTypeRefs().indexOf(managedPrimitiveTypeRefs));
+                                            this.get__managedPrimitiveTypeRefs().remove(managedPrimitiveTypeRefs);
                                             var tmp$0;
                                             ((tmp$0 = managedPrimitiveTypeRefs) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -12314,7 +12318,7 @@ define(
                                         }
                                         this.set__requiredLibs_java_cache(null);
                                         if (this.get__requiredLibs().size() !== 0 && this.get__requiredLibs().indexOf(requiredLibs) !== -1) {
-                                            this.get__requiredLibs().remove(this.get__requiredLibs().indexOf(requiredLibs));
+                                            this.get__requiredLibs().remove(requiredLibs);
                                         }
                                     },
                                     removeAllRequiredLibs: function () {
@@ -12694,7 +12698,7 @@ define(
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
-                                            this.get__deployUnits().remove(this.get__deployUnits().indexOf(deployUnits));
+                                            this.get__deployUnits().remove(deployUnits);
                                         }
                                     },
                                     removeAllDeployUnits: function () {
@@ -13320,7 +13324,7 @@ define(
                                         }
                                         this.set__extraFonctionalProperties_java_cache(null);
                                         if (this.get__extraFonctionalProperties().size() !== 0 && this.get__extraFonctionalProperties().indexOf(extraFonctionalProperties) !== -1) {
-                                            this.get__extraFonctionalProperties().remove(this.get__extraFonctionalProperties().indexOf(extraFonctionalProperties));
+                                            this.get__extraFonctionalProperties().remove(extraFonctionalProperties);
                                             var tmp$0;
                                             ((tmp$0 = extraFonctionalProperties) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -13910,7 +13914,7 @@ define(
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
-                                            this.get__deployUnits().remove(this.get__deployUnits().indexOf(deployUnits));
+                                            this.get__deployUnits().remove(deployUnits);
                                         }
                                     },
                                     removeAllDeployUnits: function () {
@@ -14487,7 +14491,7 @@ define(
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
-                                            this.get__deployUnits().remove(this.get__deployUnits().indexOf(deployUnits));
+                                            this.get__deployUnits().remove(deployUnits);
                                         }
                                     },
                                     removeAllDeployUnits: function () {
@@ -15587,7 +15591,7 @@ define(
                                         }
                                         this.set__link_java_cache(null);
                                         if (this.get__link().size() !== 0 && this.get__link().indexOf(link) !== -1) {
-                                            this.get__link().remove(this.get__link().indexOf(link));
+                                            this.get__link().remove(link);
                                             var tmp$0;
                                             ((tmp$0 = link) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -18030,7 +18034,7 @@ define(
                                         }
                                         this.set__mBindings_java_cache(null);
                                         if (this.get__mBindings().size() !== 0 && this.get__mBindings().indexOf(mBindings) !== -1) {
-                                            this.get__mBindings().remove(this.get__mBindings().indexOf(mBindings));
+                                            this.get__mBindings().remove(mBindings);
                                             var tmp$0;
                                             ((tmp$0 = mBindings) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -18101,7 +18105,7 @@ define(
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
-                                            this.get__deployUnits().remove(this.get__deployUnits().indexOf(deployUnits));
+                                            this.get__deployUnits().remove(deployUnits);
                                             var tmp$0;
                                             ((tmp$0 = deployUnits) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -18172,7 +18176,7 @@ define(
                                         }
                                         this.set__nodeNetworks_java_cache(null);
                                         if (this.get__nodeNetworks().size() !== 0 && this.get__nodeNetworks().indexOf(nodeNetworks) !== -1) {
-                                            this.get__nodeNetworks().remove(this.get__nodeNetworks().indexOf(nodeNetworks));
+                                            this.get__nodeNetworks().remove(nodeNetworks);
                                             var tmp$0;
                                             ((tmp$0 = nodeNetworks) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -19155,7 +19159,7 @@ define(
                                         }
                                         this.set__bindings_java_cache(null);
                                         if (this.get__bindings().size() !== 0 && this.get__bindings().indexOf(bindings) !== -1) {
-                                            this.get__bindings().remove(this.get__bindings().indexOf(bindings));
+                                            this.get__bindings().remove(bindings);
                                             bindings.noOpposite_setPort(null);
                                         }
                                     },
@@ -19180,7 +19184,7 @@ define(
                                         }
                                         this.set__bindings_java_cache(null);
                                         if (this.get__bindings().size() !== 0 && this.get__bindings().indexOf(bindings) !== -1) {
-                                            this.get__bindings().remove(this.get__bindings().indexOf(bindings));
+                                            this.get__bindings().remove(bindings);
                                         }
                                     },
                                     noOpposite_removeAllBindings: function () {
@@ -19408,7 +19412,7 @@ define(
                                         }
                                         this.set__units_java_cache(null);
                                         if (this.get__units().size() !== 0 && this.get__units().indexOf(units) !== -1) {
-                                            this.get__units().remove(this.get__units().indexOf(units));
+                                            this.get__units().remove(units);
                                         }
                                     },
                                     removeAllUnits: function () {
@@ -19635,7 +19639,7 @@ define(
                                         }
                                         this.set__values_java_cache(null);
                                         if (this.get__values().size() !== 0 && this.get__values().indexOf(values) !== -1) {
-                                            this.get__values().remove(this.get__values().indexOf(values));
+                                            this.get__values().remove(values);
                                             var tmp$0;
                                             ((tmp$0 = values) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -20660,7 +20664,7 @@ define(
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
-                                            this.get__deployUnits().remove(this.get__deployUnits().indexOf(deployUnits));
+                                            this.get__deployUnits().remove(deployUnits);
                                         }
                                     },
                                     removeAllDeployUnits: function () {
@@ -21510,7 +21514,7 @@ define(
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
-                                            this.get__deployUnits().remove(this.get__deployUnits().indexOf(deployUnits));
+                                            this.get__deployUnits().remove(deployUnits);
                                         }
                                     },
                                     removeAllDeployUnits: function () {
@@ -22523,7 +22527,7 @@ define(
                                         }
                                         this.set__deployUnits_java_cache(null);
                                         if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().indexOf(deployUnits) !== -1) {
-                                            this.get__deployUnits().remove(this.get__deployUnits().indexOf(deployUnits));
+                                            this.get__deployUnits().remove(deployUnits);
                                         }
                                     },
                                     removeAllDeployUnits: function () {
@@ -23280,7 +23284,7 @@ define(
                                         }
                                         this.set__mappings_java_cache(null);
                                         if (this.get__mappings().size() !== 0 && this.get__mappings().indexOf(mappings) !== -1) {
-                                            this.get__mappings().remove(this.get__mappings().indexOf(mappings));
+                                            this.get__mappings().remove(mappings);
                                             var tmp$0;
                                             ((tmp$0 = mappings) !== null && tmp$0 !== undefined ? tmp$0 : Kotlin.throwNPE()).setEContainer(null, null, null);
                                         }
@@ -23831,7 +23835,7 @@ define(
                                     getComponentInstanceJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         var subdictionary = selfObject.getDictionary();
@@ -23968,7 +23972,7 @@ define(
                                     getComponentTypeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         var subdictionaryType = selfObject.getDictionaryType();
@@ -24238,7 +24242,7 @@ define(
                                     getContainerNodeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         var subdictionary = selfObject.getDictionary();
@@ -24367,7 +24371,7 @@ define(
                                     getContainerRootJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         {
@@ -24748,7 +24752,7 @@ define(
                                     getPortTypeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var subdictionaryType = selfObject.getDictionaryType();
                                         if (subdictionaryType !== null && subdictionaryType !== undefined) {
@@ -24900,7 +24904,7 @@ define(
                                     getPortJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -24954,7 +24958,7 @@ define(
                                     getNamespaceJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         {
@@ -25023,7 +25027,7 @@ define(
                                     getDictionaryJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         {
@@ -25074,7 +25078,7 @@ define(
                                     getDictionaryTypeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         {
@@ -25158,7 +25162,7 @@ define(
                                     getDictionaryAttributeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -25230,7 +25234,7 @@ define(
                                     getDictionaryValueJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -25277,7 +25281,7 @@ define(
                                     getCompositeTypeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         var subdictionaryType = selfObject.getDictionaryType();
@@ -25585,7 +25589,7 @@ define(
                                     getPortTypeRefJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         {
@@ -25664,7 +25668,7 @@ define(
                                     getWireJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -25707,7 +25711,7 @@ define(
                                     getServicePortTypeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         var subdictionaryType = selfObject.getDictionaryType();
@@ -25865,7 +25869,7 @@ define(
                                     getOperationJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         {
@@ -25934,7 +25938,7 @@ define(
                                     getParameterJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -25977,7 +25981,7 @@ define(
                                     getTypedElementJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var tmp$0, tmp$1, tmp$2;
                                         for (tmp$1 = 0, tmp$0 = selfObject; tmp$1 < 2; ++tmp$1) {
@@ -26047,7 +26051,7 @@ define(
                                     getMessagePortTypeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var subdictionaryType = selfObject.getDictionaryType();
                                         if (subdictionaryType !== null && subdictionaryType !== undefined) {
@@ -26190,7 +26194,7 @@ define(
                                     getRepositoryJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -26240,7 +26244,7 @@ define(
                                     getDeployUnitJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -26343,7 +26347,7 @@ define(
                                     getTypeLibraryJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -26393,7 +26397,7 @@ define(
                                     getNamedElementJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var tmp$0, tmp$1, tmp$2;
                                         for (tmp$1 = 0, tmp$0 = selfObject; tmp$1 < 17; ++tmp$1) {
@@ -26648,7 +26652,7 @@ define(
                                     getIntegrationPatternJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         {
@@ -26731,7 +26735,7 @@ define(
                                     getExtraFonctionalPropertyJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -26774,7 +26778,7 @@ define(
                                     getPortTypeMappingJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -26813,7 +26817,7 @@ define(
                                     getChannelJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var subdictionary = selfObject.getDictionary();
                                         if (subdictionary !== null && subdictionary !== undefined) {
@@ -26898,7 +26902,7 @@ define(
                                     getMBindingJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -26916,7 +26920,7 @@ define(
                                     getNodeNetworkJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         {
@@ -26989,7 +26993,7 @@ define(
                                     getNodeLinkJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         {
@@ -27061,7 +27065,7 @@ define(
                                     getNetworkPropertyJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -27100,7 +27104,7 @@ define(
                                     getChannelTypeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var subdictionaryType = selfObject.getDictionaryType();
                                         if (subdictionaryType !== null && subdictionaryType !== undefined) {
@@ -27262,7 +27266,7 @@ define(
                                     getTypeDefinitionJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var subdictionaryType = selfObject.getDictionaryType();
                                         if (subdictionaryType !== null && subdictionaryType !== undefined) {
@@ -27465,7 +27469,7 @@ define(
                                     getInstanceJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var subdictionary = selfObject.getDictionary();
                                         if (subdictionary !== null && subdictionary !== undefined) {
@@ -27587,7 +27591,7 @@ define(
                                     getLifeCycleTypeDefinitionJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var subdictionaryType = selfObject.getDictionaryType();
                                         if (subdictionaryType !== null && subdictionaryType !== undefined) {
@@ -27783,7 +27787,7 @@ define(
                                     getGroupJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var subdictionary = selfObject.getDictionary();
                                         if (subdictionary !== null && subdictionary !== undefined) {
@@ -27868,7 +27872,7 @@ define(
                                     getGroupTypeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var subdictionaryType = selfObject.getDictionaryType();
                                         if (subdictionaryType !== null && subdictionaryType !== undefined) {
@@ -28002,7 +28006,7 @@ define(
                                     getNodeTypeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         var i = 0;
                                         var subdictionaryType = selfObject.getDictionaryType();
@@ -28194,7 +28198,7 @@ define(
                                     getAdaptationPrimitiveTypeJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -28219,7 +28223,7 @@ define(
                                     getAdaptationPrimitiveTypeRefJsonAddr: function (selfObject, previousAddr) {
                                         var subResult = new Kotlin.HashMap(0);
                                         if (Kotlin.equals(previousAddr, '/')) {
-                                            subResult.put(selfObject, '/');
+                                            subResult.put(selfObject, '//');
                                         }
                                         return subResult;
                                     },
@@ -28577,7 +28581,6 @@ define(
                                     this.set_result(this.get_result() + s);
                                 },
                                 print_1: function (s) {
-                                    //console.log('PrintStream.print(s: Boolean): ' + s + ' ('+typeof(s)+')');
                                     if (s) {
                                         this.set_result(this.get_result() + 'true');
                                     }

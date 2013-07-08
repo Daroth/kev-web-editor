@@ -71,15 +71,9 @@ define(
         }
 
         RemoveModelVisitor.prototype.visitNodeNetwork = function (net) {
-            var nets = this._model.getNodeNetworks();
-            for (var i=0; i < nets.size(); i++) {
-                if (nets.get(i).getTarget().getName() == net.getTarget().getName()
-                    && nets.get(i).getInitBy().getName() == net.getInitBy().getName()) {
-                    this._model.removeNodeNetworks(nets.get(i));
-                    this._listener.call(this);
-                    break;
-                }
-            }
+            this._model.removeNodeNetworks(net._instance);
+            this._listener.call(this);
+
         }
 
         RemoveModelVisitor.prototype.visitNodeLink = function (link) {

@@ -218,9 +218,7 @@ define(
         function registerListenersForTabs(links) {
             $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').off('shown'+NAMESPACE);
             $('#'+NODE_LINKS_TABS+' a[data-toggle="tab"]').on('shown'+NAMESPACE, function (e) {
-                console.log("SHOWN", $(e.target));
                 for (var i in links) {
-
                     links[i].getUI().setActive(links[i]._id == $(e.target).parent().attr(HTML5_ATTR_TAG));
                 }
             })
