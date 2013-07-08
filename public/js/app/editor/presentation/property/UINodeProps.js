@@ -130,13 +130,13 @@ define(
             // push button click listener
             pushBtn.off(NAMESPACE);
             pushBtn.on('click'+NAMESPACE, function () {
-                that._ctrl.p2cPushModel();
+                that._ctrl.p2cPushModel($('#node-group-action').val());
             });
 
             // pull btn click listener
             pullBtn.off(NAMESPACE);
             pullBtn.on('click'+NAMESPACE, function () {
-                that._ctrl.p2cPullModel();
+                that._ctrl.p2cPullModel($('#node-group-action').val());
             });
 
             // add node link button click listener
@@ -213,6 +213,39 @@ define(
 
         UINodeProps.prototype.c2pEnableDeleteNodeLinkButton = function () {
             $('#'+DEL_NODE_LINK).removeClass('disabled');
+        }
+
+
+        UINodeProps.prototype.c2pPushModelStarted = function () {
+            $('#node-progress-bar').addClass('progress-info progress-striped');
+            $('#node-progress-bar').removeClass('bar-success bar-danger');
+            $('#node-progress-bar').show();
+        }
+
+        UINodeProps.prototype.c2pPushModelEndedWell = function () {
+            $('#node-progress-bar').removeClass('progress-info progress-striped');
+            $('#node-progress-bar .bar').addClass('bar-success');
+        }
+
+        UINodeProps.prototype.c2pPullModelStarted = function () {
+            $('#node-progress-bar').addClass('progress-info progress-striped');
+            $('#node-progress-bar').removeClass('bar-success bar-danger');
+            $('#node-progress-bar').show();
+        }
+
+        UINodeProps.prototype.c2pPullModelEndedWell = function () {
+            $('#node-progress-bar').removeClass('progress-info progress-striped');
+            $('#node-progress-bar .bar').addClass('bar-success');
+        }
+
+        UINodeProps.prototype.c2pUnableToPushNoIPPort = function (grpName) {
+            $('#node-push-pull-error').html('Unable to <strong>push</strong> model to '+grpName+'. IP and/or port undefined in group\'s attributes');
+            $('#node-push-pull-error').show('fast');
+        }
+
+        UINodeProps.prototype.c2pUnableToPullNoIPPort = function (grpName) {
+            $('#node-push-pull-error').html('Unable to <strong>pull</strong> model from '+grpName+'. IP and/or port undefined in group\'s attributes');
+            $('#node-push-pull-error').show('fast');
         }
 
         function registerListenersForTabs(links) {

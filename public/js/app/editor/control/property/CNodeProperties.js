@@ -3,9 +3,11 @@ define(
         'abstraction/property/KNodeProperties',
         'presentation/property/UINodeProps',
         'control/AController',
+        'command/PushToCommand',
+        'command/PullFromCommand',
         'util/Pooffs'
     ],
-    function (KNodeProperties, UINodeProps, AController, Pooffs) {
+    function (KNodeProperties, UINodeProps, AController, PushToCommand, PullFromCommand, Pooffs) {
 
         Pooffs.extends(CNodeProperties, AController);
         Pooffs.extends(CNodeProperties, KNodeProperties);
@@ -14,18 +16,48 @@ define(
             KNodeProperties.prototype.constructor.call(this, node);
 
             this._ui = new UINodeProps(this);
+            this._pushCmd = new PushToCommand();
+            this._pullCmd = new PullFromCommand();
         }
 
-        CNodeProperties.prototype.p2cPushModel = function () {
-            this._ui.c2pPushModelStarted();
-            // TODO real implem needed here
-            setTimeout(this._ui.c2pPushModelEndedWell, 3000);
+        CNodeProperties.prototype.p2cPushModel = function (grpName) {
+            if (grpName != undefined) {
+                var that = this;
+                checkIpAndPort({
+                    nodeName: this.getNode().getName(),
+                    grpName: grpName,
+                    values: this.getEditor().getEntity(grpName).getDictionary().getValues(),
+                    found: function (ip, port) {
+                        that._pushCmd.execute(ip, port, that.getEditor().getModel());
+                        that._ui.c2pPushModelStarted();
+                        // TODO real implem needed here
+                        setTimeout(that._ui.c2pPushModelEndedWell, 3000);
+                    },
+                    none: function () {
+                        that._ui.c2pUnableToPushNoIPPort(grpName);
+                    }
+                });
+            }
         }
 
-        CNodeProperties.prototype.p2cPullModel = function () {
-            this._ui.c2pPullModelStarted();
-            // TODO real implem needed here
-            setTimeout(this._ui.c2pPullModelEndedWell, 3000);
+        CNodeProperties.prototype.p2cPullModel = function (grpName) {
+            if (grpName != undefined) {
+                var that = this;
+                checkIpAndPort({
+                    nodeName: this.getNode().getName(),
+                    grpName: grpName,
+                    values: this.getEditor().getEntity(grpName).getDictionary().getValues(),
+                    found: function (ip, port) {
+                        var model = that._pullCmd.execute(ip, port);
+                        that._ui.c2pPullModelStarted();
+                        // TODO real implem needed here
+                        setTimeout(that._ui.c2pPullModelEndedWell, 3000);
+                    },
+                    none: function () {
+                        that._ui.c2pUnableToPullNoIPPort(grpName);
+                    }
+                });
+            }
         }
 
         CNodeProperties.prototype.p2cSelectedNodeNetwork = function (nodeName) {
@@ -110,6 +142,26 @@ define(
 
         CNodeProperties.prototype.p2cSaveNetworkProperties = function () {
             this.getNode().getEditor().updateModel(this);
+        }
+
+        function checkIpAndPort(options) {
+            var ip, port;
+            for (var i in options.values) {
+                if (options.values[i].getTargetNode()) {
+                    if (options.values[i].getTargetNode().getName() == options.nodeName) {
+                        if (options.values[i].getAttribute().getName() == 'ip') {
+                            ip = options.values[i].getValue();
+                        }
+                        if (options.values[i].getAttribute().getName() == 'port') {
+                            port = options.values[i].getValue();
+                        }
+                    }
+                }
+                if (ip && port) break;
+            }
+
+            if (ip && port) options.found.call(this, ip, port);
+            else options.none.call();
         }
 
         return CNodeProperties;

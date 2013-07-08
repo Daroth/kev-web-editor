@@ -77,7 +77,7 @@ buf.push(null == (jade.interp = link.contentHTML) ? "" : jade.interp);
   }
 }).call(this);
 
-buf.push("</div></div><div class=\"row-fluid\"><button id=\"node-push-action\" type=\"button\" class=\"btn btn-inverse span4\">Push</button><div class=\"span4\"><select id=\"node-group-action\" class=\"row-fluid\">");
+buf.push("</div></div><div class=\"row-fluid\"><button" + (jade.attrs({ 'id':('node-push-action'), 'type':('button'), "class": ('btn') + ' ' + ('btn-inverse') + ' ' + ('span4') + ' ' + ((groups.length == 0)?'disabled':null) }, {"class":true,"type":true})) + ">Push</button><div class=\"span4\"><select id=\"node-group-action\" class=\"row-fluid\">");
 // iterate groups
 ;(function(){
   var $$obj = groups;
@@ -102,7 +102,7 @@ buf.push("<option" + (jade.attrs({ 'value':(group) }, {"value":true})) + ">" + (
   }
 }).call(this);
 
-buf.push("</select></div><button id=\"node-pull-action\" type=\"button\" class=\"btn btn-inverse span4\">Pull</button></div><div id=\"node-progress-bar\" class=\"progress progress-info progress-stripped active row-fluid hide\"><div class=\"bar\"></div></div></div>");
+buf.push("</select></div><button" + (jade.attrs({ 'id':('node-pull-action'), 'type':('button'), "class": ('btn') + ' ' + ('btn-inverse') + ' ' + ('span4') + ' ' + ((groups.length == 0)?'disabled':null) }, {"class":true,"type":true})) + ">Pull</button></div><div id=\"node-push-pull-error\" class=\"text-error hide\"></div><div id=\"node-progress-bar\" class=\"progress progress-info progress-stripped active row-fluid hide\"><div class=\"bar\"></div></div></div>");
 }
 return buf.join("");
 };
