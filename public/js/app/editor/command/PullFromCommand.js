@@ -3,38 +3,22 @@ define(
         'kevoree'
     ],
     function (Kevoree) {
-        function PullFromCommand() {
+        var TIMEOUT = 10000;
 
+        function PullFromCommand() {
+            this._id = null;
         }
 
-        PullFromCommand.prototype.execute = function (ip, port, options) {
-            var uri = 'ws://' + ip + ':' + port;
-            var ws = new WebSocket(uri);
-            ws.onmessage = function (event) {
-                var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
-
-                if (options.success && typeof(options.success) == 'function') {
-                    options.success.call(this, loader.loadModelFromString(event.data).get(0));
+        PullFromCommand.prototype.execute = function (grp, callbacks) {
+            clearTimeout(this._id);
+            this._id = setTimeout(function () {
+                if (callbacks.error && typeof(callbacks.error) == "function") {
+                    callbacks.error.call(this, 'Timeout: '+TIMEOUT+'ms');
                 }
-            }
+            }, TIMEOUT);
 
-            ws.onopen = function () {
-                // TODO use a clean protocol
-                ws.send("2");
-                if (options.onopen && typeof(options.onopen) == 'function') {
-                    options.onopen.call(this);
-                }
-            }
+            // TODO pull
 
-            ws.onclose = function () {
-
-            }
-
-            ws.onerror = function () {
-                if (options.onerror && typeof(options.onerror) == 'function') {
-                    options.onerror.call(this);
-                }
-            }
         }
 
         return PullFromCommand;

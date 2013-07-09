@@ -22,53 +22,40 @@ define(
 
         CNodeProperties.prototype.p2cPushModel = function (grpName) {
             if (grpName != undefined) {
-                var that = this;
-                checkIpAndPort({
-                    nodeName: this.getNode().getName(),
-                    grpName: grpName,
-                    values: this.getEditor().getEntity(grpName).getDictionary().getValues(),
-                    found: function (ip, port) {
-                        that._ui.c2pPushModelStarted();
-                        that._pushCmd.execute(ip, port, that.getEditor().getModel(), {
-                            sent: function () {
-                                that._ui.c2pPushModelEndedWell();
-                            },
-                            onerror: function () {
-                                console.error("Unable to push model");
-                            }
-                        });
+                var editor = this.getNode().getEditor(),
+                    grp = editor.getEntity(grpName),
+                    that = this;
+
+                this._pushCmd.execute(this.getNode(), grp, editor.getModel(), {
+                    success: function () {
+                        that._ui.c2pPushModelEndedWell();
                     },
-                    none: function () {
-                        that._ui.c2pUnableToPushNoIPPort(grpName);
+                    error: function (msg) {
+                        that._ui.c2pUnableToPush(msg);
                     }
                 });
+
+                this._ui.c2pPushModelStarted();
             }
         }
 
         CNodeProperties.prototype.p2cPullModel = function (grpName) {
             if (grpName != undefined) {
-                var that = this;
-                checkIpAndPort({
-                    nodeName: this.getNode().getName(),
-                    grpName: grpName,
-                    values: this.getEditor().getEntity(grpName).getDictionary().getValues(),
-                    found: function (ip, port) {
-                        that._pullCmd.execute(ip, port, {
-                            success: function (model) {
-                                this.getEditor().setModel(model);
-                            },
-                            onerror: function () {
-                                console.error("Unable tu pull model from node");
-                            }
-                        });
-                        that._ui.c2pPullModelStarted();
-                        // TODO real implem needed here
-                        setTimeout(that._ui.c2pPullModelEndedWell, 3000);
+                var editor = this.getNode().getEditor(),
+                    grp = editor.getEntity(grpName),
+                    that = this;
+
+                this._pullCmd.execute(grp, {
+                    success: function (model) {
+                        that._ui.c2pPullModelEndedWell();
+                        editor.setModel(model);
                     },
-                    none: function () {
-                        that._ui.c2pUnableToPullNoIPPort(grpName);
+                    error: function (msg) {
+                        that._ui.c2pUnableToPull(msg);
                     }
                 });
+
+                this._ui.c2pPullModelStarted();
             }
         }
 

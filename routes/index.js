@@ -8,3 +8,5 @@ exports.save    = require('./save').save;
 exports.saved   = require('./save').saved;
 exports.runtime = require('./runtime').runtime;
 exports.bench   = require('./bench').bench;
+exports.push    = require('./push').push;
+exports.pull    = require('./pull').pull;

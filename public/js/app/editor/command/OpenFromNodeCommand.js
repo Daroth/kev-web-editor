@@ -62,7 +62,7 @@ define(
 
                             ws.onopen = function () {
                                 // TODO use a clean protocol
-                                ws.send("gimme da model");
+                                ws.send("gimme da model!");
                             }
 
                             ws.onclose = function () {

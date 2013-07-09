@@ -13,6 +13,7 @@ var app = express();
 
 // all environments
 app.set('port', process.env.PORT || 3000);
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -22,7 +23,6 @@ app.use(express.methodOverride());
 app.use(express.cookieParser('M7q,$wfz|UyloWSQy[2mTl0<X4iU}++x}]nW6ef)>lO7os,:wKZ0g>?f0YG)U0FQ'));
 app.use(express.session());
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 app.configure('development', function(){
@@ -44,6 +44,8 @@ fs.readdir('public/saved/', function(err, files) {
 
 app.get('/', routes.index);
 app.get('/merge/:env', routes.merge);
+app.post('/push', routes.push);
+app.post('/pull', routes.pull);
 app.post('/save', routes.save);
 app.get('/saved/:model', routes.saved);
 app.get('/runtime', routes.runtime);
