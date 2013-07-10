@@ -71,7 +71,7 @@ define(
             }
         }
 
-        CEditor.prototype.p2cEntityDraggedOver = function (libItem, entity_type, name) {
+        CEditor.prototype.p2cEntityDraggedOver = function (entity_type, name) {
             if (!this._draggedEntity) {
                 var cFactory = require('factory/CFactory').getInstance();
 
@@ -96,8 +96,6 @@ define(
                         console.error("CEditor.p2cEntityDraggedOver(libItem, entity_type, name): I don't know this entity type: "+entity_type);
                         return;
                 }
-
-//                this._draggedEntity.getUI().setDOMItem(libItem);
             }
         }
 

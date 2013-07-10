@@ -238,25 +238,13 @@ define(
                             y: (event.pageY - canvas.top) / scale.y
                         };
                     that._ctrl.p2cEntityDropped(position);
-                    var name = ui.draggable.find('.lib-item-name').text();
-                    var badgeCount = that._ctrl.getEntityCount(name);
-
-                    if (ui.draggable.has('.lib-item-count').size() > 0) {
-                        ui.draggable.find('.lib-item-count').children('.badge').text(badgeCount);
-                    } else if (badgeCount != 0) {
-                        ui.draggable.append(
-                            "<div class='lib-item-count'>" +
-                                "<span class='badge'>"+badgeCount+"</span>"+
-                            "</div>"
-                        );
-                    }
                 },
                 over: function(event, ui) {
                     var entity = ui.draggable.attr('data-entity');
                     var name = ui.draggable.find('.lib-item-name').text();
-                    that._ctrl.p2cEntityDraggedOver(ui.draggable, entity, name);
+                    that._ctrl.p2cEntityDraggedOver(entity, name);
                 },
-                out: function (e, ui) {
+                out: function () {
                     that._ctrl.p2cEntityDraggedOut();
                 }
             });
@@ -288,14 +276,37 @@ define(
         }
 
         UIEditor.prototype.c2pEntityAdded = function(entity) {
+
+            console.log("POTATOROROR");
             this.addShape(entity.getShape());
             entity.ready();
+
+            // update instance counter in lib-tree
+            var badgeCount = this._ctrl.getEntityCount(entity.getCtrl().getType());
+            console.log("COUNTER "+badgeCount);
+            $('.lib-item-name').each(function () {
+                console.log("Wehsueuuuu");
+                if ($(this).text() == entity.getCtrl().getType()) {
+                    if ($(this).siblings('.lib-item-count').size() > 0) {
+                        $(this).siblings('.lib-item-count').children('.badge').text(badgeCount);
+                    } else if (badgeCount != 0) {
+                        $(this).parent().append(
+                            "<div class='lib-item-count'>" +
+                                "<span class='badge'>"+badgeCount+"</span>"+
+                                "</div>"
+                        );
+                    }
+                }
+            });
         }
 
         UIEditor.prototype.c2pDropImpossible = function (entity) {
-            // TODO
-//            entity.getDOMItem().effect('highlight', {color: '#f00'}, 500);
-//            entity.getDOMItem().tooltip('show');
+            $('.lib-item-name').each(function () {
+                if ($(this).text() == entity.getCtrl().getType()) {
+                    $(this).effect('highlight', {color: '#f00'}, 500);
+                    $(this).parent().tooltip('show');
+                }
+            });
         }
 
         UIEditor.prototype.c2pZoomIn = function () {
@@ -389,13 +400,17 @@ define(
          */
         UIEditor.prototype.c2pEntityRemoved = function(entity) {
             var badgeCount = this._ctrl.getEntityCount(entity.getCtrl().getType());
+            console.log('entity added '+entity.getCtrl().getEntityType()+" "+entity.getCtrl().getType());
+            $('.lib-item-name').each(function () {
+                if ($(this).text() == entity.getCtrl().getType()) {
+                    if (badgeCount == 0) {
+                        $(this).siblings('.lib-item-count').remove();
 
-//            if (badgeCount == 0) {
-//
-//                entity.getDOMItem().find('.lib-item-count').remove();
-//            } else {
-//                entity.getDOMItem().find('.lib-item-count').children('.badge').text(badgeCount);;
-//            }
+                    } else {
+                        $(this).siblings('.lib-item-count').children('.badge').text(badgeCount);
+                    }
+                }
+            });
         }
 
         UIEditor.prototype.c2pUpdateWire = function (wire, position) {
@@ -480,21 +495,10 @@ define(
         }
 
         UIEditor.prototype._addEntity = function (jqyItem) {
-            var entity = jqyItem.attr('data-entity');
-            var name = jqyItem.find('.lib-item-name').text();
-            this._ctrl.p2cEntityDraggedOver(jqyItem, entity, name);
+            var type = jqyItem.attr('data-entity');
+            var tDef = jqyItem.find('.lib-item-name').text();
+            this._ctrl.p2cEntityDraggedOver(type, tDef);
             this._ctrl.p2cEntityDropped({x: 100, y: 100});
-            var badgeCount = this._ctrl.getEntityCount(name);
-
-            if (jqyItem.has('.lib-item-count').size() > 0) {
-                jqyItem.find('.lib-item-count').children('.badge').text(badgeCount);
-            } else if (badgeCount != 0) {
-                jqyItem.append(
-                    "<div class='lib-item-count'>" +
-                        "<span class='badge'>"+badgeCount+"</span>"+
-                        "</div>"
-                );
-            }
         }
 
         return UIEditor;
