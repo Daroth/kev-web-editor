@@ -9,7 +9,7 @@ define(
 
         function SaveCommand () {}
 
-        SaveCommand.prototype.execute = function (editor) {
+        SaveCommand.prototype.execute = function (type, editor) {
             // prevent listeners from being registered several times
             $('body').off(NAMESPACE)
             $('body').on('hidden'+NAMESPACE, '#save-popup', function () {
@@ -17,10 +17,12 @@ define(
                 $('#saved-model-link').hide();
             });
 
+            $('#save').modal('show');
+
             if (editor.getModel()) {
                 console.log("SaveCommand.execute(editor): editor.getModel() != null");
                 $('#save-popup').modal({show: true});
-//                try {
+                try {
                     var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
                     var os = new Kevoree.java.io.OutputStream();
                     serializer.serialize(editor.getModel(), os);
@@ -28,7 +30,7 @@ define(
 
                     $.ajax({
                         type: 'post',
-                        url: '/save',
+                        url: '/save/'+type,
                         data: {model: jsonModel},
                         dataType: 'json',
                         success: function (data) {
@@ -40,10 +42,10 @@ define(
                             $('#save-popup-text').html("Something went wrong while uploading your model.. :(");
                         }
                     });
-//                } catch (err) {
-//                    $('#save-popup-text').html("Something went wrong while uploading your model.. :(", err.message);
-//                    throw err;
-//                }
+                } catch (err) {
+                    $('#save-popup-text').html("Something went wrong while uploading your model.. :(", err.message);
+                    throw err;
+                }
             } else {
                 AlertPopupHelper.setType(AlertPopupHelper.WARN);
                 AlertPopupHelper.setText("There is no model to save currently.");

@@ -154,9 +154,15 @@ define(
             e.preventDefault();
         });
 
-        $('#save').click(function (e) {
+        $('#save-json').click(function (e) {
             var cmd = new SaveCommand();
-            cmd.execute(editor);
+            cmd.execute('json', editor);
+            e.preventDefault();
+        });
+
+        $('#save-xmi').click(function (e) {
+            var cmd = new SaveCommand();
+            cmd.execute('xmi', editor);
             e.preventDefault();
         });
 

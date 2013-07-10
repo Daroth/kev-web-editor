@@ -5,7 +5,6 @@
 var java = require('java');
 
 java.classpath.push("jars/org.kevoree.tools.modelsync-2.0.0-SNAPSHOT.jar");
-java.classpath.push("org.kevoree.modeling.sample.kevoree.kt-1.0.0-SNAPSHOT.jar");
 // node-java module uses the 'Sync' syntax for methods executed directly, otherwise
 // you need to use callbacks to handle results (this has nothing to do with ModelSync sync keyword)
 var modelSync   = java.newInstanceSync('org.kevoree.tools.modelsync.ModelSyncBean'),
@@ -22,38 +21,38 @@ exports.pull = function(req, res) {
             modelSync.pullTo(model, req.body.destNodeName, req.body.grpName, function (err, model) {
                 if (err) {
                     console.error(err);
-                    res.send({result: -1, message: 'Server-side java exception'});
+                    res.json({result: -1, message: 'Server-side java exception'});
                     return;
                 }
 
                 java.newInstance('java.io.ByteArrayOutputStream', function (err, baos) {
                     if (err) {
                         console.error(err);
-                        res.send({result: -1, message: 'Server-side java exception'});
+                        res.json({result: -1, message: 'Server-side java exception'});
                         return;
                     }
 
                     serializer.serialize(model, baos, function (err) {
                         if (err) {
                             console.error(err);
-                            res.send({result: -1, message: 'Server-side java exception'});
+                            res.json({result: -1, message: 'Server-side java exception'});
                             return;
                         }
 
-                        res.send({
+                        res.json({
                             result: 1,
                             message: 'Model pulled successfully',
                             model: JSON.parse(baos.toStringSync())
                         });
                         return;
                     });
-                })
+                });
             });
         } else {
-            res.send({result: -1, message: 'Missing parameters in request'});
+            res.json({result: -1, message: 'Missing parameters in request'});
             return;
         }
     } else {
-        res.send({result: -1, message: 'Not an Ajax call'});
+        res.json({result: -1, message: 'Not an Ajax call'});
     }
 };

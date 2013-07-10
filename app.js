@@ -46,7 +46,7 @@ app.get('/', routes.index);
 app.get('/merge/:env', routes.merge);
 app.post('/push', routes.push);
 app.post('/pull', routes.pull);
-app.post('/save', routes.save);
+app.post('/save/:type', routes.save);
 app.get('/saved/:model', routes.saved);
 app.get('/runtime', routes.runtime);
 app.get('/bench', routes.bench);
