@@ -17,6 +17,7 @@ exports.push = function(req, res) {
              var data = JSON.stringify(req.body.model, null, 4),
                 model = loader.loadModelFromStringSync(data).getSync(0);
 
+            modelSync.clearSync();
             modelSync.pushTo(model, req.body.destNodeName, req.body.grpName, function (err) {
                 if (err) {
                     console.error(err);

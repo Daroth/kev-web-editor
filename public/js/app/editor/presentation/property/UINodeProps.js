@@ -238,6 +238,7 @@ define(
         UINodeProps.prototype.c2pPullModelEndedWell = function () {
             $('#node-progress-bar').removeClass('progress-info progress-striped');
             $('#node-progress-bar .bar').addClass('bar-success');
+            $('#prop-popup').modal('hide');
         }
 
         UINodeProps.prototype.c2pUnableToPush = function (msg) {

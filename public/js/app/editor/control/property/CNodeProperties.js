@@ -45,7 +45,7 @@ define(
                     grp = editor.getEntity(grpName),
                     that = this;
 
-                this._pullCmd.execute(grp, {
+                this._pullCmd.execute(this.getNode(), grp, editor.getModel(), {
                     success: function (model) {
                         that._ui.c2pPullModelEndedWell();
                         editor.setModel(model);
