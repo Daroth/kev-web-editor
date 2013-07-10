@@ -8,7 +8,7 @@ Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side 
         cd kev-web-editor
         export JAVA_HOME=path/to/your/jdk
         npm install
-        //node_modules/jade-amd/bin/jade-amd --from views/templates --to public/js/app/templates
+        rm -rf public/js/app/templates && node_modules/jade-amd/bin/jade-amd --from views/templates --to public/js/app/templates
         node app.js
 
 You need to pre-compile Jade template in order to use them dynamically client-side.  
