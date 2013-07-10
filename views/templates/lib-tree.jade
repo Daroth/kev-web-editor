@@ -1,0 +1,9 @@
+each lib in libz
+  ul.nav.nav-list
+    li.nav-header.cursor-pointer.lib-tree-library
+      i.lib-subtree-icon.icon-arrow-right.icon-white
+      | #{lib.name}
+
+    each item in lib.components
+      li.lib-item(data-entity=item.type)
+        div.lib-item-name #{item.name}

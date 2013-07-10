@@ -3,6 +3,7 @@ define(
         'util/ModelHelper',
         'util/AlertPopupHelper',
         'util/Config',
+        'templates/lib-tree',
         'bootstrap/modal',
         'jquery',
         'jqueryui/droppable',
@@ -13,7 +14,7 @@ define(
         'hammer'
     ],
 
-    function (ModelHelper, AlertPopupHelper, Config, _bootstrap, $) {
+    function (ModelHelper, AlertPopupHelper, Config, libTreeTemplate, _bootstrap, $) {
         var NAMESPACE = '.uieditor',
             libTreeFolded = false,
             displayableItems = [],
@@ -141,7 +142,7 @@ define(
                     if (itemName.search(searchVal) == -1) {
                         libItem.hide();
                     } else {
-                        if (displayableItems[libItem.attr('data-entity')] && displayableSubTrees[libItem.attr('data-lib')]) {
+                        if (displayableItems[libItem.attr('data-entity')] && displayableSubTrees[libItem.siblings('.lib-tree-library').text()]) {
                             libItem.show();
                         }
                     }
@@ -433,36 +434,14 @@ define(
             $('#lib-tree-content li, #lib-tree-content ul').remove(); // remove old content
 
             var libz = ModelHelper.getLibraries(this._ctrl.getModel());
-
-            var libTree = "";
-            var libItems = "";
-            for (var i=0; i < libz.length; i++) {
-                var compz = libz[i].components;
-                for (var compIndex=0; compIndex < compz.length; compIndex++) {
-                    var comp = compz[compIndex];
-                    libItems +=
-                        "<li class='lib-item' data-entity='"+comp.type+"'>"+
-                            "<div class='lib-item-name'>"+comp.name+"</div>"+
-                        "</li>";
-                    // if comp.type field in displayableItems is not defined, default value is true
-                    if (displayableItems[comp.type] == undefined) displayableItems[comp.type] = true;
-                }
-
-                var htmlContent =
-                    "<ul class='nav nav-list'>" +
-                        "<li class='nav-header cursor-pointer lib-tree-library'>" +
-                        "<i class='lib-subtree-icon icon-arrow-right icon-white'></i>"+
-                        libz[i].name+
-                        "</li>"+
-                        libItems+
-                        "</ul>";
+            for (var i in libz) {
                 displayableSubTrees[libz[i].name] = true;
-
-                libTree += htmlContent;
-                libItems = htmlContent = "";
+                for (var j in libz[i].components) {
+                    var tDef = libz[i].components[j];
+                    if (displayableItems[tDef.type] == undefined) displayableItems[tDef.type] = true;
+                }
             }
-
-            $('#lib-tree-content').append(libTree);
+            $('#lib-tree-content').html(libTreeTemplate({ libz: libz}));
             $('.nav-list, .lib-item').tsort();
 
             this._registerCallbacks();
