@@ -10,7 +10,6 @@ html
     link(rel='stylesheet', href='http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css')
     link(rel='stylesheet', href='/css/style.css')
 
-    //- script(src='http://jsconsole.com/remote.js?kwe')
     // HTML5 shim, for IE6-8 support of HTML5 elements
     //if lt IE 9
       script(src='/js/lib/html5shiv.js')
@@ -89,7 +88,69 @@ html
                     a#debug(href="#") Toggle debug
 
     //- Editor content
-    block content
+    div.container-fluid.fill
+      div.row-fluid.fill
+        div#lib-tree.span3
+          div#lib-tree-settings.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown')
+              img(src='/img/settings.png')
+            ul.dropdown-menu(role='menu')
+              li
+                a#lib-tree-settings-toggle-fold(href='#') Fold all
+              li.divider
+              li.nav-header Displayed items
+              li
+                a#lib-tree-settings-filter-nodes(href='#') Nodes
+                  input.checkbox.pull-right(type='checkbox', value='NodeType', checked='true')
+                a#lib-tree-settings-filter-components(href='#') Components
+                  input.checkbox.pull-right(type='checkbox', value='ComponentType', checked='true')
+                a#lib-tree-settings-filter-groups(href='#') Groups
+                  input.checkbox.pull-right(type='checkbox', value='GroupType', checked='true')
+                a#lib-tree-settings-filter-channels(href='#') Channels
+                  input.checkbox.pull-right(type='checkbox', value='ChannelType', checked='true')
+            input.search-query#lib-tree-search(type='text', placeholder='Search field...')
+          div#lib-tree-content.sidebar-nav
+            p.lib-tree-info
+              strong To load libraries:
+              br
+              em Model > Load Core Library > (choose one)
+              br
+              strong or
+              br
+              em File > Load
+
+        div#editor-panel.span9.layer.fill
+          a#toggle-lib-tree.over(href='#', title='Toggle menu')
+            img(src='/img/show-menu.png')
+
+          //- ===============
+          //- ALERT
+          div#alert.alert.alert-block.fade.over-right
+            button.close(href="#", type='button') &times;
+            h4 Alert
+            p#alert-content
+          //- ===============
+
+          div#editor.under
+            div#zoom-controls.btn-toolbar.hide
+              div.btn-group
+                a#zoom-in.btn.btn-small: img(src='/img/zoom_in.png')
+                a#zoom-default.btn.btn-small: img(src='/img/zoom_default.png')
+                a#zoom-out.btn.btn-small: img(src='/img/zoom_out.png')
+
+    //- ==========================
+    //- Properties popup template
+    //- ==========================
+    div#prop-popup.modal.hide.fade(tabindex='-1', role='dialog')
+      div.modal-header
+        button.close(type='button', data-dismiss='modal') &times;
+        h3 Properties -&nbsp;
+          span#prop-popup-subtitle
+      div.modal-body
+        div#prop-popup-content
+      div.modal-footer
+        button#prop-popup-delete.btn.btn-danger(data-dismiss='modal') Delete
+        button#prop-popup-save.btn.btn-primary(data-dismiss='modal') Save changes
 
     //- Hidden content
     //- ===============

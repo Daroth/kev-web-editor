@@ -1,6 +1,6 @@
 
 exports.index = function(req, res) {
-    res.render('index', { title: 'Kevoree Web Editor' });
+    res.render('editor', { title: 'Kevoree Web Editor' });
 };
 
 exports.merge   = require('./merge').merge;
