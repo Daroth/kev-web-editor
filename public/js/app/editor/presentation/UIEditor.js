@@ -129,8 +129,6 @@ define(
                 }
             });
 
-            // TODO refactor show/hide of lib-item in one method (currently it's way too split all over (control logic and ui stuff)
-
             // search field
             $('#lib-tree-search').off(NAMESPACE);
             $('#lib-tree-search').on('keyup'+NAMESPACE, function () {
@@ -426,7 +424,7 @@ define(
             }
         }
 
-        UIEditor.prototype.c2pInflateLibTree = function () {
+        UIEditor.prototype.c2pModelUpdated = function () {
             $('.lib-tree-info').hide(); // hide info
             displayableSubTrees = []; // reset old filter
             $('#lib-tree-settings-toggle-fold').text('Fold all'); // reset fold status
@@ -504,7 +502,7 @@ define(
         //==========================
         function showLibTreeItems(elem, icon) {
             elem.siblings().each(function () {
-                if (displayableItems[$(this).attr('data-entity')] && displayableSubTrees[elem.text()]) {
+                if (displayableItems[$(this).attr('data-entity')] == true && displayableSubTrees[elem.text()] == true) {
                     $(this).show('fast');
                 }
             });

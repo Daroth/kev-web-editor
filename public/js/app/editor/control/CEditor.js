@@ -175,7 +175,7 @@ define(
         // Override KEditor.setModel(model)
         CEditor.prototype.setModel = function (model) {
             KEditor.prototype.setModel.call(this, model);
-            this._ui.c2pInflateLibTree();
+            this._ui.c2pModelUpdated();
         }
 
         CEditor.prototype.getDraggedEntity = function () {

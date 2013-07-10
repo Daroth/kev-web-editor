@@ -47,8 +47,8 @@ define(
 
                 this._pullCmd.execute(this.getNode(), grp, editor.getModel(), {
                     success: function (model) {
-                        that._ui.c2pPullModelEndedWell();
                         editor.setModel(model);
+                        that._ui.c2pPullModelEndedWell();
                     },
                     error: function (msg) {
                         that._ui.c2pUnableToPull(msg);

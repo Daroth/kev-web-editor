@@ -2,11 +2,12 @@ define(
     [
         'jquery',
         'util/Pooffs',
+        'util/AlertPopupHelper',
         'presentation/property/UIInstanceProps',
         'templates/node-properties',
         'bootstrap/multiselect'
     ],
-    function ($, Pooffs, UIInstanceProps, nodePropsTemplate, _bootstrap) {
+    function ($, Pooffs, AlertPopupHelper, UIInstanceProps, nodePropsTemplate, _bootstrap) {
 
         var NAMESPACE           = ".ui-node-props",
             PUSH_ACTION         = "node-push-action",
@@ -239,6 +240,10 @@ define(
             $('#node-progress-bar').removeClass('progress-info progress-striped');
             $('#node-progress-bar .bar').addClass('bar-success');
             $('#prop-popup').modal('hide');
+
+            AlertPopupHelper.setText("Model updated successfully");
+            AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
+            AlertPopupHelper.show(5000);
         }
 
         UINodeProps.prototype.c2pUnableToPush = function (msg) {
