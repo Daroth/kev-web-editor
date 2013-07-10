@@ -6,6 +6,7 @@ Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side 
 ## 1. Get started
         git clone git@github.com:maxleiko/kev-web-editor.git
         cd kev-web-editor
+        export JAVA_HOME=path/to/you/jdk
         npm install
         //node_modules/jade-amd/bin/jade-amd --from views/templates --to public/js/app/templates
         node app.js
