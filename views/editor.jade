@@ -263,6 +263,10 @@ html
           tr
             td Display alert popups on editor
             td: input#display-alert-popups.pull-right(type='checkbox')
+          tr
+            td Ask for confirmation on model loading
+            td: input#confirm-on-load-setting.pull-right(type='checkbox')
+
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
         button#save-settings.btn.btn-primary(data-dismiss='modal') Save

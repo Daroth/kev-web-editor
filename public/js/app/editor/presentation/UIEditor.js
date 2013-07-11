@@ -293,7 +293,7 @@ define(
                         $(this).parent().append(
                             "<div class='lib-item-count'>" +
                                 "<span class='badge'>"+badgeCount+"</span>"+
-                                "</div>"
+                            "</div>"
                         );
                     }
                 }

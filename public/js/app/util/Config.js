@@ -12,6 +12,7 @@ define(
         Config.LS_ASK_BEFORE_LEAVING = 'askBeforeLeaving';
         Config.LS_COMPONENT_TOOLTIP = 'componentTooltip';
         Config.LS_DISPLAY_ALERT_POPUPS = 'displayAlertPopups';
+        Config.LS_CONFIRM_ON_LOAD = 'confirmOnLoad';
 
         return Config;
     }

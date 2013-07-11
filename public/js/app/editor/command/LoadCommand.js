@@ -3,19 +3,46 @@ define(
         'jquery',
         'util/ModelHelper',
         'util/AlertPopupHelper',
+        'util/Config',
+        'util/Util',
         'kevoree'
     ],
-    function ($, ModelHelper, AlertPopupHelper, Kevoree) {
+    function ($, ModelHelper, AlertPopupHelper, Config, Util, Kevoree) {
         var NAMESPACE = '.load-file-command';
 
         function LoadCommand () {}
 
         LoadCommand.prototype.execute = function (editor) {
-            if (editor.getModel() != null) {
+            if (editor.getModel() != null && confirmOnLoadSettingEnabled()) {
                 // current model is not null, meaning that it could be overwritten
-                // so ask user if he really want that to happen
-                // TODO
-                loadProcess();
+                // so ask user if he really wants that to happen (if confirmOnLoad is enabled)
+                AlertPopupHelper.setHTML(
+                    "<p>Do you want to overwrite current model ?" +
+                    "<br/>Any unsaved work will be lost.</p>" +
+                    "<div class='row-fluid'>" +
+                        "<button id='confirm-load-model' type='button' class='btn btn-mini btn-danger'>Load model</button>" +
+                        "<button id='keep-current-model' type='button' class='btn btn-mini btn-primary pull-right'>Keep model</button>" +
+                    "</div>" +
+                    "<small>You can disable this confirmation popup in <a href='#' id='disable-confirm-load'>settings</a></small>"
+                );
+                AlertPopupHelper.setType(AlertPopupHelper.WARN);
+                AlertPopupHelper.show();
+
+                $('#confirm-load-model').off('click');
+                $('#confirm-load-model').on('click', function () {
+                    AlertPopupHelper.hide();
+                    loadProcess();
+                });
+
+                $('#keep-current-model').off('click');
+                $('#keep-current-model').on('click', function () {
+                    AlertPopupHelper.hide();
+                });
+
+                $('#disable-confirm-load').off('click');
+                $('#disable-confirm-load').on('click', function () {
+                    $('#settings-popup').modal('show');
+                });
             } else {
                 loadProcess();
             }
@@ -60,6 +87,17 @@ define(
                     // reset input field
                     $(this).val('');
                 });
+            }
+
+            function confirmOnLoadSettingEnabled() {
+                var ret = true;
+                if (window.localStorage) {
+                    var storedVal = window.localStorage.getItem(Config.LS_CONFIRM_ON_LOAD);
+                    if (storedVal != undefined) {
+                        ret = Util.parseBoolean(storedVal);
+                    }
+                }
+                return ret;
             }
         }
 

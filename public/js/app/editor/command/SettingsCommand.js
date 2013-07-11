@@ -18,7 +18,8 @@ define(
                 $('#save-settings').on('click'+NAMESPACE, function () {
                     var askBeforeLeaving = $('#ask-before-leaving').prop('checked'),
                         componentTooltip = $('#component-tooltip').prop('checked'),
-                        alertPopups      = $('#display-alert-popups').prop('checked');
+                        alertPopups      = $('#display-alert-popups').prop('checked'),
+                        confirmOnLoad    = $('#confirm-on-load-setting').prop('checked');
 
                     // ASK BEFORE LEAVING Saving procress
                     storage.setItem(Config.LS_ASK_BEFORE_LEAVING, askBeforeLeaving);
@@ -30,6 +31,9 @@ define(
                     // DISPLAY ALERT POPUPS
                     storage.setItem(Config.LS_DISPLAY_ALERT_POPUPS, alertPopups);
                     editor.getUI().enableAlertPopups(alertPopups);
+
+                    // CONFIRM ON LOAD saving process
+                    storage.setItem(Config.LS_CONFIRM_ON_LOAD, confirmOnLoad);
                 });
 
             } else {

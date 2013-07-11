@@ -38,13 +38,15 @@ define(
          * @param timeout {Number} show popup for 'timeout' ms before hiding it
          */
         AlertPopupHelper.show = function (timeout) {
+            clearTimeout(this._timeoutID);
+
             if (AlertPopupHelper.isEnabled) {
                 // show the alert popup
                 $('#alert').addClass(this._type+' in');
 
                 // if a timeout is given, register a callback in 'timeout' milliseconds
                 // to close the alert popup
-                if (timeout) {
+                if (timeout != undefined) {
                     var that = this;
                     if (this._timeoutID) clearTimeout(this._timeoutID);
                     this._timeoutID = setTimeout(function () {
