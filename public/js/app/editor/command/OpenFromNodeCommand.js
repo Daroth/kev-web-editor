@@ -1,10 +1,11 @@
 define(
     [
         'util/AlertPopupHelper',
-        'util/Config'
+        'util/Config',
+        'kevoree'
     ],
 
-    function (AlertPopupHelper, Config) {
+    function (AlertPopupHelper, Config, Kevoree) {
         var NAMESPACE = '.open-node-popup';
 
         function OpenFromNodeCommand() {};
@@ -53,16 +54,20 @@ define(
                         case Config.WS:
                             uri = protocol + uri;
                             var ws = new WebSocket(uri);
+                            ws.binaryType = "arraybuffer";
                             ws.onmessage = function (event) {
                                 var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
-                                var model = loader.loadModelFromString(event.data).get(0);
+                                // TODO this will work only if model is in JSON
+                                var model = loader.loadModelFromString(String.fromCharCode.apply(null, new Uint8Array(event.data))).get(0);
                                 editor.setModel(model);
                                 loadSucceed();
                             }
 
                             ws.onopen = function () {
                                 // TODO use a clean protocol
-                                ws.send("gimme da model!");
+                                var byteArray = new Uint8Array(1);
+                                byteArray[0] = 2;
+                                ws.send(byteArray.buffer);
                             }
 
                             ws.onclose = function () {

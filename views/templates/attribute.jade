@@ -5,10 +5,11 @@
 - if (node) attrID = node+'-'+name;
 
 div.row-fluid
-  div.span4 #{name}
+  div.span4
     - if (!optional)
-      | &nbsp
       i.icon-exclamation-sign.mandatory-attribute(title='Mandatory attribute')
+      | &nbsp
+    | #{name}
   //- if attribute type is 'enum', then display items within a <select>
   if type == 'enum'
     select.span8(id='instance-attr-'+attrID)

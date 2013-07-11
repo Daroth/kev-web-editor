@@ -4,12 +4,12 @@ var buf = [];
 with (locals || {}) {
 var attrID = name;
 if (node) attrID = node+'-'+name;
-buf.push("<div class=\"row-fluid\"><div class=\"span4\">" + (jade.escape((jade.interp = name) == null ? '' : jade.interp)) + "");
+buf.push("<div class=\"row-fluid\"><div class=\"span4\">");
 if (!optional)
 {
-buf.push("&nbsp<i title=\"Mandatory attribute\" class=\"icon-exclamation-sign mandatory-attribute\"></i>");
+buf.push("<i title=\"Mandatory attribute\" class=\"icon-exclamation-sign mandatory-attribute\"></i>&nbsp");
 }
-buf.push("</div>");
+buf.push("" + (jade.escape((jade.interp = name) == null ? '' : jade.interp)) + "</div>");
 if ( type == 'enum')
 {
 buf.push("<select" + (jade.attrs({ 'id':('instance-attr-'+attrID), "class": ('span8') }, {"id":true})) + ">");
