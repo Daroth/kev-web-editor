@@ -36,7 +36,6 @@ define(
         'command/OpenKevsEditorCommand',
         'command/RunKevScriptCommand',
         'command/SettingsCommand',
-        'command/DebugCommand',
         'command/MergeDefaultLibraryCommand',
         'command/ClearCommand',
         'command/ClearInstancesCommand',
@@ -65,7 +64,7 @@ define(
 
     function ($, Kinetic, CFactory, Config, Behave, QueryString,
               SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, RunKevScriptCommand,
-              SettingsCommand, DebugCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
+              SettingsCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
               OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomToCommand, ZoomOutCommand, ShowStatsCommand,
               CheckModelCommand, LoadSettingsCommand, MergeCommand, ListenToCommand,
               _bootstrap) {
@@ -245,12 +244,6 @@ define(
         $('#zoom-out').click(function (e) {
             var cmd = new ZoomOutCommand();
             cmd.execute(editor);
-            e.preventDefault();
-        });
-
-        $('#debug').click(function (e) {
-            var cmd = new DebugCommand();
-            cmd.execute();
             e.preventDefault();
         });
 

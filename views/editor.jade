@@ -86,7 +86,6 @@ html
                 ul.dropdown-menu
                   li
                     a#settings(href="#") Settings
-                    a#debug(href="#") Toggle debug
 
     //- Editor content
     div.container-fluid.fill
@@ -270,15 +269,6 @@ html
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
         button#save-settings.btn.btn-primary(data-dismiss='modal') Save
-    //- ===============
-
-    //- ===============
-    //- DEBUG ALERT
-    div#debug-alert.alert.alert-warn.alert-block.fade.shadow
-      button.close(href='#', type='button') &times;
-      h4 Debug logger
-      ul#debug-alert-content
-        li Nothing logged yet
     //- ===============
 
     //- ===============

@@ -276,16 +276,12 @@ define(
         }
 
         UIEditor.prototype.c2pEntityAdded = function(entity) {
-
-            console.log("POTATOROROR");
             this.addShape(entity.getShape());
             entity.ready();
 
             // update instance counter in lib-tree
             var badgeCount = this._ctrl.getEntityCount(entity.getCtrl().getType());
-            console.log("COUNTER "+badgeCount);
             $('.lib-item-name').each(function () {
-                console.log("Wehsueuuuu");
                 if ($(this).text() == entity.getCtrl().getType()) {
                     if ($(this).siblings('.lib-item-count').size() > 0) {
                         $(this).siblings('.lib-item-count').children('.badge').text(badgeCount);
@@ -400,7 +396,6 @@ define(
          */
         UIEditor.prototype.c2pEntityRemoved = function(entity) {
             var badgeCount = this._ctrl.getEntityCount(entity.getCtrl().getType());
-            console.log('entity added '+entity.getCtrl().getEntityType()+" "+entity.getCtrl().getType());
             $('.lib-item-name').each(function () {
                 if ($(this).text() == entity.getCtrl().getType()) {
                     if (badgeCount == 0) {
