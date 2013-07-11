@@ -8,13 +8,25 @@ define(
     function (AlertPopupHelper, Config, Kevoree) {
         var NAMESPACE = '.open-node-popup';
 
-        function OpenFromNodeCommand() {};
+        function OpenFromNodeCommand() {
+            this._timeoutID = null;
+        };
 
         OpenFromNodeCommand.prototype.execute = function (protocol, uri, editor) {
-            // prevent listeners from being registered several times
+            clearTimeout(this._timeoutID);
+
+            // hide alert when popup is closed
             $('body').off(NAMESPACE)
             $('body').on('hidden'+NAMESPACE, '#open-node-popup', function () {
                 $('#open-node-alert').removeClass('in');
+                $('#open-node-alert').hide();
+            });
+
+            // jquery hide() alert when .close button clicked
+            $('#open-node-alert .close').off('click'+NAMESPACE);
+            $('#open-node-alert .close').on('click'+NAMESPACE, function () {
+                $('#open-node-alert').removeClass('in');
+                $('#open-node-alert').hide();
             });
 
             // prevent user from clicking 'open' button while disabled
@@ -27,8 +39,13 @@ define(
                     $('#open-node-alert').removeClass('alert-error');
                     $('#open-node-alert').addClass('alert-success');
                     $('#open-node-alert-content').html("<img src='/img/ajax-loader-small.gif'/> Loading in progress, please wait...");
+                    $('#open-node-alert').show();
                     $('#open-node-alert').addClass('in');
                     $('#open-from-node').addClass('disabled');
+
+                    var timeoutID = this._timeoutID = setTimeout(function () {
+                        loadTimeout(uri);
+                    }, 10000);
 
                     // use HTTP or WebSocket
                     switch (protocol) {
@@ -43,10 +60,10 @@ define(
                                     var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
                                     var model = loader.loadModelFromString(JSON.stringify(data)).get(0);
                                     editor.setModel(model);
-                                    loadSucceed();
+                                    loadSucceed(timeoutID);
                                 },
                                 error: function () {
-                                    loadFailed(uri);
+                                    loadFailed(uri, timeoutID);
                                 }
                             });
                             break;
@@ -60,7 +77,7 @@ define(
                                 // TODO this will work only if model is in JSON
                                 var model = loader.loadModelFromString(String.fromCharCode.apply(null, new Uint8Array(event.data))).get(0);
                                 editor.setModel(model);
-                                loadSucceed();
+                                loadSucceed(timeoutID);
                             }
 
                             ws.onopen = function () {
@@ -71,11 +88,11 @@ define(
                             }
 
                             ws.onclose = function () {
-                                loadFailed(uri);
+                                loadFailed(uri, timeoutID);
                             }
 
                             ws.onerror = function () {
-                                loadFailed(uri);
+                                loadFailed(uri, timeoutID);
                             }
                             break;
 
@@ -93,7 +110,10 @@ define(
 
         return OpenFromNodeCommand;
 
-        function loadSucceed() {
+        function loadSucceed(timeoutID) {
+            // clear timeout
+            clearTimeout(timeoutID);
+
             // close 'Open from node' modal
             $('#open-node-popup').modal('hide');
             $('#open-from-node').removeClass('disabled');
@@ -103,11 +123,24 @@ define(
             AlertPopupHelper.show(5000);
         }
 
-        function loadFailed(uri) {
+        function loadFailed(uri, timeoutID) {
+            // clear timeout
+            clearTimeout(timeoutID);
+
             $('#open-from-node').removeClass('disabled');
             $('#open-node-alert').removeClass('alert-success');
             $('#open-node-alert').addClass('alert-error');
             $('#open-node-alert-content').text("Unable to get model from "+uri+". Are you sure that your model is a valid JSON Kevoree model ? Or that the remote target is reachable ?");
+            $('#open-node-alert').show();
+            $('#open-node-alert').addClass('in');
+        }
+
+        function loadTimeout(uri) {
+            $('#open-from-node').removeClass('disabled');
+            $('#open-node-alert').removeClass('alert-success');
+            $('#open-node-alert').addClass('alert-error');
+            $('#open-node-alert-content').text("Unable to get model from "+uri+". Request timed out (10 seconds).");
+            $('#open-node-alert').show();
             $('#open-node-alert').addClass('in');
         }
     }

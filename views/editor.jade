@@ -175,13 +175,14 @@ html
         button.close(href='#', type='button', data-dismiss='modal') &times;
         h3 Open from node
       div.modal-body
-        div#open-node-alert.alert.alert-error.fade
+        div#open-node-alert.alert.alert-error.fade.hide
           button.close(href='#', type='button') &times;
           span#open-node-alert-content
         p Remote target node web ressource
         div.controls-row
           select#open-node-protocol.span1
-            option(value='http://', selected) http
+            option(value='tcp') tcp
+            option(value='http://') http
             option(value='ws://') ws
           input#open-node-uri.span4(type='text', placeholder='ex: kevoree.org/model/json')
       div.modal-footer
