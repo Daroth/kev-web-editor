@@ -19,7 +19,10 @@ buf.push("<ul class=\"nav nav-list\"><li class=\"nav-header cursor-pointer lib-t
     for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
       var item = $$obj[$index];
 
+if (item.type != 'UnknownType')
+{
 buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": ('lib-item') }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
+}
     }
 
   } else {
@@ -27,7 +30,10 @@ buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": ('lib-item') 
     for (var $index in $$obj) {
       $$l++;      if ($$obj.hasOwnProperty($index)){      var item = $$obj[$index];
 
+if (item.type != 'UnknownType')
+{
 buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": ('lib-item') }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
+}
       }
 
     }
@@ -52,7 +58,10 @@ buf.push("<ul class=\"nav nav-list\"><li class=\"nav-header cursor-pointer lib-t
     for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
       var item = $$obj[$index];
 
+if (item.type != 'UnknownType')
+{
 buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": ('lib-item') }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
+}
     }
 
   } else {
@@ -60,7 +69,10 @@ buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": ('lib-item') 
     for (var $index in $$obj) {
       $$l++;      if ($$obj.hasOwnProperty($index)){      var item = $$obj[$index];
 
+if (item.type != 'UnknownType')
+{
 buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": ('lib-item') }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
+}
       }
 
     }

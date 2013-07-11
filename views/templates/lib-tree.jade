@@ -5,5 +5,6 @@ each lib in libz
       | #{lib.name}
 
     each item in lib.components
-      li.lib-item(data-entity=item.type)
-        div.lib-item-name #{item.name}
+      - if (item.type != 'UnknownType')
+        li.lib-item(data-entity=item.type)
+          div.lib-item-name #{item.name}
