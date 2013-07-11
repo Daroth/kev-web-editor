@@ -43,11 +43,20 @@ define(
 
             // set popup content
             $('#stats-popup-content').html(
+                "<h6>Metamodel types:</h6>" +
                 "<table class='table'>" +
-                createHTMLRow("GroupType", nbGrps) +
-                createHTMLRow("ComponentType", nbComps) +
-                createHTMLRow("NodeType", nbNodes) +
-                createHTMLRow("ChannelType", nbChans) +
+                createHTMLRow("Group Type", nbGrps) +
+                createHTMLRow("Component Type", nbComps) +
+                createHTMLRow("Node Type", nbNodes) +
+                createHTMLRow("Channel Type", nbChans) +
+                "</table>"+
+
+                "<h6>Instances:</h6>" +
+                "<table class='table'>" +
+                createHTMLRow("Group Instances", model.getGroups().size()) +
+                createHTMLRow("Component Instances", getComponentInstancesCount(model)) +
+                createHTMLRow("Node Instances", model.getNodes().size()) +
+                createHTMLRow("Channel Instances", model.getHubs().size()) +
                 "</table>"
             );
 
@@ -59,9 +68,20 @@ define(
 
         function createHTMLRow(tag, value) {
             return "<tr>" +
-                     "<td>"+tag+"</td>"+
-                     "<td>"+value+"</td>"+
+                     "<td class='span8'>"+tag+"</td>"+
+                     "<td class='span4'>"+
+                        "<div class='pull-right'>"+ value +"</div>"
+                     "</td>"+
                    "</tr>";
+        }
+
+        function getComponentInstancesCount(model) {
+            var count = 0,
+                nodes = model.getNodes();
+
+            for (var i=0; i < nodes.size(); i++) count += nodes.get(i).getComponents().size();
+
+            return count;
         }
     }
 );
