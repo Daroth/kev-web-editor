@@ -4,6 +4,7 @@
     "private": true,
     "authhor": "Leiko",
     "scripts": {
+        "preinstall": "echo 'You should export JAVA_HOME=/path/to/your/jdk in order to properly install KevWebEditor'",
         "prestart": "cd public && r.js -o js/app.build.js && cd ..",
         "start": "node app.js"
     },
