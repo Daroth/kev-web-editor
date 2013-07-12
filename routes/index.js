@@ -2,7 +2,7 @@ var config = require('../config');
 
 exports.index = function(req, res) {
     var env = '/build';
-    if (config.environment == 'dev') env = '';
+    if (config.environment == config.ENV_DEV) env = '';
     res.render('editor', { title: 'Kevoree Web Editor', env: env });
 };
 

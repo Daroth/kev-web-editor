@@ -7,7 +7,7 @@ var config = require('../config');
 
 exports.runtime = function (req, res) {
     var env = '/build';
-    if (config.environment == 'dev') env = '';
+    if (config.environment == config.ENV_DEV) env = '';
 
     res.render('runtime', {
         title: 'Kevoree Web Editor - Runtime',
