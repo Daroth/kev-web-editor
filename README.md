@@ -45,12 +45,12 @@ Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side 
   <tr>
     <td>open</td>
     <td>URI (without ws://, http://, tcp, ...)</td>
-    <td>**Deps**: 'protocol'<br/>Open from node (you have to specify open param AND protocol param in URL)</td>
+    <td><strong>Deps</strong>: 'protocol'<br/>Open from node (you have to specify open param AND protocol param in URL)</td>
   </tr>
   <tr>
     <td>protocol</td>
     <td>ws, http, tcp</td>
-    <td>**Deps**: 'open'<br/>Open from node (you have to specify open param AND protocol param in URL)</td>
+    <td><strong>Deps</strong>: 'open'<br/>Open from node (you have to specify open param AND protocol param in URL)</td>
     </tr>
 </table>
 
