@@ -25,7 +25,7 @@ app.use(express.session());
 app.use(app.router);
 
 // development only
-app.configure('development', function(){
+app.configure('development', function() {
     app.use(express.errorHandler());
     app.locals.pretty = true;
 });
