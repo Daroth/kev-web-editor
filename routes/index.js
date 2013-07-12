@@ -10,3 +10,4 @@ exports.runtime = require('./runtime').runtime;
 exports.bench   = require('./bench').bench;
 exports.push    = require('./push').push;
 exports.pull    = require('./pull').pull;
+exports.open    = require('./open').open;

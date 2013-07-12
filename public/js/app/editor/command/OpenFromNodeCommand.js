@@ -47,8 +47,41 @@ define(
                         loadTimeout(uri);
                     }, 10000);
 
-                    // use HTTP or WebSocket
+                    // use TCP or HTTP or WebSocket
                     switch (protocol) {
+                        case Config.TCP:
+                            // for TCP request, we need to ask server to do the process
+                            // because I can't create a TCP socket in a browser
+                            $.ajax({
+                                url: '/open',
+                                type: 'POST',
+                                timeout: 10000, // 10 seconds timeout
+                                data: {uri: uri},
+                                dataType: 'json',
+                                success: function (data) {
+                                    switch (data.result) {
+                                        case -1:
+                                        default:
+                                            // something went wrong server-side, check data.message for the 'why?'
+                                            console.warn('Unable to open from node ('+uri+'): '+ data.message);
+                                            loadFailed(uri, timeoutID);
+                                            break;
+
+                                        case 1:
+                                            // open from node: ok, model is in data.model (string)
+                                            var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
+                                            var model = loader.loadModelFromString(data.model).get(0);
+                                            editor.setModel(model);
+                                            loadSucceed(timeoutID);
+                                            break;
+                                    }
+                                },
+                                error: function () {
+                                    loadFailed(uri, timeoutID);
+                                }
+                            });
+                            break;
+
                         case Config.HTTP:
                             uri = protocol + uri;
                             $.ajax({
@@ -78,17 +111,18 @@ define(
                                 var model = loader.loadModelFromString(String.fromCharCode.apply(null, new Uint8Array(event.data))).get(0);
                                 editor.setModel(model);
                                 loadSucceed(timeoutID);
+                                ws.close();
                             }
 
                             ws.onopen = function () {
                                 // TODO use a clean protocol
                                 var byteArray = new Uint8Array(1);
-                                byteArray[0] = 2;
+                                byteArray[0] = 42;
                                 ws.send(byteArray.buffer);
                             }
 
                             ws.onclose = function () {
-                                loadFailed(uri, timeoutID);
+//                                loadFailed(uri, timeoutID);
                             }
 
                             ws.onerror = function () {
