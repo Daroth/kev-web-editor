@@ -1,6 +1,9 @@
+var config = require('../config');
 
 exports.index = function(req, res) {
-    res.render('editor', { title: 'Kevoree Web Editor' });
+    var env = '/build';
+    if (config.environment == 'dev') env = '';
+    res.render('editor', { title: 'Kevoree Web Editor', env: env });
 };
 
 exports.merge   = require('./merge').merge;

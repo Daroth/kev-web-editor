@@ -1,9 +1,3 @@
-//
-   Created with IntelliJ IDEA.
-   User: leiko
-   Date: 5/24/13
-   Time: 4:52 PM
-
 doctype 5
 html.fill
     head
@@ -71,4 +65,4 @@ html.fill
           div#home.tab-pane.active
             ul#home-logger.unstyled
 
-      script(data-main='/js/runtime.js', src='/js/require.js')
+      script(data-main='/js'+env+'/runtime.js', src='/js'+env+'/require.js')
