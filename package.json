@@ -9,6 +9,7 @@
     "express": "3.1.1",
     "jade": "*",
     "jade-amd": "*",
-    "node-java": "0.2.3"
+    "java": "0.2.3",
+    "mocha": "1.12.0"
   }
 }
