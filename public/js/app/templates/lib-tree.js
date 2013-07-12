@@ -1,8 +1,7 @@
 define(['jadeRuntime'], function(jade) {
 return function anonymous(locals) {
 var buf = [];
-with (locals || {}) {
-// iterate libz
+var locals_ = (locals || {}),libz = locals_.libz;// iterate libz
 ;(function(){
   var $$obj = libz;
   if ('number' == typeof $$obj.length) {
@@ -21,21 +20,19 @@ buf.push("<ul class=\"nav nav-list\"><li class=\"nav-header cursor-pointer lib-t
 
 if (item.type != 'UnknownType')
 {
-buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": ('lib-item') }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
+buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": [('lib-item')] }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
 }
     }
 
   } else {
     var $$l = 0;
     for (var $index in $$obj) {
-      $$l++;      if ($$obj.hasOwnProperty($index)){      var item = $$obj[$index];
+      $$l++;      var item = $$obj[$index];
 
 if (item.type != 'UnknownType')
 {
-buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": ('lib-item') }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
+buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": [('lib-item')] }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
 }
-      }
-
     }
 
   }
@@ -47,7 +44,7 @@ buf.push("</ul>");
   } else {
     var $$l = 0;
     for (var $index in $$obj) {
-      $$l++;      if ($$obj.hasOwnProperty($index)){      var lib = $$obj[$index];
+      $$l++;      var lib = $$obj[$index];
 
 buf.push("<ul class=\"nav nav-list\"><li class=\"nav-header cursor-pointer lib-tree-library\"><i class=\"lib-subtree-icon icon-arrow-right icon-white\"></i>" + (jade.escape((jade.interp = lib.name) == null ? '' : jade.interp)) + "</li>");
 // iterate lib.components
@@ -60,35 +57,29 @@ buf.push("<ul class=\"nav nav-list\"><li class=\"nav-header cursor-pointer lib-t
 
 if (item.type != 'UnknownType')
 {
-buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": ('lib-item') }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
+buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": [('lib-item')] }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
 }
     }
 
   } else {
     var $$l = 0;
     for (var $index in $$obj) {
-      $$l++;      if ($$obj.hasOwnProperty($index)){      var item = $$obj[$index];
+      $$l++;      var item = $$obj[$index];
 
 if (item.type != 'UnknownType')
 {
-buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": ('lib-item') }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
+buf.push("<li" + (jade.attrs({ 'data-entity':(item.type), "class": [('lib-item')] }, {"data-entity":true})) + "><div class=\"lib-item-name\">" + (jade.escape((jade.interp = item.name) == null ? '' : jade.interp)) + "</div></li>");
 }
-      }
-
     }
 
   }
 }).call(this);
 
 buf.push("</ul>");
-      }
-
     }
 
   }
 }).call(this);
-
-}
-return buf.join("");
+;return buf.join("");
 };
 });

@@ -1,8 +1,7 @@
 define(['jadeRuntime'], function(jade) {
 return function anonymous(locals) {
 var buf = [];
-with (locals || {}) {
-var attrID = name;
+var locals_ = (locals || {}),name = locals_.name,node = locals_.node,optional = locals_.optional,type = locals_.type,possibleValues = locals_.possibleValues,selected = locals_.selected,value = locals_.value;var attrID = name;
 if (node) attrID = node+'-'+name;
 buf.push("<div class=\"row-fluid\"><div class=\"span4\">");
 if (!optional)
@@ -12,7 +11,7 @@ buf.push("<i title=\"Mandatory attribute\" class=\"icon-exclamation-sign mandato
 buf.push("" + (jade.escape((jade.interp = name) == null ? '' : jade.interp)) + "</div>");
 if ( type == 'enum')
 {
-buf.push("<select" + (jade.attrs({ 'id':('instance-attr-'+attrID), "class": ('span8') }, {"id":true})) + ">");
+buf.push("<select" + (jade.attrs({ 'id':('instance-attr-'+attrID), "class": [('span8')] }, {"id":true})) + ">");
 // iterate possibleValues
 ;(function(){
   var $$obj = possibleValues;
@@ -27,11 +26,9 @@ buf.push("<option" + (jade.attrs({ 'value':(item), 'selected':((i == selected)?'
   } else {
     var $$l = 0;
     for (var i in $$obj) {
-      $$l++;      if ($$obj.hasOwnProperty(i)){      var item = $$obj[i];
+      $$l++;      var item = $$obj[i];
 
 buf.push("<option" + (jade.attrs({ 'value':(item), 'selected':((i == selected)?'selected':null) }, {"value":true,"selected":true})) + ">" + (jade.escape((jade.interp = item) == null ? '' : jade.interp)) + "</option>");
-      }
-
     }
 
   }
@@ -41,10 +38,8 @@ buf.push("</select>");
 }
 else
 {
-buf.push("<input" + (jade.attrs({ 'id':('instance-attr-'+attrID), 'type':('text'), 'value':(value), "class": ('span8') }, {"id":true,"type":true,"value":true})) + "/>");
+buf.push("<input" + (jade.attrs({ 'id':('instance-attr-'+attrID), 'type':('text'), 'value':(value), "class": [('span8')] }, {"id":true,"type":true,"value":true})) + "/>");
 }
-buf.push("</div>");
-}
-return buf.join("");
+buf.push("</div>");;return buf.join("");
 };
 });
