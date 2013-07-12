@@ -9,6 +9,8 @@ Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side 
         export JAVA_HOME=path/to/your/jdk
         npm install && npm start
 
+![Kevoree Web Editor](http://oi44.tinypic.com/35hijk3.jpg)
+
 ## 2. Features
 **Kevoree Web Editor** offers a way for users to change the state of the editor on start-up by adding some data to the URL
 
