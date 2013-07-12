@@ -42,6 +42,16 @@ Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side 
     <td>URI (without ws://)</td>
     <td>Initiate the listen process by connecting to the given URI WebSocket server</td>
   </tr>
+  <tr>
+    <td>open</td>
+    <td>URI (without ws://, http://, tcp, ...)</td>
+    <td>**Deps**: 'protocol'<br/>Open from node (you have to specify open param AND protocol param in URL)</td>
+  </tr>
+  <tr>
+    <td>protocol</td>
+    <td>ws, http, tcp</td>
+    <td>**Deps**: 'open'<br/>Open from node (you have to specify open param AND protocol param in URL)</td>
+    </tr>
 </table>
 
 So an usage could be something like that:

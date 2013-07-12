@@ -42,10 +42,37 @@ define(
         QueryString.prototype.process = function (actions) {
             for (var param in actions) {
                 if (this._qs[param]) {
-                    if (typeof actions[param] === "function") {
-                        actions[param].call(this._qs, this._qs[param]);
+                    var field = actions[param];
+
+                    if (typeof(field) === "function") {
+                        field.call(this._qs, this._qs[param]);
+
+                    } else if (typeof(field) === "object") {
+                        if (field.deps !== undefined && typeof(field.hasDeps) === "function" && typeof(field.missDep) === "function") {
+                            var values = [],
+                                missField = null,
+                                isValid = true;
+                            values.push(this._qs[param]);
+
+                            for (var i in field.deps) {
+                                if (this._qs[field.deps[i]] == undefined) {
+                                    missField = field.deps[i];
+                                    isValid = false;
+                                    break;
+                                } else {
+                                    values.push(this._qs[field.deps[i]]);
+                                }
+                            }
+
+                            if (isValid) field.hasDeps.apply(this._qs, values);
+                            else field.missDep.call(this._qs, missField);
+
+                        } else {
+                            console.log("QueryString Error: '"+param+"' field should be an object like: field: {deps: [], hasDeps: function (argVals) {}, missDeps: function (missArgs) {}}");
+                        }
+
                     } else {
-                        console.error("QueryString Error: '"+param+"' field if not a function. Skipped!");
+                        console.error("QueryString Error: '"+param+"' field is not a function or object. Skipped!");
                     }
                 }
             }

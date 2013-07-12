@@ -112,6 +112,20 @@ define(
             listen: function (uri) {
                 var cmd = new ListenToCommand();
                 cmd.execute(editor, uri);
+            },
+            open: {
+                deps: ['protocol'],
+                hasDeps: function (openVal, protocolVal) {
+                    // slight rewrite rules: allows 'ws' for 'ws://' and 'http' for 'http://'
+                    if      (protocolVal.indexOf('ws') == 0)    protocolVal = Config.WS;
+                    else if (protocolVal.indexOf('http') == 0)  protocolVal = Config.HTTP;
+
+                    var cmd = new OpenFromNodeCommand();
+                    cmd.execute(protocolVal, openVal, editor);
+                },
+                missDep: function (missField) {
+                    console.warn("Open from node impossible: '"+missField+"' field value required in URL with 'open' (http://example.com/?open=localhost:8000&protocol=tcp)");
+                }
             }
         });
 

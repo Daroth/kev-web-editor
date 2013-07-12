@@ -29,22 +29,31 @@ define(
                 $('#open-node-alert').hide();
             });
 
-            // prevent user from clicking 'open' button while disabled
-            if (!$('#open-from-node').hasClass('disabled')) {
+            // prevent user from clicking 'open' button when disabled
+            if ($('#open-node-popup').hasClass('hide') || !$('#open-from-node').hasClass('disabled')) {
                 // check uri
                 // TODO check it better maybe ?
                 if (uri && uri.length != 0) {
                     // seems like we have a good uri
                     // display loading alert
-                    $('#open-node-alert').removeClass('alert-error');
-                    $('#open-node-alert').addClass('alert-success');
-                    $('#open-node-alert-content').html("<img src='/img/ajax-loader-small.gif'/> Loading in progress, please wait...");
-                    $('#open-node-alert').show();
-                    $('#open-node-alert').addClass('in');
-                    $('#open-from-node').addClass('disabled');
+                    var message = "<img src='/img/ajax-loader-small.gif'/> Loading in progress, please wait...";
+
+                    if ($('#open-node-popup').hasClass('hide')) {
+                        AlertPopupHelper.setHTML(message);
+                        AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
+                        AlertPopupHelper.show();
+
+                    } else {
+                        $('#open-node-alert').removeClass('alert-error');
+                        $('#open-node-alert').addClass('alert-success');
+                        $('#open-node-alert-content').html(message);
+                        $('#open-node-alert').show();
+                        $('#open-node-alert').addClass('in');
+                        $('#open-from-node').addClass('disabled');
+                    }
 
                     var timeoutID = this._timeoutID = setTimeout(function () {
-                        loadTimeout(uri);
+                        loadTimeout(protocol, uri);
                     }, 10000);
 
                     // use TCP or HTTP or WebSocket
@@ -64,7 +73,7 @@ define(
                                         default:
                                             // something went wrong server-side, check data.message for the 'why?'
                                             console.warn('Unable to open from node ('+uri+'): '+ data.message);
-                                            loadFailed(uri, timeoutID);
+                                            loadFailed(protocol, uri, timeoutID);
                                             break;
 
                                         case 1:
@@ -77,7 +86,7 @@ define(
                                     }
                                 },
                                 error: function () {
-                                    loadFailed(uri, timeoutID);
+                                    loadFailed(protocol, uri, timeoutID);
                                 }
                             });
                             break;
@@ -96,7 +105,7 @@ define(
                                     loadSucceed(timeoutID);
                                 },
                                 error: function () {
-                                    loadFailed(uri, timeoutID);
+                                    loadFailed(protocol, uri, timeoutID);
                                 }
                             });
                             break;
@@ -126,7 +135,7 @@ define(
                             }
 
                             ws.onerror = function () {
-                                loadFailed(uri, timeoutID);
+                                loadFailed(protocol, uri, timeoutID);
                             }
                             break;
 
@@ -157,25 +166,43 @@ define(
             AlertPopupHelper.show(5000);
         }
 
-        function loadFailed(uri, timeoutID) {
+        function loadFailed(protocol, uri, timeoutID) {
             // clear timeout
             clearTimeout(timeoutID);
 
-            $('#open-from-node').removeClass('disabled');
-            $('#open-node-alert').removeClass('alert-success');
-            $('#open-node-alert').addClass('alert-error');
-            $('#open-node-alert-content').text("Unable to get model from "+uri+". Are you sure that your model is a valid JSON Kevoree model ? Or that the remote target is reachable ?");
-            $('#open-node-alert').show();
-            $('#open-node-alert').addClass('in');
+            var message = "Unable to get model from "+uri+" ("+protocol+"). Are you sure that your model is a valid JSON Kevoree model ? Or that the remote target is reachable ?";
+
+            if ($('#open-node-popup').hasClass('hide')) {
+                AlertPopupHelper.setText(message);
+                AlertPopupHelper.setType(AlertPopupHelper.ERROR);
+                AlertPopupHelper.show(5000);
+
+            } else {
+                $('#open-from-node').removeClass('disabled');
+                $('#open-node-alert').removeClass('alert-success');
+                $('#open-node-alert').addClass('alert-error');
+                $('#open-node-alert-content').text(message);
+                $('#open-node-alert').show();
+                $('#open-node-alert').addClass('in');
+            }
         }
 
-        function loadTimeout(uri) {
-            $('#open-from-node').removeClass('disabled');
-            $('#open-node-alert').removeClass('alert-success');
-            $('#open-node-alert').addClass('alert-error');
-            $('#open-node-alert-content').text("Unable to get model from "+uri+". Request timed out (10 seconds).");
-            $('#open-node-alert').show();
-            $('#open-node-alert').addClass('in');
+        function loadTimeout(protocol, uri) {
+            var message = "Unable to get model from "+uri+" ("+protocol+"). Request timed out (10 seconds).";
+
+            if ($('#open-node-popup').hasClass('hide')) {
+                AlertPopupHelper.setText(message);
+                AlertPopupHelper.setType(AlertPopupHelper.ERROR);
+                AlertPopupHelper.show(5000);
+
+            } else {
+                $('#open-from-node').removeClass('disabled');
+                $('#open-node-alert').removeClass('alert-success');
+                $('#open-node-alert').addClass('alert-error');
+                $('#open-node-alert-content').text(message);
+                $('#open-node-alert').show();
+                $('#open-node-alert').addClass('in');
+            }
         }
     }
 );
