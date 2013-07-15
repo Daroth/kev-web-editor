@@ -7,7 +7,8 @@ var express = require('express'),
     routes  = require('./routes'),
     http    = require('http'),
     path    = require('path'),
-    fs      = require('fs');
+    fs      = require('fs'),
+    config  = require('./config');
 
 var app = express();
 
@@ -59,5 +60,5 @@ app.use(function(req, res) {
 });
 
 http.createServer(app).listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + app.get('port'));
+    console.log('Express server (ENV: '+config.environment+') listening on port ' + app.get('port'));
 });
