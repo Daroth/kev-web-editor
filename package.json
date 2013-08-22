@@ -4,8 +4,7 @@
     "private": true,
     "authhor": "Leiko",
     "scripts": {
-        "preinstall": "echo 'You should export JAVA_HOME=/path/to/your/jdk in order to properly install KevWebEditor'",
-        "prestart": "rm -rf ./public/js/app/templates && ./node_modules/jade-amd/bin/jade-amd --from ./views/templates --to ./public/js/app/templates && cd ./public && r.js -o ./js/app.build.js && cd ..",
+        "preinstall": "echo 'You should export JAVA_HOME=/path/to/your/jdk in order to properly install KevWebEditor' && rm -rf ./public/js/app/templates && ./node_modules/jade-amd/bin/jade-amd --from ./views/templates --to ./public/js/app/templates && cd ./public && r.js -o ./js/app.build.js && cd ..",
         "start": "node app.js"
     },
     "dependencies": {
@@ -14,6 +13,7 @@
         "jade-amd": "*",
         "java": "0.2.3",
         "mocha": "1.12.0",
-        "requirejs": "2.1.8"
+        "requirejs": "2.1.8",
+        "xml2js": "0.2.8"
     }
 }

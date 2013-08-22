@@ -2,40 +2,70 @@
  * GET json model
  */
 
+var java = require('java');
+java.classpath.push("jars/org.kevoree.tools.modelsync-2.0.0-SNAPSHOT.jar");
+
 exports.merge = function(req, res) {
     if (req.xhr) {
-        switch (req.params.env) {
-            case 'all':
-                res.sendfile('public/dummy/modelAll.json');
-                break;
+        var resURI  = req.query.resourceURI,
+            artID   = req.query.artifactID,
+            grpID   = req.query.groupID,
+            version = req.query.version;
 
-            case 'android':
-                res.sendfile('public/dummy/modelAndroid.json');
-                break;
+        console.log("groupID: "+grpID);
+        console.log("artefID: "+artID);
+        console.log("version: "+version);
 
-            case 'javase':
-                res.sendfile('public/dummy/modelJavaSE.json');
-                break;
+        if (resURI && artID && grpID && version) {
+            var resolver    = java.newInstanceSync('org.kevoree.resolver.MavenResolver'),
+                list        = java.newInstanceSync('java.util.ArrayList');
 
-            case 'daum':
-                res.sendfile('public/dummy/modelDaum.json');
-                break;
+            list.addSync("http://oss.sonatype.org/content/groups/public");
 
-            case 'sky':
-                res.sendfile('public/dummy/modelSky.json');
-                break;
+            var file        = resolver.resolveSync(grpID, artID, version, 'jar', list);
+            if (file == null) {
+                console.log("Jar file is null :/");
+                res.json({
+                    result: -1,
+                    message: 'JarFile is null'
+                });
 
-            case 'arduino':
-                res.sendfile('public/dummy/modelArduino.json');
-                break;
+            } else {
+                var jar         = java.newInstanceSync('java.util.jar.JarFile', file),
+                    jarEntry    = jar.getJarEntrySync("KEV-INF/lib.kev"),
+                    xmiLoader   = java.newInstanceSync('org.kevoree.loader.XMIModelLoader'),
+                    model       = xmiLoader.loadModelFromStreamSync(jar.getInputStreamSync(jarEntry)).getSync(0),
+                    serializer  = java.newInstanceSync('org.kevoree.serializer.JSONModelSerializer');
 
-            case 'webserver':
-                res.sendfile('public/dummy/modelWebServer.json');
-                break;
+                java.newInstance('java.io.ByteArrayOutputStream', function (err, baos) {
+                    if (err) {
+                        console.error(err);
+                        res.json({result: -1, message: 'Server-side java exception'});
+                        return;
+                    }
 
-            default:
-                res.send('I do not know core libraries for '+req.params.env);
-                break;
+                    serializer.serialize(model, baos, function (err) {
+                        if (err) {
+                            console.error(err);
+                            res.json({result: -1, message: 'Server-side java exception'});
+                            return;
+                        }
+
+                        res.json({
+                            result: 1,
+                            message: 'Model loaded successfully',
+                            model: JSON.parse(baos.toStringSync())
+                        });
+                        return;
+                    });
+                });
+            }
+
+        } else {
+            res.json({
+                result: -1,
+                message: 'You are supposed to give resourceURI, artifactID, groupID and version as parameters.'
+            });
         }
     } else {
         res.render('index', { title: 'KevWebEditor' });

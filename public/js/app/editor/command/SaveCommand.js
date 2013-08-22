@@ -20,13 +20,11 @@ define(
             $('#save').modal('show');
 
             if (editor.getModel()) {
-                console.log("SaveCommand.execute(editor): editor.getModel() != null");
                 $('#save-popup').modal({show: true});
+
                 try {
                     var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
-                    var os = new Kevoree.java.io.OutputStream();
-                    serializer.serialize(editor.getModel(), os);
-                    var jsonModel = JSON.parse(os.get_result());
+                    var jsonModel = JSON.parse(serializer.serialize(editor.getModel()));
 
                     $.ajax({
                         type: 'post',
@@ -43,8 +41,8 @@ define(
                         }
                     });
                 } catch (err) {
-                    $('#save-popup-text').html("Something went wrong while uploading your model.. :(", err.message);
-                    throw err;
+                    $('#save-popup-text').html("Something went wrong while uploading your model.. :(");
+                    console.error(err);
                 }
             } else {
                 AlertPopupHelper.setType(AlertPopupHelper.WARN);

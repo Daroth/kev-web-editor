@@ -44,7 +44,8 @@ fs.readdir('public/saved/', function(err, files) {
 });
 
 app.get('/', routes.index);
-app.get('/merge/:env', routes.merge);
+app.get('/load', routes.load);
+app.get('/merge', routes.merge);
 app.post('/push', routes.push);
 app.post('/pull', routes.pull);
 app.post('/open', routes.open);

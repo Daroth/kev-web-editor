@@ -23,11 +23,6 @@ Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side 
     </tr>
   </thead>
   <tr>
-    <td>corelib</td>
-    <td>javase, android, sky, ...</td>
-    <td>Loads the specified core library on start-up</td>
-  </tr>
-  <tr>
     <td>menu</td>
     <td>hide, 0, * (anything else shows the menu)</td>
     <td>Hide/Show libraries tree (left menu)</td>

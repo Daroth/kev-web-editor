@@ -37,6 +37,7 @@ define(
         'command/OpenKevsEditorCommand',
         'command/RunKevScriptCommand',
         'command/SettingsCommand',
+        'command/LoadCoreLibrariesCommand',
         'command/MergeDefaultLibraryCommand',
         'command/ClearCommand',
         'command/ClearInstancesCommand',
@@ -65,7 +66,7 @@ define(
 
     function ($, Kinetic, CFactory, Config, Behave, QueryString,
               SaveCommand, SaveAsKevsCommand, SaveAsPNGCommand, LoadCommand, OpenKevsEditorCommand, RunKevScriptCommand,
-              SettingsCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
+              SettingsCommand, LoadCoreLibrariesCommand, MergeDefaultLibraryCommand, ClearCommand, ClearInstancesCommand,
               OpenFromNodeCommand, ZoomInCommand, ZoomDefaultCommand, ZoomToCommand, ZoomOutCommand, ShowStatsCommand,
               CheckModelCommand, LoadSettingsCommand, MergeCommand, ListenToCommand,
               _bootstrap) {
@@ -78,7 +79,7 @@ define(
         var loadSettingsCmd = new LoadSettingsCommand();
         loadSettingsCmd.execute(editor);
 
-        // use Behave.js for Kevs Editor
+        // use Behave.js for KevScript Editor
         var kevsEditor = new Behave({
             textarea: document.getElementById('kev-script')
         });
@@ -86,14 +87,6 @@ define(
         // create the controller that handles parameters in URL
         var qs = new QueryString();
         qs.process({
-            corelib: function (env) {
-                var envz = env.split('+');
-                // merge those core libraries
-                var cmd = new MergeDefaultLibraryCommand();
-                for (var i=0; i < envz.length; i++) {
-                    cmd.execute(envz[i], editor);
-                }
-            },
             zoom: function (scale) {
                 // set editor zoom to the given scale if not wrong number
                 var value = parseFloat(scale) || 1;
@@ -153,6 +146,32 @@ define(
         $('#editor').on('mouseleave', function () {
             $('#zoom-controls').stop(true, true).delay(600).hide('fast');
         });
+
+        // search core libraries keyup listener
+        $('#search-corelib').on('keyup', function (e) {
+            var keyword = $(this).val().toLowerCase();
+            searchCoreLib(keyword);
+            e.preventDefault();
+            return false;
+        });
+        // search core libraries button click listener
+        $('#search-corelib-button').on('click', function (e) {
+            var keyword = $('#search-corelib').val().toLowerCase();
+            searchCoreLib(keyword);
+            e.preventDefault();
+            return false;
+        });
+        function searchCoreLib(keyword) {
+            // filter all corelib-item that matches the keyword, hide others
+            $('.corelib-item-label').filter(function () {
+                var libItem = $(this),
+                    itemName = libItem.text().toLowerCase();
+
+                if (itemName.search(keyword) == -1) libItem.hide();
+                else libItem.show();
+            });
+        }
+
 
         // ========================================
         // Listeners that trigger XXXCommand.execute(...)
@@ -275,14 +294,13 @@ define(
         });
 
         $('#model-load-corelib').click(function (e) {
-            // prevent user from clicking on this link and hide the menu
-            // without 'really' choosing one of the corelibs to load
-            return false;
+            var cmd = new LoadCoreLibrariesCommand();
+            cmd.execute(editor);
         });
 
-        $('.model-load-corelib').click(function (e) {
+        $('#load-corelib').click(function (e) {
             var cmd = new MergeDefaultLibraryCommand();
-            cmd.execute($(this).attr('data-lib'), editor);
+            cmd.execute(editor);
             e.preventDefault();
         });
 

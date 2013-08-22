@@ -57,16 +57,7 @@ html
                   li
                     a#clear(href='#') Clear all
                     a#clear-instances(href='#') Clear instances
-                  li.dropdown-submenu
-                    a#model-load-corelib(href='#') Load Core Library
-                    ul.dropdown-menu
-                      li: a.model-load-corelib(href='#', data-lib='all') All
-                      li: a.model-load-corelib(href='#', data-lib='android') Android
-                      li: a.model-load-corelib(href='#', data-lib='arduino') Arduino
-                      li: a.model-load-corelib(href='#', data-lib='daum') DAUM
-                      li: a.model-load-corelib(href='#', data-lib='javase') JavaSE
-                      li: a.model-load-corelib(href='#', data-lib='sky') Sky
-                      li: a.model-load-corelib(href='#', data-lib='webserver') WebServer
+                    a#model-load-corelib(href='#load-corelib-popup', data-toggle='modal') Load Core Libraries
                   li.divider
                   li.nav-header Tools
                   li
@@ -109,15 +100,15 @@ html
                 a#lib-tree-settings-filter-channels(href='#') Channels
                   input.checkbox.pull-right(type='checkbox', value='ChannelType', checked='true')
             input.search-query#lib-tree-search(type='text', placeholder='Search field...')
+          p.lib-tree-info
+            strong To load libraries:
+            br
+            em Model > Load Core Library > (choose one)
+            br
+            strong or
+            br
+            em File > Load
           div#lib-tree-content.sidebar-nav
-            p.lib-tree-info
-              strong To load libraries:
-              br
-              em Model > Load Core Library > (choose one)
-              br
-              strong or
-              br
-              em File > Load
 
         div#editor-panel.span9.layer.fill
           a#toggle-lib-tree.over(href='#', title='Toggle menu')
@@ -214,6 +205,38 @@ html
         div#stats-popup-content
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
+    //- ===============
+
+    //- ===============
+    //- LOAD CORELIBRARIES POPUP
+    div#load-corelib-popup.modal.hide.fade(tabindex='-1', role='dialog')
+      div.modal-header
+        button.close(href='#', type='button', data-dismiss='modal') &times;
+        h3 Load core libraries
+      div.modal-body
+        ul.nav.nav-tabs
+          li.active: a(href='#corelib-javase', data-toggle='tab') JavaSE
+          li: a(href='#corelib-android', data-toggle='tab') Android
+          li: a(href='#corelib-sky', data-toggle='tab') SKY
+          li.pull-right
+            div.form-search(style='margin-bottom: 0px')
+              input#search-corelib.input-search.input-small.search-query(type='text')
+              button#search-corelib-button.btn(type='button'): i.icon-search
+        div#load-corelib-popup-error.alert.alert-error.hide
+          button.close(href="#", type='button', data-dismiss='alert') &times;
+          p#load-corelib-popup-error-content
+        div.tab-content
+          div#corelib-javase.tab-pane.active.well.vertical-scroll.corelibrary-items-list
+          div#corelib-android.tab-pane.well.vertical-scroll.corelibrary-items-list
+          div#corelib-sky.tab-pane.well.vertical-scroll.corelibrary-items-list
+        div#load-corelib-popup-content
+      div.modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Close
+        button#load-corelib.btn.btn-primary(aria-hidden='true') Load
+        button#loading-corelib.btn.disabled.hide(aria-hidden='true')
+          img(src='/img/ajax-loader-small.gif', alt='Loading')
+          | &nbsp;Loading
+
     //- ===============
 
     //- ===============

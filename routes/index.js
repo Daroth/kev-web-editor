@@ -6,6 +6,7 @@ exports.index = function(req, res) {
     res.render('editor', { title: 'Kevoree Web Editor', env: env });
 };
 
+exports.load    = require('./load').load;
 exports.merge   = require('./merge').merge;
 exports.save    = require('./save').save;
 exports.saved   = require('./save').saved;

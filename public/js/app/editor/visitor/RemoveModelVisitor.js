@@ -71,9 +71,10 @@ define(
         }
 
         RemoveModelVisitor.prototype.visitNodeNetwork = function (net) {
-            this._model.removeNodeNetworks(net._instance);
-            this._listener.call(this);
-
+            if (net._instance != null) {
+                this._model.removeNodeNetworks(net._instance);
+                this._listener.call(this);
+            }
         }
 
         RemoveModelVisitor.prototype.visitNodeLink = function (link) {

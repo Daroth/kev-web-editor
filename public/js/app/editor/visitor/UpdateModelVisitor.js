@@ -248,7 +248,7 @@ define(
             value.setAttribute(dicType.findAttributesByID(val.getAttribute().getName()));
             value.setValue(val.getValue());
             var node = null;
-            if (val.getAttribute().getFragmentDependant()) {
+            if (val.getAttribute().getFragmentDependant() == true) {
                 node = this._model.findNodesByID(val.getTargetNode().getName());
             }
             value.setTargetNode(node);

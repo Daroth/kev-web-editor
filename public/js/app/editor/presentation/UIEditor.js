@@ -466,8 +466,8 @@ define(
         }
 
         UIEditor.prototype.c2pClear = function () {
-            $('.lib-tree-info').show(); // show info
             $('#lib-tree-content li, #lib-tree-content ul').remove();
+            $('.lib-tree-info').show(); // show info
         }
 
         /**

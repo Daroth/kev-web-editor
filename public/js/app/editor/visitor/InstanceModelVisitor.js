@@ -1,8 +1,10 @@
 define(
     [
-        'util/Util'
+        'util/Util',
+        'abstraction/KComponent',
+        'abstraction/KNode'
     ],
-    function (Util) {
+    function (Util, KComponent, KNode) {
 
         /**
          * Visit model in order to load instances in the editor
@@ -252,9 +254,19 @@ define(
                     var dicVal = values.get(i),
                         attrName = dicVal.getAttribute().getName(),
                         fragDep = Util.parseBoolean(dicVal.getAttribute().getFragmentDependant()),
-                        kValue = null;
+                        kValue = null,
+                        attr = entity.getDictionary().getAttribute(attrName);
 
-                    kValue = factory.newValue(entity.getDictionary().getAttribute(attrName));
+                    // bug fix: prevent component && node attributes to be fragDep=true
+                    // because it doesn't make sense and leads to bugs
+                    if (entity.getEntityType() == KComponent.ENTITY_TYPE || entity.getEntityType() == KNode.ENTITY_TYPE) {
+                        fragDep = false;
+                        attr.setFragmentDependant(false);
+                    }
+
+                    console.log("loadgin attribute value", attr, dicVal, entity);
+
+                    kValue = factory.newValue(attr);
                     kValue.setValue(dicVal.getValue());
                     kValue._instance = dicVal;
                     if (fragDep) kValue.setTargetNode(entity.getEditor().getEntity(dicVal.getTargetNode().getName()));

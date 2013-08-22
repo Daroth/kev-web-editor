@@ -7,34 +7,59 @@ define(
     ],
 
     function ($, ModelHelper, AlertPopupHelper, Kevoree) {
+        var NAMESPACE = "merge-default-library-command";
+
         function MergeDefaultLibraryCommand() {}
 
-        MergeDefaultLibraryCommand.prototype.execute = function (lib, editor) {
-            // display loading headsup for user
-            AlertPopupHelper.setHTML("<img src='/img/ajax-loader-small.gif' alt='loading' /> Loading libraries...")
-            AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
-            AlertPopupHelper.show();
+        MergeDefaultLibraryCommand.prototype.execute = function (editor) {
+            if ($('.corelib-item:checked').size() > 0) {
+                $('#load-corelib').hide();
+                $('#loading-corelib').show();
+            } else {
+                $('#load-corelib').effect('highlight', {color: '#f00'}, 500);
+                $('#load-corelib-popup-error-content').html("You must select at least 1 library in order to load it.");
+                $('#load-corelib-popup-error').show();
+            }
 
-            $.getJSON('/merge/'+lib, function (data) {
-                try {
-                    // TODO allow merge, this is not a merge, it replaces the old model if there is one
-                    var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
-                    var model = loader.loadModelFromString(JSON.stringify(data)).get(0);
-                    editor.setModel(model);
+            // hide alert when popup is closed
+            $('body').off(NAMESPACE)
+            $('body').on('hidden'+NAMESPACE, '#load-corelib-popup', function () {
+                $('#loading-corelib').hide();
+                $('#load-corelib').show();
+            });
 
-                    // update headsup for user
-                    AlertPopupHelper.setText("Core library ("+lib+") loaded successfully");
-                    AlertPopupHelper.show(5000);
+            // retrieve selected libraries from DOM (checked inputs)
+            $('.corelib-item').each(function () {
+                if ($(this).prop('checked')) {
+                    var library = editor.getLibraries($(this).attr('data-library-platform'))[$(this).attr('data-library-id')];
+                    $.ajax({
+                        url: '/merge',
+                        data: library,
+                        timeout: 10000,
+                        dataType: 'json',
+                        success: function (data) {
+                            var loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
+                                receivedModel = loader.loadModelFromString(JSON.stringify(data.model)).get(0),
+                                currentModel = editor.getModel();
 
-                    // update url
-                    window.history.replaceState(null, "Core library "+lib+" loaded", "/?corelib="+lib);
+                            if (currentModel != null) {
+                                // merge needed
+                                var compare = new Kevoree.org.kevoree.compare.DefaultModelCompare(),
+                                    diffSeq = compare.merge(receivedModel, currentModel);
+                                console.log("TRACE",diffSeq.exportToString());
+                                diffSeq.applyOn(receivedModel);
+                            }
 
-                } catch (err) {
-                    // update headsup for user
-                    AlertPopupHelper.setText("Unable to load library ("+lib+")");
-                    AlertPopupHelper.setType(AlertPopupHelper.ERROR);
-                    AlertPopupHelper.show(5000);
-                    console.error("Unable to load library ("+lib+")", (err.message) ? err.message : err);
+                            $('#loading-corelib').hide();
+                            $('#load-corelib').show();
+                            editor.setModel(receivedModel);
+                        },
+                        error: function (err) {
+                            console.log("ERROR", err);
+                            $('#loading-corelib').hide();
+                            $('#load-corelib').show();
+                        }
+                    });
                 }
             });
         }

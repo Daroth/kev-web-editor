@@ -1,0 +1,8 @@
+//- WARNING: remember to compile this .jade template each time you made a change using:
+    jade-amd --from views/templates --to public/js/app/templates
+    otherwise your pre-compiled Javascript template in public/js/app/templates won't be up-to-date
+
+each item, i in items
+  label.corelib-item-label.checkbox
+    input.corelib-item(type='checkbox', data-library-platform=platform , data-library-id=i)
+    | #{item.simpleName+'-'+item.version}

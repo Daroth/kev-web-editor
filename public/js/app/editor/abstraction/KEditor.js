@@ -18,6 +18,7 @@ define(
             this._instanceVisitor = new InstanceModelVisitor();
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();
             this._lockedModel = false;
+            this._libraries = {};
         }
 
         KEditor.prototype.addEntity = function(entity) {
@@ -159,6 +160,14 @@ define(
          */
         KEditor.prototype.getEntityCount = function(type) {
             return this._typeCounter[type] || 0;
+        }
+
+        KEditor.prototype.addLibraries = function (platform, libraries) {
+            this._libraries[platform] = libraries;
+        }
+
+        KEditor.prototype.getLibraries = function (platform) {
+            return this._libraries[platform];
         }
 
         return KEditor;
