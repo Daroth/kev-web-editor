@@ -13,7 +13,6 @@
         "jade-amd": "*",
         "java": "0.2.3",
         "mocha": "1.12.0",
-        "requirejs": "2.1.8",
-        "xml2js": "0.2.8"
+        "requirejs": "2.1.8"
     }
 }
