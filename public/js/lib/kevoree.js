@@ -9213,7 +9213,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_abstract()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setAbstract(value != null ? value : Kotlin.throwNPE());
+                  this.setAbstract(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -10957,7 +10957,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_started()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setStarted(value != null ? value : Kotlin.throwNPE());
+                  this.setStarted(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -12352,7 +12352,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_started()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setStarted(value != null ? value : Kotlin.throwNPE());
+                  this.setStarted(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -13315,7 +13315,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_started()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setStarted(value != null ? value : Kotlin.throwNPE());
+                  this.setStarted(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -14232,7 +14232,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_abstract()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setAbstract(value != null ? value : Kotlin.throwNPE());
+                  this.setAbstract(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -14240,7 +14240,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_synchrone()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setSynchrone(value != null ? value : Kotlin.throwNPE());
+                  this.setSynchrone(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -15120,7 +15120,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_abstract()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setAbstract(value != null ? value : Kotlin.throwNPE());
+                  this.setAbstract(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -16049,7 +16049,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_optional()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setOptional(value != null ? value : Kotlin.throwNPE());
+                  this.setOptional(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -16057,7 +16057,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_state()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setState(value != null ? value : Kotlin.throwNPE());
+                  this.setState(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -16073,7 +16073,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_fragmentDependant()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setFragmentDependant(value != null ? value : Kotlin.throwNPE());
+                  this.setFragmentDependant(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -16590,7 +16590,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_started()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setStarted(value != null ? value : Kotlin.throwNPE());
+                  this.setStarted(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -17920,7 +17920,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_abstract()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setAbstract(value != null ? value : Kotlin.throwNPE());
+                  this.setAbstract(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -19730,7 +19730,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_abstract()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setAbstract(value != null ? value : Kotlin.throwNPE());
+                  this.setAbstract(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -21600,7 +21600,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_abstract()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setAbstract(value != null ? value : Kotlin.throwNPE());
+                  this.setAbstract(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -22738,7 +22738,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_abstract()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setAbstract(value != null ? value : Kotlin.throwNPE());
+                  this.setAbstract(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -22746,7 +22746,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_synchrone()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setSynchrone(value != null ? value : Kotlin.throwNPE());
+                  this.setSynchrone(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -23713,7 +23713,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_started()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setStarted(value != null ? value : Kotlin.throwNPE());
+                  this.setStarted(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -32219,7 +32219,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_abstract()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setAbstract(value != null ? value : Kotlin.throwNPE());
+                  this.setAbstract(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -32227,7 +32227,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_synchrone()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setSynchrone(value != null ? value : Kotlin.throwNPE());
+                  this.setSynchrone(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -33937,7 +33937,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_abstract()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setAbstract(value != null ? value : Kotlin.throwNPE());
+                  this.setAbstract(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -35025,7 +35025,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_abstract()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setAbstract(value != null ? value : Kotlin.throwNPE());
+                  this.setAbstract(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -36185,7 +36185,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_optional()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setOptional(value != null ? value : Kotlin.throwNPE());
+                  this.setOptional(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
@@ -36193,7 +36193,7 @@ define(
               }
                else if (refName === _.org.kevoree.util.Constants.get_Att_noDependency()) {
                 if (mutationType === _.org.kevoree.modeling.api.util.ActionType.get_SET()) {
-                  this.setNoDependency(value != null ? value : Kotlin.throwNPE());
+                  this.setNoDependency(Kotlin.equals('true', value) || Kotlin.equals(true, value));
                 }
                  else {
                   throw new Error(_.org.kevoree.util.Constants.get_UNKNOWN_MUTATION_TYPE_EXCEPTION() + mutationType);
