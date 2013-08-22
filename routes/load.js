@@ -12,14 +12,10 @@ var http = require('http');
 var parseString = require('xml2js').parseString;
 
 exports.load = function (req, res) {
-    console.log("load start");
     if (req.xhr) {
-        console.log("load is xhr");
         var platform = req.query.platform;
         if (platform) {
-            console.log("load as platform param");
             if (PLATFORMS.indexOf(platform) != -1) {
-                console.log("load platform param is valid");
                 var options = {
                     host: 'oss.sonatype.org',
                     path: '/service/local/data_index?g=org.kevoree.corelibrary.'+platform

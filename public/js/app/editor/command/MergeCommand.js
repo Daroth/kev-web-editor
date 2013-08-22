@@ -5,46 +5,59 @@ define(
         'util/AlertPopupHelper'
     ],
     function ($, ModelHelper, AlertPopupHelper) {
+        var NAMESPACE = '.merge-file-command';
+
         function MergeCommand () {}
 
         MergeCommand.prototype.execute = function (editor) {
-            AlertPopupHelper.setText("Merge: not implemented yet");
-            AlertPopupHelper.setType(AlertPopupHelper.WARN);
-            AlertPopupHelper.show(5000);
+            // opens file selector
+            $('#file').trigger('click');
 
-//            // opens file selector
-//            $('#file').trigger('click');
-//
-//            // called when a file is selected
-//            $('#file').change(function () {
-//                var file = $('#file').get(0).files[0]; // yeah, we do not want multiple file selection
-//                if ($('#file').get(0).files.length > 1) {
-//                    console.warn("You have selected multiple files ("
-//                        +$('#file').get(0).files[0].length
-//                        +") so I took the first one in the list ("
-//                        +$('#file').get(0).files[0].name
-//                        +")");
-//                }
-//                var fReader = new FileReader();
-//                fReader.onload = function (event) {
-//                    // retrieve data from selected file
-//                    var data = event.target.result;
-//                    try {
-//                        // TODO merge
-//                        //editor.setModel(JSON.parse(data));
-//
-//                        AlertPopupHelper.setText("Model \""+file.name+"\" loaded successfully");
-//                        AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
-//                        AlertPopupHelper.show(5000);
-//
-//                    } catch (err) {
-//                        AlertPopupHelper.setText(err.message);
-//                        AlertPopupHelper.setType(AlertPopupHelper.ERROR);
-//                        AlertPopupHelper.show(5000);
-//                    }
-//                }
-//                fReader.readAsText(file);
-//            });
+            // called when a file is selected
+            $('#file').off(NAMESPACE);
+            $('#file').on('change'+NAMESPACE, function () {
+                var file = $('#file').get(0).files[0]; // yeah, we do not want multiple file selection
+                if ($('#file').get(0).files.length > 1) {
+                    console.warn("You have selected multiple files ("
+                        +$('#file').get(0).files[0].length
+                        +") so I took the first one in the list ("
+                        +$('#file').get(0).files[0].name
+                        +")");
+                }
+                var fReader = new FileReader();
+                fReader.onload = function (event) {
+                    // retrieve data from selected file
+                    var jsonModel = JSON.parse(event.target.result),
+                        strModel = JSON.stringify(jsonModel);
+                    try {
+                        var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
+                        var model = loader.loadModelFromString(strModel).get(0);
+                        var currentModel = editor.getModel();
+
+                        if (currentModel != null) {
+                            // merge needed
+                            var compare = new Kevoree.org.kevoree.compare.DefaultModelCompare(),
+                                diffSeq = compare.merge(model, currentModel);
+                            diffSeq.applyOn(model);
+                        }
+
+                        editor.setModel(model);
+
+                        AlertPopupHelper.setText("Model \""+file.name+"\" merged successfully");
+                        AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
+                        AlertPopupHelper.show(5000);
+
+                    } catch (err) {
+                        AlertPopupHelper.setText(err.message);
+                        AlertPopupHelper.setType(AlertPopupHelper.ERROR);
+                        AlertPopupHelper.show(5000);
+                    }
+                }
+                fReader.readAsText(file);
+
+                // reset input field
+                $(this).val('');
+            });
         }
 
         return MergeCommand;

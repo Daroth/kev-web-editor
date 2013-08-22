@@ -7,7 +7,7 @@ define(
     ],
 
     function ($, ModelHelper, AlertPopupHelper, Kevoree) {
-        var NAMESPACE = "merge-default-library-command";
+        var NAMESPACE = ".merge-default-library-command";
 
         function MergeDefaultLibraryCommand() {}
 
@@ -46,7 +46,6 @@ define(
                                 // merge needed
                                 var compare = new Kevoree.org.kevoree.compare.DefaultModelCompare(),
                                     diffSeq = compare.merge(receivedModel, currentModel);
-                                console.log("TRACE",diffSeq.exportToString());
                                 diffSeq.applyOn(receivedModel);
                             }
 
