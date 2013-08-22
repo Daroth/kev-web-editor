@@ -35,8 +35,7 @@ define(
 
             editor.setModelListener({
                 onUpdates: function () {
-                    serializer.serialize(editor.getModel(), os);
-                    ws.send(os.$result);
+                    ws.send(serializer.serialize(editor.getModel()));
                 }
             });
         }

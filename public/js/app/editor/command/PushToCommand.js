@@ -18,10 +18,8 @@ define(
                 }
             }, TIMEOUT);
 
-            var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer(),
-                os = new Kevoree.java.io.OutputStream();
-            serializer.serialize(model, os);
-            var jsonModel = JSON.parse(os.get_result());
+            var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
+            var jsonModel = JSON.parse(serializer.serialize(model));
 
             // TODO push model
             $.ajax({
