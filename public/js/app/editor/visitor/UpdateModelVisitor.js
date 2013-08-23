@@ -241,21 +241,23 @@ define(
         }
 
         UpdateModelVisitor.prototype.visitValue = function (val) {
-            var tDef = val.getAttribute().getDictionary().getEntity().getType(),
-                dicType = this._model.findTypeDefinitionsByID(tDef).getDictionaryType(),
-                value = this._factory.createDictionaryValue();
+            if (val.getValue() != null) {
+                var tDef = val.getAttribute().getDictionary().getEntity().getType(),
+                    dicType = this._model.findTypeDefinitionsByID(tDef).getDictionaryType(),
+                    value = this._factory.createDictionaryValue();
 
-            value.setAttribute(dicType.findAttributesByID(val.getAttribute().getName()));
-            value.setValue(val.getValue());
-            var node = null;
-            if (val.getAttribute().getFragmentDependant() == true) {
-                node = this._model.findNodesByID(val.getTargetNode().getName());
+                value.setAttribute(dicType.findAttributesByID(val.getAttribute().getName()));
+                value.setValue(val.getValue());
+                var node = null;
+                if (val.getAttribute().getFragmentDependant() == true) {
+                    node = this._model.findNodesByID(val.getTargetNode().getName());
+                }
+                value.setTargetNode(node);
+
+                val.getAttribute().getDictionary()._instance.addValues(value);
+
+                this._listener.call(this);
             }
-            value.setTargetNode(node);
-
-            val.getAttribute().getDictionary()._instance.addValues(value);
-
-            this._listener.call(this);
         }
 
         // private method

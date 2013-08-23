@@ -19,9 +19,8 @@ define(
             }, TIMEOUT);
 
             var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
+            console.log("model", model);
             var jsonModel = JSON.parse(serializer.serialize(model));
-
-            // TODO push model
             $.ajax({
                 url: '/push',
                 type: 'POST',

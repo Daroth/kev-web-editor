@@ -16,9 +16,7 @@ define(
                 $('#load-corelib').hide();
                 $('#loading-corelib').show();
             } else {
-                $('#load-corelib').effect('highlight', {color: '#f00'}, 500);
-                $('#load-corelib-popup-error-content').html("You must select at least 1 library in order to load it.");
-                $('#load-corelib-popup-error').show();
+                showError("You must select at least 1 library in order to load it.");
             }
 
             // hide alert when popup is closed
@@ -29,9 +27,18 @@ define(
             });
 
             // retrieve selected libraries from DOM (checked inputs)
+            var corelibToLoad = (function() {
+                var count = 0;
+                // count core libs in order to check full loading process
+                $('.corelib-item').each(function () {
+                    if ($(this).prop('checked')) count++;
+                });
+                return count;
+            })();
             $('.corelib-item').each(function () {
-                if ($(this).prop('checked')) {
-                    var library = editor.getLibraries($(this).attr('data-library-platform'))[$(this).attr('data-library-id')];
+                var corelib = $(this);
+                if (corelib.prop('checked')) {
+                    var library = editor.getLibraries(corelib.attr('data-library-platform'))[corelib.attr('data-library-id')];
                     $.ajax({
                         url: '/merge',
                         data: library,
@@ -49,18 +56,31 @@ define(
                                 diffSeq.applyOn(receivedModel);
                             }
 
-                            $('#loading-corelib').hide();
-                            $('#load-corelib').show();
+                            coreLibLoaded();
                             editor.setModel(receivedModel);
                         },
-                        error: function (err) {
-                            console.log("ERROR", err);
-                            $('#loading-corelib').hide();
-                            $('#load-corelib').show();
+                        error: function () {
+                            showError('Something went wrong while loading '+library.simpleName+'-'+library.version);
+                            coreLibLoaded();
                         }
                     });
                 }
             });
+
+            function coreLibLoaded() {
+                corelibToLoad--;
+                if (corelibToLoad == 0) {
+                    $('#loading-corelib').hide();
+                    $('#load-corelib').show();
+                }
+            }
+
+            function showError(message) {
+                corelibToLoad--;
+                if (corelibToLoad == 0) $('#load-corelib').effect('highlight', {color: '#f00'}, 500);
+                $('#load-corelib-popup-error-content').html(message);
+                $('#load-corelib-popup-error').show();
+            }
         }
 
         return MergeDefaultLibraryCommand;
