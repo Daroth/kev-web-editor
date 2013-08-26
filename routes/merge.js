@@ -20,7 +20,6 @@ exports.merge = function(req, res) {
             list.addSync("http://oss.sonatype.org/content/groups/public");
 
             for (var i in libz) {
-                console.log("POTATO");
                 var artID   = libz[i].artifactID,
                     grpID   = libz[i].groupID,
                     version = libz[i].version;
@@ -40,7 +39,6 @@ exports.merge = function(req, res) {
 
                             try {
                                 mergeSeq.applyOnSync(fullModel);
-                                console.log("apply on done");
                             } catch (err) {
                                 console.error("mergeSeq.applyOn error");
                                 console.error(err);
