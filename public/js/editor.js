@@ -179,6 +179,16 @@ define(
             }
         });
 
+        $('#open-node-uri').on('keyup', function (e) {
+            if (e.which == 13) {
+                var cmd = new OpenFromNodeCommand();
+                var protocol = $('#open-node-protocol option:selected').val();
+                var uri = $(this).val();
+
+                cmd.execute(protocol, uri, editor);
+            }
+        });
+
         // ========================================
         // Listeners that trigger XXXCommand.execute(...)
         $('#load').click(function (e) {

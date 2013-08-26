@@ -42,24 +42,19 @@ define(
                     data: { libz: libraries },
                     dataType: 'json',
                     success: function (data) {
-                        try {
-                            switch (data.result) {
-                                case 1:
-                                    var loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
-                                        receivedModel = loader.loadModelFromString(JSON.stringify(data.model)).get(0);
+                        switch (data.result) {
+                            case 1:
+                                var loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
+                                    receivedModel = loader.loadModelFromString(JSON.stringify(data.model)).get(0);
 
-                                    editor.mergeModel(receivedModel);
-                                    $('#loading-corelib').hide();
-                                    $('#load-corelib').show();
-                                    break;
+                                editor.mergeModel(receivedModel);
+                                $('#loading-corelib').hide();
+                                $('#load-corelib').show();
+                                break;
 
-                                default:
-                                    console.error(data);
-                            }
-                        } catch (err) {
-                            console.error('something went wrong while merging received model', data);
-                            $('#loading-corelib').hide();
-                            $('#load-corelib').show();
+                            default:
+                                console.error(data);
+                                break;
                         }
                     },
                     error: function (err) {

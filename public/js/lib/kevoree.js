@@ -95,23 +95,92 @@ define(
       selectByQuery: function (query) {
         throw new Error('Not activated, please add selector option in KMF generation plugin');
       },
+      get_internal_modelElementListeners: function () {
+        return this.$internal_modelElementListeners;
+      },
+      set_internal_modelElementListeners: function (tmp$0) {
+        this.$internal_modelElementListeners = tmp$0;
+      },
+      fireModelEvent: function (evt) {
+        if (this.get_internal_modelElementListeners() != null) {
+          var tmp$0;
+          {
+            var tmp$1 = ((tmp$0 = this.get_internal_modelElementListeners()) != null ? tmp$0 : Kotlin.throwNPE()).iterator();
+            while (tmp$1.hasNext()) {
+              var lst = tmp$1.next();
+              lst.elementChanged(evt);
+            }
+          }
+        }
+        this.fireModelEventOnTree(evt);
+      },
       addModelElementListener: function (lst) {
-        throw new Error('Not activated, please add events option in KMF generation plugin');
+        if (this.get_internal_modelElementListeners() == null) {
+          this.set_internal_modelElementListeners(new Kotlin.ArrayList(0));
+        }
+        var tmp$0;
+        ((tmp$0 = this.get_internal_modelElementListeners()) != null ? tmp$0 : Kotlin.throwNPE()).add(lst);
       },
       removeModelElementListener: function (lst) {
-        throw new Error('Not activated, please add events option in KMF generation plugin');
+        if (this.get_internal_modelElementListeners() != null) {
+          var tmp$0, tmp$1;
+          ((tmp$0 = this.get_internal_modelElementListeners()) != null ? tmp$0 : Kotlin.throwNPE()).remove(lst);
+          if (((tmp$1 = this.get_internal_modelElementListeners()) != null ? tmp$1 : Kotlin.throwNPE()).isEmpty()) {
+            this.set_internal_modelElementListeners(null);
+          }
+        }
       },
       removeAllModelElementListeners: function () {
-        throw new Error('Not activated, please add events option in KMF generation plugin');
+        if (this.get_internal_modelElementListeners() != null) {
+          var tmp$0;
+          ((tmp$0 = this.get_internal_modelElementListeners()) != null ? tmp$0 : Kotlin.throwNPE()).clear();
+          this.set_internal_modelElementListeners(null);
+        }
+      },
+      get_internal_modelTreeListeners: function () {
+        return this.$internal_modelTreeListeners;
+      },
+      set_internal_modelTreeListeners: function (tmp$0) {
+        this.$internal_modelTreeListeners = tmp$0;
+      },
+      fireModelEventOnTree: function (evt) {
+        if (this.get_internal_modelTreeListeners() != null) {
+          var tmp$0;
+          {
+            var tmp$1 = ((tmp$0 = this.get_internal_modelTreeListeners()) != null ? tmp$0 : Kotlin.throwNPE()).iterator();
+            while (tmp$1.hasNext()) {
+              var lst = tmp$1.next();
+              lst.elementChanged(evt);
+            }
+          }
+        }
+        if (this.eContainer() != null) {
+          var tmp$2;
+          ((tmp$2 = this.eContainer()) != null ? tmp$2 : Kotlin.throwNPE()).fireModelEventOnTree(evt);
+        }
       },
       addModelTreeListener: function (lst) {
-        throw new Error('Not activated, please add events option in KMF generation plugin');
+        if (this.get_internal_modelTreeListeners() == null) {
+          this.set_internal_modelTreeListeners(new Kotlin.ArrayList(0));
+        }
+        var tmp$0;
+        ((tmp$0 = this.get_internal_modelTreeListeners()) != null ? tmp$0 : Kotlin.throwNPE()).add(lst);
       },
       removeModelTreeListener: function (lst) {
-        throw new Error('Not activated, please add events option in KMF generation plugin');
+        if (this.get_internal_modelTreeListeners() != null) {
+          var tmp$0, tmp$1;
+          ((tmp$0 = this.get_internal_modelTreeListeners()) != null ? tmp$0 : Kotlin.throwNPE()).remove(lst);
+          if (((tmp$1 = this.get_internal_modelTreeListeners()) != null ? tmp$1 : Kotlin.throwNPE()).isEmpty()) {
+            this.set_internal_modelTreeListeners(null);
+          }
+        }
       },
       removeAllModelTreeListeners: function () {
-        throw new Error('Not activated, please add events option in KMF generation plugin');
+        if (this.get_internal_modelTreeListeners() != null) {
+          var tmp$0;
+          ((tmp$0 = this.get_internal_modelTreeListeners()) != null ? tmp$0 : Kotlin.throwNPE()).clear();
+          this.set_internal_modelElementListeners(null);
+        }
       }
     })
     , cr = Kotlin.createTrait([cf, cg])
@@ -5662,10 +5731,10 @@ define(
                 if (!this.isDone()) {
                   c = this.nextChar();
                   while (this.get_index() < this.get_bytes().length && c !== '"') {
-                    currentValue.append(c);
+                    currentValue.append_0(c);
                     if (c === '\\' && this.get_index() < this.get_bytes().length) {
                       c = this.nextChar();
-                      currentValue.append(c);
+                      currentValue.append_0(c);
                     }
                     c = this.nextChar();
                   }
@@ -5695,7 +5764,7 @@ define(
               }
                else if (!this.isDone()) {
                 while (this.isValueLetter(c)) {
-                  currentValue.append(c);
+                  currentValue.append_0(c);
                   if (!this.isValueLetter(this.peekChar())) {
                     break;
                   }
@@ -6042,6 +6111,245 @@ define(
                 return src;
               }
             },
+            loadLifeCycleTypeDefinition: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createLifeCycleTypeDefinition();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'factoryBean') {
+                  var tmp$1;
+                  modelElem.setFactoryBean(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'bean') {
+                  var tmp$2;
+                  modelElem.setBean(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'abstract') {
+                  modelElem.setAbstract(reader.nextBoolean());
+                }
+                 else if (nextName === 'startMethod') {
+                  var tmp$3;
+                  modelElem.setStartMethod(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'stopMethod') {
+                  var tmp$4;
+                  modelElem.setStopMethod(this.unescapeJSON((tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'updateMethod') {
+                  var tmp$5;
+                  modelElem.setUpdateMethod(this.unescapeJSON((tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'deployUnits') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$6;
+                    var xmiRef = (tmp$6 = reader.nextString()) != null ? tmp$6 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'deployUnits', xmiRef));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'dictionaryType') {
+                  reader.beginObject();
+                  var loadedElem = this.loadDictionaryType(reader, context);
+                  modelElem.setDictionaryType(loadedElem);
+                  reader.endObject();
+                }
+                 else if (nextName === 'superTypes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$7;
+                    var xmiRef_0 = (tmp$7 = reader.nextString()) != null ? tmp$7 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'superTypes', xmiRef_0));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in LifeCycleTypeDefinition');
+                }
+              }
+              return modelElem;
+            },
+            loadInstance: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createInstance();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'metaData') {
+                  var tmp$1;
+                  modelElem.setMetaData(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'started') {
+                  modelElem.setStarted(reader.nextBoolean());
+                }
+                 else if (nextName === 'typeDefinition') {
+                  var tmp$2;
+                  var xmiRef = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'typeDefinition', xmiRef));
+                }
+                 else if (nextName === 'dictionary') {
+                  reader.beginObject();
+                  var loadedElem = this.loadDictionary(reader, context);
+                  modelElem.setDictionary(loadedElem);
+                  reader.endObject();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Instance');
+                }
+              }
+              return modelElem;
+            },
+            loadPort: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createPort();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'generated_KMF_ID') {
+                  var tmp$0;
+                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'bindings') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$1;
+                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'bindings', xmiRef));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'portTypeRef') {
+                  var tmp$2;
+                  var xmiRef_0 = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'portTypeRef', xmiRef_0));
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Port');
+                }
+              }
+              return modelElem;
+            },
+            loadNodeNetwork: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createNodeNetwork();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'generated_KMF_ID') {
+                  var tmp$0;
+                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'link') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    reader.beginObject();
+                    var loadedElem = this.loadNodeLink(reader, context);
+                    modelElem.addLink(loadedElem);
+                    reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'initBy') {
+                  var tmp$1;
+                  var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'initBy', xmiRef));
+                }
+                 else if (nextName === 'target') {
+                  var tmp$2;
+                  var xmiRef_0 = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'target', xmiRef_0));
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in NodeNetwork');
+                }
+              }
+              return modelElem;
+            },
+            loadTypedElement: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createTypedElement();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'genericTypes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$1;
+                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'genericTypes', xmiRef));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in TypedElement');
+                }
+              }
+              return modelElem;
+            },
+            loadPortTypeMapping: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createPortTypeMapping();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'beanMethodName') {
+                  var tmp$0;
+                  modelElem.setBeanMethodName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'serviceMethodName') {
+                  var tmp$1;
+                  modelElem.setServiceMethodName(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'paramTypes') {
+                  var tmp$2;
+                  modelElem.setParamTypes(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'generated_KMF_ID') {
+                  var tmp$3;
+                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in PortTypeMapping');
+                }
+              }
+              return modelElem;
+            },
+            loadAdaptationPrimitiveType: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createAdaptationPrimitiveType();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in AdaptationPrimitiveType');
+                }
+              }
+              return modelElem;
+            },
             loadComponentInstance: function (reader, context) {
               var modelElem = this.get_mainFactory().getKevoreeFactory().createComponentInstance();
               while (reader.hasNext()) {
@@ -6102,94 +6410,30 @@ define(
               }
               return modelElem;
             },
-            loadComponentType: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createComponentType();
+            loadIntegrationPattern: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createIntegrationPattern();
               while (reader.hasNext()) {
                 var nextName = reader.nextName();
                 if (nextName === 'name') {
                   var tmp$0;
                   modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
                 }
-                 else if (nextName === 'factoryBean') {
-                  var tmp$1;
-                  modelElem.setFactoryBean(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'bean') {
-                  var tmp$2;
-                  modelElem.setBean(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'abstract') {
-                  modelElem.setAbstract(reader.nextBoolean());
-                }
-                 else if (nextName === 'startMethod') {
-                  var tmp$3;
-                  modelElem.setStartMethod(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'stopMethod') {
-                  var tmp$4;
-                  modelElem.setStopMethod(this.unescapeJSON((tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'updateMethod') {
-                  var tmp$5;
-                  modelElem.setUpdateMethod(this.unescapeJSON((tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'deployUnits') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$6;
-                    var xmiRef = (tmp$6 = reader.nextString()) != null ? tmp$6 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'deployUnits', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'dictionaryType') {
-                  reader.beginObject();
-                  var loadedElem = this.loadDictionaryType(reader, context);
-                  modelElem.setDictionaryType(loadedElem);
-                  reader.endObject();
-                }
-                 else if (nextName === 'superTypes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$7;
-                    var xmiRef_0 = (tmp$7 = reader.nextString()) != null ? tmp$7 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'superTypes', xmiRef_0));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'required') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    reader.beginObject();
-                    var loadedElem_0 = this.loadPortTypeRef(reader, context);
-                    modelElem.addRequired(loadedElem_0);
-                    reader.endObject();
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'integrationPatterns') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    reader.beginObject();
-                    var loadedElem_1 = this.loadIntegrationPattern(reader, context);
-                    modelElem.addIntegrationPatterns(loadedElem_1);
-                    reader.endObject();
-                  }
-                  reader.endArray();
-                }
                  else if (nextName === 'extraFonctionalProperties') {
-                  reader.beginObject();
-                  var loadedElem_2 = this.loadExtraFonctionalProperty(reader, context);
-                  modelElem.setExtraFonctionalProperties(loadedElem_2);
-                  reader.endObject();
-                }
-                 else if (nextName === 'provided') {
                   reader.beginArray();
                   while (reader.hasNext()) {
                     reader.beginObject();
-                    var loadedElem_3 = this.loadPortTypeRef(reader, context);
-                    modelElem.addProvided(loadedElem_3);
+                    var loadedElem = this.loadExtraFonctionalProperty(reader, context);
+                    modelElem.addExtraFonctionalProperties(loadedElem);
                     reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'portTypes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$1;
+                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'portTypes', xmiRef));
                   }
                   reader.endArray();
                 }
@@ -6197,7 +6441,7 @@ define(
                   reader.nextString();
                 }
                  else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in ComponentType');
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in IntegrationPattern');
                 }
               }
               return modelElem;
@@ -6257,6 +6501,328 @@ define(
                 }
                  else {
                   Kotlin.println('Tag unrecognized: ' + nextName + ' in ContainerNode');
+                }
+              }
+              return modelElem;
+            },
+            loadAdaptationPrimitiveTypeRef: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createAdaptationPrimitiveTypeRef();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'maxTime') {
+                  var tmp$0;
+                  modelElem.setMaxTime(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'generated_KMF_ID') {
+                  var tmp$1;
+                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'ref') {
+                  var tmp$2;
+                  var xmiRef = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'ref', xmiRef));
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in AdaptationPrimitiveTypeRef');
+                }
+              }
+              return modelElem;
+            },
+            loadDictionaryAttribute: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createDictionaryAttribute();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'optional') {
+                  modelElem.setOptional(reader.nextBoolean());
+                }
+                 else if (nextName === 'state') {
+                  modelElem.setState(reader.nextBoolean());
+                }
+                 else if (nextName === 'datatype') {
+                  var tmp$1;
+                  modelElem.setDatatype(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'fragmentDependant') {
+                  modelElem.setFragmentDependant(reader.nextBoolean());
+                }
+                 else if (nextName === 'genericTypes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$2;
+                    var xmiRef = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'genericTypes', xmiRef));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in DictionaryAttribute');
+                }
+              }
+              return modelElem;
+            },
+            loadNamespace: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createNamespace();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'childs') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    reader.beginObject();
+                    var loadedElem = this.loadNamespace(reader, context);
+                    modelElem.addChilds(loadedElem);
+                    reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'parent') {
+                  var tmp$1;
+                  var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'parent', xmiRef));
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Namespace');
+                }
+              }
+              return modelElem;
+            },
+            loadNodeType: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createNodeType();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'factoryBean') {
+                  var tmp$1;
+                  modelElem.setFactoryBean(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'bean') {
+                  var tmp$2;
+                  modelElem.setBean(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'abstract') {
+                  modelElem.setAbstract(reader.nextBoolean());
+                }
+                 else if (nextName === 'startMethod') {
+                  var tmp$3;
+                  modelElem.setStartMethod(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'stopMethod') {
+                  var tmp$4;
+                  modelElem.setStopMethod(this.unescapeJSON((tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'updateMethod') {
+                  var tmp$5;
+                  modelElem.setUpdateMethod(this.unescapeJSON((tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'deployUnits') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$6;
+                    var xmiRef = (tmp$6 = reader.nextString()) != null ? tmp$6 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'deployUnits', xmiRef));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'dictionaryType') {
+                  reader.beginObject();
+                  var loadedElem = this.loadDictionaryType(reader, context);
+                  modelElem.setDictionaryType(loadedElem);
+                  reader.endObject();
+                }
+                 else if (nextName === 'superTypes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$7;
+                    var xmiRef_0 = (tmp$7 = reader.nextString()) != null ? tmp$7 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'superTypes', xmiRef_0));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'managedPrimitiveTypes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$8;
+                    var xmiRef_1 = (tmp$8 = reader.nextString()) != null ? tmp$8 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'managedPrimitiveTypes', xmiRef_1));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'managedPrimitiveTypeRefs') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    reader.beginObject();
+                    var loadedElem_0 = this.loadAdaptationPrimitiveTypeRef(reader, context);
+                    modelElem.addManagedPrimitiveTypeRefs(loadedElem_0);
+                    reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in NodeType');
+                }
+              }
+              return modelElem;
+            },
+            loadChannel: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createChannel();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'metaData') {
+                  var tmp$1;
+                  modelElem.setMetaData(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'started') {
+                  modelElem.setStarted(reader.nextBoolean());
+                }
+                 else if (nextName === 'typeDefinition') {
+                  var tmp$2;
+                  var xmiRef = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'typeDefinition', xmiRef));
+                }
+                 else if (nextName === 'dictionary') {
+                  reader.beginObject();
+                  var loadedElem = this.loadDictionary(reader, context);
+                  modelElem.setDictionary(loadedElem);
+                  reader.endObject();
+                }
+                 else if (nextName === 'bindings') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$3;
+                    var xmiRef_0 = (tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'bindings', xmiRef_0));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Channel');
+                }
+              }
+              return modelElem;
+            },
+            loadDictionaryValue: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createDictionaryValue();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'value') {
+                  var tmp$0;
+                  modelElem.setValue(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'generated_KMF_ID') {
+                  var tmp$1;
+                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'attribute') {
+                  var tmp$2;
+                  var xmiRef = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'attribute', xmiRef));
+                }
+                 else if (nextName === 'targetNode') {
+                  var tmp$3;
+                  var xmiRef_0 = (tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'targetNode', xmiRef_0));
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in DictionaryValue');
+                }
+              }
+              return modelElem;
+            },
+            loadNodeLink: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createNodeLink();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'networkType') {
+                  var tmp$0;
+                  modelElem.setNetworkType(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'estimatedRate') {
+                  modelElem.setEstimatedRate(reader.nextInt());
+                }
+                 else if (nextName === 'lastCheck') {
+                  var tmp$1;
+                  modelElem.setLastCheck(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'zoneID') {
+                  var tmp$2;
+                  modelElem.setZoneID(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'generated_KMF_ID') {
+                  var tmp$3;
+                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'networkProperties') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    reader.beginObject();
+                    var loadedElem = this.loadNetworkProperty(reader, context);
+                    modelElem.addNetworkProperties(loadedElem);
+                    reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in NodeLink');
+                }
+              }
+              return modelElem;
+            },
+            loadParameter: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createParameter();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'order') {
+                  modelElem.setOrder(reader.nextInt());
+                }
+                 else if (nextName === 'type') {
+                  var tmp$1;
+                  var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'type', xmiRef));
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Parameter');
                 }
               }
               return modelElem;
@@ -6440,6 +7006,154 @@ define(
               }
               return modelElem;
             },
+            loadWire: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createWire();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'generated_KMF_ID') {
+                  var tmp$0;
+                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'ports') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$1;
+                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'ports', xmiRef));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Wire');
+                }
+              }
+              return modelElem;
+            },
+            loadDictionary: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createDictionary();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'generated_KMF_ID') {
+                  var tmp$0;
+                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'values') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    reader.beginObject();
+                    var loadedElem = this.loadDictionaryValue(reader, context);
+                    modelElem.addValues(loadedElem);
+                    reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Dictionary');
+                }
+              }
+              return modelElem;
+            },
+            loadRepository: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createRepository();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'url') {
+                  var tmp$0;
+                  modelElem.setUrl(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'units') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$1;
+                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'units', xmiRef));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Repository');
+                }
+              }
+              return modelElem;
+            },
+            loadServicePortType: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createServicePortType();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'factoryBean') {
+                  var tmp$1;
+                  modelElem.setFactoryBean(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'bean') {
+                  var tmp$2;
+                  modelElem.setBean(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'abstract') {
+                  modelElem.setAbstract(reader.nextBoolean());
+                }
+                 else if (nextName === 'synchrone') {
+                  modelElem.setSynchrone(reader.nextBoolean());
+                }
+                 else if (nextName === 'interface') {
+                  var tmp$3;
+                  modelElem.setInterface(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'deployUnits') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$4;
+                    var xmiRef = (tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'deployUnits', xmiRef));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'dictionaryType') {
+                  reader.beginObject();
+                  var loadedElem = this.loadDictionaryType(reader, context);
+                  modelElem.setDictionaryType(loadedElem);
+                  reader.endObject();
+                }
+                 else if (nextName === 'superTypes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$5;
+                    var xmiRef_0 = (tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'superTypes', xmiRef_0));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'operations') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    reader.beginObject();
+                    var loadedElem_0 = this.loadOperation(reader, context);
+                    modelElem.addOperations(loadedElem_0);
+                    reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in ServicePortType');
+                }
+              }
+              return modelElem;
+            },
             loadPortType: function (reader, context) {
               var modelElem = this.get_mainFactory().getKevoreeFactory().createPortType();
               while (reader.hasNext()) {
@@ -6495,199 +7209,99 @@ define(
               }
               return modelElem;
             },
-            loadPort: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createPort();
+            loadMBinding: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createMBinding();
               while (reader.hasNext()) {
                 var nextName = reader.nextName();
                 if (nextName === 'generated_KMF_ID') {
                   var tmp$0;
                   modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
                 }
-                 else if (nextName === 'bindings') {
+                 else if (nextName === 'port') {
+                  var tmp$1;
+                  var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'port', xmiRef));
+                }
+                 else if (nextName === 'hub') {
+                  var tmp$2;
+                  var xmiRef_0 = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'hub', xmiRef_0));
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in MBinding');
+                }
+              }
+              return modelElem;
+            },
+            loadExtraFonctionalProperty: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createExtraFonctionalProperty();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'generated_KMF_ID') {
+                  var tmp$0;
+                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'portTypes') {
                   reader.beginArray();
                   while (reader.hasNext()) {
                     var tmp$1;
                     var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'bindings', xmiRef));
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'portTypes', xmiRef));
                   }
                   reader.endArray();
-                }
-                 else if (nextName === 'portTypeRef') {
-                  var tmp$2;
-                  var xmiRef_0 = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'portTypeRef', xmiRef_0));
                 }
                  else if (nextName === 'eClass') {
                   reader.nextString();
                 }
                  else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Port');
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in ExtraFonctionalProperty');
                 }
               }
               return modelElem;
             },
-            loadNamespace: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createNamespace();
+            loadGroup: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createGroup();
               while (reader.hasNext()) {
                 var nextName = reader.nextName();
                 if (nextName === 'name') {
                   var tmp$0;
                   modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
                 }
-                 else if (nextName === 'childs') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    reader.beginObject();
-                    var loadedElem = this.loadNamespace(reader, context);
-                    modelElem.addChilds(loadedElem);
-                    reader.endObject();
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'parent') {
+                 else if (nextName === 'metaData') {
                   var tmp$1;
-                  var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'parent', xmiRef));
+                  modelElem.setMetaData(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
                 }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
+                 else if (nextName === 'started') {
+                  modelElem.setStarted(reader.nextBoolean());
                 }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Namespace');
-                }
-              }
-              return modelElem;
-            },
-            loadDictionary: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createDictionary();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'generated_KMF_ID') {
-                  var tmp$0;
-                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'values') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    reader.beginObject();
-                    var loadedElem = this.loadDictionaryValue(reader, context);
-                    modelElem.addValues(loadedElem);
-                    reader.endObject();
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Dictionary');
-                }
-              }
-              return modelElem;
-            },
-            loadDictionaryType: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createDictionaryType();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'generated_KMF_ID') {
-                  var tmp$0;
-                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'attributes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    reader.beginObject();
-                    var loadedElem = this.loadDictionaryAttribute(reader, context);
-                    modelElem.addAttributes(loadedElem);
-                    reader.endObject();
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'defaultValues') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    reader.beginObject();
-                    var loadedElem_0 = this.loadDictionaryValue(reader, context);
-                    modelElem.addDefaultValues(loadedElem_0);
-                    reader.endObject();
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in DictionaryType');
-                }
-              }
-              return modelElem;
-            },
-            loadDictionaryAttribute: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createDictionaryAttribute();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'optional') {
-                  modelElem.setOptional(reader.nextBoolean());
-                }
-                 else if (nextName === 'state') {
-                  modelElem.setState(reader.nextBoolean());
-                }
-                 else if (nextName === 'datatype') {
-                  var tmp$1;
-                  modelElem.setDatatype(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'fragmentDependant') {
-                  modelElem.setFragmentDependant(reader.nextBoolean());
-                }
-                 else if (nextName === 'genericTypes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$2;
-                    var xmiRef = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'genericTypes', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in DictionaryAttribute');
-                }
-              }
-              return modelElem;
-            },
-            loadDictionaryValue: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createDictionaryValue();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'value') {
-                  var tmp$0;
-                  modelElem.setValue(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'generated_KMF_ID') {
-                  var tmp$1;
-                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'attribute') {
+                 else if (nextName === 'typeDefinition') {
                   var tmp$2;
                   var xmiRef = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'attribute', xmiRef));
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'typeDefinition', xmiRef));
                 }
-                 else if (nextName === 'targetNode') {
-                  var tmp$3;
-                  var xmiRef_0 = (tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'targetNode', xmiRef_0));
+                 else if (nextName === 'dictionary') {
+                  reader.beginObject();
+                  var loadedElem = this.loadDictionary(reader, context);
+                  modelElem.setDictionary(loadedElem);
+                  reader.endObject();
+                }
+                 else if (nextName === 'subNodes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$3;
+                    var xmiRef_0 = (tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'subNodes', xmiRef_0));
+                  }
+                  reader.endArray();
                 }
                  else if (nextName === 'eClass') {
                   reader.nextString();
                 }
                  else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in DictionaryValue');
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Group');
                 }
               }
               return modelElem;
@@ -6811,72 +7425,25 @@ define(
               }
               return modelElem;
             },
-            loadPortTypeRef: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createPortTypeRef();
+            loadNamedElement: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createNamedElement();
               while (reader.hasNext()) {
                 var nextName = reader.nextName();
                 if (nextName === 'name') {
                   var tmp$0;
                   modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
                 }
-                 else if (nextName === 'optional') {
-                  modelElem.setOptional(reader.nextBoolean());
-                }
-                 else if (nextName === 'noDependency') {
-                  modelElem.setNoDependency(reader.nextBoolean());
-                }
-                 else if (nextName === 'ref') {
-                  var tmp$1;
-                  var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'ref', xmiRef));
-                }
-                 else if (nextName === 'mappings') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    reader.beginObject();
-                    var loadedElem = this.loadPortTypeMapping(reader, context);
-                    modelElem.addMappings(loadedElem);
-                    reader.endObject();
-                  }
-                  reader.endArray();
-                }
                  else if (nextName === 'eClass') {
                   reader.nextString();
                 }
                  else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in PortTypeRef');
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in NamedElement');
                 }
               }
               return modelElem;
             },
-            loadWire: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createWire();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'generated_KMF_ID') {
-                  var tmp$0;
-                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'ports') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$1;
-                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'ports', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Wire');
-                }
-              }
-              return modelElem;
-            },
-            loadServicePortType: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createServicePortType();
+            loadComponentType: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createComponentType();
               while (reader.hasNext()) {
                 var nextName = reader.nextName();
                 if (nextName === 'name') {
@@ -6894,18 +7461,23 @@ define(
                  else if (nextName === 'abstract') {
                   modelElem.setAbstract(reader.nextBoolean());
                 }
-                 else if (nextName === 'synchrone') {
-                  modelElem.setSynchrone(reader.nextBoolean());
-                }
-                 else if (nextName === 'interface') {
+                 else if (nextName === 'startMethod') {
                   var tmp$3;
-                  modelElem.setInterface(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
+                  modelElem.setStartMethod(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'stopMethod') {
+                  var tmp$4;
+                  modelElem.setStopMethod(this.unescapeJSON((tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'updateMethod') {
+                  var tmp$5;
+                  modelElem.setUpdateMethod(this.unescapeJSON((tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE()));
                 }
                  else if (nextName === 'deployUnits') {
                   reader.beginArray();
                   while (reader.hasNext()) {
-                    var tmp$4;
-                    var xmiRef = (tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE();
+                    var tmp$6;
+                    var xmiRef = (tmp$6 = reader.nextString()) != null ? tmp$6 : Kotlin.throwNPE();
                     context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'deployUnits', xmiRef));
                   }
                   reader.endArray();
@@ -6919,18 +7491,44 @@ define(
                  else if (nextName === 'superTypes') {
                   reader.beginArray();
                   while (reader.hasNext()) {
-                    var tmp$5;
-                    var xmiRef_0 = (tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE();
+                    var tmp$7;
+                    var xmiRef_0 = (tmp$7 = reader.nextString()) != null ? tmp$7 : Kotlin.throwNPE();
                     context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'superTypes', xmiRef_0));
                   }
                   reader.endArray();
                 }
-                 else if (nextName === 'operations') {
+                 else if (nextName === 'required') {
                   reader.beginArray();
                   while (reader.hasNext()) {
                     reader.beginObject();
-                    var loadedElem_0 = this.loadOperation(reader, context);
-                    modelElem.addOperations(loadedElem_0);
+                    var loadedElem_0 = this.loadPortTypeRef(reader, context);
+                    modelElem.addRequired(loadedElem_0);
+                    reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'integrationPatterns') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    reader.beginObject();
+                    var loadedElem_1 = this.loadIntegrationPattern(reader, context);
+                    modelElem.addIntegrationPatterns(loadedElem_1);
+                    reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'extraFonctionalProperties') {
+                  reader.beginObject();
+                  var loadedElem_2 = this.loadExtraFonctionalProperty(reader, context);
+                  modelElem.setExtraFonctionalProperties(loadedElem_2);
+                  reader.endObject();
+                }
+                 else if (nextName === 'provided') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    reader.beginObject();
+                    var loadedElem_3 = this.loadPortTypeRef(reader, context);
+                    modelElem.addProvided(loadedElem_3);
                     reader.endObject();
                   }
                   reader.endArray();
@@ -6939,7 +7537,71 @@ define(
                   reader.nextString();
                 }
                  else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in ServicePortType');
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in ComponentType');
+                }
+              }
+              return modelElem;
+            },
+            loadGroupType: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createGroupType();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'factoryBean') {
+                  var tmp$1;
+                  modelElem.setFactoryBean(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'bean') {
+                  var tmp$2;
+                  modelElem.setBean(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'abstract') {
+                  modelElem.setAbstract(reader.nextBoolean());
+                }
+                 else if (nextName === 'startMethod') {
+                  var tmp$3;
+                  modelElem.setStartMethod(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'stopMethod') {
+                  var tmp$4;
+                  modelElem.setStopMethod(this.unescapeJSON((tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'updateMethod') {
+                  var tmp$5;
+                  modelElem.setUpdateMethod(this.unescapeJSON((tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'deployUnits') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$6;
+                    var xmiRef = (tmp$6 = reader.nextString()) != null ? tmp$6 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'deployUnits', xmiRef));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'dictionaryType') {
+                  reader.beginObject();
+                  var loadedElem = this.loadDictionaryType(reader, context);
+                  modelElem.setDictionaryType(loadedElem);
+                  reader.endObject();
+                }
+                 else if (nextName === 'superTypes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$7;
+                    var xmiRef_0 = (tmp$7 = reader.nextString()) != null ? tmp$7 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'superTypes', xmiRef_0));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in GroupType');
                 }
               }
               return modelElem;
@@ -6972,147 +7634,6 @@ define(
                 }
                  else {
                   Kotlin.println('Tag unrecognized: ' + nextName + ' in Operation');
-                }
-              }
-              return modelElem;
-            },
-            loadParameter: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createParameter();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'order') {
-                  modelElem.setOrder(reader.nextInt());
-                }
-                 else if (nextName === 'type') {
-                  var tmp$1;
-                  var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'type', xmiRef));
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Parameter');
-                }
-              }
-              return modelElem;
-            },
-            loadTypedElement: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createTypedElement();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'genericTypes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$1;
-                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'genericTypes', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in TypedElement');
-                }
-              }
-              return modelElem;
-            },
-            loadMessagePortType: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createMessagePortType();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'factoryBean') {
-                  var tmp$1;
-                  modelElem.setFactoryBean(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'bean') {
-                  var tmp$2;
-                  modelElem.setBean(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'abstract') {
-                  modelElem.setAbstract(reader.nextBoolean());
-                }
-                 else if (nextName === 'synchrone') {
-                  modelElem.setSynchrone(reader.nextBoolean());
-                }
-                 else if (nextName === 'deployUnits') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$3;
-                    var xmiRef = (tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'deployUnits', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'dictionaryType') {
-                  reader.beginObject();
-                  var loadedElem = this.loadDictionaryType(reader, context);
-                  modelElem.setDictionaryType(loadedElem);
-                  reader.endObject();
-                }
-                 else if (nextName === 'superTypes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$4;
-                    var xmiRef_0 = (tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'superTypes', xmiRef_0));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'filters') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$5;
-                    var xmiRef_1 = (tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'filters', xmiRef_1));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in MessagePortType');
-                }
-              }
-              return modelElem;
-            },
-            loadRepository: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createRepository();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'url') {
-                  var tmp$0;
-                  modelElem.setUrl(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'units') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$1;
-                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'units', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Repository');
                 }
               }
               return modelElem;
@@ -7172,315 +7693,6 @@ define(
                 }
                  else {
                   Kotlin.println('Tag unrecognized: ' + nextName + ' in DeployUnit');
-                }
-              }
-              return modelElem;
-            },
-            loadTypeLibrary: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createTypeLibrary();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'subTypes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$1;
-                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'subTypes', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in TypeLibrary');
-                }
-              }
-              return modelElem;
-            },
-            loadNamedElement: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createNamedElement();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in NamedElement');
-                }
-              }
-              return modelElem;
-            },
-            loadIntegrationPattern: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createIntegrationPattern();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'extraFonctionalProperties') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    reader.beginObject();
-                    var loadedElem = this.loadExtraFonctionalProperty(reader, context);
-                    modelElem.addExtraFonctionalProperties(loadedElem);
-                    reader.endObject();
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'portTypes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$1;
-                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'portTypes', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in IntegrationPattern');
-                }
-              }
-              return modelElem;
-            },
-            loadExtraFonctionalProperty: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createExtraFonctionalProperty();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'generated_KMF_ID') {
-                  var tmp$0;
-                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'portTypes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$1;
-                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'portTypes', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in ExtraFonctionalProperty');
-                }
-              }
-              return modelElem;
-            },
-            loadPortTypeMapping: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createPortTypeMapping();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'beanMethodName') {
-                  var tmp$0;
-                  modelElem.setBeanMethodName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'serviceMethodName') {
-                  var tmp$1;
-                  modelElem.setServiceMethodName(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'paramTypes') {
-                  var tmp$2;
-                  modelElem.setParamTypes(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'generated_KMF_ID') {
-                  var tmp$3;
-                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in PortTypeMapping');
-                }
-              }
-              return modelElem;
-            },
-            loadChannel: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createChannel();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'metaData') {
-                  var tmp$1;
-                  modelElem.setMetaData(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'started') {
-                  modelElem.setStarted(reader.nextBoolean());
-                }
-                 else if (nextName === 'typeDefinition') {
-                  var tmp$2;
-                  var xmiRef = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'typeDefinition', xmiRef));
-                }
-                 else if (nextName === 'dictionary') {
-                  reader.beginObject();
-                  var loadedElem = this.loadDictionary(reader, context);
-                  modelElem.setDictionary(loadedElem);
-                  reader.endObject();
-                }
-                 else if (nextName === 'bindings') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$3;
-                    var xmiRef_0 = (tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'bindings', xmiRef_0));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Channel');
-                }
-              }
-              return modelElem;
-            },
-            loadMBinding: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createMBinding();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'generated_KMF_ID') {
-                  var tmp$0;
-                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'port') {
-                  var tmp$1;
-                  var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'port', xmiRef));
-                }
-                 else if (nextName === 'hub') {
-                  var tmp$2;
-                  var xmiRef_0 = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'hub', xmiRef_0));
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in MBinding');
-                }
-              }
-              return modelElem;
-            },
-            loadNodeNetwork: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createNodeNetwork();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'generated_KMF_ID') {
-                  var tmp$0;
-                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'link') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    reader.beginObject();
-                    var loadedElem = this.loadNodeLink(reader, context);
-                    modelElem.addLink(loadedElem);
-                    reader.endObject();
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'initBy') {
-                  var tmp$1;
-                  var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'initBy', xmiRef));
-                }
-                 else if (nextName === 'target') {
-                  var tmp$2;
-                  var xmiRef_0 = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'target', xmiRef_0));
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in NodeNetwork');
-                }
-              }
-              return modelElem;
-            },
-            loadNodeLink: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createNodeLink();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'networkType') {
-                  var tmp$0;
-                  modelElem.setNetworkType(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'estimatedRate') {
-                  modelElem.setEstimatedRate(reader.nextInt());
-                }
-                 else if (nextName === 'lastCheck') {
-                  var tmp$1;
-                  modelElem.setLastCheck(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'zoneID') {
-                  var tmp$2;
-                  modelElem.setZoneID(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'generated_KMF_ID') {
-                  var tmp$3;
-                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'networkProperties') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    reader.beginObject();
-                    var loadedElem = this.loadNetworkProperty(reader, context);
-                    modelElem.addNetworkProperties(loadedElem);
-                    reader.endObject();
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in NodeLink');
-                }
-              }
-              return modelElem;
-            },
-            loadNetworkProperty: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createNetworkProperty();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'value') {
-                  var tmp$1;
-                  modelElem.setValue(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'lastCheck') {
-                  var tmp$2;
-                  modelElem.setLastCheck(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in NetworkProperty');
                 }
               }
               return modelElem;
@@ -7561,6 +7773,145 @@ define(
               }
               return modelElem;
             },
+            loadPortTypeRef: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createPortTypeRef();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'optional') {
+                  modelElem.setOptional(reader.nextBoolean());
+                }
+                 else if (nextName === 'noDependency') {
+                  modelElem.setNoDependency(reader.nextBoolean());
+                }
+                 else if (nextName === 'ref') {
+                  var tmp$1;
+                  var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
+                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'ref', xmiRef));
+                }
+                 else if (nextName === 'mappings') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    reader.beginObject();
+                    var loadedElem = this.loadPortTypeMapping(reader, context);
+                    modelElem.addMappings(loadedElem);
+                    reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in PortTypeRef');
+                }
+              }
+              return modelElem;
+            },
+            loadDictionaryType: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createDictionaryType();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'generated_KMF_ID') {
+                  var tmp$0;
+                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'attributes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    reader.beginObject();
+                    var loadedElem = this.loadDictionaryAttribute(reader, context);
+                    modelElem.addAttributes(loadedElem);
+                    reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'defaultValues') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    reader.beginObject();
+                    var loadedElem_0 = this.loadDictionaryValue(reader, context);
+                    modelElem.addDefaultValues(loadedElem_0);
+                    reader.endObject();
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in DictionaryType');
+                }
+              }
+              return modelElem;
+            },
+            loadMessagePortType: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createMessagePortType();
+              while (reader.hasNext()) {
+                var nextName = reader.nextName();
+                if (nextName === 'name') {
+                  var tmp$0;
+                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'factoryBean') {
+                  var tmp$1;
+                  modelElem.setFactoryBean(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'bean') {
+                  var tmp$2;
+                  modelElem.setBean(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
+                }
+                 else if (nextName === 'abstract') {
+                  modelElem.setAbstract(reader.nextBoolean());
+                }
+                 else if (nextName === 'synchrone') {
+                  modelElem.setSynchrone(reader.nextBoolean());
+                }
+                 else if (nextName === 'deployUnits') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$3;
+                    var xmiRef = (tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'deployUnits', xmiRef));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'dictionaryType') {
+                  reader.beginObject();
+                  var loadedElem = this.loadDictionaryType(reader, context);
+                  modelElem.setDictionaryType(loadedElem);
+                  reader.endObject();
+                }
+                 else if (nextName === 'superTypes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$4;
+                    var xmiRef_0 = (tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'superTypes', xmiRef_0));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'filters') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$5;
+                    var xmiRef_1 = (tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'filters', xmiRef_1));
+                  }
+                  reader.endArray();
+                }
+                 else if (nextName === 'eClass') {
+                  reader.nextString();
+                }
+                 else {
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in MessagePortType');
+                }
+              }
+              return modelElem;
+            },
             loadTypeDefinition: function (reader, context) {
               var modelElem = this.get_mainFactory().getKevoreeFactory().createTypeDefinition();
               while (reader.hasNext()) {
@@ -7613,335 +7964,53 @@ define(
               }
               return modelElem;
             },
-            loadInstance: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createInstance();
+            loadTypeLibrary: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createTypeLibrary();
               while (reader.hasNext()) {
                 var nextName = reader.nextName();
                 if (nextName === 'name') {
                   var tmp$0;
                   modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
                 }
-                 else if (nextName === 'metaData') {
-                  var tmp$1;
-                  modelElem.setMetaData(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'started') {
-                  modelElem.setStarted(reader.nextBoolean());
-                }
-                 else if (nextName === 'typeDefinition') {
-                  var tmp$2;
-                  var xmiRef = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'typeDefinition', xmiRef));
-                }
-                 else if (nextName === 'dictionary') {
-                  reader.beginObject();
-                  var loadedElem = this.loadDictionary(reader, context);
-                  modelElem.setDictionary(loadedElem);
-                  reader.endObject();
+                 else if (nextName === 'subTypes') {
+                  reader.beginArray();
+                  while (reader.hasNext()) {
+                    var tmp$1;
+                    var xmiRef = (tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE();
+                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'subTypes', xmiRef));
+                  }
+                  reader.endArray();
                 }
                  else if (nextName === 'eClass') {
                   reader.nextString();
                 }
                  else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Instance');
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in TypeLibrary');
                 }
               }
               return modelElem;
             },
-            loadLifeCycleTypeDefinition: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createLifeCycleTypeDefinition();
+            loadNetworkProperty: function (reader, context) {
+              var modelElem = this.get_mainFactory().getKevoreeFactory().createNetworkProperty();
               while (reader.hasNext()) {
                 var nextName = reader.nextName();
                 if (nextName === 'name') {
                   var tmp$0;
                   modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
                 }
-                 else if (nextName === 'factoryBean') {
+                 else if (nextName === 'value') {
                   var tmp$1;
-                  modelElem.setFactoryBean(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
+                  modelElem.setValue(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
                 }
-                 else if (nextName === 'bean') {
+                 else if (nextName === 'lastCheck') {
                   var tmp$2;
-                  modelElem.setBean(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'abstract') {
-                  modelElem.setAbstract(reader.nextBoolean());
-                }
-                 else if (nextName === 'startMethod') {
-                  var tmp$3;
-                  modelElem.setStartMethod(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'stopMethod') {
-                  var tmp$4;
-                  modelElem.setStopMethod(this.unescapeJSON((tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'updateMethod') {
-                  var tmp$5;
-                  modelElem.setUpdateMethod(this.unescapeJSON((tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'deployUnits') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$6;
-                    var xmiRef = (tmp$6 = reader.nextString()) != null ? tmp$6 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'deployUnits', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'dictionaryType') {
-                  reader.beginObject();
-                  var loadedElem = this.loadDictionaryType(reader, context);
-                  modelElem.setDictionaryType(loadedElem);
-                  reader.endObject();
-                }
-                 else if (nextName === 'superTypes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$7;
-                    var xmiRef_0 = (tmp$7 = reader.nextString()) != null ? tmp$7 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'superTypes', xmiRef_0));
-                  }
-                  reader.endArray();
+                  modelElem.setLastCheck(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
                 }
                  else if (nextName === 'eClass') {
                   reader.nextString();
                 }
                  else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in LifeCycleTypeDefinition');
-                }
-              }
-              return modelElem;
-            },
-            loadGroup: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createGroup();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'metaData') {
-                  var tmp$1;
-                  modelElem.setMetaData(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'started') {
-                  modelElem.setStarted(reader.nextBoolean());
-                }
-                 else if (nextName === 'typeDefinition') {
-                  var tmp$2;
-                  var xmiRef = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'typeDefinition', xmiRef));
-                }
-                 else if (nextName === 'dictionary') {
-                  reader.beginObject();
-                  var loadedElem = this.loadDictionary(reader, context);
-                  modelElem.setDictionary(loadedElem);
-                  reader.endObject();
-                }
-                 else if (nextName === 'subNodes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$3;
-                    var xmiRef_0 = (tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'subNodes', xmiRef_0));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in Group');
-                }
-              }
-              return modelElem;
-            },
-            loadGroupType: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createGroupType();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'factoryBean') {
-                  var tmp$1;
-                  modelElem.setFactoryBean(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'bean') {
-                  var tmp$2;
-                  modelElem.setBean(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'abstract') {
-                  modelElem.setAbstract(reader.nextBoolean());
-                }
-                 else if (nextName === 'startMethod') {
-                  var tmp$3;
-                  modelElem.setStartMethod(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'stopMethod') {
-                  var tmp$4;
-                  modelElem.setStopMethod(this.unescapeJSON((tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'updateMethod') {
-                  var tmp$5;
-                  modelElem.setUpdateMethod(this.unescapeJSON((tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'deployUnits') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$6;
-                    var xmiRef = (tmp$6 = reader.nextString()) != null ? tmp$6 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'deployUnits', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'dictionaryType') {
-                  reader.beginObject();
-                  var loadedElem = this.loadDictionaryType(reader, context);
-                  modelElem.setDictionaryType(loadedElem);
-                  reader.endObject();
-                }
-                 else if (nextName === 'superTypes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$7;
-                    var xmiRef_0 = (tmp$7 = reader.nextString()) != null ? tmp$7 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'superTypes', xmiRef_0));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in GroupType');
-                }
-              }
-              return modelElem;
-            },
-            loadNodeType: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createNodeType();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'factoryBean') {
-                  var tmp$1;
-                  modelElem.setFactoryBean(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'bean') {
-                  var tmp$2;
-                  modelElem.setBean(this.unescapeJSON((tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'abstract') {
-                  modelElem.setAbstract(reader.nextBoolean());
-                }
-                 else if (nextName === 'startMethod') {
-                  var tmp$3;
-                  modelElem.setStartMethod(this.unescapeJSON((tmp$3 = reader.nextString()) != null ? tmp$3 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'stopMethod') {
-                  var tmp$4;
-                  modelElem.setStopMethod(this.unescapeJSON((tmp$4 = reader.nextString()) != null ? tmp$4 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'updateMethod') {
-                  var tmp$5;
-                  modelElem.setUpdateMethod(this.unescapeJSON((tmp$5 = reader.nextString()) != null ? tmp$5 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'deployUnits') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$6;
-                    var xmiRef = (tmp$6 = reader.nextString()) != null ? tmp$6 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'deployUnits', xmiRef));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'dictionaryType') {
-                  reader.beginObject();
-                  var loadedElem = this.loadDictionaryType(reader, context);
-                  modelElem.setDictionaryType(loadedElem);
-                  reader.endObject();
-                }
-                 else if (nextName === 'superTypes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$7;
-                    var xmiRef_0 = (tmp$7 = reader.nextString()) != null ? tmp$7 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'superTypes', xmiRef_0));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'managedPrimitiveTypes') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    var tmp$8;
-                    var xmiRef_1 = (tmp$8 = reader.nextString()) != null ? tmp$8 : Kotlin.throwNPE();
-                    context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_ADD(), 'managedPrimitiveTypes', xmiRef_1));
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'managedPrimitiveTypeRefs') {
-                  reader.beginArray();
-                  while (reader.hasNext()) {
-                    reader.beginObject();
-                    var loadedElem_0 = this.loadAdaptationPrimitiveTypeRef(reader, context);
-                    modelElem.addManagedPrimitiveTypeRefs(loadedElem_0);
-                    reader.endObject();
-                  }
-                  reader.endArray();
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in NodeType');
-                }
-              }
-              return modelElem;
-            },
-            loadAdaptationPrimitiveType: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createAdaptationPrimitiveType();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'name') {
-                  var tmp$0;
-                  modelElem.setName(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in AdaptationPrimitiveType');
-                }
-              }
-              return modelElem;
-            },
-            loadAdaptationPrimitiveTypeRef: function (reader, context) {
-              var modelElem = this.get_mainFactory().getKevoreeFactory().createAdaptationPrimitiveTypeRef();
-              while (reader.hasNext()) {
-                var nextName = reader.nextName();
-                if (nextName === 'maxTime') {
-                  var tmp$0;
-                  modelElem.setMaxTime(this.unescapeJSON((tmp$0 = reader.nextString()) != null ? tmp$0 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'generated_KMF_ID') {
-                  var tmp$1;
-                  modelElem.setGenerated_KMF_ID(this.unescapeJSON((tmp$1 = reader.nextString()) != null ? tmp$1 : Kotlin.throwNPE()));
-                }
-                 else if (nextName === 'ref') {
-                  var tmp$2;
-                  var xmiRef = (tmp$2 = reader.nextString()) != null ? tmp$2 : Kotlin.throwNPE();
-                  context.get_resolvers().add(new _.org.kevoree.loader.JSONResolveCommand(context, modelElem, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'ref', xmiRef));
-                }
-                 else if (nextName === 'eClass') {
-                  reader.nextString();
-                }
-                 else {
-                  Kotlin.println('Tag unrecognized: ' + nextName + ' in AdaptationPrimitiveTypeRef');
+                  Kotlin.println('Tag unrecognized: ' + nextName + ' in NetworkProperty');
                 }
               }
               return modelElem;
@@ -7997,6 +8066,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_factoryBean = '';
               this.$_bean = '';
@@ -8020,6 +8091,10 @@ define(
               this.$_childs = new Kotlin.ComplexHashMap(0);
               this.$_wires_java_cache = null;
               this.$_wires = new Kotlin.ComplexHashMap(0);
+              this.$removeAllRequiredCurrentlyProcessing = false;
+              this.$removeAllIntegrationPatternsCurrentlyProcessing = false;
+              this.$removeAllProvidedCurrentlyProcessing = false;
+              this.$removeAllWiresCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -8050,6 +8125,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -8281,9 +8368,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getFactoryBean: function () {
               return this.get__factoryBean();
@@ -8294,6 +8383,7 @@ define(
               }
               var oldPath = this.path();
               this.set__factoryBean(factoryBeanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_factoryBean(), factoryBeanP));
             },
             getBean: function () {
               return this.get__bean();
@@ -8304,6 +8394,7 @@ define(
               }
               var oldPath = this.path();
               this.set__bean(beanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_bean(), beanP));
             },
             getAbstract: function () {
               return this.get__abstract();
@@ -8314,6 +8405,7 @@ define(
               }
               var oldPath = this.path();
               this.set__abstract(abstractP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_abstract(), abstractP));
             },
             getStartMethod: function () {
               return this.get__startMethod();
@@ -8324,6 +8416,7 @@ define(
               }
               var oldPath = this.path();
               this.set__startMethod(startMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_startMethod(), startMethodP));
             },
             getStopMethod: function () {
               return this.get__stopMethod();
@@ -8334,6 +8427,7 @@ define(
               }
               var oldPath = this.path();
               this.set__stopMethod(stopMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_stopMethod(), stopMethodP));
             },
             getUpdateMethod: function () {
               return this.get__updateMethod();
@@ -8344,6 +8438,7 @@ define(
               }
               var oldPath = this.path();
               this.set__updateMethod(updateMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_updateMethod(), updateMethodP));
             },
             getDeployUnits: function () {
               return _.kotlin.toList_2(this.get__deployUnits().values());
@@ -8365,6 +8460,7 @@ define(
                     this.get__deployUnits().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             addDeployUnits: function (deployUnitsP) {
@@ -8377,6 +8473,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__deployUnits().put(_key_, deployUnitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             addAllDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -8394,6 +8491,7 @@ define(
                   this.get__deployUnits().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             removeDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -8402,6 +8500,7 @@ define(
               this.set__deployUnits_java_cache(null);
               if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().containsKey((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__deployUnits().remove((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             removeAllDeployUnits: function () {
@@ -8412,6 +8511,7 @@ define(
               var temp_els = (tmp$0 = this.getDeployUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__deployUnits_java_cache(null);
               this.get__deployUnits().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), temp_els));
             },
             getDictionaryType: function () {
               return this.get__dictionaryType();
@@ -8429,6 +8529,7 @@ define(
                   (dictionaryTypeP != null ? dictionaryTypeP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionaryType', null), 'dictionaryType');
                 }
                 this.set__dictionaryType(dictionaryTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionaryType(), dictionaryTypeP));
               }
             },
             getSuperTypes: function () {
@@ -8451,6 +8552,7 @@ define(
                     this.get__superTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             addSuperTypes: function (superTypesP) {
@@ -8463,6 +8565,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__superTypes().put(_key_, superTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             addAllSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -8480,6 +8583,7 @@ define(
                   this.get__superTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             removeSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -8488,6 +8592,7 @@ define(
               this.set__superTypes_java_cache(null);
               if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__superTypes().remove((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             removeAllSuperTypes: function () {
@@ -8498,6 +8603,7 @@ define(
               var temp_els = (tmp$0 = this.getSuperTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__superTypes_java_cache(null);
               this.get__superTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), temp_els));
             },
             getRequired: function () {
               return _.kotlin.toList_2(this.get__required().values());
@@ -8526,6 +8632,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'required', elem), 'required');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
               }
             },
             addRequired: function (requiredP) {
@@ -8539,6 +8646,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__required().put(_key_, requiredP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
             },
             addAllRequired: function (requiredP) {
               if (this.isReadOnly()) {
@@ -8563,6 +8671,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'required', el_0), 'required');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
+            },
+            get_removeAllRequiredCurrentlyProcessing: function () {
+              return this.$removeAllRequiredCurrentlyProcessing;
+            },
+            set_removeAllRequiredCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllRequiredCurrentlyProcessing = tmp$0;
             },
             removeRequired: function (requiredP) {
               if (this.isReadOnly()) {
@@ -8572,12 +8687,16 @@ define(
               if (this.get__required().size() !== 0 && this.get__required().containsKey((requiredP != null ? requiredP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__required().remove((requiredP != null ? requiredP : Kotlin.throwNPE()).internalGetKey());
                 ((requiredP != null ? requiredP : Kotlin.throwNPE()) != null ? requiredP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllRequiredCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
+                }
               }
             },
             removeAllRequired: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllRequiredCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getRequired()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -8589,6 +8708,8 @@ define(
               }
               this.set__required_java_cache(null);
               this.get__required().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), temp_els));
+              this.set_removeAllRequiredCurrentlyProcessing(false);
             },
             getIntegrationPatterns: function () {
               return _.kotlin.toList_2(this.get__integrationPatterns().values());
@@ -8617,6 +8738,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'integrationPatterns', elem), 'integrationPatterns');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_integrationPatterns(), integrationPatternsP));
               }
             },
             addIntegrationPatterns: function (integrationPatternsP) {
@@ -8630,6 +8752,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__integrationPatterns().put(_key_, integrationPatternsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_integrationPatterns(), integrationPatternsP));
             },
             addAllIntegrationPatterns: function (integrationPatternsP) {
               if (this.isReadOnly()) {
@@ -8654,6 +8777,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'integrationPatterns', el_0), 'integrationPatterns');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_integrationPatterns(), integrationPatternsP));
+            },
+            get_removeAllIntegrationPatternsCurrentlyProcessing: function () {
+              return this.$removeAllIntegrationPatternsCurrentlyProcessing;
+            },
+            set_removeAllIntegrationPatternsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllIntegrationPatternsCurrentlyProcessing = tmp$0;
             },
             removeIntegrationPatterns: function (integrationPatternsP) {
               if (this.isReadOnly()) {
@@ -8663,12 +8793,16 @@ define(
               if (this.get__integrationPatterns().size() !== 0 && this.get__integrationPatterns().containsKey((integrationPatternsP != null ? integrationPatternsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__integrationPatterns().remove((integrationPatternsP != null ? integrationPatternsP : Kotlin.throwNPE()).internalGetKey());
                 ((integrationPatternsP != null ? integrationPatternsP : Kotlin.throwNPE()) != null ? integrationPatternsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllIntegrationPatternsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_integrationPatterns(), integrationPatternsP));
+                }
               }
             },
             removeAllIntegrationPatterns: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllIntegrationPatternsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getIntegrationPatterns()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -8680,6 +8814,8 @@ define(
               }
               this.set__integrationPatterns_java_cache(null);
               this.get__integrationPatterns().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_integrationPatterns(), temp_els));
+              this.set_removeAllIntegrationPatternsCurrentlyProcessing(false);
             },
             getExtraFonctionalProperties: function () {
               return this.get__extraFonctionalProperties();
@@ -8697,6 +8833,7 @@ define(
                   (extraFonctionalPropertiesP != null ? extraFonctionalPropertiesP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'extraFonctionalProperties', null), 'extraFonctionalProperties');
                 }
                 this.set__extraFonctionalProperties(extraFonctionalPropertiesP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_extraFonctionalProperties(), extraFonctionalPropertiesP));
               }
             },
             getProvided: function () {
@@ -8726,6 +8863,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'provided', elem), 'provided');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
               }
             },
             addProvided: function (providedP) {
@@ -8739,6 +8877,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__provided().put(_key_, providedP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
             },
             addAllProvided: function (providedP) {
               if (this.isReadOnly()) {
@@ -8763,6 +8902,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'provided', el_0), 'provided');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
+            },
+            get_removeAllProvidedCurrentlyProcessing: function () {
+              return this.$removeAllProvidedCurrentlyProcessing;
+            },
+            set_removeAllProvidedCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllProvidedCurrentlyProcessing = tmp$0;
             },
             removeProvided: function (providedP) {
               if (this.isReadOnly()) {
@@ -8772,12 +8918,16 @@ define(
               if (this.get__provided().size() !== 0 && this.get__provided().containsKey((providedP != null ? providedP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__provided().remove((providedP != null ? providedP : Kotlin.throwNPE()).internalGetKey());
                 ((providedP != null ? providedP : Kotlin.throwNPE()) != null ? providedP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllProvidedCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
+                }
               }
             },
             removeAllProvided: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllProvidedCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getProvided()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -8789,6 +8939,8 @@ define(
               }
               this.set__provided_java_cache(null);
               this.get__provided().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), temp_els));
+              this.set_removeAllProvidedCurrentlyProcessing(false);
             },
             getChilds: function () {
               return _.kotlin.toList_2(this.get__childs().values());
@@ -8810,6 +8962,7 @@ define(
                     this.get__childs().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_childs(), childsP));
               }
             },
             addChilds: function (childsP) {
@@ -8822,6 +8975,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__childs().put(_key_, childsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_childs(), childsP));
             },
             addAllChilds: function (childsP) {
               if (this.isReadOnly()) {
@@ -8839,6 +8993,7 @@ define(
                   this.get__childs().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_childs(), childsP));
             },
             removeChilds: function (childsP) {
               if (this.isReadOnly()) {
@@ -8847,6 +9002,7 @@ define(
               this.set__childs_java_cache(null);
               if (this.get__childs().size() !== 0 && this.get__childs().containsKey((childsP != null ? childsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__childs().remove((childsP != null ? childsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_childs(), childsP));
               }
             },
             removeAllChilds: function () {
@@ -8857,6 +9013,7 @@ define(
               var temp_els = (tmp$0 = this.getChilds()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__childs_java_cache(null);
               this.get__childs().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_childs(), temp_els));
             },
             getWires: function () {
               return _.kotlin.toList_2(this.get__wires().values());
@@ -8885,6 +9042,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'wires', elem), 'wires');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_wires(), wiresP));
               }
             },
             addWires: function (wiresP) {
@@ -8898,6 +9056,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__wires().put(_key_, wiresP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_wires(), wiresP));
             },
             addAllWires: function (wiresP) {
               if (this.isReadOnly()) {
@@ -8922,6 +9081,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'wires', el_0), 'wires');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_wires(), wiresP));
+            },
+            get_removeAllWiresCurrentlyProcessing: function () {
+              return this.$removeAllWiresCurrentlyProcessing;
+            },
+            set_removeAllWiresCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllWiresCurrentlyProcessing = tmp$0;
             },
             removeWires: function (wiresP) {
               if (this.isReadOnly()) {
@@ -8931,12 +9097,16 @@ define(
               if (this.get__wires().size() !== 0 && this.get__wires().containsKey((wiresP != null ? wiresP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__wires().remove((wiresP != null ? wiresP : Kotlin.throwNPE()).internalGetKey());
                 ((wiresP != null ? wiresP : Kotlin.throwNPE()) != null ? wiresP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllWiresCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_wires(), wiresP));
+                }
               }
             },
             removeAllWires: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllWiresCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getWires()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -8948,6 +9118,8 @@ define(
               }
               this.set__wires_java_cache(null);
               this.get__wires().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_wires(), temp_els));
+              this.set_removeAllWiresCurrentlyProcessing(false);
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -9686,7 +9858,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(6);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionaryType() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionaryType()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -9956,11 +10128,15 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_attributes_java_cache = null;
               this.$_attributes = new Kotlin.ComplexHashMap(0);
               this.$_defaultValues_java_cache = null;
               this.$_defaultValues = new Kotlin.ComplexHashMap(0);
+              this.$removeAllAttributesCurrentlyProcessing = false;
+              this.$removeAllDefaultValuesCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -9991,6 +10167,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__generated_KMF_ID: function () {
               return this.$_generated_KMF_ID;
@@ -10070,9 +10258,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getAttributes: function () {
               return _.kotlin.toList_2(this.get__attributes().values());
@@ -10101,6 +10291,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'attributes', elem), 'attributes');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_attributes(), attributesP));
               }
             },
             addAttributes: function (attributesP) {
@@ -10114,6 +10305,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__attributes().put(_key_, attributesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_attributes(), attributesP));
             },
             addAllAttributes: function (attributesP) {
               if (this.isReadOnly()) {
@@ -10138,6 +10330,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'attributes', el_0), 'attributes');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_attributes(), attributesP));
+            },
+            get_removeAllAttributesCurrentlyProcessing: function () {
+              return this.$removeAllAttributesCurrentlyProcessing;
+            },
+            set_removeAllAttributesCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllAttributesCurrentlyProcessing = tmp$0;
             },
             removeAttributes: function (attributesP) {
               if (this.isReadOnly()) {
@@ -10147,12 +10346,16 @@ define(
               if (this.get__attributes().size() !== 0 && this.get__attributes().containsKey((attributesP != null ? attributesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__attributes().remove((attributesP != null ? attributesP : Kotlin.throwNPE()).internalGetKey());
                 ((attributesP != null ? attributesP : Kotlin.throwNPE()) != null ? attributesP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllAttributesCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_attributes(), attributesP));
+                }
               }
             },
             removeAllAttributes: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllAttributesCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getAttributes()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -10164,6 +10367,8 @@ define(
               }
               this.set__attributes_java_cache(null);
               this.get__attributes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_attributes(), temp_els));
+              this.set_removeAllAttributesCurrentlyProcessing(false);
             },
             getDefaultValues: function () {
               return _.kotlin.toList_2(this.get__defaultValues().values());
@@ -10192,6 +10397,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'defaultValues', elem), 'defaultValues');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_defaultValues(), defaultValuesP));
               }
             },
             addDefaultValues: function (defaultValuesP) {
@@ -10205,6 +10411,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__defaultValues().put(_key_, defaultValuesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_defaultValues(), defaultValuesP));
             },
             addAllDefaultValues: function (defaultValuesP) {
               if (this.isReadOnly()) {
@@ -10229,6 +10436,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'defaultValues', el_0), 'defaultValues');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_defaultValues(), defaultValuesP));
+            },
+            get_removeAllDefaultValuesCurrentlyProcessing: function () {
+              return this.$removeAllDefaultValuesCurrentlyProcessing;
+            },
+            set_removeAllDefaultValuesCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllDefaultValuesCurrentlyProcessing = tmp$0;
             },
             removeDefaultValues: function (defaultValuesP) {
               if (this.isReadOnly()) {
@@ -10238,12 +10452,16 @@ define(
               if (this.get__defaultValues().size() !== 0 && this.get__defaultValues().containsKey((defaultValuesP != null ? defaultValuesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__defaultValues().remove((defaultValuesP != null ? defaultValuesP : Kotlin.throwNPE()).internalGetKey());
                 ((defaultValuesP != null ? defaultValuesP : Kotlin.throwNPE()) != null ? defaultValuesP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllDefaultValuesCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_defaultValues(), defaultValuesP));
+                }
               }
             },
             removeAllDefaultValues: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllDefaultValuesCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getDefaultValues()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -10255,6 +10473,8 @@ define(
               }
               this.set__defaultValues_java_cache(null);
               this.get__defaultValues().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_defaultValues(), temp_els));
+              this.set_removeAllDefaultValuesCurrentlyProcessing(false);
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -10511,7 +10731,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(2);
+              var result = new Kotlin.ArrayList(0);
               result.addAll(this.get__attributes().values());
               result.addAll(this.get__defaultValues().values());
               return result;
@@ -10558,6 +10778,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_metaData = '';
               this.$_started = true;
@@ -10595,6 +10817,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -10675,9 +10909,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getMetaData: function () {
               return this.get__metaData();
@@ -10688,6 +10924,7 @@ define(
               }
               var oldPath = this.path();
               this.set__metaData(metaDataP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_metaData(), metaDataP));
             },
             getStarted: function () {
               return this.get__started();
@@ -10698,6 +10935,7 @@ define(
               }
               var oldPath = this.path();
               this.set__started(startedP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_started(), startedP));
             },
             getTypeDefinition: function () {
               return this.get__typeDefinition();
@@ -10708,6 +10946,7 @@ define(
               }
               if (!Kotlin.equals(this.get__typeDefinition(), typeDefinitionP)) {
                 this.set__typeDefinition(typeDefinitionP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_typeDefinition(), typeDefinitionP));
               }
             },
             getDictionary: function () {
@@ -10726,6 +10965,7 @@ define(
                   (dictionaryP != null ? dictionaryP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionary', null), 'dictionary');
                 }
                 this.set__dictionary(dictionaryP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionary(), dictionaryP));
               }
             },
             getBindings: function () {
@@ -10755,6 +10995,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).noOpposite_setHub(this);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
               }
             },
             addBindings: function (bindingsP) {
@@ -10767,6 +11008,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__bindings().put(_key_, bindingsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
               (bindingsP != null ? bindingsP : Kotlin.throwNPE()).noOpposite_setHub(this);
             },
             addAllBindings: function (bindingsP) {
@@ -10792,6 +11034,7 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).noOpposite_setHub(this);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
             },
             noOpposite_addBindings: function (bindingsP) {
               if (this.isReadOnly()) {
@@ -10803,6 +11046,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__bindings().put(_key_, bindingsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
             },
             noOpposite_addAllBindings: function (bindingsP) {
               if (this.isReadOnly()) {
@@ -10820,6 +11064,7 @@ define(
                   this.get__bindings().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
             },
             removeBindings: function (bindingsP) {
               if (this.isReadOnly()) {
@@ -10828,6 +11073,7 @@ define(
               this.set__bindings_java_cache(null);
               if (this.get__bindings().size() !== 0 && this.get__bindings().containsKey((bindingsP != null ? bindingsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__bindings().remove((bindingsP != null ? bindingsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
                 (bindingsP != null ? bindingsP : Kotlin.throwNPE()).noOpposite_setHub(null);
               }
             },
@@ -10846,6 +11092,7 @@ define(
               }
               this.set__bindings_java_cache(null);
               this.get__bindings().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), temp_els));
             },
             noOpposite_removeBindings: function (bindingsP) {
               if (this.isReadOnly()) {
@@ -10854,6 +11101,7 @@ define(
               this.set__bindings_java_cache(null);
               if (this.get__bindings().size() !== 0 && this.get__bindings().containsKey((bindingsP != null ? bindingsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__bindings().remove((bindingsP != null ? bindingsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
               }
             },
             noOpposite_removeAllBindings: function () {
@@ -10864,6 +11112,7 @@ define(
               var temp_els = (tmp$0 = this.getBindings()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__bindings_java_cache(null);
               this.get__bindings().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -11123,7 +11372,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionary() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionary()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -11266,10 +11515,13 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_childs_java_cache = null;
               this.$_childs = new Kotlin.ComplexHashMap(0);
               this.$_parent = null;
+              this.$removeAllChildsCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -11300,6 +11552,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -11365,9 +11629,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getChilds: function () {
               return _.kotlin.toList_2(this.get__childs().values());
@@ -11396,6 +11662,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'childs', elem), 'childs');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_childs(), childsP));
               }
             },
             addChilds: function (childsP) {
@@ -11409,6 +11676,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__childs().put(_key_, childsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_childs(), childsP));
             },
             addAllChilds: function (childsP) {
               if (this.isReadOnly()) {
@@ -11433,6 +11701,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'childs', el_0), 'childs');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_childs(), childsP));
+            },
+            get_removeAllChildsCurrentlyProcessing: function () {
+              return this.$removeAllChildsCurrentlyProcessing;
+            },
+            set_removeAllChildsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllChildsCurrentlyProcessing = tmp$0;
             },
             removeChilds: function (childsP) {
               if (this.isReadOnly()) {
@@ -11442,12 +11717,16 @@ define(
               if (this.get__childs().size() !== 0 && this.get__childs().containsKey((childsP != null ? childsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__childs().remove((childsP != null ? childsP : Kotlin.throwNPE()).internalGetKey());
                 ((childsP != null ? childsP : Kotlin.throwNPE()) != null ? childsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllChildsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_childs(), childsP));
+                }
               }
             },
             removeAllChilds: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllChildsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getChilds()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -11459,6 +11738,8 @@ define(
               }
               this.set__childs_java_cache(null);
               this.get__childs().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_childs(), temp_els));
+              this.set_removeAllChildsCurrentlyProcessing(false);
             },
             getParent: function () {
               return this.get__parent();
@@ -11469,6 +11750,7 @@ define(
               }
               if (!Kotlin.equals(this.get__parent(), parentP)) {
                 this.set__parent(parentP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_parent(), parentP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -11684,7 +11966,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               result.addAll(this.get__childs().values());
               return result;
             },
@@ -11753,6 +12035,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_metaData = '';
               this.$_started = true;
@@ -11763,6 +12047,7 @@ define(
               this.$_hosts_java_cache = null;
               this.$_hosts = new Kotlin.ComplexHashMap(0);
               this.$_host = null;
+              this.$removeAllComponentsCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -11793,6 +12078,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -11909,9 +12206,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getMetaData: function () {
               return this.get__metaData();
@@ -11922,6 +12221,7 @@ define(
               }
               var oldPath = this.path();
               this.set__metaData(metaDataP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_metaData(), metaDataP));
             },
             getStarted: function () {
               return this.get__started();
@@ -11932,6 +12232,7 @@ define(
               }
               var oldPath = this.path();
               this.set__started(startedP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_started(), startedP));
             },
             getTypeDefinition: function () {
               return this.get__typeDefinition();
@@ -11942,6 +12243,7 @@ define(
               }
               if (!Kotlin.equals(this.get__typeDefinition(), typeDefinitionP)) {
                 this.set__typeDefinition(typeDefinitionP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_typeDefinition(), typeDefinitionP));
               }
             },
             getDictionary: function () {
@@ -11960,6 +12262,7 @@ define(
                   (dictionaryP != null ? dictionaryP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionary', null), 'dictionary');
                 }
                 this.set__dictionary(dictionaryP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionary(), dictionaryP));
               }
             },
             getComponents: function () {
@@ -11989,6 +12292,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'components', elem), 'components');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_components(), componentsP));
               }
             },
             addComponents: function (componentsP) {
@@ -12002,6 +12306,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__components().put(_key_, componentsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_components(), componentsP));
             },
             addAllComponents: function (componentsP) {
               if (this.isReadOnly()) {
@@ -12026,6 +12331,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'components', el_0), 'components');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_components(), componentsP));
+            },
+            get_removeAllComponentsCurrentlyProcessing: function () {
+              return this.$removeAllComponentsCurrentlyProcessing;
+            },
+            set_removeAllComponentsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllComponentsCurrentlyProcessing = tmp$0;
             },
             removeComponents: function (componentsP) {
               if (this.isReadOnly()) {
@@ -12035,12 +12347,16 @@ define(
               if (this.get__components().size() !== 0 && this.get__components().containsKey((componentsP != null ? componentsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__components().remove((componentsP != null ? componentsP : Kotlin.throwNPE()).internalGetKey());
                 ((componentsP != null ? componentsP : Kotlin.throwNPE()) != null ? componentsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllComponentsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_components(), componentsP));
+                }
               }
             },
             removeAllComponents: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllComponentsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getComponents()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -12052,6 +12368,8 @@ define(
               }
               this.set__components_java_cache(null);
               this.get__components().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_components(), temp_els));
+              this.set_removeAllComponentsCurrentlyProcessing(false);
             },
             getHosts: function () {
               return _.kotlin.toList_2(this.get__hosts().values());
@@ -12080,6 +12398,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).noOpposite_setHost(this);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_hosts(), hostsP));
               }
             },
             addHosts: function (hostsP) {
@@ -12092,6 +12411,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__hosts().put(_key_, hostsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_hosts(), hostsP));
               (hostsP != null ? hostsP : Kotlin.throwNPE()).noOpposite_setHost(this);
             },
             addAllHosts: function (hostsP) {
@@ -12117,6 +12437,7 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).noOpposite_setHost(this);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_hosts(), hostsP));
             },
             noOpposite_addHosts: function (hostsP) {
               if (this.isReadOnly()) {
@@ -12128,6 +12449,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__hosts().put(_key_, hostsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_hosts(), hostsP));
             },
             noOpposite_addAllHosts: function (hostsP) {
               if (this.isReadOnly()) {
@@ -12145,6 +12467,7 @@ define(
                   this.get__hosts().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_hosts(), hostsP));
             },
             removeHosts: function (hostsP) {
               if (this.isReadOnly()) {
@@ -12153,6 +12476,7 @@ define(
               this.set__hosts_java_cache(null);
               if (this.get__hosts().size() !== 0 && this.get__hosts().containsKey((hostsP != null ? hostsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__hosts().remove((hostsP != null ? hostsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_hosts(), hostsP));
                 (hostsP != null ? hostsP : Kotlin.throwNPE()).noOpposite_setHost(null);
               }
             },
@@ -12171,6 +12495,7 @@ define(
               }
               this.set__hosts_java_cache(null);
               this.get__hosts().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_hosts(), temp_els));
             },
             noOpposite_removeHosts: function (hostsP) {
               if (this.isReadOnly()) {
@@ -12179,6 +12504,7 @@ define(
               this.set__hosts_java_cache(null);
               if (this.get__hosts().size() !== 0 && this.get__hosts().containsKey((hostsP != null ? hostsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__hosts().remove((hostsP != null ? hostsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_hosts(), hostsP));
               }
             },
             noOpposite_removeAllHosts: function () {
@@ -12189,6 +12515,7 @@ define(
               var temp_els = (tmp$0 = this.getHosts()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__hosts_java_cache(null);
               this.get__hosts().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_hosts(), temp_els));
             },
             getHost: function () {
               return this.get__host();
@@ -12199,6 +12526,7 @@ define(
               }
               if (!Kotlin.equals(this.get__host(), hostP)) {
                 this.set__host(hostP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_host(), hostP));
               }
             },
             setHost: function (hostP) {
@@ -12214,6 +12542,7 @@ define(
                   (hostP != null ? hostP : Kotlin.throwNPE()).noOpposite_addHosts(this);
                 }
                 this.set__host(hostP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_host(), hostP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -12590,7 +12919,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(2);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionary() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionary()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -12756,6 +13085,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_metaData = '';
               this.$_started = true;
@@ -12766,6 +13097,8 @@ define(
               this.$_required_java_cache = null;
               this.$_required = new Kotlin.ComplexHashMap(0);
               this.$_namespace = null;
+              this.$removeAllProvidedCurrentlyProcessing = false;
+              this.$removeAllRequiredCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -12796,6 +13129,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -12919,9 +13264,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getMetaData: function () {
               return this.get__metaData();
@@ -12932,6 +13279,7 @@ define(
               }
               var oldPath = this.path();
               this.set__metaData(metaDataP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_metaData(), metaDataP));
             },
             getStarted: function () {
               return this.get__started();
@@ -12942,6 +13290,7 @@ define(
               }
               var oldPath = this.path();
               this.set__started(startedP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_started(), startedP));
             },
             getTypeDefinition: function () {
               return this.get__typeDefinition();
@@ -12952,6 +13301,7 @@ define(
               }
               if (!Kotlin.equals(this.get__typeDefinition(), typeDefinitionP)) {
                 this.set__typeDefinition(typeDefinitionP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_typeDefinition(), typeDefinitionP));
               }
             },
             getDictionary: function () {
@@ -12970,6 +13320,7 @@ define(
                   (dictionaryP != null ? dictionaryP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionary', null), 'dictionary');
                 }
                 this.set__dictionary(dictionaryP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionary(), dictionaryP));
               }
             },
             getProvided: function () {
@@ -12999,6 +13350,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'provided', elem), 'provided');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
               }
             },
             addProvided: function (providedP) {
@@ -13012,6 +13364,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__provided().put(_key_, providedP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
             },
             addAllProvided: function (providedP) {
               if (this.isReadOnly()) {
@@ -13036,6 +13389,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'provided', el_0), 'provided');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
+            },
+            get_removeAllProvidedCurrentlyProcessing: function () {
+              return this.$removeAllProvidedCurrentlyProcessing;
+            },
+            set_removeAllProvidedCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllProvidedCurrentlyProcessing = tmp$0;
             },
             removeProvided: function (providedP) {
               if (this.isReadOnly()) {
@@ -13045,12 +13405,16 @@ define(
               if (this.get__provided().size() !== 0 && this.get__provided().containsKey((providedP != null ? providedP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__provided().remove((providedP != null ? providedP : Kotlin.throwNPE()).internalGetKey());
                 ((providedP != null ? providedP : Kotlin.throwNPE()) != null ? providedP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllProvidedCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
+                }
               }
             },
             removeAllProvided: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllProvidedCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getProvided()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -13062,6 +13426,8 @@ define(
               }
               this.set__provided_java_cache(null);
               this.get__provided().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), temp_els));
+              this.set_removeAllProvidedCurrentlyProcessing(false);
             },
             getRequired: function () {
               return _.kotlin.toList_2(this.get__required().values());
@@ -13090,6 +13456,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'required', elem), 'required');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
               }
             },
             addRequired: function (requiredP) {
@@ -13103,6 +13470,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__required().put(_key_, requiredP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
             },
             addAllRequired: function (requiredP) {
               if (this.isReadOnly()) {
@@ -13127,6 +13495,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'required', el_0), 'required');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
+            },
+            get_removeAllRequiredCurrentlyProcessing: function () {
+              return this.$removeAllRequiredCurrentlyProcessing;
+            },
+            set_removeAllRequiredCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllRequiredCurrentlyProcessing = tmp$0;
             },
             removeRequired: function (requiredP) {
               if (this.isReadOnly()) {
@@ -13136,12 +13511,16 @@ define(
               if (this.get__required().size() !== 0 && this.get__required().containsKey((requiredP != null ? requiredP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__required().remove((requiredP != null ? requiredP : Kotlin.throwNPE()).internalGetKey());
                 ((requiredP != null ? requiredP : Kotlin.throwNPE()) != null ? requiredP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllRequiredCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
+                }
               }
             },
             removeAllRequired: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllRequiredCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getRequired()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -13153,6 +13532,8 @@ define(
               }
               this.set__required_java_cache(null);
               this.get__required().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), temp_els));
+              this.set_removeAllRequiredCurrentlyProcessing(false);
             },
             getNamespace: function () {
               return this.get__namespace();
@@ -13163,6 +13544,7 @@ define(
               }
               if (!Kotlin.equals(this.get__namespace(), namespaceP)) {
                 this.set__namespace(namespaceP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_namespace(), namespaceP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -13566,7 +13948,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(3);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionary() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionary()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -13690,6 +14072,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_factoryBean = '';
               this.$_bean = '';
@@ -13732,6 +14116,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -13846,9 +14242,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getFactoryBean: function () {
               return this.get__factoryBean();
@@ -13859,6 +14257,7 @@ define(
               }
               var oldPath = this.path();
               this.set__factoryBean(factoryBeanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_factoryBean(), factoryBeanP));
             },
             getBean: function () {
               return this.get__bean();
@@ -13869,6 +14268,7 @@ define(
               }
               var oldPath = this.path();
               this.set__bean(beanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_bean(), beanP));
             },
             getAbstract: function () {
               return this.get__abstract();
@@ -13879,6 +14279,7 @@ define(
               }
               var oldPath = this.path();
               this.set__abstract(abstractP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_abstract(), abstractP));
             },
             getSynchrone: function () {
               return this.get__synchrone();
@@ -13889,6 +14290,7 @@ define(
               }
               var oldPath = this.path();
               this.set__synchrone(synchroneP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_synchrone(), synchroneP));
             },
             getDeployUnits: function () {
               return _.kotlin.toList_2(this.get__deployUnits().values());
@@ -13910,6 +14312,7 @@ define(
                     this.get__deployUnits().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             addDeployUnits: function (deployUnitsP) {
@@ -13922,6 +14325,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__deployUnits().put(_key_, deployUnitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             addAllDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -13939,6 +14343,7 @@ define(
                   this.get__deployUnits().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             removeDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -13947,6 +14352,7 @@ define(
               this.set__deployUnits_java_cache(null);
               if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().containsKey((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__deployUnits().remove((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             removeAllDeployUnits: function () {
@@ -13957,6 +14363,7 @@ define(
               var temp_els = (tmp$0 = this.getDeployUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__deployUnits_java_cache(null);
               this.get__deployUnits().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), temp_els));
             },
             getDictionaryType: function () {
               return this.get__dictionaryType();
@@ -13974,6 +14381,7 @@ define(
                   (dictionaryTypeP != null ? dictionaryTypeP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionaryType', null), 'dictionaryType');
                 }
                 this.set__dictionaryType(dictionaryTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionaryType(), dictionaryTypeP));
               }
             },
             getSuperTypes: function () {
@@ -13996,6 +14404,7 @@ define(
                     this.get__superTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             addSuperTypes: function (superTypesP) {
@@ -14008,6 +14417,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__superTypes().put(_key_, superTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             addAllSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -14025,6 +14435,7 @@ define(
                   this.get__superTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             removeSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -14033,6 +14444,7 @@ define(
               this.set__superTypes_java_cache(null);
               if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__superTypes().remove((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             removeAllSuperTypes: function () {
@@ -14043,6 +14455,7 @@ define(
               var temp_els = (tmp$0 = this.getSuperTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__superTypes_java_cache(null);
               this.get__superTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), temp_els));
             },
             getFilters: function () {
               return _.kotlin.toList_2(this.get__filters().values());
@@ -14064,6 +14477,7 @@ define(
                     this.get__filters().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_filters(), filtersP));
               }
             },
             addFilters: function (filtersP) {
@@ -14076,6 +14490,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__filters().put(_key_, filtersP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_filters(), filtersP));
             },
             addAllFilters: function (filtersP) {
               if (this.isReadOnly()) {
@@ -14093,6 +14508,7 @@ define(
                   this.get__filters().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_filters(), filtersP));
             },
             removeFilters: function (filtersP) {
               if (this.isReadOnly()) {
@@ -14101,6 +14517,7 @@ define(
               this.set__filters_java_cache(null);
               if (this.get__filters().size() !== 0 && this.get__filters().containsKey((filtersP != null ? filtersP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__filters().remove((filtersP != null ? filtersP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_filters(), filtersP));
               }
             },
             removeAllFilters: function () {
@@ -14111,6 +14528,7 @@ define(
               var temp_els = (tmp$0 = this.getFilters()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__filters_java_cache(null);
               this.get__filters().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_filters(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -14461,7 +14879,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionaryType() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionaryType()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -14695,6 +15113,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_factoryBean = '';
               this.$_bean = '';
@@ -14734,6 +15154,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -14829,9 +15261,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getFactoryBean: function () {
               return this.get__factoryBean();
@@ -14842,6 +15276,7 @@ define(
               }
               var oldPath = this.path();
               this.set__factoryBean(factoryBeanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_factoryBean(), factoryBeanP));
             },
             getBean: function () {
               return this.get__bean();
@@ -14852,6 +15287,7 @@ define(
               }
               var oldPath = this.path();
               this.set__bean(beanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_bean(), beanP));
             },
             getAbstract: function () {
               return this.get__abstract();
@@ -14862,6 +15298,7 @@ define(
               }
               var oldPath = this.path();
               this.set__abstract(abstractP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_abstract(), abstractP));
             },
             getDeployUnits: function () {
               return _.kotlin.toList_2(this.get__deployUnits().values());
@@ -14883,6 +15320,7 @@ define(
                     this.get__deployUnits().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             addDeployUnits: function (deployUnitsP) {
@@ -14895,6 +15333,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__deployUnits().put(_key_, deployUnitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             addAllDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -14912,6 +15351,7 @@ define(
                   this.get__deployUnits().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             removeDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -14920,6 +15360,7 @@ define(
               this.set__deployUnits_java_cache(null);
               if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().containsKey((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__deployUnits().remove((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             removeAllDeployUnits: function () {
@@ -14930,6 +15371,7 @@ define(
               var temp_els = (tmp$0 = this.getDeployUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__deployUnits_java_cache(null);
               this.get__deployUnits().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), temp_els));
             },
             getDictionaryType: function () {
               return this.get__dictionaryType();
@@ -14947,6 +15389,7 @@ define(
                   (dictionaryTypeP != null ? dictionaryTypeP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionaryType', null), 'dictionaryType');
                 }
                 this.set__dictionaryType(dictionaryTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionaryType(), dictionaryTypeP));
               }
             },
             getSuperTypes: function () {
@@ -14969,6 +15412,7 @@ define(
                     this.get__superTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             addSuperTypes: function (superTypesP) {
@@ -14981,6 +15425,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__superTypes().put(_key_, superTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             addAllSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -14998,6 +15443,7 @@ define(
                   this.get__superTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             removeSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -15006,6 +15452,7 @@ define(
               this.set__superTypes_java_cache(null);
               if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__superTypes().remove((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             removeAllSuperTypes: function () {
@@ -15016,6 +15463,7 @@ define(
               var temp_els = (tmp$0 = this.getSuperTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__superTypes_java_cache(null);
               this.get__superTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -15302,7 +15750,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionaryType() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionaryType()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -15479,6 +15927,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_order = 0;
               this.$_type = null;
@@ -15512,6 +15962,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -15557,9 +16019,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getOrder: function () {
               return this.get__order();
@@ -15570,6 +16034,7 @@ define(
               }
               var oldPath = this.path();
               this.set__order(orderP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_order(), orderP));
             },
             getType: function () {
               return this.get__type();
@@ -15580,6 +16045,7 @@ define(
               }
               if (!Kotlin.equals(this.get__type(), typeP)) {
                 this.set__type(typeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_type(), typeP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -15782,6 +16248,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_optional = false;
               this.$_state = false;
@@ -15819,6 +16287,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -15887,9 +16367,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getOptional: function () {
               return this.get__optional();
@@ -15900,6 +16382,7 @@ define(
               }
               var oldPath = this.path();
               this.set__optional(optionalP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_optional(), optionalP));
             },
             getState: function () {
               return this.get__state();
@@ -15910,6 +16393,7 @@ define(
               }
               var oldPath = this.path();
               this.set__state(stateP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_state(), stateP));
             },
             getDatatype: function () {
               return this.get__datatype();
@@ -15920,6 +16404,7 @@ define(
               }
               var oldPath = this.path();
               this.set__datatype(datatypeP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_datatype(), datatypeP));
             },
             getFragmentDependant: function () {
               return this.get__fragmentDependant();
@@ -15930,6 +16415,7 @@ define(
               }
               var oldPath = this.path();
               this.set__fragmentDependant(fragmentDependantP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_fragmentDependant(), fragmentDependantP));
             },
             getGenericTypes: function () {
               return _.kotlin.toList_2(this.get__genericTypes().values());
@@ -15951,6 +16437,7 @@ define(
                     this.get__genericTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_genericTypes(), genericTypesP));
               }
             },
             addGenericTypes: function (genericTypesP) {
@@ -15963,6 +16450,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__genericTypes().put(_key_, genericTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_genericTypes(), genericTypesP));
             },
             addAllGenericTypes: function (genericTypesP) {
               if (this.isReadOnly()) {
@@ -15980,6 +16468,7 @@ define(
                   this.get__genericTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_genericTypes(), genericTypesP));
             },
             removeGenericTypes: function (genericTypesP) {
               if (this.isReadOnly()) {
@@ -15988,6 +16477,7 @@ define(
               this.set__genericTypes_java_cache(null);
               if (this.get__genericTypes().size() !== 0 && this.get__genericTypes().containsKey((genericTypesP != null ? genericTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__genericTypes().remove((genericTypesP != null ? genericTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_genericTypes(), genericTypesP));
               }
             },
             removeAllGenericTypes: function () {
@@ -15998,6 +16488,7 @@ define(
               var temp_els = (tmp$0 = this.getGenericTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__genericTypes_java_cache(null);
               this.get__genericTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_genericTypes(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -16362,6 +16853,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_metaData = '';
               this.$_started = true;
@@ -16397,6 +16890,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -16461,9 +16966,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getMetaData: function () {
               return this.get__metaData();
@@ -16474,6 +16981,7 @@ define(
               }
               var oldPath = this.path();
               this.set__metaData(metaDataP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_metaData(), metaDataP));
             },
             getStarted: function () {
               return this.get__started();
@@ -16484,6 +16992,7 @@ define(
               }
               var oldPath = this.path();
               this.set__started(startedP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_started(), startedP));
             },
             getTypeDefinition: function () {
               return this.get__typeDefinition();
@@ -16494,6 +17003,7 @@ define(
               }
               if (!Kotlin.equals(this.get__typeDefinition(), typeDefinitionP)) {
                 this.set__typeDefinition(typeDefinitionP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_typeDefinition(), typeDefinitionP));
               }
             },
             getDictionary: function () {
@@ -16512,6 +17022,7 @@ define(
                   (dictionaryP != null ? dictionaryP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionary', null), 'dictionary');
                 }
                 this.set__dictionary(dictionaryP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionary(), dictionaryP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -16683,7 +17194,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionary() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionary()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -16783,6 +17294,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_genericTypes_java_cache = null;
               this.$_genericTypes = new Kotlin.ComplexHashMap(0);
@@ -16816,6 +17329,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -16863,9 +17388,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getGenericTypes: function () {
               return _.kotlin.toList_2(this.get__genericTypes().values());
@@ -16887,6 +17414,7 @@ define(
                     this.get__genericTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_genericTypes(), genericTypesP));
               }
             },
             addGenericTypes: function (genericTypesP) {
@@ -16899,6 +17427,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__genericTypes().put(_key_, genericTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_genericTypes(), genericTypesP));
             },
             addAllGenericTypes: function (genericTypesP) {
               if (this.isReadOnly()) {
@@ -16916,6 +17445,7 @@ define(
                   this.get__genericTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_genericTypes(), genericTypesP));
             },
             removeGenericTypes: function (genericTypesP) {
               if (this.isReadOnly()) {
@@ -16924,6 +17454,7 @@ define(
               this.set__genericTypes_java_cache(null);
               if (this.get__genericTypes().size() !== 0 && this.get__genericTypes().containsKey((genericTypesP != null ? genericTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__genericTypes().remove((genericTypesP != null ? genericTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_genericTypes(), genericTypesP));
               }
             },
             removeAllGenericTypes: function () {
@@ -16934,6 +17465,7 @@ define(
               var temp_els = (tmp$0 = this.getGenericTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__genericTypes_java_cache(null);
               this.get__genericTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_genericTypes(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -17194,6 +17726,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_factoryBean = '';
               this.$_bean = '';
@@ -17210,6 +17744,7 @@ define(
               this.$_managedPrimitiveTypes = new Kotlin.ComplexHashMap(0);
               this.$_managedPrimitiveTypeRefs_java_cache = null;
               this.$_managedPrimitiveTypeRefs = new Kotlin.ComplexHashMap(0);
+              this.$removeAllManagedPrimitiveTypeRefsCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -17240,6 +17775,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -17391,9 +17938,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getFactoryBean: function () {
               return this.get__factoryBean();
@@ -17404,6 +17953,7 @@ define(
               }
               var oldPath = this.path();
               this.set__factoryBean(factoryBeanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_factoryBean(), factoryBeanP));
             },
             getBean: function () {
               return this.get__bean();
@@ -17414,6 +17964,7 @@ define(
               }
               var oldPath = this.path();
               this.set__bean(beanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_bean(), beanP));
             },
             getAbstract: function () {
               return this.get__abstract();
@@ -17424,6 +17975,7 @@ define(
               }
               var oldPath = this.path();
               this.set__abstract(abstractP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_abstract(), abstractP));
             },
             getStartMethod: function () {
               return this.get__startMethod();
@@ -17434,6 +17986,7 @@ define(
               }
               var oldPath = this.path();
               this.set__startMethod(startMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_startMethod(), startMethodP));
             },
             getStopMethod: function () {
               return this.get__stopMethod();
@@ -17444,6 +17997,7 @@ define(
               }
               var oldPath = this.path();
               this.set__stopMethod(stopMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_stopMethod(), stopMethodP));
             },
             getUpdateMethod: function () {
               return this.get__updateMethod();
@@ -17454,6 +18008,7 @@ define(
               }
               var oldPath = this.path();
               this.set__updateMethod(updateMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_updateMethod(), updateMethodP));
             },
             getDeployUnits: function () {
               return _.kotlin.toList_2(this.get__deployUnits().values());
@@ -17475,6 +18030,7 @@ define(
                     this.get__deployUnits().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             addDeployUnits: function (deployUnitsP) {
@@ -17487,6 +18043,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__deployUnits().put(_key_, deployUnitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             addAllDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -17504,6 +18061,7 @@ define(
                   this.get__deployUnits().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             removeDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -17512,6 +18070,7 @@ define(
               this.set__deployUnits_java_cache(null);
               if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().containsKey((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__deployUnits().remove((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             removeAllDeployUnits: function () {
@@ -17522,6 +18081,7 @@ define(
               var temp_els = (tmp$0 = this.getDeployUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__deployUnits_java_cache(null);
               this.get__deployUnits().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), temp_els));
             },
             getDictionaryType: function () {
               return this.get__dictionaryType();
@@ -17539,6 +18099,7 @@ define(
                   (dictionaryTypeP != null ? dictionaryTypeP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionaryType', null), 'dictionaryType');
                 }
                 this.set__dictionaryType(dictionaryTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionaryType(), dictionaryTypeP));
               }
             },
             getSuperTypes: function () {
@@ -17561,6 +18122,7 @@ define(
                     this.get__superTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             addSuperTypes: function (superTypesP) {
@@ -17573,6 +18135,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__superTypes().put(_key_, superTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             addAllSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -17590,6 +18153,7 @@ define(
                   this.get__superTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             removeSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -17598,6 +18162,7 @@ define(
               this.set__superTypes_java_cache(null);
               if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__superTypes().remove((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             removeAllSuperTypes: function () {
@@ -17608,6 +18173,7 @@ define(
               var temp_els = (tmp$0 = this.getSuperTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__superTypes_java_cache(null);
               this.get__superTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), temp_els));
             },
             getManagedPrimitiveTypes: function () {
               return _.kotlin.toList_2(this.get__managedPrimitiveTypes().values());
@@ -17629,6 +18195,7 @@ define(
                     this.get__managedPrimitiveTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_managedPrimitiveTypes(), managedPrimitiveTypesP));
               }
             },
             addManagedPrimitiveTypes: function (managedPrimitiveTypesP) {
@@ -17641,6 +18208,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__managedPrimitiveTypes().put(_key_, managedPrimitiveTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_managedPrimitiveTypes(), managedPrimitiveTypesP));
             },
             addAllManagedPrimitiveTypes: function (managedPrimitiveTypesP) {
               if (this.isReadOnly()) {
@@ -17658,6 +18226,7 @@ define(
                   this.get__managedPrimitiveTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_managedPrimitiveTypes(), managedPrimitiveTypesP));
             },
             removeManagedPrimitiveTypes: function (managedPrimitiveTypesP) {
               if (this.isReadOnly()) {
@@ -17666,6 +18235,7 @@ define(
               this.set__managedPrimitiveTypes_java_cache(null);
               if (this.get__managedPrimitiveTypes().size() !== 0 && this.get__managedPrimitiveTypes().containsKey((managedPrimitiveTypesP != null ? managedPrimitiveTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__managedPrimitiveTypes().remove((managedPrimitiveTypesP != null ? managedPrimitiveTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_managedPrimitiveTypes(), managedPrimitiveTypesP));
               }
             },
             removeAllManagedPrimitiveTypes: function () {
@@ -17676,6 +18246,7 @@ define(
               var temp_els = (tmp$0 = this.getManagedPrimitiveTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__managedPrimitiveTypes_java_cache(null);
               this.get__managedPrimitiveTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_managedPrimitiveTypes(), temp_els));
             },
             getManagedPrimitiveTypeRefs: function () {
               return _.kotlin.toList_2(this.get__managedPrimitiveTypeRefs().values());
@@ -17704,6 +18275,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'managedPrimitiveTypeRefs', elem), 'managedPrimitiveTypeRefs');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_managedPrimitiveTypeRefs(), managedPrimitiveTypeRefsP));
               }
             },
             addManagedPrimitiveTypeRefs: function (managedPrimitiveTypeRefsP) {
@@ -17717,6 +18289,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__managedPrimitiveTypeRefs().put(_key_, managedPrimitiveTypeRefsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_managedPrimitiveTypeRefs(), managedPrimitiveTypeRefsP));
             },
             addAllManagedPrimitiveTypeRefs: function (managedPrimitiveTypeRefsP) {
               if (this.isReadOnly()) {
@@ -17741,6 +18314,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'managedPrimitiveTypeRefs', el_0), 'managedPrimitiveTypeRefs');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_managedPrimitiveTypeRefs(), managedPrimitiveTypeRefsP));
+            },
+            get_removeAllManagedPrimitiveTypeRefsCurrentlyProcessing: function () {
+              return this.$removeAllManagedPrimitiveTypeRefsCurrentlyProcessing;
+            },
+            set_removeAllManagedPrimitiveTypeRefsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllManagedPrimitiveTypeRefsCurrentlyProcessing = tmp$0;
             },
             removeManagedPrimitiveTypeRefs: function (managedPrimitiveTypeRefsP) {
               if (this.isReadOnly()) {
@@ -17750,12 +18330,16 @@ define(
               if (this.get__managedPrimitiveTypeRefs().size() !== 0 && this.get__managedPrimitiveTypeRefs().containsKey((managedPrimitiveTypeRefsP != null ? managedPrimitiveTypeRefsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__managedPrimitiveTypeRefs().remove((managedPrimitiveTypeRefsP != null ? managedPrimitiveTypeRefsP : Kotlin.throwNPE()).internalGetKey());
                 ((managedPrimitiveTypeRefsP != null ? managedPrimitiveTypeRefsP : Kotlin.throwNPE()) != null ? managedPrimitiveTypeRefsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllManagedPrimitiveTypeRefsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_managedPrimitiveTypeRefs(), managedPrimitiveTypeRefsP));
+                }
               }
             },
             removeAllManagedPrimitiveTypeRefs: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllManagedPrimitiveTypeRefsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getManagedPrimitiveTypeRefs()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -17767,6 +18351,8 @@ define(
               }
               this.set__managedPrimitiveTypeRefs_java_cache(null);
               this.get__managedPrimitiveTypeRefs().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_managedPrimitiveTypeRefs(), temp_els));
+              this.set_removeAllManagedPrimitiveTypeRefsCurrentlyProcessing(false);
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -18220,7 +18806,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(2);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionaryType() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionaryType()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -18483,6 +19069,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_groupName = '';
               this.$_unitName = '';
@@ -18524,6 +19112,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -18621,6 +19221,7 @@ define(
               }
               var oldPath = this.path();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
             },
             getGroupName: function () {
               return this.get__groupName();
@@ -18631,6 +19232,7 @@ define(
               }
               var oldPath = this.path();
               this.set__groupName(groupNameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_groupName(), groupNameP));
             },
             getUnitName: function () {
               return this.get__unitName();
@@ -18641,6 +19243,7 @@ define(
               }
               var oldPath = this.path();
               this.set__unitName(unitNameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_unitName(), unitNameP));
             },
             getVersion: function () {
               return this.get__version();
@@ -18651,6 +19254,7 @@ define(
               }
               var oldPath = this.path();
               this.set__version(versionP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_version(), versionP));
             },
             getUrl: function () {
               return this.get__url();
@@ -18661,6 +19265,7 @@ define(
               }
               var oldPath = this.path();
               this.set__url(urlP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_url(), urlP));
             },
             getHashcode: function () {
               return this.get__hashcode();
@@ -18671,6 +19276,7 @@ define(
               }
               var oldPath = this.path();
               this.set__hashcode(hashcodeP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_hashcode(), hashcodeP));
             },
             getType: function () {
               return this.get__type();
@@ -18681,6 +19287,7 @@ define(
               }
               var oldPath = this.path();
               this.set__type(typeP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_type(), typeP));
             },
             getGenerated_KMF_ID: function () {
               return this.get__generated_KMF_ID();
@@ -18694,9 +19301,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getRequiredLibs: function () {
               return _.kotlin.toList_2(this.get__requiredLibs().values());
@@ -18718,6 +19327,7 @@ define(
                     this.get__requiredLibs().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_requiredLibs(), requiredLibsP));
               }
             },
             addRequiredLibs: function (requiredLibsP) {
@@ -18730,6 +19340,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__requiredLibs().put(_key_, requiredLibsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_requiredLibs(), requiredLibsP));
             },
             addAllRequiredLibs: function (requiredLibsP) {
               if (this.isReadOnly()) {
@@ -18747,6 +19358,7 @@ define(
                   this.get__requiredLibs().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_requiredLibs(), requiredLibsP));
             },
             removeRequiredLibs: function (requiredLibsP) {
               if (this.isReadOnly()) {
@@ -18755,6 +19367,7 @@ define(
               this.set__requiredLibs_java_cache(null);
               if (this.get__requiredLibs().size() !== 0 && this.get__requiredLibs().containsKey((requiredLibsP != null ? requiredLibsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__requiredLibs().remove((requiredLibsP != null ? requiredLibsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_requiredLibs(), requiredLibsP));
               }
             },
             removeAllRequiredLibs: function () {
@@ -18765,6 +19378,7 @@ define(
               var temp_els = (tmp$0 = this.getRequiredLibs()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__requiredLibs_java_cache(null);
               this.get__requiredLibs().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_requiredLibs(), temp_els));
             },
             getTargetNodeType: function () {
               return this.get__targetNodeType();
@@ -18775,6 +19389,7 @@ define(
               }
               if (!Kotlin.equals(this.get__targetNodeType(), targetNodeTypeP)) {
                 this.set__targetNodeType(targetNodeTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_targetNodeType(), targetNodeTypeP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -19256,6 +19871,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_factoryBean = '';
               this.$_bean = '';
@@ -19298,6 +19915,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -19406,9 +20035,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getFactoryBean: function () {
               return this.get__factoryBean();
@@ -19419,6 +20050,7 @@ define(
               }
               var oldPath = this.path();
               this.set__factoryBean(factoryBeanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_factoryBean(), factoryBeanP));
             },
             getBean: function () {
               return this.get__bean();
@@ -19429,6 +20061,7 @@ define(
               }
               var oldPath = this.path();
               this.set__bean(beanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_bean(), beanP));
             },
             getAbstract: function () {
               return this.get__abstract();
@@ -19439,6 +20072,7 @@ define(
               }
               var oldPath = this.path();
               this.set__abstract(abstractP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_abstract(), abstractP));
             },
             getStartMethod: function () {
               return this.get__startMethod();
@@ -19449,6 +20083,7 @@ define(
               }
               var oldPath = this.path();
               this.set__startMethod(startMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_startMethod(), startMethodP));
             },
             getStopMethod: function () {
               return this.get__stopMethod();
@@ -19459,6 +20094,7 @@ define(
               }
               var oldPath = this.path();
               this.set__stopMethod(stopMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_stopMethod(), stopMethodP));
             },
             getUpdateMethod: function () {
               return this.get__updateMethod();
@@ -19469,6 +20105,7 @@ define(
               }
               var oldPath = this.path();
               this.set__updateMethod(updateMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_updateMethod(), updateMethodP));
             },
             getDeployUnits: function () {
               return _.kotlin.toList_2(this.get__deployUnits().values());
@@ -19490,6 +20127,7 @@ define(
                     this.get__deployUnits().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             addDeployUnits: function (deployUnitsP) {
@@ -19502,6 +20140,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__deployUnits().put(_key_, deployUnitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             addAllDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -19519,6 +20158,7 @@ define(
                   this.get__deployUnits().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             removeDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -19527,6 +20167,7 @@ define(
               this.set__deployUnits_java_cache(null);
               if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().containsKey((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__deployUnits().remove((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             removeAllDeployUnits: function () {
@@ -19537,6 +20178,7 @@ define(
               var temp_els = (tmp$0 = this.getDeployUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__deployUnits_java_cache(null);
               this.get__deployUnits().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), temp_els));
             },
             getDictionaryType: function () {
               return this.get__dictionaryType();
@@ -19554,6 +20196,7 @@ define(
                   (dictionaryTypeP != null ? dictionaryTypeP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionaryType', null), 'dictionaryType');
                 }
                 this.set__dictionaryType(dictionaryTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionaryType(), dictionaryTypeP));
               }
             },
             getSuperTypes: function () {
@@ -19576,6 +20219,7 @@ define(
                     this.get__superTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             addSuperTypes: function (superTypesP) {
@@ -19588,6 +20232,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__superTypes().put(_key_, superTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             addAllSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -19605,6 +20250,7 @@ define(
                   this.get__superTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             removeSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -19613,6 +20259,7 @@ define(
               this.set__superTypes_java_cache(null);
               if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__superTypes().remove((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             removeAllSuperTypes: function () {
@@ -19623,6 +20270,7 @@ define(
               var temp_els = (tmp$0 = this.getSuperTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__superTypes_java_cache(null);
               this.get__superTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -19945,7 +20593,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionaryType() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionaryType()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -20164,6 +20812,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_maxTime = '';
               this.$_generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_ref = null;
@@ -20197,6 +20847,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__maxTime: function () {
               return this.$_maxTime;
@@ -20239,6 +20901,7 @@ define(
               }
               var oldPath = this.path();
               this.set__maxTime(maxTimeP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_maxTime(), maxTimeP));
             },
             getGenerated_KMF_ID: function () {
               return this.get__generated_KMF_ID();
@@ -20252,9 +20915,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getRef: function () {
               return this.get__ref();
@@ -20265,6 +20930,7 @@ define(
               }
               if (!Kotlin.equals(this.get__ref(), refP)) {
                 this.set__ref(refP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_ref(), refP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -20467,11 +21133,14 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_extraFonctionalProperties_java_cache = null;
               this.$_extraFonctionalProperties = new Kotlin.ComplexHashMap(0);
               this.$_portTypes_java_cache = null;
               this.$_portTypes = new Kotlin.ComplexHashMap(0);
+              this.$removeAllExtraFonctionalPropertiesCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -20502,6 +21171,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -20574,9 +21255,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getExtraFonctionalProperties: function () {
               return _.kotlin.toList_2(this.get__extraFonctionalProperties().values());
@@ -20605,6 +21288,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'extraFonctionalProperties', elem), 'extraFonctionalProperties');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_extraFonctionalProperties(), extraFonctionalPropertiesP));
               }
             },
             addExtraFonctionalProperties: function (extraFonctionalPropertiesP) {
@@ -20618,6 +21302,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__extraFonctionalProperties().put(_key_, extraFonctionalPropertiesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_extraFonctionalProperties(), extraFonctionalPropertiesP));
             },
             addAllExtraFonctionalProperties: function (extraFonctionalPropertiesP) {
               if (this.isReadOnly()) {
@@ -20642,6 +21327,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'extraFonctionalProperties', el_0), 'extraFonctionalProperties');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_extraFonctionalProperties(), extraFonctionalPropertiesP));
+            },
+            get_removeAllExtraFonctionalPropertiesCurrentlyProcessing: function () {
+              return this.$removeAllExtraFonctionalPropertiesCurrentlyProcessing;
+            },
+            set_removeAllExtraFonctionalPropertiesCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllExtraFonctionalPropertiesCurrentlyProcessing = tmp$0;
             },
             removeExtraFonctionalProperties: function (extraFonctionalPropertiesP) {
               if (this.isReadOnly()) {
@@ -20651,12 +21343,16 @@ define(
               if (this.get__extraFonctionalProperties().size() !== 0 && this.get__extraFonctionalProperties().containsKey((extraFonctionalPropertiesP != null ? extraFonctionalPropertiesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__extraFonctionalProperties().remove((extraFonctionalPropertiesP != null ? extraFonctionalPropertiesP : Kotlin.throwNPE()).internalGetKey());
                 ((extraFonctionalPropertiesP != null ? extraFonctionalPropertiesP : Kotlin.throwNPE()) != null ? extraFonctionalPropertiesP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllExtraFonctionalPropertiesCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_extraFonctionalProperties(), extraFonctionalPropertiesP));
+                }
               }
             },
             removeAllExtraFonctionalProperties: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllExtraFonctionalPropertiesCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getExtraFonctionalProperties()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -20668,6 +21364,8 @@ define(
               }
               this.set__extraFonctionalProperties_java_cache(null);
               this.get__extraFonctionalProperties().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_extraFonctionalProperties(), temp_els));
+              this.set_removeAllExtraFonctionalPropertiesCurrentlyProcessing(false);
             },
             getPortTypes: function () {
               return _.kotlin.toList_2(this.get__portTypes().values());
@@ -20689,6 +21387,7 @@ define(
                     this.get__portTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_portTypes(), portTypesP));
               }
             },
             addPortTypes: function (portTypesP) {
@@ -20701,6 +21400,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__portTypes().put(_key_, portTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_portTypes(), portTypesP));
             },
             addAllPortTypes: function (portTypesP) {
               if (this.isReadOnly()) {
@@ -20718,6 +21418,7 @@ define(
                   this.get__portTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_portTypes(), portTypesP));
             },
             removePortTypes: function (portTypesP) {
               if (this.isReadOnly()) {
@@ -20726,6 +21427,7 @@ define(
               this.set__portTypes_java_cache(null);
               if (this.get__portTypes().size() !== 0 && this.get__portTypes().containsKey((portTypesP != null ? portTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__portTypes().remove((portTypesP != null ? portTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_portTypes(), portTypesP));
               }
             },
             removeAllPortTypes: function () {
@@ -20736,6 +21438,7 @@ define(
               var temp_els = (tmp$0 = this.getPortTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__portTypes_java_cache(null);
               this.get__portTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_portTypes(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -20965,7 +21668,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               result.addAll(this.get__extraFonctionalProperties().values());
               return result;
             },
@@ -21054,6 +21757,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_factoryBean = '';
               this.$_bean = '';
@@ -21100,6 +21805,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -21232,9 +21949,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getFactoryBean: function () {
               return this.get__factoryBean();
@@ -21245,6 +21964,7 @@ define(
               }
               var oldPath = this.path();
               this.set__factoryBean(factoryBeanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_factoryBean(), factoryBeanP));
             },
             getBean: function () {
               return this.get__bean();
@@ -21255,6 +21975,7 @@ define(
               }
               var oldPath = this.path();
               this.set__bean(beanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_bean(), beanP));
             },
             getAbstract: function () {
               return this.get__abstract();
@@ -21265,6 +21986,7 @@ define(
               }
               var oldPath = this.path();
               this.set__abstract(abstractP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_abstract(), abstractP));
             },
             getStartMethod: function () {
               return this.get__startMethod();
@@ -21275,6 +21997,7 @@ define(
               }
               var oldPath = this.path();
               this.set__startMethod(startMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_startMethod(), startMethodP));
             },
             getStopMethod: function () {
               return this.get__stopMethod();
@@ -21285,6 +22008,7 @@ define(
               }
               var oldPath = this.path();
               this.set__stopMethod(stopMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_stopMethod(), stopMethodP));
             },
             getUpdateMethod: function () {
               return this.get__updateMethod();
@@ -21295,6 +22019,7 @@ define(
               }
               var oldPath = this.path();
               this.set__updateMethod(updateMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_updateMethod(), updateMethodP));
             },
             getLowerBindings: function () {
               return this.get__lowerBindings();
@@ -21305,6 +22030,7 @@ define(
               }
               var oldPath = this.path();
               this.set__lowerBindings(lowerBindingsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_lowerBindings(), lowerBindingsP));
             },
             getUpperBindings: function () {
               return this.get__upperBindings();
@@ -21315,6 +22041,7 @@ define(
               }
               var oldPath = this.path();
               this.set__upperBindings(upperBindingsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_upperBindings(), upperBindingsP));
             },
             getLowerFragments: function () {
               return this.get__lowerFragments();
@@ -21325,6 +22052,7 @@ define(
               }
               var oldPath = this.path();
               this.set__lowerFragments(lowerFragmentsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_lowerFragments(), lowerFragmentsP));
             },
             getUpperFragments: function () {
               return this.get__upperFragments();
@@ -21335,6 +22063,7 @@ define(
               }
               var oldPath = this.path();
               this.set__upperFragments(upperFragmentsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_upperFragments(), upperFragmentsP));
             },
             getDeployUnits: function () {
               return _.kotlin.toList_2(this.get__deployUnits().values());
@@ -21356,6 +22085,7 @@ define(
                     this.get__deployUnits().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             addDeployUnits: function (deployUnitsP) {
@@ -21368,6 +22098,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__deployUnits().put(_key_, deployUnitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             addAllDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -21385,6 +22116,7 @@ define(
                   this.get__deployUnits().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             removeDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -21393,6 +22125,7 @@ define(
               this.set__deployUnits_java_cache(null);
               if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().containsKey((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__deployUnits().remove((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             removeAllDeployUnits: function () {
@@ -21403,6 +22136,7 @@ define(
               var temp_els = (tmp$0 = this.getDeployUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__deployUnits_java_cache(null);
               this.get__deployUnits().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), temp_els));
             },
             getDictionaryType: function () {
               return this.get__dictionaryType();
@@ -21420,6 +22154,7 @@ define(
                   (dictionaryTypeP != null ? dictionaryTypeP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionaryType', null), 'dictionaryType');
                 }
                 this.set__dictionaryType(dictionaryTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionaryType(), dictionaryTypeP));
               }
             },
             getSuperTypes: function () {
@@ -21442,6 +22177,7 @@ define(
                     this.get__superTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             addSuperTypes: function (superTypesP) {
@@ -21454,6 +22190,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__superTypes().put(_key_, superTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             addAllSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -21471,6 +22208,7 @@ define(
                   this.get__superTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             removeSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -21479,6 +22217,7 @@ define(
               this.set__superTypes_java_cache(null);
               if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__superTypes().remove((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             removeAllSuperTypes: function () {
@@ -21489,6 +22228,7 @@ define(
               var temp_els = (tmp$0 = this.getSuperTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__superTypes_java_cache(null);
               this.get__superTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -21859,7 +22599,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionaryType() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionaryType()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -22134,6 +22874,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_factoryBean = '';
               this.$_bean = '';
@@ -22147,6 +22889,7 @@ define(
               this.$_superTypes = new Kotlin.ComplexHashMap(0);
               this.$_operations_java_cache = null;
               this.$_operations = new Kotlin.ComplexHashMap(0);
+              this.$removeAllOperationsCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -22177,6 +22920,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -22304,9 +23059,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getFactoryBean: function () {
               return this.get__factoryBean();
@@ -22317,6 +23074,7 @@ define(
               }
               var oldPath = this.path();
               this.set__factoryBean(factoryBeanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_factoryBean(), factoryBeanP));
             },
             getBean: function () {
               return this.get__bean();
@@ -22327,6 +23085,7 @@ define(
               }
               var oldPath = this.path();
               this.set__bean(beanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_bean(), beanP));
             },
             getAbstract: function () {
               return this.get__abstract();
@@ -22337,6 +23096,7 @@ define(
               }
               var oldPath = this.path();
               this.set__abstract(abstractP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_abstract(), abstractP));
             },
             getSynchrone: function () {
               return this.get__synchrone();
@@ -22347,6 +23107,7 @@ define(
               }
               var oldPath = this.path();
               this.set__synchrone(synchroneP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_synchrone(), synchroneP));
             },
             getInterface: function () {
               return this.get__interface();
@@ -22357,6 +23118,7 @@ define(
               }
               var oldPath = this.path();
               this.set__interface(interfaceP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_interface(), interfaceP));
             },
             getDeployUnits: function () {
               return _.kotlin.toList_2(this.get__deployUnits().values());
@@ -22378,6 +23140,7 @@ define(
                     this.get__deployUnits().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             addDeployUnits: function (deployUnitsP) {
@@ -22390,6 +23153,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__deployUnits().put(_key_, deployUnitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             addAllDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -22407,6 +23171,7 @@ define(
                   this.get__deployUnits().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             removeDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -22415,6 +23180,7 @@ define(
               this.set__deployUnits_java_cache(null);
               if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().containsKey((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__deployUnits().remove((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             removeAllDeployUnits: function () {
@@ -22425,6 +23191,7 @@ define(
               var temp_els = (tmp$0 = this.getDeployUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__deployUnits_java_cache(null);
               this.get__deployUnits().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), temp_els));
             },
             getDictionaryType: function () {
               return this.get__dictionaryType();
@@ -22442,6 +23209,7 @@ define(
                   (dictionaryTypeP != null ? dictionaryTypeP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionaryType', null), 'dictionaryType');
                 }
                 this.set__dictionaryType(dictionaryTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionaryType(), dictionaryTypeP));
               }
             },
             getSuperTypes: function () {
@@ -22464,6 +23232,7 @@ define(
                     this.get__superTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             addSuperTypes: function (superTypesP) {
@@ -22476,6 +23245,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__superTypes().put(_key_, superTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             addAllSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -22493,6 +23263,7 @@ define(
                   this.get__superTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             removeSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -22501,6 +23272,7 @@ define(
               this.set__superTypes_java_cache(null);
               if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__superTypes().remove((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             removeAllSuperTypes: function () {
@@ -22511,6 +23283,7 @@ define(
               var temp_els = (tmp$0 = this.getSuperTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__superTypes_java_cache(null);
               this.get__superTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), temp_els));
             },
             getOperations: function () {
               return _.kotlin.toList_2(this.get__operations().values());
@@ -22539,6 +23312,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'operations', elem), 'operations');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_operations(), operationsP));
               }
             },
             addOperations: function (operationsP) {
@@ -22552,6 +23326,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__operations().put(_key_, operationsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_operations(), operationsP));
             },
             addAllOperations: function (operationsP) {
               if (this.isReadOnly()) {
@@ -22576,6 +23351,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'operations', el_0), 'operations');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_operations(), operationsP));
+            },
+            get_removeAllOperationsCurrentlyProcessing: function () {
+              return this.$removeAllOperationsCurrentlyProcessing;
+            },
+            set_removeAllOperationsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllOperationsCurrentlyProcessing = tmp$0;
             },
             removeOperations: function (operationsP) {
               if (this.isReadOnly()) {
@@ -22585,12 +23367,16 @@ define(
               if (this.get__operations().size() !== 0 && this.get__operations().containsKey((operationsP != null ? operationsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__operations().remove((operationsP != null ? operationsP : Kotlin.throwNPE()).internalGetKey());
                 ((operationsP != null ? operationsP : Kotlin.throwNPE()) != null ? operationsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllOperationsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_operations(), operationsP));
+                }
               }
             },
             removeAllOperations: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllOperationsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getOperations()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -22602,6 +23388,8 @@ define(
               }
               this.set__operations_java_cache(null);
               this.get__operations().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_operations(), temp_els));
+              this.set_removeAllOperationsCurrentlyProcessing(false);
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -22991,7 +23779,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(2);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionaryType() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionaryType()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -23197,6 +23985,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
             },
             get_internal_eContainer: function () {
@@ -23229,6 +24019,18 @@ define(
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
             },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
+            },
             get__name: function () {
               return this.$_name;
             },
@@ -23256,9 +24058,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -23383,6 +24187,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_metaData = '';
               this.$_started = true;
@@ -23420,6 +24226,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -23500,9 +24318,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getMetaData: function () {
               return this.get__metaData();
@@ -23513,6 +24333,7 @@ define(
               }
               var oldPath = this.path();
               this.set__metaData(metaDataP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_metaData(), metaDataP));
             },
             getStarted: function () {
               return this.get__started();
@@ -23523,6 +24344,7 @@ define(
               }
               var oldPath = this.path();
               this.set__started(startedP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_started(), startedP));
             },
             getTypeDefinition: function () {
               return this.get__typeDefinition();
@@ -23533,6 +24355,7 @@ define(
               }
               if (!Kotlin.equals(this.get__typeDefinition(), typeDefinitionP)) {
                 this.set__typeDefinition(typeDefinitionP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_typeDefinition(), typeDefinitionP));
               }
             },
             getDictionary: function () {
@@ -23551,6 +24374,7 @@ define(
                   (dictionaryP != null ? dictionaryP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionary', null), 'dictionary');
                 }
                 this.set__dictionary(dictionaryP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionary(), dictionaryP));
               }
             },
             getSubNodes: function () {
@@ -23573,6 +24397,7 @@ define(
                     this.get__subNodes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_subNodes(), subNodesP));
               }
             },
             addSubNodes: function (subNodesP) {
@@ -23585,6 +24410,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__subNodes().put(_key_, subNodesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_subNodes(), subNodesP));
             },
             addAllSubNodes: function (subNodesP) {
               if (this.isReadOnly()) {
@@ -23602,6 +24428,7 @@ define(
                   this.get__subNodes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_subNodes(), subNodesP));
             },
             removeSubNodes: function (subNodesP) {
               if (this.isReadOnly()) {
@@ -23610,6 +24437,7 @@ define(
               this.set__subNodes_java_cache(null);
               if (this.get__subNodes().size() !== 0 && this.get__subNodes().containsKey((subNodesP != null ? subNodesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__subNodes().remove((subNodesP != null ? subNodesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_subNodes(), subNodesP));
               }
             },
             removeAllSubNodes: function () {
@@ -23620,6 +24448,7 @@ define(
               var temp_els = (tmp$0 = this.getSubNodes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__subNodes_java_cache(null);
               this.get__subNodes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_subNodes(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -23879,7 +24708,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionary() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionary()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -24022,11 +24851,14 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_link_java_cache = null;
               this.$_link = new Kotlin.ComplexHashMap(0);
               this.$_initBy = null;
               this.$_target = null;
+              this.$removeAllLinkCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -24057,6 +24889,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__generated_KMF_ID: function () {
               return this.$_generated_KMF_ID;
@@ -24133,9 +24977,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getLink: function () {
               return _.kotlin.toList_2(this.get__link().values());
@@ -24164,6 +25010,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'link', elem), 'link');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_link(), linkP));
               }
             },
             addLink: function (linkP) {
@@ -24177,6 +25024,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__link().put(_key_, linkP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_link(), linkP));
             },
             addAllLink: function (linkP) {
               if (this.isReadOnly()) {
@@ -24201,6 +25049,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'link', el_0), 'link');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_link(), linkP));
+            },
+            get_removeAllLinkCurrentlyProcessing: function () {
+              return this.$removeAllLinkCurrentlyProcessing;
+            },
+            set_removeAllLinkCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllLinkCurrentlyProcessing = tmp$0;
             },
             removeLink: function (linkP) {
               if (this.isReadOnly()) {
@@ -24210,12 +25065,16 @@ define(
               if (this.get__link().size() !== 0 && this.get__link().containsKey((linkP != null ? linkP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__link().remove((linkP != null ? linkP : Kotlin.throwNPE()).internalGetKey());
                 ((linkP != null ? linkP : Kotlin.throwNPE()) != null ? linkP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllLinkCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_link(), linkP));
+                }
               }
             },
             removeAllLink: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllLinkCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getLink()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -24227,6 +25086,8 @@ define(
               }
               this.set__link_java_cache(null);
               this.get__link().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_link(), temp_els));
+              this.set_removeAllLinkCurrentlyProcessing(false);
             },
             getInitBy: function () {
               return this.get__initBy();
@@ -24237,6 +25098,7 @@ define(
               }
               if (!Kotlin.equals(this.get__initBy(), initByP)) {
                 this.set__initBy(initByP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_initBy(), initByP));
               }
             },
             getTarget: function () {
@@ -24248,6 +25110,7 @@ define(
               }
               if (!Kotlin.equals(this.get__target(), targetP)) {
                 this.set__target(targetP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_target(), targetP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -24500,7 +25363,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               result.addAll(this.get__link().values());
               return result;
             },
@@ -24591,6 +25454,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_value = '';
               this.$_lastCheck = '';
@@ -24624,6 +25489,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -24664,9 +25541,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getValue: function () {
               return this.get__value();
@@ -24677,6 +25556,7 @@ define(
               }
               var oldPath = this.path();
               this.set__value(valueP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_value(), valueP));
             },
             getLastCheck: function () {
               return this.get__lastCheck();
@@ -24687,6 +25567,7 @@ define(
               }
               var oldPath = this.path();
               this.set__lastCheck(lastCheckP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_lastCheck(), lastCheckP));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -24863,6 +25744,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
             },
             get_internal_eContainer: function () {
@@ -24895,6 +25778,18 @@ define(
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
             },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
+            },
             get__name: function () {
               return this.$_name;
             },
@@ -24922,9 +25817,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -25049,6 +25946,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_networkType = '';
               this.$_estimatedRate = 0;
               this.$_lastCheck = '';
@@ -25056,6 +25955,7 @@ define(
               this.$_generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_networkProperties_java_cache = null;
               this.$_networkProperties = new Kotlin.ComplexHashMap(0);
+              this.$removeAllNetworkPropertiesCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -25086,6 +25986,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__networkType: function () {
               return this.$_networkType;
@@ -25161,6 +26073,7 @@ define(
               }
               var oldPath = this.path();
               this.set__networkType(networkTypeP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_networkType(), networkTypeP));
             },
             getEstimatedRate: function () {
               return this.get__estimatedRate();
@@ -25171,6 +26084,7 @@ define(
               }
               var oldPath = this.path();
               this.set__estimatedRate(estimatedRateP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_estimatedRate(), estimatedRateP));
             },
             getLastCheck: function () {
               return this.get__lastCheck();
@@ -25181,6 +26095,7 @@ define(
               }
               var oldPath = this.path();
               this.set__lastCheck(lastCheckP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_lastCheck(), lastCheckP));
             },
             getZoneID: function () {
               return this.get__zoneID();
@@ -25191,6 +26106,7 @@ define(
               }
               var oldPath = this.path();
               this.set__zoneID(zoneIDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_zoneID(), zoneIDP));
             },
             getGenerated_KMF_ID: function () {
               return this.get__generated_KMF_ID();
@@ -25204,9 +26120,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getNetworkProperties: function () {
               return _.kotlin.toList_2(this.get__networkProperties().values());
@@ -25235,6 +26153,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'networkProperties', elem), 'networkProperties');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_networkProperties(), networkPropertiesP));
               }
             },
             addNetworkProperties: function (networkPropertiesP) {
@@ -25248,6 +26167,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__networkProperties().put(_key_, networkPropertiesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_networkProperties(), networkPropertiesP));
             },
             addAllNetworkProperties: function (networkPropertiesP) {
               if (this.isReadOnly()) {
@@ -25272,6 +26192,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'networkProperties', el_0), 'networkProperties');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_networkProperties(), networkPropertiesP));
+            },
+            get_removeAllNetworkPropertiesCurrentlyProcessing: function () {
+              return this.$removeAllNetworkPropertiesCurrentlyProcessing;
+            },
+            set_removeAllNetworkPropertiesCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllNetworkPropertiesCurrentlyProcessing = tmp$0;
             },
             removeNetworkProperties: function (networkPropertiesP) {
               if (this.isReadOnly()) {
@@ -25281,12 +26208,16 @@ define(
               if (this.get__networkProperties().size() !== 0 && this.get__networkProperties().containsKey((networkPropertiesP != null ? networkPropertiesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__networkProperties().remove((networkPropertiesP != null ? networkPropertiesP : Kotlin.throwNPE()).internalGetKey());
                 ((networkPropertiesP != null ? networkPropertiesP : Kotlin.throwNPE()) != null ? networkPropertiesP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllNetworkPropertiesCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_networkProperties(), networkPropertiesP));
+                }
               }
             },
             removeAllNetworkProperties: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllNetworkPropertiesCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getNetworkProperties()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -25298,6 +26229,8 @@ define(
               }
               this.set__networkProperties_java_cache(null);
               this.get__networkProperties().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_networkProperties(), temp_els));
+              this.set_removeAllNetworkPropertiesCurrentlyProcessing(false);
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -25545,7 +26478,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               result.addAll(this.get__networkProperties().values());
               return result;
             },
@@ -25647,6 +26580,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_value = '';
               this.$_generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_attribute = null;
@@ -25681,6 +26616,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__value: function () {
               return this.$_value;
@@ -25734,6 +26681,7 @@ define(
               }
               var oldPath = this.path();
               this.set__value(valueP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_value(), valueP));
             },
             getGenerated_KMF_ID: function () {
               return this.get__generated_KMF_ID();
@@ -25747,9 +26695,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getAttribute: function () {
               return this.get__attribute();
@@ -25760,6 +26710,7 @@ define(
               }
               if (!Kotlin.equals(this.get__attribute(), attributeP)) {
                 this.set__attribute(attributeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_attribute(), attributeP));
               }
             },
             getTargetNode: function () {
@@ -25771,6 +26722,7 @@ define(
               }
               if (!Kotlin.equals(this.get__targetNode(), targetNodeP)) {
                 this.set__targetNode(targetNodeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_targetNode(), targetNodeP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -26023,10 +26975,13 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_parameters_java_cache = null;
               this.$_parameters = new Kotlin.ComplexHashMap(0);
               this.$_returnType = null;
+              this.$removeAllParametersCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -26057,6 +27012,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -26122,9 +27089,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getParameters: function () {
               return _.kotlin.toList_2(this.get__parameters().values());
@@ -26153,6 +27122,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'parameters', elem), 'parameters');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_parameters(), parametersP));
               }
             },
             addParameters: function (parametersP) {
@@ -26166,6 +27136,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__parameters().put(_key_, parametersP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_parameters(), parametersP));
             },
             addAllParameters: function (parametersP) {
               if (this.isReadOnly()) {
@@ -26190,6 +27161,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'parameters', el_0), 'parameters');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_parameters(), parametersP));
+            },
+            get_removeAllParametersCurrentlyProcessing: function () {
+              return this.$removeAllParametersCurrentlyProcessing;
+            },
+            set_removeAllParametersCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllParametersCurrentlyProcessing = tmp$0;
             },
             removeParameters: function (parametersP) {
               if (this.isReadOnly()) {
@@ -26199,12 +27177,16 @@ define(
               if (this.get__parameters().size() !== 0 && this.get__parameters().containsKey((parametersP != null ? parametersP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__parameters().remove((parametersP != null ? parametersP : Kotlin.throwNPE()).internalGetKey());
                 ((parametersP != null ? parametersP : Kotlin.throwNPE()) != null ? parametersP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllParametersCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_parameters(), parametersP));
+                }
               }
             },
             removeAllParameters: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllParametersCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getParameters()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -26216,6 +27198,8 @@ define(
               }
               this.set__parameters_java_cache(null);
               this.get__parameters().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_parameters(), temp_els));
+              this.set_removeAllParametersCurrentlyProcessing(false);
             },
             getReturnType: function () {
               return this.get__returnType();
@@ -26226,6 +27210,7 @@ define(
               }
               if (!Kotlin.equals(this.get__returnType(), returnTypeP)) {
                 this.set__returnType(returnTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_returnType(), returnTypeP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -26441,7 +27426,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               result.addAll(this.get__parameters().values());
               return result;
             },
@@ -26882,6 +27867,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_nodes_java_cache = null;
               this.$_nodes = new Kotlin.ComplexHashMap(0);
@@ -26905,6 +27892,17 @@ define(
               this.$_groups = new Kotlin.ComplexHashMap(0);
               this.$_adaptationPrimitiveTypes_java_cache = null;
               this.$_adaptationPrimitiveTypes = new Kotlin.ComplexHashMap(0);
+              this.$removeAllNodesCurrentlyProcessing = false;
+              this.$removeAllTypeDefinitionsCurrentlyProcessing = false;
+              this.$removeAllRepositoriesCurrentlyProcessing = false;
+              this.$removeAllDataTypesCurrentlyProcessing = false;
+              this.$removeAllLibrariesCurrentlyProcessing = false;
+              this.$removeAllHubsCurrentlyProcessing = false;
+              this.$removeAllMBindingsCurrentlyProcessing = false;
+              this.$removeAllDeployUnitsCurrentlyProcessing = false;
+              this.$removeAllNodeNetworksCurrentlyProcessing = false;
+              this.$removeAllGroupsCurrentlyProcessing = false;
+              this.$removeAllAdaptationPrimitiveTypesCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -26935,6 +27933,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__generated_KMF_ID: function () {
               return this.$_generated_KMF_ID;
@@ -27239,9 +28249,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getNodes: function () {
               return _.kotlin.toList_2(this.get__nodes().values());
@@ -27270,6 +28282,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'nodes', elem), 'nodes');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_nodes(), nodesP));
               }
             },
             addNodes: function (nodesP) {
@@ -27283,6 +28296,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__nodes().put(_key_, nodesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_nodes(), nodesP));
             },
             addAllNodes: function (nodesP) {
               if (this.isReadOnly()) {
@@ -27307,6 +28321,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'nodes', el_0), 'nodes');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_nodes(), nodesP));
+            },
+            get_removeAllNodesCurrentlyProcessing: function () {
+              return this.$removeAllNodesCurrentlyProcessing;
+            },
+            set_removeAllNodesCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllNodesCurrentlyProcessing = tmp$0;
             },
             removeNodes: function (nodesP) {
               if (this.isReadOnly()) {
@@ -27316,12 +28337,16 @@ define(
               if (this.get__nodes().size() !== 0 && this.get__nodes().containsKey((nodesP != null ? nodesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__nodes().remove((nodesP != null ? nodesP : Kotlin.throwNPE()).internalGetKey());
                 ((nodesP != null ? nodesP : Kotlin.throwNPE()) != null ? nodesP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllNodesCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_nodes(), nodesP));
+                }
               }
             },
             removeAllNodes: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllNodesCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getNodes()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -27333,6 +28358,8 @@ define(
               }
               this.set__nodes_java_cache(null);
               this.get__nodes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_nodes(), temp_els));
+              this.set_removeAllNodesCurrentlyProcessing(false);
             },
             getTypeDefinitions: function () {
               return _.kotlin.toList_2(this.get__typeDefinitions().values());
@@ -27361,6 +28388,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'typeDefinitions', elem), 'typeDefinitions');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_typeDefinitions(), typeDefinitionsP));
               }
             },
             addTypeDefinitions: function (typeDefinitionsP) {
@@ -27374,6 +28402,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__typeDefinitions().put(_key_, typeDefinitionsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_typeDefinitions(), typeDefinitionsP));
             },
             addAllTypeDefinitions: function (typeDefinitionsP) {
               if (this.isReadOnly()) {
@@ -27398,6 +28427,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'typeDefinitions', el_0), 'typeDefinitions');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_typeDefinitions(), typeDefinitionsP));
+            },
+            get_removeAllTypeDefinitionsCurrentlyProcessing: function () {
+              return this.$removeAllTypeDefinitionsCurrentlyProcessing;
+            },
+            set_removeAllTypeDefinitionsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllTypeDefinitionsCurrentlyProcessing = tmp$0;
             },
             removeTypeDefinitions: function (typeDefinitionsP) {
               if (this.isReadOnly()) {
@@ -27407,12 +28443,16 @@ define(
               if (this.get__typeDefinitions().size() !== 0 && this.get__typeDefinitions().containsKey((typeDefinitionsP != null ? typeDefinitionsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__typeDefinitions().remove((typeDefinitionsP != null ? typeDefinitionsP : Kotlin.throwNPE()).internalGetKey());
                 ((typeDefinitionsP != null ? typeDefinitionsP : Kotlin.throwNPE()) != null ? typeDefinitionsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllTypeDefinitionsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_typeDefinitions(), typeDefinitionsP));
+                }
               }
             },
             removeAllTypeDefinitions: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllTypeDefinitionsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getTypeDefinitions()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -27424,6 +28464,8 @@ define(
               }
               this.set__typeDefinitions_java_cache(null);
               this.get__typeDefinitions().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_typeDefinitions(), temp_els));
+              this.set_removeAllTypeDefinitionsCurrentlyProcessing(false);
             },
             getRepositories: function () {
               return _.kotlin.toList_2(this.get__repositories().values());
@@ -27452,6 +28494,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'repositories', elem), 'repositories');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_repositories(), repositoriesP));
               }
             },
             addRepositories: function (repositoriesP) {
@@ -27465,6 +28508,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__repositories().put(_key_, repositoriesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_repositories(), repositoriesP));
             },
             addAllRepositories: function (repositoriesP) {
               if (this.isReadOnly()) {
@@ -27489,6 +28533,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'repositories', el_0), 'repositories');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_repositories(), repositoriesP));
+            },
+            get_removeAllRepositoriesCurrentlyProcessing: function () {
+              return this.$removeAllRepositoriesCurrentlyProcessing;
+            },
+            set_removeAllRepositoriesCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllRepositoriesCurrentlyProcessing = tmp$0;
             },
             removeRepositories: function (repositoriesP) {
               if (this.isReadOnly()) {
@@ -27498,12 +28549,16 @@ define(
               if (this.get__repositories().size() !== 0 && this.get__repositories().containsKey((repositoriesP != null ? repositoriesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__repositories().remove((repositoriesP != null ? repositoriesP : Kotlin.throwNPE()).internalGetKey());
                 ((repositoriesP != null ? repositoriesP : Kotlin.throwNPE()) != null ? repositoriesP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllRepositoriesCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_repositories(), repositoriesP));
+                }
               }
             },
             removeAllRepositories: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllRepositoriesCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getRepositories()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -27515,6 +28570,8 @@ define(
               }
               this.set__repositories_java_cache(null);
               this.get__repositories().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_repositories(), temp_els));
+              this.set_removeAllRepositoriesCurrentlyProcessing(false);
             },
             getDataTypes: function () {
               return _.kotlin.toList_2(this.get__dataTypes().values());
@@ -27543,6 +28600,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'dataTypes', elem), 'dataTypes');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dataTypes(), dataTypesP));
               }
             },
             addDataTypes: function (dataTypesP) {
@@ -27556,6 +28614,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__dataTypes().put(_key_, dataTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dataTypes(), dataTypesP));
             },
             addAllDataTypes: function (dataTypesP) {
               if (this.isReadOnly()) {
@@ -27580,6 +28639,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'dataTypes', el_0), 'dataTypes');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dataTypes(), dataTypesP));
+            },
+            get_removeAllDataTypesCurrentlyProcessing: function () {
+              return this.$removeAllDataTypesCurrentlyProcessing;
+            },
+            set_removeAllDataTypesCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllDataTypesCurrentlyProcessing = tmp$0;
             },
             removeDataTypes: function (dataTypesP) {
               if (this.isReadOnly()) {
@@ -27589,12 +28655,16 @@ define(
               if (this.get__dataTypes().size() !== 0 && this.get__dataTypes().containsKey((dataTypesP != null ? dataTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__dataTypes().remove((dataTypesP != null ? dataTypesP : Kotlin.throwNPE()).internalGetKey());
                 ((dataTypesP != null ? dataTypesP : Kotlin.throwNPE()) != null ? dataTypesP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllDataTypesCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dataTypes(), dataTypesP));
+                }
               }
             },
             removeAllDataTypes: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllDataTypesCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getDataTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -27606,6 +28676,8 @@ define(
               }
               this.set__dataTypes_java_cache(null);
               this.get__dataTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dataTypes(), temp_els));
+              this.set_removeAllDataTypesCurrentlyProcessing(false);
             },
             getLibraries: function () {
               return _.kotlin.toList_2(this.get__libraries().values());
@@ -27634,6 +28706,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'libraries', elem), 'libraries');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_libraries(), librariesP));
               }
             },
             addLibraries: function (librariesP) {
@@ -27647,6 +28720,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__libraries().put(_key_, librariesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_libraries(), librariesP));
             },
             addAllLibraries: function (librariesP) {
               if (this.isReadOnly()) {
@@ -27671,6 +28745,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'libraries', el_0), 'libraries');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_libraries(), librariesP));
+            },
+            get_removeAllLibrariesCurrentlyProcessing: function () {
+              return this.$removeAllLibrariesCurrentlyProcessing;
+            },
+            set_removeAllLibrariesCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllLibrariesCurrentlyProcessing = tmp$0;
             },
             removeLibraries: function (librariesP) {
               if (this.isReadOnly()) {
@@ -27680,12 +28761,16 @@ define(
               if (this.get__libraries().size() !== 0 && this.get__libraries().containsKey((librariesP != null ? librariesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__libraries().remove((librariesP != null ? librariesP : Kotlin.throwNPE()).internalGetKey());
                 ((librariesP != null ? librariesP : Kotlin.throwNPE()) != null ? librariesP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllLibrariesCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_libraries(), librariesP));
+                }
               }
             },
             removeAllLibraries: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllLibrariesCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getLibraries()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -27697,6 +28782,8 @@ define(
               }
               this.set__libraries_java_cache(null);
               this.get__libraries().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_libraries(), temp_els));
+              this.set_removeAllLibrariesCurrentlyProcessing(false);
             },
             getHubs: function () {
               return _.kotlin.toList_2(this.get__hubs().values());
@@ -27725,6 +28812,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'hubs', elem), 'hubs');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_hubs(), hubsP));
               }
             },
             addHubs: function (hubsP) {
@@ -27738,6 +28826,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__hubs().put(_key_, hubsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_hubs(), hubsP));
             },
             addAllHubs: function (hubsP) {
               if (this.isReadOnly()) {
@@ -27762,6 +28851,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'hubs', el_0), 'hubs');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_hubs(), hubsP));
+            },
+            get_removeAllHubsCurrentlyProcessing: function () {
+              return this.$removeAllHubsCurrentlyProcessing;
+            },
+            set_removeAllHubsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllHubsCurrentlyProcessing = tmp$0;
             },
             removeHubs: function (hubsP) {
               if (this.isReadOnly()) {
@@ -27771,12 +28867,16 @@ define(
               if (this.get__hubs().size() !== 0 && this.get__hubs().containsKey((hubsP != null ? hubsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__hubs().remove((hubsP != null ? hubsP : Kotlin.throwNPE()).internalGetKey());
                 ((hubsP != null ? hubsP : Kotlin.throwNPE()) != null ? hubsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllHubsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_hubs(), hubsP));
+                }
               }
             },
             removeAllHubs: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllHubsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getHubs()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -27788,6 +28888,8 @@ define(
               }
               this.set__hubs_java_cache(null);
               this.get__hubs().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_hubs(), temp_els));
+              this.set_removeAllHubsCurrentlyProcessing(false);
             },
             getMBindings: function () {
               return _.kotlin.toList_2(this.get__mBindings().values());
@@ -27816,6 +28918,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'mBindings', elem), 'mBindings');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_mBindings(), mBindingsP));
               }
             },
             addMBindings: function (mBindingsP) {
@@ -27829,6 +28932,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__mBindings().put(_key_, mBindingsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_mBindings(), mBindingsP));
             },
             addAllMBindings: function (mBindingsP) {
               if (this.isReadOnly()) {
@@ -27853,6 +28957,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'mBindings', el_0), 'mBindings');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_mBindings(), mBindingsP));
+            },
+            get_removeAllMBindingsCurrentlyProcessing: function () {
+              return this.$removeAllMBindingsCurrentlyProcessing;
+            },
+            set_removeAllMBindingsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllMBindingsCurrentlyProcessing = tmp$0;
             },
             removeMBindings: function (mBindingsP) {
               if (this.isReadOnly()) {
@@ -27862,12 +28973,16 @@ define(
               if (this.get__mBindings().size() !== 0 && this.get__mBindings().containsKey((mBindingsP != null ? mBindingsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__mBindings().remove((mBindingsP != null ? mBindingsP : Kotlin.throwNPE()).internalGetKey());
                 ((mBindingsP != null ? mBindingsP : Kotlin.throwNPE()) != null ? mBindingsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllMBindingsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_mBindings(), mBindingsP));
+                }
               }
             },
             removeAllMBindings: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllMBindingsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getMBindings()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -27879,6 +28994,8 @@ define(
               }
               this.set__mBindings_java_cache(null);
               this.get__mBindings().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_mBindings(), temp_els));
+              this.set_removeAllMBindingsCurrentlyProcessing(false);
             },
             getDeployUnits: function () {
               return _.kotlin.toList_2(this.get__deployUnits().values());
@@ -27907,6 +29024,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'deployUnits', elem), 'deployUnits');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             addDeployUnits: function (deployUnitsP) {
@@ -27920,6 +29038,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__deployUnits().put(_key_, deployUnitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             addAllDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -27944,6 +29063,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'deployUnits', el_0), 'deployUnits');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
+            },
+            get_removeAllDeployUnitsCurrentlyProcessing: function () {
+              return this.$removeAllDeployUnitsCurrentlyProcessing;
+            },
+            set_removeAllDeployUnitsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllDeployUnitsCurrentlyProcessing = tmp$0;
             },
             removeDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -27953,12 +29079,16 @@ define(
               if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().containsKey((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__deployUnits().remove((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey());
                 ((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()) != null ? deployUnitsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllDeployUnitsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
+                }
               }
             },
             removeAllDeployUnits: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllDeployUnitsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getDeployUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -27970,6 +29100,8 @@ define(
               }
               this.set__deployUnits_java_cache(null);
               this.get__deployUnits().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), temp_els));
+              this.set_removeAllDeployUnitsCurrentlyProcessing(false);
             },
             getNodeNetworks: function () {
               return _.kotlin.toList_2(this.get__nodeNetworks().values());
@@ -27998,6 +29130,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'nodeNetworks', elem), 'nodeNetworks');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_nodeNetworks(), nodeNetworksP));
               }
             },
             addNodeNetworks: function (nodeNetworksP) {
@@ -28011,6 +29144,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__nodeNetworks().put(_key_, nodeNetworksP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_nodeNetworks(), nodeNetworksP));
             },
             addAllNodeNetworks: function (nodeNetworksP) {
               if (this.isReadOnly()) {
@@ -28035,6 +29169,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'nodeNetworks', el_0), 'nodeNetworks');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_nodeNetworks(), nodeNetworksP));
+            },
+            get_removeAllNodeNetworksCurrentlyProcessing: function () {
+              return this.$removeAllNodeNetworksCurrentlyProcessing;
+            },
+            set_removeAllNodeNetworksCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllNodeNetworksCurrentlyProcessing = tmp$0;
             },
             removeNodeNetworks: function (nodeNetworksP) {
               if (this.isReadOnly()) {
@@ -28044,12 +29185,16 @@ define(
               if (this.get__nodeNetworks().size() !== 0 && this.get__nodeNetworks().containsKey((nodeNetworksP != null ? nodeNetworksP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__nodeNetworks().remove((nodeNetworksP != null ? nodeNetworksP : Kotlin.throwNPE()).internalGetKey());
                 ((nodeNetworksP != null ? nodeNetworksP : Kotlin.throwNPE()) != null ? nodeNetworksP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllNodeNetworksCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_nodeNetworks(), nodeNetworksP));
+                }
               }
             },
             removeAllNodeNetworks: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllNodeNetworksCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getNodeNetworks()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -28061,6 +29206,8 @@ define(
               }
               this.set__nodeNetworks_java_cache(null);
               this.get__nodeNetworks().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_nodeNetworks(), temp_els));
+              this.set_removeAllNodeNetworksCurrentlyProcessing(false);
             },
             getGroups: function () {
               return _.kotlin.toList_2(this.get__groups().values());
@@ -28089,6 +29236,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'groups', elem), 'groups');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_groups(), groupsP));
               }
             },
             addGroups: function (groupsP) {
@@ -28102,6 +29250,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__groups().put(_key_, groupsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_groups(), groupsP));
             },
             addAllGroups: function (groupsP) {
               if (this.isReadOnly()) {
@@ -28126,6 +29275,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'groups', el_0), 'groups');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_groups(), groupsP));
+            },
+            get_removeAllGroupsCurrentlyProcessing: function () {
+              return this.$removeAllGroupsCurrentlyProcessing;
+            },
+            set_removeAllGroupsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllGroupsCurrentlyProcessing = tmp$0;
             },
             removeGroups: function (groupsP) {
               if (this.isReadOnly()) {
@@ -28135,12 +29291,16 @@ define(
               if (this.get__groups().size() !== 0 && this.get__groups().containsKey((groupsP != null ? groupsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__groups().remove((groupsP != null ? groupsP : Kotlin.throwNPE()).internalGetKey());
                 ((groupsP != null ? groupsP : Kotlin.throwNPE()) != null ? groupsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllGroupsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_groups(), groupsP));
+                }
               }
             },
             removeAllGroups: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllGroupsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getGroups()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -28152,6 +29312,8 @@ define(
               }
               this.set__groups_java_cache(null);
               this.get__groups().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_groups(), temp_els));
+              this.set_removeAllGroupsCurrentlyProcessing(false);
             },
             getAdaptationPrimitiveTypes: function () {
               return _.kotlin.toList_2(this.get__adaptationPrimitiveTypes().values());
@@ -28180,6 +29342,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'adaptationPrimitiveTypes', elem), 'adaptationPrimitiveTypes');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_adaptationPrimitiveTypes(), adaptationPrimitiveTypesP));
               }
             },
             addAdaptationPrimitiveTypes: function (adaptationPrimitiveTypesP) {
@@ -28193,6 +29356,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__adaptationPrimitiveTypes().put(_key_, adaptationPrimitiveTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_adaptationPrimitiveTypes(), adaptationPrimitiveTypesP));
             },
             addAllAdaptationPrimitiveTypes: function (adaptationPrimitiveTypesP) {
               if (this.isReadOnly()) {
@@ -28217,6 +29381,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'adaptationPrimitiveTypes', el_0), 'adaptationPrimitiveTypes');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_adaptationPrimitiveTypes(), adaptationPrimitiveTypesP));
+            },
+            get_removeAllAdaptationPrimitiveTypesCurrentlyProcessing: function () {
+              return this.$removeAllAdaptationPrimitiveTypesCurrentlyProcessing;
+            },
+            set_removeAllAdaptationPrimitiveTypesCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllAdaptationPrimitiveTypesCurrentlyProcessing = tmp$0;
             },
             removeAdaptationPrimitiveTypes: function (adaptationPrimitiveTypesP) {
               if (this.isReadOnly()) {
@@ -28226,12 +29397,16 @@ define(
               if (this.get__adaptationPrimitiveTypes().size() !== 0 && this.get__adaptationPrimitiveTypes().containsKey((adaptationPrimitiveTypesP != null ? adaptationPrimitiveTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__adaptationPrimitiveTypes().remove((adaptationPrimitiveTypesP != null ? adaptationPrimitiveTypesP : Kotlin.throwNPE()).internalGetKey());
                 ((adaptationPrimitiveTypesP != null ? adaptationPrimitiveTypesP : Kotlin.throwNPE()) != null ? adaptationPrimitiveTypesP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllAdaptationPrimitiveTypesCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_adaptationPrimitiveTypes(), adaptationPrimitiveTypesP));
+                }
               }
             },
             removeAllAdaptationPrimitiveTypes: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllAdaptationPrimitiveTypesCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getAdaptationPrimitiveTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -28243,6 +29418,8 @@ define(
               }
               this.set__adaptationPrimitiveTypes_java_cache(null);
               this.get__adaptationPrimitiveTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_adaptationPrimitiveTypes(), temp_els));
+              this.set_removeAllAdaptationPrimitiveTypesCurrentlyProcessing(false);
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -29210,7 +30387,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(11);
+              var result = new Kotlin.ArrayList(0);
               result.addAll(this.get__nodes().values());
               result.addAll(this.get__typeDefinitions().values());
               result.addAll(this.get__repositories().values());
@@ -29266,6 +30443,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_bindings_java_cache = null;
               this.$_bindings = new Kotlin.ComplexHashMap(0);
@@ -29300,6 +30479,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__generated_KMF_ID: function () {
               return this.$_generated_KMF_ID;
@@ -29358,9 +30549,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getBindings: function () {
               return _.kotlin.toList_2(this.get__bindings().values());
@@ -29389,6 +30582,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).noOpposite_setPort(this);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
               }
             },
             addBindings: function (bindingsP) {
@@ -29401,6 +30595,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__bindings().put(_key_, bindingsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
               (bindingsP != null ? bindingsP : Kotlin.throwNPE()).noOpposite_setPort(this);
             },
             addAllBindings: function (bindingsP) {
@@ -29426,6 +30621,7 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).noOpposite_setPort(this);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
             },
             noOpposite_addBindings: function (bindingsP) {
               if (this.isReadOnly()) {
@@ -29437,6 +30633,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__bindings().put(_key_, bindingsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
             },
             noOpposite_addAllBindings: function (bindingsP) {
               if (this.isReadOnly()) {
@@ -29454,6 +30651,7 @@ define(
                   this.get__bindings().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
             },
             removeBindings: function (bindingsP) {
               if (this.isReadOnly()) {
@@ -29462,6 +30660,7 @@ define(
               this.set__bindings_java_cache(null);
               if (this.get__bindings().size() !== 0 && this.get__bindings().containsKey((bindingsP != null ? bindingsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__bindings().remove((bindingsP != null ? bindingsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
                 (bindingsP != null ? bindingsP : Kotlin.throwNPE()).noOpposite_setPort(null);
               }
             },
@@ -29480,6 +30679,7 @@ define(
               }
               this.set__bindings_java_cache(null);
               this.get__bindings().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), temp_els));
             },
             noOpposite_removeBindings: function (bindingsP) {
               if (this.isReadOnly()) {
@@ -29488,6 +30688,7 @@ define(
               this.set__bindings_java_cache(null);
               if (this.get__bindings().size() !== 0 && this.get__bindings().containsKey((bindingsP != null ? bindingsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__bindings().remove((bindingsP != null ? bindingsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), bindingsP));
               }
             },
             noOpposite_removeAllBindings: function () {
@@ -29498,6 +30699,7 @@ define(
               var temp_els = (tmp$0 = this.getBindings()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__bindings_java_cache(null);
               this.get__bindings().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_bindings(), temp_els));
             },
             getPortTypeRef: function () {
               return this.get__portTypeRef();
@@ -29508,6 +30710,7 @@ define(
               }
               if (!Kotlin.equals(this.get__portTypeRef(), portTypeRefP)) {
                 this.set__portTypeRef(portTypeRefP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_portTypeRef(), portTypeRefP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -29807,6 +31010,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_url = '';
               this.$_units_java_cache = null;
               this.$_units = new Kotlin.ComplexHashMap(0);
@@ -29840,6 +31045,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__url: function () {
               return this.$_url;
@@ -29887,9 +31104,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__url(urlP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_url(), urlP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_url(), this.path()));
             },
             getUnits: function () {
               return _.kotlin.toList_2(this.get__units().values());
@@ -29911,6 +31130,7 @@ define(
                     this.get__units().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_units(), unitsP));
               }
             },
             addUnits: function (unitsP) {
@@ -29923,6 +31143,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__units().put(_key_, unitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_units(), unitsP));
             },
             addAllUnits: function (unitsP) {
               if (this.isReadOnly()) {
@@ -29940,6 +31161,7 @@ define(
                   this.get__units().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_units(), unitsP));
             },
             removeUnits: function (unitsP) {
               if (this.isReadOnly()) {
@@ -29948,6 +31170,7 @@ define(
               this.set__units_java_cache(null);
               if (this.get__units().size() !== 0 && this.get__units().containsKey((unitsP != null ? unitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__units().remove((unitsP != null ? unitsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_units(), unitsP));
               }
             },
             removeAllUnits: function () {
@@ -29958,6 +31181,7 @@ define(
               var temp_els = (tmp$0 = this.getUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__units_java_cache(null);
               this.get__units().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_units(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -30218,9 +31442,12 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_values_java_cache = null;
               this.$_values = new Kotlin.ComplexHashMap(0);
+              this.$removeAllValuesCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -30251,6 +31478,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__generated_KMF_ID: function () {
               return this.$_generated_KMF_ID;
@@ -30305,9 +31544,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getValues: function () {
               return _.kotlin.toList_2(this.get__values().values());
@@ -30336,6 +31577,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'values', elem), 'values');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_values(), valuesP));
               }
             },
             addValues: function (valuesP) {
@@ -30349,6 +31591,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__values().put(_key_, valuesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_values(), valuesP));
             },
             addAllValues: function (valuesP) {
               if (this.isReadOnly()) {
@@ -30373,6 +31616,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'values', el_0), 'values');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_values(), valuesP));
+            },
+            get_removeAllValuesCurrentlyProcessing: function () {
+              return this.$removeAllValuesCurrentlyProcessing;
+            },
+            set_removeAllValuesCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllValuesCurrentlyProcessing = tmp$0;
             },
             removeValues: function (valuesP) {
               if (this.isReadOnly()) {
@@ -30382,12 +31632,16 @@ define(
               if (this.get__values().size() !== 0 && this.get__values().containsKey((valuesP != null ? valuesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__values().remove((valuesP != null ? valuesP : Kotlin.throwNPE()).internalGetKey());
                 ((valuesP != null ? valuesP : Kotlin.throwNPE()) != null ? valuesP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllValuesCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_values(), valuesP));
+                }
               }
             },
             removeAllValues: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllValuesCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getValues()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -30399,6 +31653,8 @@ define(
               }
               this.set__values_java_cache(null);
               this.get__values().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_values(), temp_els));
+              this.set_removeAllValuesCurrentlyProcessing(false);
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -30598,7 +31854,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               result.addAll(this.get__values().values());
               return result;
             },
@@ -30644,6 +31900,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_subTypes_java_cache = null;
               this.$_subTypes = new Kotlin.ComplexHashMap(0);
@@ -30677,6 +31935,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -30724,9 +31994,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getSubTypes: function () {
               return _.kotlin.toList_2(this.get__subTypes().values());
@@ -30748,6 +32020,7 @@ define(
                     this.get__subTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_subTypes(), subTypesP));
               }
             },
             addSubTypes: function (subTypesP) {
@@ -30760,6 +32033,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__subTypes().put(_key_, subTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_subTypes(), subTypesP));
             },
             addAllSubTypes: function (subTypesP) {
               if (this.isReadOnly()) {
@@ -30777,6 +32051,7 @@ define(
                   this.get__subTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_subTypes(), subTypesP));
             },
             removeSubTypes: function (subTypesP) {
               if (this.isReadOnly()) {
@@ -30785,6 +32060,7 @@ define(
               this.set__subTypes_java_cache(null);
               if (this.get__subTypes().size() !== 0 && this.get__subTypes().containsKey((subTypesP != null ? subTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__subTypes().remove((subTypesP != null ? subTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_subTypes(), subTypesP));
               }
             },
             removeAllSubTypes: function () {
@@ -30795,6 +32071,7 @@ define(
               var temp_els = (tmp$0 = this.getSubTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__subTypes_java_cache(null);
               this.get__subTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_subTypes(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -31055,6 +32332,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_beanMethodName = '';
               this.$_serviceMethodName = '';
               this.$_paramTypes = '';
@@ -31089,6 +32368,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__beanMethodName: function () {
               return this.$_beanMethodName;
@@ -31132,6 +32423,7 @@ define(
               }
               var oldPath = this.path();
               this.set__beanMethodName(beanMethodNameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_beanMethodName(), beanMethodNameP));
             },
             getServiceMethodName: function () {
               return this.get__serviceMethodName();
@@ -31142,6 +32434,7 @@ define(
               }
               var oldPath = this.path();
               this.set__serviceMethodName(serviceMethodNameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_serviceMethodName(), serviceMethodNameP));
             },
             getParamTypes: function () {
               return this.get__paramTypes();
@@ -31152,6 +32445,7 @@ define(
               }
               var oldPath = this.path();
               this.set__paramTypes(paramTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_paramTypes(), paramTypesP));
             },
             getGenerated_KMF_ID: function () {
               return this.get__generated_KMF_ID();
@@ -31165,9 +32459,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -31370,6 +32666,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_ports_java_cache = null;
               this.$_ports = new Kotlin.ComplexHashMap(0);
@@ -31403,6 +32701,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__generated_KMF_ID: function () {
               return this.$_generated_KMF_ID;
@@ -31450,9 +32760,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getPorts: function () {
               return _.kotlin.toList_2(this.get__ports().values());
@@ -31474,6 +32786,7 @@ define(
                     this.get__ports().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_ports(), portsP));
               }
             },
             addPorts: function (portsP) {
@@ -31486,6 +32799,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__ports().put(_key_, portsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_ports(), portsP));
             },
             addAllPorts: function (portsP) {
               if (this.isReadOnly()) {
@@ -31503,6 +32817,7 @@ define(
                   this.get__ports().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_ports(), portsP));
             },
             removePorts: function (portsP) {
               if (this.isReadOnly()) {
@@ -31511,6 +32826,7 @@ define(
               this.set__ports_java_cache(null);
               if (this.get__ports().size() !== 0 && this.get__ports().containsKey((portsP != null ? portsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__ports().remove((portsP != null ? portsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_ports(), portsP));
               }
             },
             removeAllPorts: function () {
@@ -31521,6 +32837,7 @@ define(
               var temp_els = (tmp$0 = this.getPorts()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__ports_java_cache(null);
               this.get__ports().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_ports(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -31781,6 +33098,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_factoryBean = '';
               this.$_bean = '';
@@ -31821,6 +33140,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -31917,9 +33248,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getFactoryBean: function () {
               return this.get__factoryBean();
@@ -31930,6 +33263,7 @@ define(
               }
               var oldPath = this.path();
               this.set__factoryBean(factoryBeanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_factoryBean(), factoryBeanP));
             },
             getBean: function () {
               return this.get__bean();
@@ -31940,6 +33274,7 @@ define(
               }
               var oldPath = this.path();
               this.set__bean(beanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_bean(), beanP));
             },
             getAbstract: function () {
               return this.get__abstract();
@@ -31950,6 +33285,7 @@ define(
               }
               var oldPath = this.path();
               this.set__abstract(abstractP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_abstract(), abstractP));
             },
             getSynchrone: function () {
               return this.get__synchrone();
@@ -31960,6 +33296,7 @@ define(
               }
               var oldPath = this.path();
               this.set__synchrone(synchroneP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_synchrone(), synchroneP));
             },
             getDeployUnits: function () {
               return _.kotlin.toList_2(this.get__deployUnits().values());
@@ -31981,6 +33318,7 @@ define(
                     this.get__deployUnits().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             addDeployUnits: function (deployUnitsP) {
@@ -31993,6 +33331,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__deployUnits().put(_key_, deployUnitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             addAllDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -32010,6 +33349,7 @@ define(
                   this.get__deployUnits().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             removeDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -32018,6 +33358,7 @@ define(
               this.set__deployUnits_java_cache(null);
               if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().containsKey((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__deployUnits().remove((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             removeAllDeployUnits: function () {
@@ -32028,6 +33369,7 @@ define(
               var temp_els = (tmp$0 = this.getDeployUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__deployUnits_java_cache(null);
               this.get__deployUnits().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), temp_els));
             },
             getDictionaryType: function () {
               return this.get__dictionaryType();
@@ -32045,6 +33387,7 @@ define(
                   (dictionaryTypeP != null ? dictionaryTypeP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionaryType', null), 'dictionaryType');
                 }
                 this.set__dictionaryType(dictionaryTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionaryType(), dictionaryTypeP));
               }
             },
             getSuperTypes: function () {
@@ -32067,6 +33410,7 @@ define(
                     this.get__superTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             addSuperTypes: function (superTypesP) {
@@ -32079,6 +33423,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__superTypes().put(_key_, superTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             addAllSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -32096,6 +33441,7 @@ define(
                   this.get__superTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             removeSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -32104,6 +33450,7 @@ define(
               this.set__superTypes_java_cache(null);
               if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__superTypes().remove((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             removeAllSuperTypes: function () {
@@ -32114,6 +33461,7 @@ define(
               var temp_els = (tmp$0 = this.getSuperTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__superTypes_java_cache(null);
               this.get__superTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -32412,7 +33760,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionaryType() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionaryType()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -32603,6 +33951,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_port = null;
               this.$_hub = null;
@@ -32636,6 +33986,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__generated_KMF_ID: function () {
               return this.$_generated_KMF_ID;
@@ -32686,9 +34048,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getPort: function () {
               return this.get__port();
@@ -32699,6 +34063,7 @@ define(
               }
               if (!Kotlin.equals(this.get__port(), portP)) {
                 this.set__port(portP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_port(), portP));
               }
             },
             setPort: function (portP) {
@@ -32714,6 +34079,7 @@ define(
                   (portP != null ? portP : Kotlin.throwNPE()).noOpposite_addBindings(this);
                 }
                 this.set__port(portP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_port(), portP));
               }
             },
             getHub: function () {
@@ -32725,6 +34091,7 @@ define(
               }
               if (!Kotlin.equals(this.get__hub(), hubP)) {
                 this.set__hub(hubP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_hub(), hubP));
               }
             },
             setHub: function (hubP) {
@@ -32740,6 +34107,7 @@ define(
                   (hubP != null ? hubP : Kotlin.throwNPE()).noOpposite_addBindings(this);
                 }
                 this.set__hub(hubP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_hub(), hubP));
               }
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
@@ -32966,6 +34334,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_factoryBean = '';
               this.$_bean = '';
@@ -32985,6 +34355,9 @@ define(
               this.$_extraFonctionalProperties = null;
               this.$_provided_java_cache = null;
               this.$_provided = new Kotlin.ComplexHashMap(0);
+              this.$removeAllRequiredCurrentlyProcessing = false;
+              this.$removeAllIntegrationPatternsCurrentlyProcessing = false;
+              this.$removeAllProvidedCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -33015,6 +34388,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -33210,9 +34595,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getFactoryBean: function () {
               return this.get__factoryBean();
@@ -33223,6 +34610,7 @@ define(
               }
               var oldPath = this.path();
               this.set__factoryBean(factoryBeanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_factoryBean(), factoryBeanP));
             },
             getBean: function () {
               return this.get__bean();
@@ -33233,6 +34621,7 @@ define(
               }
               var oldPath = this.path();
               this.set__bean(beanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_bean(), beanP));
             },
             getAbstract: function () {
               return this.get__abstract();
@@ -33243,6 +34632,7 @@ define(
               }
               var oldPath = this.path();
               this.set__abstract(abstractP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_abstract(), abstractP));
             },
             getStartMethod: function () {
               return this.get__startMethod();
@@ -33253,6 +34643,7 @@ define(
               }
               var oldPath = this.path();
               this.set__startMethod(startMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_startMethod(), startMethodP));
             },
             getStopMethod: function () {
               return this.get__stopMethod();
@@ -33263,6 +34654,7 @@ define(
               }
               var oldPath = this.path();
               this.set__stopMethod(stopMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_stopMethod(), stopMethodP));
             },
             getUpdateMethod: function () {
               return this.get__updateMethod();
@@ -33273,6 +34665,7 @@ define(
               }
               var oldPath = this.path();
               this.set__updateMethod(updateMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_updateMethod(), updateMethodP));
             },
             getDeployUnits: function () {
               return _.kotlin.toList_2(this.get__deployUnits().values());
@@ -33294,6 +34687,7 @@ define(
                     this.get__deployUnits().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             addDeployUnits: function (deployUnitsP) {
@@ -33306,6 +34700,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__deployUnits().put(_key_, deployUnitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             addAllDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -33323,6 +34718,7 @@ define(
                   this.get__deployUnits().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             removeDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -33331,6 +34727,7 @@ define(
               this.set__deployUnits_java_cache(null);
               if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().containsKey((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__deployUnits().remove((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             removeAllDeployUnits: function () {
@@ -33341,6 +34738,7 @@ define(
               var temp_els = (tmp$0 = this.getDeployUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__deployUnits_java_cache(null);
               this.get__deployUnits().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), temp_els));
             },
             getDictionaryType: function () {
               return this.get__dictionaryType();
@@ -33358,6 +34756,7 @@ define(
                   (dictionaryTypeP != null ? dictionaryTypeP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionaryType', null), 'dictionaryType');
                 }
                 this.set__dictionaryType(dictionaryTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionaryType(), dictionaryTypeP));
               }
             },
             getSuperTypes: function () {
@@ -33380,6 +34779,7 @@ define(
                     this.get__superTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             addSuperTypes: function (superTypesP) {
@@ -33392,6 +34792,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__superTypes().put(_key_, superTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             addAllSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -33409,6 +34810,7 @@ define(
                   this.get__superTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             removeSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -33417,6 +34819,7 @@ define(
               this.set__superTypes_java_cache(null);
               if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__superTypes().remove((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             removeAllSuperTypes: function () {
@@ -33427,6 +34830,7 @@ define(
               var temp_els = (tmp$0 = this.getSuperTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__superTypes_java_cache(null);
               this.get__superTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), temp_els));
             },
             getRequired: function () {
               return _.kotlin.toList_2(this.get__required().values());
@@ -33455,6 +34859,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'required', elem), 'required');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
               }
             },
             addRequired: function (requiredP) {
@@ -33468,6 +34873,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__required().put(_key_, requiredP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
             },
             addAllRequired: function (requiredP) {
               if (this.isReadOnly()) {
@@ -33492,6 +34898,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'required', el_0), 'required');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
+            },
+            get_removeAllRequiredCurrentlyProcessing: function () {
+              return this.$removeAllRequiredCurrentlyProcessing;
+            },
+            set_removeAllRequiredCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllRequiredCurrentlyProcessing = tmp$0;
             },
             removeRequired: function (requiredP) {
               if (this.isReadOnly()) {
@@ -33501,12 +34914,16 @@ define(
               if (this.get__required().size() !== 0 && this.get__required().containsKey((requiredP != null ? requiredP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__required().remove((requiredP != null ? requiredP : Kotlin.throwNPE()).internalGetKey());
                 ((requiredP != null ? requiredP : Kotlin.throwNPE()) != null ? requiredP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllRequiredCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), requiredP));
+                }
               }
             },
             removeAllRequired: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllRequiredCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getRequired()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -33518,6 +34935,8 @@ define(
               }
               this.set__required_java_cache(null);
               this.get__required().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_required(), temp_els));
+              this.set_removeAllRequiredCurrentlyProcessing(false);
             },
             getIntegrationPatterns: function () {
               return _.kotlin.toList_2(this.get__integrationPatterns().values());
@@ -33546,6 +34965,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'integrationPatterns', elem), 'integrationPatterns');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_integrationPatterns(), integrationPatternsP));
               }
             },
             addIntegrationPatterns: function (integrationPatternsP) {
@@ -33559,6 +34979,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__integrationPatterns().put(_key_, integrationPatternsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_integrationPatterns(), integrationPatternsP));
             },
             addAllIntegrationPatterns: function (integrationPatternsP) {
               if (this.isReadOnly()) {
@@ -33583,6 +35004,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'integrationPatterns', el_0), 'integrationPatterns');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_integrationPatterns(), integrationPatternsP));
+            },
+            get_removeAllIntegrationPatternsCurrentlyProcessing: function () {
+              return this.$removeAllIntegrationPatternsCurrentlyProcessing;
+            },
+            set_removeAllIntegrationPatternsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllIntegrationPatternsCurrentlyProcessing = tmp$0;
             },
             removeIntegrationPatterns: function (integrationPatternsP) {
               if (this.isReadOnly()) {
@@ -33592,12 +35020,16 @@ define(
               if (this.get__integrationPatterns().size() !== 0 && this.get__integrationPatterns().containsKey((integrationPatternsP != null ? integrationPatternsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__integrationPatterns().remove((integrationPatternsP != null ? integrationPatternsP : Kotlin.throwNPE()).internalGetKey());
                 ((integrationPatternsP != null ? integrationPatternsP : Kotlin.throwNPE()) != null ? integrationPatternsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllIntegrationPatternsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_integrationPatterns(), integrationPatternsP));
+                }
               }
             },
             removeAllIntegrationPatterns: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllIntegrationPatternsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getIntegrationPatterns()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -33609,6 +35041,8 @@ define(
               }
               this.set__integrationPatterns_java_cache(null);
               this.get__integrationPatterns().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_integrationPatterns(), temp_els));
+              this.set_removeAllIntegrationPatternsCurrentlyProcessing(false);
             },
             getExtraFonctionalProperties: function () {
               return this.get__extraFonctionalProperties();
@@ -33626,6 +35060,7 @@ define(
                   (extraFonctionalPropertiesP != null ? extraFonctionalPropertiesP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'extraFonctionalProperties', null), 'extraFonctionalProperties');
                 }
                 this.set__extraFonctionalProperties(extraFonctionalPropertiesP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_extraFonctionalProperties(), extraFonctionalPropertiesP));
               }
             },
             getProvided: function () {
@@ -33655,6 +35090,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'provided', elem), 'provided');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
               }
             },
             addProvided: function (providedP) {
@@ -33668,6 +35104,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__provided().put(_key_, providedP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
             },
             addAllProvided: function (providedP) {
               if (this.isReadOnly()) {
@@ -33692,6 +35129,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'provided', el_0), 'provided');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
+            },
+            get_removeAllProvidedCurrentlyProcessing: function () {
+              return this.$removeAllProvidedCurrentlyProcessing;
+            },
+            set_removeAllProvidedCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllProvidedCurrentlyProcessing = tmp$0;
             },
             removeProvided: function (providedP) {
               if (this.isReadOnly()) {
@@ -33701,12 +35145,16 @@ define(
               if (this.get__provided().size() !== 0 && this.get__provided().containsKey((providedP != null ? providedP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__provided().remove((providedP != null ? providedP : Kotlin.throwNPE()).internalGetKey());
                 ((providedP != null ? providedP : Kotlin.throwNPE()) != null ? providedP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllProvidedCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), providedP));
+                }
               }
             },
             removeAllProvided: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllProvidedCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getProvided()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -33718,6 +35166,8 @@ define(
               }
               this.set__provided_java_cache(null);
               this.get__provided().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_provided(), temp_els));
+              this.set_removeAllProvidedCurrentlyProcessing(false);
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -34325,7 +35775,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(5);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionaryType() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionaryType()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -34551,6 +36001,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_factoryBean = '';
               this.$_bean = '';
@@ -34593,6 +36045,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -34701,9 +36165,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getFactoryBean: function () {
               return this.get__factoryBean();
@@ -34714,6 +36180,7 @@ define(
               }
               var oldPath = this.path();
               this.set__factoryBean(factoryBeanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_factoryBean(), factoryBeanP));
             },
             getBean: function () {
               return this.get__bean();
@@ -34724,6 +36191,7 @@ define(
               }
               var oldPath = this.path();
               this.set__bean(beanP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_bean(), beanP));
             },
             getAbstract: function () {
               return this.get__abstract();
@@ -34734,6 +36202,7 @@ define(
               }
               var oldPath = this.path();
               this.set__abstract(abstractP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_abstract(), abstractP));
             },
             getStartMethod: function () {
               return this.get__startMethod();
@@ -34744,6 +36213,7 @@ define(
               }
               var oldPath = this.path();
               this.set__startMethod(startMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_startMethod(), startMethodP));
             },
             getStopMethod: function () {
               return this.get__stopMethod();
@@ -34754,6 +36224,7 @@ define(
               }
               var oldPath = this.path();
               this.set__stopMethod(stopMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_stopMethod(), stopMethodP));
             },
             getUpdateMethod: function () {
               return this.get__updateMethod();
@@ -34764,6 +36235,7 @@ define(
               }
               var oldPath = this.path();
               this.set__updateMethod(updateMethodP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_updateMethod(), updateMethodP));
             },
             getDeployUnits: function () {
               return _.kotlin.toList_2(this.get__deployUnits().values());
@@ -34785,6 +36257,7 @@ define(
                     this.get__deployUnits().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             addDeployUnits: function (deployUnitsP) {
@@ -34797,6 +36270,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__deployUnits().put(_key_, deployUnitsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             addAllDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -34814,6 +36288,7 @@ define(
                   this.get__deployUnits().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
             },
             removeDeployUnits: function (deployUnitsP) {
               if (this.isReadOnly()) {
@@ -34822,6 +36297,7 @@ define(
               this.set__deployUnits_java_cache(null);
               if (this.get__deployUnits().size() !== 0 && this.get__deployUnits().containsKey((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__deployUnits().remove((deployUnitsP != null ? deployUnitsP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), deployUnitsP));
               }
             },
             removeAllDeployUnits: function () {
@@ -34832,6 +36308,7 @@ define(
               var temp_els = (tmp$0 = this.getDeployUnits()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__deployUnits_java_cache(null);
               this.get__deployUnits().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_deployUnits(), temp_els));
             },
             getDictionaryType: function () {
               return this.get__dictionaryType();
@@ -34849,6 +36326,7 @@ define(
                   (dictionaryTypeP != null ? dictionaryTypeP : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_SET(), 'dictionaryType', null), 'dictionaryType');
                 }
                 this.set__dictionaryType(dictionaryTypeP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_dictionaryType(), dictionaryTypeP));
               }
             },
             getSuperTypes: function () {
@@ -34871,6 +36349,7 @@ define(
                     this.get__superTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             addSuperTypes: function (superTypesP) {
@@ -34883,6 +36362,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__superTypes().put(_key_, superTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             addAllSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -34900,6 +36380,7 @@ define(
                   this.get__superTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
             },
             removeSuperTypes: function (superTypesP) {
               if (this.isReadOnly()) {
@@ -34908,6 +36389,7 @@ define(
               this.set__superTypes_java_cache(null);
               if (this.get__superTypes().size() !== 0 && this.get__superTypes().containsKey((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__superTypes().remove((superTypesP != null ? superTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), superTypesP));
               }
             },
             removeAllSuperTypes: function () {
@@ -34918,6 +36400,7 @@ define(
               var temp_els = (tmp$0 = this.getSuperTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__superTypes_java_cache(null);
               this.get__superTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_superTypes(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -35240,7 +36723,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               if (this.get__dictionaryType() != null) {
                 var tmp$0;
                 result.add((tmp$0 = this.get__dictionaryType()) != null ? tmp$0 : Kotlin.throwNPE());
@@ -35459,6 +36942,8 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_portTypes_java_cache = null;
               this.$_portTypes = new Kotlin.ComplexHashMap(0);
@@ -35492,6 +36977,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__generated_KMF_ID: function () {
               return this.$_generated_KMF_ID;
@@ -35539,9 +37036,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__generated_KMF_ID(generated_KMF_IDP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), generated_KMF_IDP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_generated_KMF_ID(), this.path()));
             },
             getPortTypes: function () {
               return _.kotlin.toList_2(this.get__portTypes().values());
@@ -35563,6 +37062,7 @@ define(
                     this.get__portTypes().put((el != null ? el : Kotlin.throwNPE()).internalGetKey(), el);
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_portTypes(), portTypesP));
               }
             },
             addPortTypes: function (portTypesP) {
@@ -35575,6 +37075,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__portTypes().put(_key_, portTypesP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_portTypes(), portTypesP));
             },
             addAllPortTypes: function (portTypesP) {
               if (this.isReadOnly()) {
@@ -35592,6 +37093,7 @@ define(
                   this.get__portTypes().put(_key_, el);
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_portTypes(), portTypesP));
             },
             removePortTypes: function (portTypesP) {
               if (this.isReadOnly()) {
@@ -35600,6 +37102,7 @@ define(
               this.set__portTypes_java_cache(null);
               if (this.get__portTypes().size() !== 0 && this.get__portTypes().containsKey((portTypesP != null ? portTypesP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__portTypes().remove((portTypesP != null ? portTypesP : Kotlin.throwNPE()).internalGetKey());
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_portTypes(), portTypesP));
               }
             },
             removeAllPortTypes: function () {
@@ -35610,6 +37113,7 @@ define(
               var temp_els = (tmp$0 = this.getPortTypes()) != null ? tmp$0 : Kotlin.throwNPE();
               this.set__portTypes_java_cache(null);
               this.get__portTypes().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_portTypes(), temp_els));
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -35870,12 +37374,15 @@ define(
               this.$internal_unsetCmd = null;
               this.$internal_readOnlyElem = false;
               this.$internal_recursive_readOnlyElem = false;
+              this.$internal_modelElementListeners = null;
+              this.$internal_modelTreeListeners = null;
               this.$_name = '';
               this.$_optional = false;
               this.$_noDependency = false;
               this.$_ref = null;
               this.$_mappings_java_cache = null;
               this.$_mappings = new Kotlin.ComplexHashMap(0);
+              this.$removeAllMappingsCurrentlyProcessing = false;
             },
             get_internal_eContainer: function () {
               return this.$internal_eContainer;
@@ -35906,6 +37413,18 @@ define(
             },
             set_internal_recursive_readOnlyElem: function (tmp$0) {
               this.$internal_recursive_readOnlyElem = tmp$0;
+            },
+            get_internal_modelElementListeners: function () {
+              return this.$internal_modelElementListeners;
+            },
+            set_internal_modelElementListeners: function (tmp$0) {
+              this.$internal_modelElementListeners = tmp$0;
+            },
+            get_internal_modelTreeListeners: function () {
+              return this.$internal_modelTreeListeners;
+            },
+            set_internal_modelTreeListeners: function (tmp$0) {
+              this.$internal_modelTreeListeners = tmp$0;
             },
             get__name: function () {
               return this.$_name;
@@ -35983,9 +37502,11 @@ define(
               var previousParent = this.eContainer();
               var previousRefNameInParent = this.getRefInParent();
               this.set__name(nameP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_name(), nameP));
               if (previousParent != null) {
                 previousParent.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), previousRefNameInParent != null ? previousRefNameInParent : Kotlin.throwNPE(), oldId);
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Att_name(), this.path()));
             },
             getOptional: function () {
               return this.get__optional();
@@ -35996,6 +37517,7 @@ define(
               }
               var oldPath = this.path();
               this.set__optional(optionalP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_optional(), optionalP));
             },
             getNoDependency: function () {
               return this.get__noDependency();
@@ -36006,6 +37528,7 @@ define(
               }
               var oldPath = this.path();
               this.set__noDependency(noDependencyP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(oldPath, _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_ATTRIBUTE(), _.org.kevoree.util.Constants.get_Att_noDependency(), noDependencyP));
             },
             getRef: function () {
               return this.get__ref();
@@ -36016,6 +37539,7 @@ define(
               }
               if (!Kotlin.equals(this.get__ref(), refP)) {
                 this.set__ref(refP);
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_REFERENCE(), _.org.kevoree.util.Constants.get_Ref_ref(), refP));
               }
             },
             getMappings: function () {
@@ -36045,6 +37569,7 @@ define(
                     (elem != null ? elem : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'mappings', elem), 'mappings');
                   }
                 }
+                this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_SET(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_mappings(), mappingsP));
               }
             },
             addMappings: function (mappingsP) {
@@ -36058,6 +37583,7 @@ define(
                 throw new Error('Key empty : set the attribute key before adding the object');
               }
               this.get__mappings().put(_key_, mappingsP);
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_mappings(), mappingsP));
             },
             addAllMappings: function (mappingsP) {
               if (this.isReadOnly()) {
@@ -36082,6 +37608,13 @@ define(
                   (el_0 != null ? el_0 : Kotlin.throwNPE()).setEContainer(this, new _.org.kevoree.container.RemoveFromContainerCommand(this, _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), 'mappings', el_0), 'mappings');
                 }
               }
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_mappings(), mappingsP));
+            },
+            get_removeAllMappingsCurrentlyProcessing: function () {
+              return this.$removeAllMappingsCurrentlyProcessing;
+            },
+            set_removeAllMappingsCurrentlyProcessing: function (tmp$0) {
+              this.$removeAllMappingsCurrentlyProcessing = tmp$0;
             },
             removeMappings: function (mappingsP) {
               if (this.isReadOnly()) {
@@ -36091,12 +37624,16 @@ define(
               if (this.get__mappings().size() !== 0 && this.get__mappings().containsKey((mappingsP != null ? mappingsP : Kotlin.throwNPE()).internalGetKey())) {
                 this.get__mappings().remove((mappingsP != null ? mappingsP : Kotlin.throwNPE()).internalGetKey());
                 ((mappingsP != null ? mappingsP : Kotlin.throwNPE()) != null ? mappingsP : Kotlin.throwNPE()).setEContainer(null, null, null);
+                if (!this.get_removeAllMappingsCurrentlyProcessing()) {
+                  this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_mappings(), mappingsP));
+                }
               }
             },
             removeAllMappings: function () {
               if (this.isReadOnly()) {
                 throw new Error(_.org.kevoree.util.Constants.get_READ_ONLY_EXCEPTION());
               }
+              this.set_removeAllMappingsCurrentlyProcessing(true);
               var tmp$0;
               var temp_els = (tmp$0 = this.getMappings()) != null ? tmp$0 : Kotlin.throwNPE();
               {
@@ -36108,6 +37645,8 @@ define(
               }
               this.set__mappings_java_cache(null);
               this.get__mappings().clear();
+              this.fireModelEvent(new _.org.kevoree.modeling.api.events.ModelEvent(this.path(), _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL(), _.org.kevoree.modeling.api.util.ElementAttributeType.get_CONTAINMENT(), _.org.kevoree.util.Constants.get_Ref_mappings(), temp_els));
+              this.set_removeAllMappingsCurrentlyProcessing(false);
             },
             getClonelazy: function (subResult, _factories, mutableOnly) {
               if (mutableOnly && this.isRecursiveReadOnly()) {
@@ -36346,7 +37885,7 @@ define(
               return true;
             },
             containedElementsList: function () {
-              var result = new Kotlin.ArrayList(1);
+              var result = new Kotlin.ArrayList(0);
               result.addAll(this.get__mappings().values());
               return result;
             },
@@ -36517,14 +38056,14 @@ define(
                 },
                 toString: function () {
                   var buffer = new _.java.lang.StringBuilder();
-                  buffer.append_0('{ "traceType" : ' + _.org.kevoree.modeling.api.util.ActionType.get_ADD() + ' , "src" : "' + this.get_srcPath() + '", "refname" : "' + this.get_refName() + '"');
+                  buffer.append('{ "traceType" : ' + _.org.kevoree.modeling.api.util.ActionType.get_ADD() + ' , "src" : "' + this.get_srcPath() + '", "refname" : "' + this.get_refName() + '"');
                   if (this.get_previousPath() != null) {
-                    buffer.append_0(', "previouspath" : "' + this.get_previousPath() + '"');
+                    buffer.append(', "previouspath" : "' + this.get_previousPath() + '"');
                   }
                   if (this.get_typeName() != null) {
-                    buffer.append_0(', "typename" : "' + this.get_typeName() + '"');
+                    buffer.append(', "typename" : "' + this.get_typeName() + '"');
                   }
-                  buffer.append_0('}');
+                  buffer.append('}');
                   return buffer.toString();
                 }
               }),
@@ -36558,9 +38097,9 @@ define(
                     while (tmp$0.hasNext()) {
                       var s = tmp$0.next();
                       if (!isFirst) {
-                        buffer.append_0(',');
+                        buffer.append(',');
                       }
-                      buffer.append_0(s);
+                      buffer.append(s);
                       isFirst = false;
                     }
                   }
@@ -36568,14 +38107,14 @@ define(
                 },
                 toString: function () {
                   var buffer = new _.java.lang.StringBuilder();
-                  buffer.append_0('{ "traceType" : ' + _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL() + ' , "src" : "' + this.get_srcPath() + '", "refname" : "' + this.get_refName() + '"');
+                  buffer.append('{ "traceType" : ' + _.org.kevoree.modeling.api.util.ActionType.get_ADD_ALL() + ' , "src" : "' + this.get_srcPath() + '", "refname" : "' + this.get_refName() + '"');
                   if (this.get_previousPath() != null) {
-                    buffer.append_0(', "previouspath" : "' + this.mkString(this.get_previousPath()) + '"');
+                    buffer.append(', "previouspath" : "' + this.mkString(this.get_previousPath()) + '"');
                   }
                   if (this.get_typeName() != null) {
-                    buffer.append_0(', "typename" : "' + this.mkString(this.get_typeName()) + '"');
+                    buffer.append(', "typename" : "' + this.mkString(this.get_typeName()) + '"');
                   }
-                  buffer.append_0('}');
+                  buffer.append('}');
                   return buffer.toString();
                 }
               }),
@@ -36638,17 +38177,17 @@ define(
                 },
                 toString: function () {
                   var buffer = new _.java.lang.StringBuilder();
-                  buffer.append_0('{ "traceType" : ' + _.org.kevoree.modeling.api.util.ActionType.get_SET() + ' , "src" : "' + this.get_srcPath() + '", "refname" : "' + this.get_refName() + '"');
+                  buffer.append('{ "traceType" : ' + _.org.kevoree.modeling.api.util.ActionType.get_SET() + ' , "src" : "' + this.get_srcPath() + '", "refname" : "' + this.get_refName() + '"');
                   if (this.get_objPath() != null) {
-                    buffer.append_0(', "objpath" : "' + this.get_objPath() + '"');
+                    buffer.append(', "objpath" : "' + this.get_objPath() + '"');
                   }
                   if (this.get_content() != null) {
-                    buffer.append_0(', "content" : "' + this.get_content() + '"');
+                    buffer.append(', "content" : "' + this.get_content() + '"');
                   }
                   if (this.get_typeName() != null) {
-                    buffer.append_0(', "typename" : "' + this.get_typeName() + '"');
+                    buffer.append(', "typename" : "' + this.get_typeName() + '"');
                   }
-                  buffer.append_0('}');
+                  buffer.append('}');
                   return buffer.toString();
                 }
               }),
@@ -36970,6 +38509,90 @@ define(
             }),
             util: Kotlin.definePackage({
             })
+          })
+        }),
+        log: Kotlin.definePackage({
+          Logger: Kotlin.createClass(null, /** @lends _.org.kevoree.log.Logger.prototype */ {
+            initialize: function () {
+              this.$firstLogTime = (new Date()).getTime();
+              this.$error_msg = ' ERROR: ';
+              this.$warn_msg = ' WARN: ';
+              this.$info_msg = ' INFO: ';
+              this.$debug_msg = ' DEBUG: ';
+              this.$trace_msg = ' TRACE: ';
+              this.$category = null;
+            },
+            get_firstLogTime: function () {
+              return this.$firstLogTime;
+            },
+            get_error_msg: function () {
+              return this.$error_msg;
+            },
+            get_warn_msg: function () {
+              return this.$warn_msg;
+            },
+            get_info_msg: function () {
+              return this.$info_msg;
+            },
+            get_debug_msg: function () {
+              return this.$debug_msg;
+            },
+            get_trace_msg: function () {
+              return this.$trace_msg;
+            },
+            get_category: function () {
+              return this.$category;
+            },
+            set_category: function (tmp$0) {
+              this.$category = tmp$0;
+            },
+            setCategory: function (category) {
+              this.set_category(category);
+            },
+            log: function (level, message, ex) {
+              var builder = new _.java.lang.StringBuilder();
+              var time = (new Date()).getTime() - this.get_firstLogTime();
+              var minutes = time / (1000 * 60) | 0;
+              var seconds = (time / 1000 | 0) % 60;
+              if (minutes <= 9)
+                builder.append_0('0');
+              builder.append(Kotlin.toString(minutes));
+              builder.append_0(':');
+              if (seconds <= 9)
+                builder.append_0('0');
+              builder.append(Kotlin.toString(seconds));
+              if (level === _.org.kevoree.log.Log.get_LEVEL_ERROR()) {
+                builder.append(this.get_error_msg());
+              }
+               else if (level === _.org.kevoree.log.Log.get_LEVEL_WARN()) {
+                builder.append(this.get_warn_msg());
+              }
+               else if (level === _.org.kevoree.log.Log.get_LEVEL_INFO()) {
+                builder.append(this.get_info_msg());
+              }
+               else if (level === _.org.kevoree.log.Log.get_LEVEL_DEBUG()) {
+                builder.append(this.get_debug_msg());
+              }
+               else if (level === _.org.kevoree.log.Log.get_LEVEL_TRACE()) {
+                builder.append(this.get_trace_msg());
+              }
+               else {
+              }
+              if (this.get_category() != null) {
+                builder.append_0('[');
+                var tmp$0;
+                builder.append(((tmp$0 = this.get_category()) != null ? tmp$0 : Kotlin.throwNPE()).toString());
+                builder.append('] ');
+              }
+              builder.append(message);
+              if (ex != null) {
+                builder.append(Kotlin.toString(ex.getMessage()));
+              }
+              this.print(builder.toString());
+            },
+            print: function (message) {
+              Kotlin.println(message);
+            }
           })
         }),
         container: Kotlin.definePackage({
@@ -37350,6 +38973,462 @@ define(
                 i = i + 1;
               }
             },
+            getLifeCycleTypeDefinitionJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var subdictionaryType = selfObject.getDictionaryType();
+              if (subdictionaryType != null) {
+                var tmp$0;
+                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
+                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
+              }
+              if (Kotlin.isType(selfObject, _.org.kevoree.impl.ComponentTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ComponentType)) {
+                subResult.putAll(this.getComponentTypeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ChannelTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ChannelType)) {
+                subResult.putAll(this.getChannelTypeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.GroupTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.GroupType)) {
+                subResult.putAll(this.getGroupTypeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.NodeTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.NodeType)) {
+                subResult.putAll(this.getNodeTypeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
+              }
+               else {
+              }
+              return subResult;
+            },
+            LifeCycleTypeDefinitiontoJson: function (selfObject, addrs, ostream) {
+              if (Kotlin.isType(selfObject, _.org.kevoree.impl.ComponentTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ComponentType)) {
+                this.ComponentTypetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ChannelTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ChannelType)) {
+                this.ChannelTypetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.GroupTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.GroupType)) {
+                this.GroupTypetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.NodeTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.NodeType)) {
+                this.NodeTypetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
+              }
+               else {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:LifeCycleTypeDefinition" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "factoryBean":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getFactoryBean());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "bean":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getBean());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "abstract":');
+                  ostream.print_1(selfObject.getAbstract());
+                }
+                if (!Kotlin.equals(selfObject.getStartMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "startMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getStartMethod());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getStopMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "stopMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getStopMethod());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getUpdateMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "updateMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getUpdateMethod());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getDeployUnits().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "deployUnits": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getDeployUnits().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference LifeCycleTypeDefinition/deployUnits ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                if (selfObject.getSuperTypes().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "superTypes": [');
+                  var firstItLoop_0 = true;
+                  {
+                    var tmp$1 = selfObject.getSuperTypes().iterator();
+                    while (tmp$1.hasNext()) {
+                      var sub_0 = tmp$1.next();
+                      if (!firstItLoop_0) {
+                        ostream.println_0(',');
+                      }
+                      var subsub_0 = addrs.get(sub_0);
+                      if (subsub_0 != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub_0);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference LifeCycleTypeDefinition/superTypes ');
+                      }
+                      firstItLoop_0 = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                var subdictionaryType = selfObject.getDictionaryType();
+                if (subdictionaryType != null) {
+                  ostream.println(',');
+                  ostream.print('"dictionaryType":');
+                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
+                }
+                ostream.println('}');
+              }
+            },
+            getInstanceJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var subdictionary = selfObject.getDictionary();
+              if (subdictionary != null) {
+                var tmp$0;
+                subResult.put(subdictionary, (tmp$0 = subdictionary.path()) != null ? tmp$0 : Kotlin.throwNPE());
+                subResult.putAll(this.getDictionaryJsonAddr(subdictionary));
+              }
+              if (Kotlin.isType(selfObject, _.org.kevoree.impl.ComponentInstanceImpl) || Kotlin.isType(selfObject, _.org.kevoree.ComponentInstance)) {
+                subResult.putAll(this.getComponentInstanceJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ContainerNodeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ContainerNode)) {
+                subResult.putAll(this.getContainerNodeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ChannelImpl) || Kotlin.isType(selfObject, _.org.kevoree.Channel)) {
+                subResult.putAll(this.getChannelJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.GroupImpl) || Kotlin.isType(selfObject, _.org.kevoree.Group)) {
+                subResult.putAll(this.getGroupJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
+              }
+               else {
+              }
+              return subResult;
+            },
+            InstancetoJson: function (selfObject, addrs, ostream) {
+              if (Kotlin.isType(selfObject, _.org.kevoree.impl.ComponentInstanceImpl) || Kotlin.isType(selfObject, _.org.kevoree.ComponentInstance)) {
+                this.ComponentInstancetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ContainerNodeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ContainerNode)) {
+                this.ContainerNodetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ChannelImpl) || Kotlin.isType(selfObject, _.org.kevoree.Channel)) {
+                this.ChanneltoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
+              }
+               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.GroupImpl) || Kotlin.isType(selfObject, _.org.kevoree.Group)) {
+                this.GrouptoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
+              }
+               else {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:Instance" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getMetaData().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "metaData":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getMetaData());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getStarted()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "started":');
+                  ostream.print_1(selfObject.getStarted());
+                }
+                var subsubtypeDefinition = selfObject.getTypeDefinition();
+                if (subsubtypeDefinition != null) {
+                  var subsubsubtypeDefinition = addrs.get(subsubtypeDefinition);
+                  if (subsubsubtypeDefinition != null) {
+                    ostream.println(',');
+                    ostream.print(' "typeDefinition":"' + subsubsubtypeDefinition + '"');
+                  }
+                   else {
+                    throw new Error('KMF Instance Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
+                  }
+                }
+                var subdictionary = selfObject.getDictionary();
+                if (subdictionary != null) {
+                  ostream.println(',');
+                  ostream.print('"dictionary":');
+                  this.DictionarytoJson(subdictionary, addrs, ostream);
+                }
+                ostream.println('}');
+              }
+            },
+            getPortJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              return subResult;
+            },
+            PorttoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:Port" ');
+                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "generated_KMF_ID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getBindings().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "bindings": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getBindings().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference Port/bindings ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                var subsubportTypeRef = selfObject.getPortTypeRef();
+                if (subsubportTypeRef != null) {
+                  var subsubsubportTypeRef = addrs.get(subsubportTypeRef);
+                  if (subsubsubportTypeRef != null) {
+                    ostream.println(',');
+                    ostream.print(' "portTypeRef":"' + subsubsubportTypeRef + '"');
+                  }
+                   else {
+                    throw new Error('KMF Port Serialization error : No address found for reference portTypeRef(id:' + subsubportTypeRef + ' container:' + subsubportTypeRef.eContainer() + ')');
+                  }
+                }
+                ostream.println('}');
+              }
+            },
+            getNodeNetworkJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var i = 0;
+              {
+                var tmp$0 = selfObject.getLink().iterator();
+                while (tmp$0.hasNext()) {
+                  var sub = tmp$0.next();
+                  var subPath_link = sub.path();
+                  var tmp$1;
+                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
+                  subResult.putAll(this.getNodeLinkJsonAddr(sub));
+                  i = i + 1;
+                }
+              }
+              return subResult;
+            },
+            NodeNetworktoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:NodeNetwork" ');
+                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "generated_KMF_ID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
+                  ostream.print_0('"');
+                }
+                var subsubinitBy = selfObject.getInitBy();
+                if (subsubinitBy != null) {
+                  var subsubsubinitBy = addrs.get(subsubinitBy);
+                  if (subsubsubinitBy != null) {
+                    ostream.println(',');
+                    ostream.print(' "initBy":"' + subsubsubinitBy + '"');
+                  }
+                   else {
+                    throw new Error('KMF NodeNetwork Serialization error : No address found for reference initBy(id:' + subsubinitBy + ' container:' + subsubinitBy.eContainer() + ')');
+                  }
+                }
+                var subsubtarget = selfObject.getTarget();
+                if (subsubtarget != null) {
+                  var subsubsubtarget = addrs.get(subsubtarget);
+                  if (subsubsubtarget != null) {
+                    ostream.println(',');
+                    ostream.print(' "target":"' + subsubsubtarget + '"');
+                  }
+                   else {
+                    throw new Error('KMF NodeNetwork Serialization error : No address found for reference target(id:' + subsubtarget + ' container:' + subsubtarget.eContainer() + ')');
+                  }
+                }
+                if (selfObject.getLink().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"link": [');
+                  var iloop_first_link = true;
+                  {
+                    var tmp$0 = selfObject.getLink().iterator();
+                    while (tmp$0.hasNext()) {
+                      var so = tmp$0.next();
+                      if (!iloop_first_link) {
+                        ostream.println(',');
+                      }
+                      this.NodeLinktoJson(so, addrs, ostream);
+                      iloop_first_link = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getTypedElementJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              if (Kotlin.isType(selfObject, _.org.kevoree.impl.DictionaryAttributeImpl) || Kotlin.isType(selfObject, _.org.kevoree.DictionaryAttribute)) {
+                subResult.putAll(this.getDictionaryAttributeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
+              }
+               else {
+              }
+              return subResult;
+            },
+            TypedElementtoJson: function (selfObject, addrs, ostream) {
+              if (Kotlin.isType(selfObject, _.org.kevoree.impl.DictionaryAttributeImpl) || Kotlin.isType(selfObject, _.org.kevoree.DictionaryAttribute)) {
+                this.DictionaryAttributetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
+              }
+               else {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:TypedElement" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getGenericTypes().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "genericTypes": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getGenericTypes().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference TypedElement/genericTypes ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getPortTypeMappingJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              return subResult;
+            },
+            PortTypeMappingtoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:PortTypeMapping" ');
+                if (!Kotlin.equals(selfObject.getBeanMethodName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "beanMethodName":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getBeanMethodName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getServiceMethodName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "serviceMethodName":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getServiceMethodName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getParamTypes().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "paramTypes":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getParamTypes());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "generated_KMF_ID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
+                  ostream.print_0('"');
+                }
+                ostream.println('}');
+              }
+            },
+            getAdaptationPrimitiveTypeJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              return subResult;
+            },
+            AdaptationPrimitiveTypetoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:AdaptationPrimitiveType" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                ostream.println('}');
+              }
+            },
             getComponentInstanceJsonAddr: function (selfObject) {
               var subResult = new Kotlin.ComplexHashMap(0);
               var i = 0;
@@ -37472,70 +39551,26 @@ define(
                 ostream.println('}');
               }
             },
-            getComponentTypeJsonAddr: function (selfObject) {
+            getIntegrationPatternJsonAddr: function (selfObject) {
               var subResult = new Kotlin.ComplexHashMap(0);
               var i = 0;
-              var subdictionaryType = selfObject.getDictionaryType();
-              if (subdictionaryType != null) {
-                var tmp$0;
-                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
-                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
-              }
               {
-                var tmp$1 = selfObject.getRequired().iterator();
-                while (tmp$1.hasNext()) {
-                  var sub = tmp$1.next();
-                  var subPath_required = sub.path();
-                  var tmp$2;
-                  subResult.put(sub, (tmp$2 = sub.path()) != null ? tmp$2 : Kotlin.throwNPE());
-                  subResult.putAll(this.getPortTypeRefJsonAddr(sub));
+                var tmp$0 = selfObject.getExtraFonctionalProperties().iterator();
+                while (tmp$0.hasNext()) {
+                  var sub = tmp$0.next();
+                  var subPath_extraFonctionalProperties = sub.path();
+                  var tmp$1;
+                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
+                  subResult.putAll(this.getExtraFonctionalPropertyJsonAddr(sub));
                   i = i + 1;
                 }
-              }
-              i = 0;
-              {
-                var tmp$3 = selfObject.getIntegrationPatterns().iterator();
-                while (tmp$3.hasNext()) {
-                  var sub_0 = tmp$3.next();
-                  var subPath_integrationPatterns = sub_0.path();
-                  var tmp$4;
-                  subResult.put(sub_0, (tmp$4 = sub_0.path()) != null ? tmp$4 : Kotlin.throwNPE());
-                  subResult.putAll(this.getIntegrationPatternJsonAddr(sub_0));
-                  i = i + 1;
-                }
-              }
-              var subextraFonctionalProperties = selfObject.getExtraFonctionalProperties();
-              if (subextraFonctionalProperties != null) {
-                var tmp$5;
-                subResult.put(subextraFonctionalProperties, (tmp$5 = subextraFonctionalProperties.path()) != null ? tmp$5 : Kotlin.throwNPE());
-                subResult.putAll(this.getExtraFonctionalPropertyJsonAddr(subextraFonctionalProperties));
-              }
-              i = 0;
-              {
-                var tmp$6 = selfObject.getProvided().iterator();
-                while (tmp$6.hasNext()) {
-                  var sub_1 = tmp$6.next();
-                  var subPath_provided = sub_1.path();
-                  var tmp$7;
-                  subResult.put(sub_1, (tmp$7 = sub_1.path()) != null ? tmp$7 : Kotlin.throwNPE());
-                  subResult.putAll(this.getPortTypeRefJsonAddr(sub_1));
-                  i = i + 1;
-                }
-              }
-              if (Kotlin.isType(selfObject, _.org.kevoree.impl.CompositeTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.CompositeType)) {
-                subResult.putAll(this.getCompositeTypeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
-              }
-               else {
               }
               return subResult;
             },
-            ComponentTypetoJson: function (selfObject, addrs, ostream) {
-              if (Kotlin.isType(selfObject, _.org.kevoree.impl.CompositeTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.CompositeType)) {
-                this.CompositeTypetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
-              }
-               else {
+            IntegrationPatterntoJson: function (selfObject, addrs, ostream) {
+              {
                 ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:ComponentType" ');
+                ostream.print(' "eClass":"org.kevoree:IntegrationPattern" ');
                 if (!Kotlin.equals(selfObject.getName().toString(), '')) {
                   ostream.println(',');
                   ostream.print(' "name":');
@@ -37543,52 +39578,12 @@ define(
                   this.escapeJson(ostream, selfObject.getName());
                   ostream.print_0('"');
                 }
-                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
+                if (selfObject.getPortTypes().size() > 0) {
                   ostream.println(',');
-                  ostream.print(' "factoryBean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getFactoryBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "bean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "abstract":');
-                  ostream.print_1(selfObject.getAbstract());
-                }
-                if (!Kotlin.equals(selfObject.getStartMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "startMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getStartMethod());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getStopMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "stopMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getStopMethod());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getUpdateMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "updateMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getUpdateMethod());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getDeployUnits().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "deployUnits": [');
+                  ostream.print(' "portTypes": [');
                   var firstItLoop = true;
                   {
-                    var tmp$0 = selfObject.getDeployUnits().iterator();
+                    var tmp$0 = selfObject.getPortTypes().iterator();
                     while (tmp$0.hasNext()) {
                       var sub = tmp$0.next();
                       if (!firstItLoop) {
@@ -37601,97 +39596,26 @@ define(
                         ostream.print_0('"');
                       }
                        else {
-                        throw new Error('KMF Serialization error : non contained reference ComponentType/deployUnits ');
+                        throw new Error('KMF Serialization error : non contained reference IntegrationPattern/portTypes ');
                       }
                       firstItLoop = false;
                     }
                   }
                   ostream.print(']');
                 }
-                if (selfObject.getSuperTypes().size() > 0) {
+                if (selfObject.getExtraFonctionalProperties().size() > 0) {
                   ostream.println(',');
-                  ostream.print(' "superTypes": [');
-                  var firstItLoop_0 = true;
+                  ostream.println_0('"extraFonctionalProperties": [');
+                  var iloop_first_extraFonctionalProperties = true;
                   {
-                    var tmp$1 = selfObject.getSuperTypes().iterator();
+                    var tmp$1 = selfObject.getExtraFonctionalProperties().iterator();
                     while (tmp$1.hasNext()) {
-                      var sub_0 = tmp$1.next();
-                      if (!firstItLoop_0) {
-                        ostream.println_0(',');
-                      }
-                      var subsub_0 = addrs.get(sub_0);
-                      if (subsub_0 != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub_0);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference ComponentType/superTypes ');
-                      }
-                      firstItLoop_0 = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                var subdictionaryType = selfObject.getDictionaryType();
-                if (subdictionaryType != null) {
-                  ostream.println(',');
-                  ostream.print('"dictionaryType":');
-                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
-                }
-                if (selfObject.getRequired().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"required": [');
-                  var iloop_first_required = true;
-                  {
-                    var tmp$2 = selfObject.getRequired().iterator();
-                    while (tmp$2.hasNext()) {
-                      var so = tmp$2.next();
-                      if (!iloop_first_required) {
+                      var so = tmp$1.next();
+                      if (!iloop_first_extraFonctionalProperties) {
                         ostream.println(',');
                       }
-                      this.PortTypeReftoJson(so, addrs, ostream);
-                      iloop_first_required = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                if (selfObject.getIntegrationPatterns().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"integrationPatterns": [');
-                  var iloop_first_integrationPatterns = true;
-                  {
-                    var tmp$3 = selfObject.getIntegrationPatterns().iterator();
-                    while (tmp$3.hasNext()) {
-                      var so_0 = tmp$3.next();
-                      if (!iloop_first_integrationPatterns) {
-                        ostream.println(',');
-                      }
-                      this.IntegrationPatterntoJson(so_0, addrs, ostream);
-                      iloop_first_integrationPatterns = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                var subextraFonctionalProperties = selfObject.getExtraFonctionalProperties();
-                if (subextraFonctionalProperties != null) {
-                  ostream.println(',');
-                  ostream.print('"extraFonctionalProperties":');
-                  this.ExtraFonctionalPropertytoJson(subextraFonctionalProperties, addrs, ostream);
-                }
-                if (selfObject.getProvided().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"provided": [');
-                  var iloop_first_provided = true;
-                  {
-                    var tmp$4 = selfObject.getProvided().iterator();
-                    while (tmp$4.hasNext()) {
-                      var so_1 = tmp$4.next();
-                      if (!iloop_first_provided) {
-                        ostream.println(',');
-                      }
-                      this.PortTypeReftoJson(so_1, addrs, ostream);
-                      iloop_first_provided = false;
+                      this.ExtraFonctionalPropertytoJson(so, addrs, ostream);
+                      iloop_first_extraFonctionalProperties = false;
                     }
                   }
                   ostream.println(']');
@@ -37813,6 +39737,575 @@ define(
                     }
                   }
                   ostream.println(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getAdaptationPrimitiveTypeRefJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              return subResult;
+            },
+            AdaptationPrimitiveTypeReftoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:AdaptationPrimitiveTypeRef" ');
+                if (!Kotlin.equals(selfObject.getMaxTime().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "maxTime":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getMaxTime());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "generated_KMF_ID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
+                  ostream.print_0('"');
+                }
+                var subsubref = selfObject.getRef();
+                if (subsubref != null) {
+                  var subsubsubref = addrs.get(subsubref);
+                  if (subsubsubref != null) {
+                    ostream.println(',');
+                    ostream.print(' "ref":"' + subsubsubref + '"');
+                  }
+                   else {
+                    throw new Error('KMF AdaptationPrimitiveTypeRef Serialization error : No address found for reference ref(id:' + subsubref + ' container:' + subsubref.eContainer() + ')');
+                  }
+                }
+                ostream.println('}');
+              }
+            },
+            getDictionaryAttributeJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              return subResult;
+            },
+            DictionaryAttributetoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:DictionaryAttribute" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getOptional()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "optional":');
+                  ostream.print_1(selfObject.getOptional());
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getState()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "state":');
+                  ostream.print_1(selfObject.getState());
+                }
+                if (!Kotlin.equals(selfObject.getDatatype().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "datatype":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getDatatype());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getFragmentDependant()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "fragmentDependant":');
+                  ostream.print_1(selfObject.getFragmentDependant());
+                }
+                if (selfObject.getGenericTypes().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "genericTypes": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getGenericTypes().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference DictionaryAttribute/genericTypes ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getNamespaceJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var i = 0;
+              {
+                var tmp$0 = selfObject.getChilds().iterator();
+                while (tmp$0.hasNext()) {
+                  var sub = tmp$0.next();
+                  var subPath_childs = sub.path();
+                  var tmp$1;
+                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
+                  subResult.putAll(this.getNamespaceJsonAddr(sub));
+                  i = i + 1;
+                }
+              }
+              return subResult;
+            },
+            NamespacetoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:Namespace" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                var subsubparent = selfObject.getParent();
+                if (subsubparent != null) {
+                  var subsubsubparent = addrs.get(subsubparent);
+                  if (subsubsubparent != null) {
+                    ostream.println(',');
+                    ostream.print(' "parent":"' + subsubsubparent + '"');
+                  }
+                   else {
+                    throw new Error('KMF Namespace Serialization error : No address found for reference parent(id:' + subsubparent + ' container:' + subsubparent.eContainer() + ')');
+                  }
+                }
+                if (selfObject.getChilds().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"childs": [');
+                  var iloop_first_childs = true;
+                  {
+                    var tmp$0 = selfObject.getChilds().iterator();
+                    while (tmp$0.hasNext()) {
+                      var so = tmp$0.next();
+                      if (!iloop_first_childs) {
+                        ostream.println(',');
+                      }
+                      this.NamespacetoJson(so, addrs, ostream);
+                      iloop_first_childs = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getNodeTypeJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var i = 0;
+              var subdictionaryType = selfObject.getDictionaryType();
+              if (subdictionaryType != null) {
+                var tmp$0;
+                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
+                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
+              }
+              {
+                var tmp$1 = selfObject.getManagedPrimitiveTypeRefs().iterator();
+                while (tmp$1.hasNext()) {
+                  var sub = tmp$1.next();
+                  var subPath_managedPrimitiveTypeRefs = sub.path();
+                  var tmp$2;
+                  subResult.put(sub, (tmp$2 = sub.path()) != null ? tmp$2 : Kotlin.throwNPE());
+                  subResult.putAll(this.getAdaptationPrimitiveTypeRefJsonAddr(sub));
+                  i = i + 1;
+                }
+              }
+              return subResult;
+            },
+            NodeTypetoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:NodeType" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "factoryBean":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getFactoryBean());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "bean":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getBean());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "abstract":');
+                  ostream.print_1(selfObject.getAbstract());
+                }
+                if (!Kotlin.equals(selfObject.getStartMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "startMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getStartMethod());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getStopMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "stopMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getStopMethod());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getUpdateMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "updateMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getUpdateMethod());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getDeployUnits().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "deployUnits": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getDeployUnits().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference NodeType/deployUnits ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                if (selfObject.getSuperTypes().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "superTypes": [');
+                  var firstItLoop_0 = true;
+                  {
+                    var tmp$1 = selfObject.getSuperTypes().iterator();
+                    while (tmp$1.hasNext()) {
+                      var sub_0 = tmp$1.next();
+                      if (!firstItLoop_0) {
+                        ostream.println_0(',');
+                      }
+                      var subsub_0 = addrs.get(sub_0);
+                      if (subsub_0 != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub_0);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference NodeType/superTypes ');
+                      }
+                      firstItLoop_0 = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                if (selfObject.getManagedPrimitiveTypes().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "managedPrimitiveTypes": [');
+                  var firstItLoop_1 = true;
+                  {
+                    var tmp$2 = selfObject.getManagedPrimitiveTypes().iterator();
+                    while (tmp$2.hasNext()) {
+                      var sub_1 = tmp$2.next();
+                      if (!firstItLoop_1) {
+                        ostream.println_0(',');
+                      }
+                      var subsub_1 = addrs.get(sub_1);
+                      if (subsub_1 != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub_1);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference NodeType/managedPrimitiveTypes ');
+                      }
+                      firstItLoop_1 = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                var subdictionaryType = selfObject.getDictionaryType();
+                if (subdictionaryType != null) {
+                  ostream.println(',');
+                  ostream.print('"dictionaryType":');
+                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
+                }
+                if (selfObject.getManagedPrimitiveTypeRefs().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"managedPrimitiveTypeRefs": [');
+                  var iloop_first_managedPrimitiveTypeRefs = true;
+                  {
+                    var tmp$3 = selfObject.getManagedPrimitiveTypeRefs().iterator();
+                    while (tmp$3.hasNext()) {
+                      var so = tmp$3.next();
+                      if (!iloop_first_managedPrimitiveTypeRefs) {
+                        ostream.println(',');
+                      }
+                      this.AdaptationPrimitiveTypeReftoJson(so, addrs, ostream);
+                      iloop_first_managedPrimitiveTypeRefs = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getChannelJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var subdictionary = selfObject.getDictionary();
+              if (subdictionary != null) {
+                var tmp$0;
+                subResult.put(subdictionary, (tmp$0 = subdictionary.path()) != null ? tmp$0 : Kotlin.throwNPE());
+                subResult.putAll(this.getDictionaryJsonAddr(subdictionary));
+              }
+              return subResult;
+            },
+            ChanneltoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:Channel" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getMetaData().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "metaData":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getMetaData());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getStarted()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "started":');
+                  ostream.print_1(selfObject.getStarted());
+                }
+                var subsubtypeDefinition = selfObject.getTypeDefinition();
+                if (subsubtypeDefinition != null) {
+                  var subsubsubtypeDefinition = addrs.get(subsubtypeDefinition);
+                  if (subsubsubtypeDefinition != null) {
+                    ostream.println(',');
+                    ostream.print(' "typeDefinition":"' + subsubsubtypeDefinition + '"');
+                  }
+                   else {
+                    throw new Error('KMF Channel Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
+                  }
+                }
+                if (selfObject.getBindings().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "bindings": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getBindings().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference Channel/bindings ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                var subdictionary = selfObject.getDictionary();
+                if (subdictionary != null) {
+                  ostream.println(',');
+                  ostream.print('"dictionary":');
+                  this.DictionarytoJson(subdictionary, addrs, ostream);
+                }
+                ostream.println('}');
+              }
+            },
+            getDictionaryValueJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              return subResult;
+            },
+            DictionaryValuetoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:DictionaryValue" ');
+                if (!Kotlin.equals(selfObject.getValue().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "value":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getValue());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "generated_KMF_ID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
+                  ostream.print_0('"');
+                }
+                var subsubattribute = selfObject.getAttribute();
+                if (subsubattribute != null) {
+                  var subsubsubattribute = addrs.get(subsubattribute);
+                  if (subsubsubattribute != null) {
+                    ostream.println(',');
+                    ostream.print(' "attribute":"' + subsubsubattribute + '"');
+                  }
+                   else {
+                    throw new Error('KMF DictionaryValue Serialization error : No address found for reference attribute(id:' + subsubattribute + ' container:' + subsubattribute.eContainer() + ')');
+                  }
+                }
+                var subsubtargetNode = selfObject.getTargetNode();
+                if (subsubtargetNode != null) {
+                  var subsubsubtargetNode = addrs.get(subsubtargetNode);
+                  if (subsubsubtargetNode != null) {
+                    ostream.println(',');
+                    ostream.print(' "targetNode":"' + subsubsubtargetNode + '"');
+                  }
+                   else {
+                    throw new Error('KMF DictionaryValue Serialization error : No address found for reference targetNode(id:' + subsubtargetNode + ' container:' + subsubtargetNode.eContainer() + ')');
+                  }
+                }
+                ostream.println('}');
+              }
+            },
+            getNodeLinkJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var i = 0;
+              {
+                var tmp$0 = selfObject.getNetworkProperties().iterator();
+                while (tmp$0.hasNext()) {
+                  var sub = tmp$0.next();
+                  var subPath_networkProperties = sub.path();
+                  var tmp$1;
+                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
+                  subResult.putAll(this.getNetworkPropertyJsonAddr(sub));
+                  i = i + 1;
+                }
+              }
+              return subResult;
+            },
+            NodeLinktoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:NodeLink" ');
+                if (!Kotlin.equals(selfObject.getNetworkType().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "networkType":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getNetworkType());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getEstimatedRate()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "estimatedRate":');
+                  ostream.print('"');
+                  ostream.print_2(selfObject.getEstimatedRate());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getLastCheck().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "lastCheck":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getLastCheck());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getZoneID().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "zoneID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getZoneID());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "generated_KMF_ID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getNetworkProperties().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"networkProperties": [');
+                  var iloop_first_networkProperties = true;
+                  {
+                    var tmp$0 = selfObject.getNetworkProperties().iterator();
+                    while (tmp$0.hasNext()) {
+                      var so = tmp$0.next();
+                      if (!iloop_first_networkProperties) {
+                        ostream.println(',');
+                      }
+                      this.NetworkPropertytoJson(so, addrs, ostream);
+                      iloop_first_networkProperties = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getParameterJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              return subResult;
+            },
+            ParametertoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:Parameter" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getOrder()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "order":');
+                  ostream.print('"');
+                  ostream.print_2(selfObject.getOrder());
+                  ostream.print_0('"');
+                }
+                var subsubtype = selfObject.getType();
+                if (subsubtype != null) {
+                  var subsubsubtype = addrs.get(subsubtype);
+                  if (subsubsubtype != null) {
+                    ostream.println(',');
+                    ostream.print(' "type":"' + subsubsubtype + '"');
+                  }
+                   else {
+                    throw new Error('KMF Parameter Serialization error : No address found for reference type(id:' + subsubtype + ' container:' + subsubtype.eContainer() + ')');
+                  }
                 }
                 ostream.println('}');
               }
@@ -38154,6 +40647,279 @@ define(
                 ostream.println('}');
               }
             },
+            getWireJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              return subResult;
+            },
+            WiretoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:Wire" ');
+                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "generated_KMF_ID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getPorts().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "ports": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getPorts().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference Wire/ports ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getDictionaryJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var i = 0;
+              {
+                var tmp$0 = selfObject.getValues().iterator();
+                while (tmp$0.hasNext()) {
+                  var sub = tmp$0.next();
+                  var subPath_values = sub.path();
+                  var tmp$1;
+                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
+                  subResult.putAll(this.getDictionaryValueJsonAddr(sub));
+                  i = i + 1;
+                }
+              }
+              return subResult;
+            },
+            DictionarytoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:Dictionary" ');
+                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "generated_KMF_ID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getValues().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"values": [');
+                  var iloop_first_values = true;
+                  {
+                    var tmp$0 = selfObject.getValues().iterator();
+                    while (tmp$0.hasNext()) {
+                      var so = tmp$0.next();
+                      if (!iloop_first_values) {
+                        ostream.println(',');
+                      }
+                      this.DictionaryValuetoJson(so, addrs, ostream);
+                      iloop_first_values = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getRepositoryJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              return subResult;
+            },
+            RepositorytoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:Repository" ');
+                if (!Kotlin.equals(selfObject.getUrl().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "url":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getUrl());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getUnits().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "units": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getUnits().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference Repository/units ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getServicePortTypeJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var i = 0;
+              var subdictionaryType = selfObject.getDictionaryType();
+              if (subdictionaryType != null) {
+                var tmp$0;
+                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
+                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
+              }
+              {
+                var tmp$1 = selfObject.getOperations().iterator();
+                while (tmp$1.hasNext()) {
+                  var sub = tmp$1.next();
+                  var subPath_operations = sub.path();
+                  var tmp$2;
+                  subResult.put(sub, (tmp$2 = sub.path()) != null ? tmp$2 : Kotlin.throwNPE());
+                  subResult.putAll(this.getOperationJsonAddr(sub));
+                  i = i + 1;
+                }
+              }
+              return subResult;
+            },
+            ServicePortTypetoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:ServicePortType" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "factoryBean":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getFactoryBean());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "bean":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getBean());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "abstract":');
+                  ostream.print_1(selfObject.getAbstract());
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getSynchrone()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "synchrone":');
+                  ostream.print_1(selfObject.getSynchrone());
+                }
+                if (!Kotlin.equals(selfObject.getInterface().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "interface":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getInterface());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getDeployUnits().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "deployUnits": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getDeployUnits().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference ServicePortType/deployUnits ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                if (selfObject.getSuperTypes().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "superTypes": [');
+                  var firstItLoop_0 = true;
+                  {
+                    var tmp$1 = selfObject.getSuperTypes().iterator();
+                    while (tmp$1.hasNext()) {
+                      var sub_0 = tmp$1.next();
+                      if (!firstItLoop_0) {
+                        ostream.println_0(',');
+                      }
+                      var subsub_0 = addrs.get(sub_0);
+                      if (subsub_0 != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub_0);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference ServicePortType/superTypes ');
+                      }
+                      firstItLoop_0 = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                var subdictionaryType = selfObject.getDictionaryType();
+                if (subdictionaryType != null) {
+                  ostream.println(',');
+                  ostream.print('"dictionaryType":');
+                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
+                }
+                if (selfObject.getOperations().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"operations": [');
+                  var iloop_first_operations = true;
+                  {
+                    var tmp$2 = selfObject.getOperations().iterator();
+                    while (tmp$2.hasNext()) {
+                      var so = tmp$2.next();
+                      if (!iloop_first_operations) {
+                        ostream.println(',');
+                      }
+                      this.OperationtoJson(so, addrs, ostream);
+                      iloop_first_operations = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                ostream.println('}');
+              }
+            },
             getPortTypeJsonAddr: function (selfObject) {
               var subResult = new Kotlin.ComplexHashMap(0);
               var subdictionaryType = selfObject.getDictionaryType();
@@ -38272,14 +41038,14 @@ define(
                 ostream.println('}');
               }
             },
-            getPortJsonAddr: function (selfObject) {
+            getMBindingJsonAddr: function (selfObject) {
               var subResult = new Kotlin.ComplexHashMap(0);
               return subResult;
             },
-            PorttoJson: function (selfObject, addrs, ostream) {
+            MBindingtoJson: function (selfObject, addrs, ostream) {
               {
                 ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:Port" ');
+                ostream.print(' "eClass":"org.kevoree:MBinding" ');
                 if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
                   ostream.println(',');
                   ostream.print(' "generated_KMF_ID":');
@@ -38287,12 +41053,30 @@ define(
                   this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
                   ostream.print_0('"');
                 }
-                if (selfObject.getBindings().size() > 0) {
+                ostream.println('}');
+              }
+            },
+            getExtraFonctionalPropertyJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              return subResult;
+            },
+            ExtraFonctionalPropertytoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:ExtraFonctionalProperty" ');
+                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
                   ostream.println(',');
-                  ostream.print(' "bindings": [');
+                  ostream.print(' "generated_KMF_ID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getPortTypes().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "portTypes": [');
                   var firstItLoop = true;
                   {
-                    var tmp$0 = selfObject.getBindings().iterator();
+                    var tmp$0 = selfObject.getPortTypes().iterator();
                     while (tmp$0.hasNext()) {
                       var sub = tmp$0.next();
                       if (!firstItLoop) {
@@ -38305,47 +41089,30 @@ define(
                         ostream.print_0('"');
                       }
                        else {
-                        throw new Error('KMF Serialization error : non contained reference Port/bindings ');
+                        throw new Error('KMF Serialization error : non contained reference ExtraFonctionalProperty/portTypes ');
                       }
                       firstItLoop = false;
                     }
                   }
                   ostream.print(']');
                 }
-                var subsubportTypeRef = selfObject.getPortTypeRef();
-                if (subsubportTypeRef != null) {
-                  var subsubsubportTypeRef = addrs.get(subsubportTypeRef);
-                  if (subsubsubportTypeRef != null) {
-                    ostream.println(',');
-                    ostream.print(' "portTypeRef":"' + subsubsubportTypeRef + '"');
-                  }
-                   else {
-                    throw new Error('KMF Port Serialization error : No address found for reference portTypeRef(id:' + subsubportTypeRef + ' container:' + subsubportTypeRef.eContainer() + ')');
-                  }
-                }
                 ostream.println('}');
               }
             },
-            getNamespaceJsonAddr: function (selfObject) {
+            getGroupJsonAddr: function (selfObject) {
               var subResult = new Kotlin.ComplexHashMap(0);
-              var i = 0;
-              {
-                var tmp$0 = selfObject.getChilds().iterator();
-                while (tmp$0.hasNext()) {
-                  var sub = tmp$0.next();
-                  var subPath_childs = sub.path();
-                  var tmp$1;
-                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
-                  subResult.putAll(this.getNamespaceJsonAddr(sub));
-                  i = i + 1;
-                }
+              var subdictionary = selfObject.getDictionary();
+              if (subdictionary != null) {
+                var tmp$0;
+                subResult.put(subdictionary, (tmp$0 = subdictionary.path()) != null ? tmp$0 : Kotlin.throwNPE());
+                subResult.putAll(this.getDictionaryJsonAddr(subdictionary));
               }
               return subResult;
             },
-            NamespacetoJson: function (selfObject, addrs, ostream) {
+            GrouptoJson: function (selfObject, addrs, ostream) {
               {
                 ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:Namespace" ');
+                ostream.print(' "eClass":"org.kevoree:Group" ');
                 if (!Kotlin.equals(selfObject.getName().toString(), '')) {
                   ostream.println(',');
                   ostream.print(' "name":');
@@ -38353,203 +41120,35 @@ define(
                   this.escapeJson(ostream, selfObject.getName());
                   ostream.print_0('"');
                 }
-                var subsubparent = selfObject.getParent();
-                if (subsubparent != null) {
-                  var subsubsubparent = addrs.get(subsubparent);
-                  if (subsubsubparent != null) {
+                if (!Kotlin.equals(selfObject.getMetaData().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "metaData":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getMetaData());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getStarted()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "started":');
+                  ostream.print_1(selfObject.getStarted());
+                }
+                var subsubtypeDefinition = selfObject.getTypeDefinition();
+                if (subsubtypeDefinition != null) {
+                  var subsubsubtypeDefinition = addrs.get(subsubtypeDefinition);
+                  if (subsubsubtypeDefinition != null) {
                     ostream.println(',');
-                    ostream.print(' "parent":"' + subsubsubparent + '"');
+                    ostream.print(' "typeDefinition":"' + subsubsubtypeDefinition + '"');
                   }
                    else {
-                    throw new Error('KMF Namespace Serialization error : No address found for reference parent(id:' + subsubparent + ' container:' + subsubparent.eContainer() + ')');
+                    throw new Error('KMF Group Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
                   }
                 }
-                if (selfObject.getChilds().size() > 0) {
+                if (selfObject.getSubNodes().size() > 0) {
                   ostream.println(',');
-                  ostream.println_0('"childs": [');
-                  var iloop_first_childs = true;
-                  {
-                    var tmp$0 = selfObject.getChilds().iterator();
-                    while (tmp$0.hasNext()) {
-                      var so = tmp$0.next();
-                      if (!iloop_first_childs) {
-                        ostream.println(',');
-                      }
-                      this.NamespacetoJson(so, addrs, ostream);
-                      iloop_first_childs = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getDictionaryJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              var i = 0;
-              {
-                var tmp$0 = selfObject.getValues().iterator();
-                while (tmp$0.hasNext()) {
-                  var sub = tmp$0.next();
-                  var subPath_values = sub.path();
-                  var tmp$1;
-                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
-                  subResult.putAll(this.getDictionaryValueJsonAddr(sub));
-                  i = i + 1;
-                }
-              }
-              return subResult;
-            },
-            DictionarytoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:Dictionary" ');
-                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "generated_KMF_ID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getValues().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"values": [');
-                  var iloop_first_values = true;
-                  {
-                    var tmp$0 = selfObject.getValues().iterator();
-                    while (tmp$0.hasNext()) {
-                      var so = tmp$0.next();
-                      if (!iloop_first_values) {
-                        ostream.println(',');
-                      }
-                      this.DictionaryValuetoJson(so, addrs, ostream);
-                      iloop_first_values = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getDictionaryTypeJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              var i = 0;
-              {
-                var tmp$0 = selfObject.getAttributes().iterator();
-                while (tmp$0.hasNext()) {
-                  var sub = tmp$0.next();
-                  var subPath_attributes = sub.path();
-                  var tmp$1;
-                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
-                  subResult.putAll(this.getDictionaryAttributeJsonAddr(sub));
-                  i = i + 1;
-                }
-              }
-              i = 0;
-              {
-                var tmp$2 = selfObject.getDefaultValues().iterator();
-                while (tmp$2.hasNext()) {
-                  var sub_0 = tmp$2.next();
-                  var subPath_defaultValues = sub_0.path();
-                  var tmp$3;
-                  subResult.put(sub_0, (tmp$3 = sub_0.path()) != null ? tmp$3 : Kotlin.throwNPE());
-                  subResult.putAll(this.getDictionaryValueJsonAddr(sub_0));
-                  i = i + 1;
-                }
-              }
-              return subResult;
-            },
-            DictionaryTypetoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:DictionaryType" ');
-                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "generated_KMF_ID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getAttributes().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"attributes": [');
-                  var iloop_first_attributes = true;
-                  {
-                    var tmp$0 = selfObject.getAttributes().iterator();
-                    while (tmp$0.hasNext()) {
-                      var so = tmp$0.next();
-                      if (!iloop_first_attributes) {
-                        ostream.println(',');
-                      }
-                      this.DictionaryAttributetoJson(so, addrs, ostream);
-                      iloop_first_attributes = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                if (selfObject.getDefaultValues().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"defaultValues": [');
-                  var iloop_first_defaultValues = true;
-                  {
-                    var tmp$1 = selfObject.getDefaultValues().iterator();
-                    while (tmp$1.hasNext()) {
-                      var so_0 = tmp$1.next();
-                      if (!iloop_first_defaultValues) {
-                        ostream.println(',');
-                      }
-                      this.DictionaryValuetoJson(so_0, addrs, ostream);
-                      iloop_first_defaultValues = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getDictionaryAttributeJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            DictionaryAttributetoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:DictionaryAttribute" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getOptional()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "optional":');
-                  ostream.print_1(selfObject.getOptional());
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getState()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "state":');
-                  ostream.print_1(selfObject.getState());
-                }
-                if (!Kotlin.equals(selfObject.getDatatype().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "datatype":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getDatatype());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getFragmentDependant()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "fragmentDependant":');
-                  ostream.print_1(selfObject.getFragmentDependant());
-                }
-                if (selfObject.getGenericTypes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "genericTypes": [');
+                  ostream.print(' "subNodes": [');
                   var firstItLoop = true;
                   {
-                    var tmp$0 = selfObject.getGenericTypes().iterator();
+                    var tmp$0 = selfObject.getSubNodes().iterator();
                     while (tmp$0.hasNext()) {
                       var sub = tmp$0.next();
                       if (!firstItLoop) {
@@ -38562,59 +41161,18 @@ define(
                         ostream.print_0('"');
                       }
                        else {
-                        throw new Error('KMF Serialization error : non contained reference DictionaryAttribute/genericTypes ');
+                        throw new Error('KMF Serialization error : non contained reference Group/subNodes ');
                       }
                       firstItLoop = false;
                     }
                   }
                   ostream.print(']');
                 }
-                ostream.println('}');
-              }
-            },
-            getDictionaryValueJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            DictionaryValuetoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:DictionaryValue" ');
-                if (!Kotlin.equals(selfObject.getValue().toString(), '')) {
+                var subdictionary = selfObject.getDictionary();
+                if (subdictionary != null) {
                   ostream.println(',');
-                  ostream.print(' "value":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getValue());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "generated_KMF_ID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
-                  ostream.print_0('"');
-                }
-                var subsubattribute = selfObject.getAttribute();
-                if (subsubattribute != null) {
-                  var subsubsubattribute = addrs.get(subsubattribute);
-                  if (subsubsubattribute != null) {
-                    ostream.println(',');
-                    ostream.print(' "attribute":"' + subsubsubattribute + '"');
-                  }
-                   else {
-                    throw new Error('KMF DictionaryValue Serialization error : No address found for reference attribute(id:' + subsubattribute + ' container:' + subsubattribute.eContainer() + ')');
-                  }
-                }
-                var subsubtargetNode = selfObject.getTargetNode();
-                if (subsubtargetNode != null) {
-                  var subsubsubtargetNode = addrs.get(subsubtargetNode);
-                  if (subsubsubtargetNode != null) {
-                    ostream.println(',');
-                    ostream.print(' "targetNode":"' + subsubsubtargetNode + '"');
-                  }
-                   else {
-                    throw new Error('KMF DictionaryValue Serialization error : No address found for reference targetNode(id:' + subsubtargetNode + ' container:' + subsubtargetNode.eContainer() + ')');
-                  }
+                  ostream.print('"dictionary":');
+                  this.DictionarytoJson(subdictionary, addrs, ostream);
                 }
                 ostream.println('}');
               }
@@ -38892,720 +41450,6 @@ define(
                 ostream.println('}');
               }
             },
-            getPortTypeRefJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              var i = 0;
-              {
-                var tmp$0 = selfObject.getMappings().iterator();
-                while (tmp$0.hasNext()) {
-                  var sub = tmp$0.next();
-                  var subPath_mappings = sub.path();
-                  var tmp$1;
-                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
-                  subResult.putAll(this.getPortTypeMappingJsonAddr(sub));
-                  i = i + 1;
-                }
-              }
-              return subResult;
-            },
-            PortTypeReftoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:PortTypeRef" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getOptional()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "optional":');
-                  ostream.print_1(selfObject.getOptional());
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getNoDependency()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "noDependency":');
-                  ostream.print_1(selfObject.getNoDependency());
-                }
-                var subsubref = selfObject.getRef();
-                if (subsubref != null) {
-                  var subsubsubref = addrs.get(subsubref);
-                  if (subsubsubref != null) {
-                    ostream.println(',');
-                    ostream.print(' "ref":"' + subsubsubref + '"');
-                  }
-                   else {
-                    throw new Error('KMF PortTypeRef Serialization error : No address found for reference ref(id:' + subsubref + ' container:' + subsubref.eContainer() + ')');
-                  }
-                }
-                if (selfObject.getMappings().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"mappings": [');
-                  var iloop_first_mappings = true;
-                  {
-                    var tmp$0 = selfObject.getMappings().iterator();
-                    while (tmp$0.hasNext()) {
-                      var so = tmp$0.next();
-                      if (!iloop_first_mappings) {
-                        ostream.println(',');
-                      }
-                      this.PortTypeMappingtoJson(so, addrs, ostream);
-                      iloop_first_mappings = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getWireJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            WiretoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:Wire" ');
-                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "generated_KMF_ID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getPorts().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "ports": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getPorts().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference Wire/ports ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getServicePortTypeJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              var i = 0;
-              var subdictionaryType = selfObject.getDictionaryType();
-              if (subdictionaryType != null) {
-                var tmp$0;
-                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
-                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
-              }
-              {
-                var tmp$1 = selfObject.getOperations().iterator();
-                while (tmp$1.hasNext()) {
-                  var sub = tmp$1.next();
-                  var subPath_operations = sub.path();
-                  var tmp$2;
-                  subResult.put(sub, (tmp$2 = sub.path()) != null ? tmp$2 : Kotlin.throwNPE());
-                  subResult.putAll(this.getOperationJsonAddr(sub));
-                  i = i + 1;
-                }
-              }
-              return subResult;
-            },
-            ServicePortTypetoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:ServicePortType" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "factoryBean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getFactoryBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "bean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "abstract":');
-                  ostream.print_1(selfObject.getAbstract());
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getSynchrone()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "synchrone":');
-                  ostream.print_1(selfObject.getSynchrone());
-                }
-                if (!Kotlin.equals(selfObject.getInterface().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "interface":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getInterface());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getDeployUnits().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "deployUnits": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getDeployUnits().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference ServicePortType/deployUnits ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                if (selfObject.getSuperTypes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "superTypes": [');
-                  var firstItLoop_0 = true;
-                  {
-                    var tmp$1 = selfObject.getSuperTypes().iterator();
-                    while (tmp$1.hasNext()) {
-                      var sub_0 = tmp$1.next();
-                      if (!firstItLoop_0) {
-                        ostream.println_0(',');
-                      }
-                      var subsub_0 = addrs.get(sub_0);
-                      if (subsub_0 != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub_0);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference ServicePortType/superTypes ');
-                      }
-                      firstItLoop_0 = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                var subdictionaryType = selfObject.getDictionaryType();
-                if (subdictionaryType != null) {
-                  ostream.println(',');
-                  ostream.print('"dictionaryType":');
-                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
-                }
-                if (selfObject.getOperations().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"operations": [');
-                  var iloop_first_operations = true;
-                  {
-                    var tmp$2 = selfObject.getOperations().iterator();
-                    while (tmp$2.hasNext()) {
-                      var so = tmp$2.next();
-                      if (!iloop_first_operations) {
-                        ostream.println(',');
-                      }
-                      this.OperationtoJson(so, addrs, ostream);
-                      iloop_first_operations = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getOperationJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              var i = 0;
-              {
-                var tmp$0 = selfObject.getParameters().iterator();
-                while (tmp$0.hasNext()) {
-                  var sub = tmp$0.next();
-                  var subPath_parameters = sub.path();
-                  var tmp$1;
-                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
-                  subResult.putAll(this.getParameterJsonAddr(sub));
-                  i = i + 1;
-                }
-              }
-              return subResult;
-            },
-            OperationtoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:Operation" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                var subsubreturnType = selfObject.getReturnType();
-                if (subsubreturnType != null) {
-                  var subsubsubreturnType = addrs.get(subsubreturnType);
-                  if (subsubsubreturnType != null) {
-                    ostream.println(',');
-                    ostream.print(' "returnType":"' + subsubsubreturnType + '"');
-                  }
-                   else {
-                    throw new Error('KMF Operation Serialization error : No address found for reference returnType(id:' + subsubreturnType + ' container:' + subsubreturnType.eContainer() + ')');
-                  }
-                }
-                if (selfObject.getParameters().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"parameters": [');
-                  var iloop_first_parameters = true;
-                  {
-                    var tmp$0 = selfObject.getParameters().iterator();
-                    while (tmp$0.hasNext()) {
-                      var so = tmp$0.next();
-                      if (!iloop_first_parameters) {
-                        ostream.println(',');
-                      }
-                      this.ParametertoJson(so, addrs, ostream);
-                      iloop_first_parameters = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getParameterJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            ParametertoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:Parameter" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getOrder()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "order":');
-                  ostream.print('"');
-                  ostream.print_2(selfObject.getOrder());
-                  ostream.print_0('"');
-                }
-                var subsubtype = selfObject.getType();
-                if (subsubtype != null) {
-                  var subsubsubtype = addrs.get(subsubtype);
-                  if (subsubsubtype != null) {
-                    ostream.println(',');
-                    ostream.print(' "type":"' + subsubsubtype + '"');
-                  }
-                   else {
-                    throw new Error('KMF Parameter Serialization error : No address found for reference type(id:' + subsubtype + ' container:' + subsubtype.eContainer() + ')');
-                  }
-                }
-                ostream.println('}');
-              }
-            },
-            getTypedElementJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              if (Kotlin.isType(selfObject, _.org.kevoree.impl.DictionaryAttributeImpl) || Kotlin.isType(selfObject, _.org.kevoree.DictionaryAttribute)) {
-                subResult.putAll(this.getDictionaryAttributeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
-              }
-               else {
-              }
-              return subResult;
-            },
-            TypedElementtoJson: function (selfObject, addrs, ostream) {
-              if (Kotlin.isType(selfObject, _.org.kevoree.impl.DictionaryAttributeImpl) || Kotlin.isType(selfObject, _.org.kevoree.DictionaryAttribute)) {
-                this.DictionaryAttributetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
-              }
-               else {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:TypedElement" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getGenericTypes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "genericTypes": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getGenericTypes().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference TypedElement/genericTypes ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getMessagePortTypeJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              var subdictionaryType = selfObject.getDictionaryType();
-              if (subdictionaryType != null) {
-                var tmp$0;
-                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
-                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
-              }
-              return subResult;
-            },
-            MessagePortTypetoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:MessagePortType" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "factoryBean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getFactoryBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "bean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "abstract":');
-                  ostream.print_1(selfObject.getAbstract());
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getSynchrone()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "synchrone":');
-                  ostream.print_1(selfObject.getSynchrone());
-                }
-                if (selfObject.getDeployUnits().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "deployUnits": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getDeployUnits().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference MessagePortType/deployUnits ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                if (selfObject.getSuperTypes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "superTypes": [');
-                  var firstItLoop_0 = true;
-                  {
-                    var tmp$1 = selfObject.getSuperTypes().iterator();
-                    while (tmp$1.hasNext()) {
-                      var sub_0 = tmp$1.next();
-                      if (!firstItLoop_0) {
-                        ostream.println_0(',');
-                      }
-                      var subsub_0 = addrs.get(sub_0);
-                      if (subsub_0 != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub_0);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference MessagePortType/superTypes ');
-                      }
-                      firstItLoop_0 = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                if (selfObject.getFilters().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "filters": [');
-                  var firstItLoop_1 = true;
-                  {
-                    var tmp$2 = selfObject.getFilters().iterator();
-                    while (tmp$2.hasNext()) {
-                      var sub_1 = tmp$2.next();
-                      if (!firstItLoop_1) {
-                        ostream.println_0(',');
-                      }
-                      var subsub_1 = addrs.get(sub_1);
-                      if (subsub_1 != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub_1);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference MessagePortType/filters ');
-                      }
-                      firstItLoop_1 = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                var subdictionaryType = selfObject.getDictionaryType();
-                if (subdictionaryType != null) {
-                  ostream.println(',');
-                  ostream.print('"dictionaryType":');
-                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
-                }
-                ostream.println('}');
-              }
-            },
-            getRepositoryJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            RepositorytoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:Repository" ');
-                if (!Kotlin.equals(selfObject.getUrl().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "url":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getUrl());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getUnits().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "units": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getUnits().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference Repository/units ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getDeployUnitJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            DeployUnittoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:DeployUnit" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getGroupName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "groupName":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGroupName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getUnitName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "unitName":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getUnitName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getVersion().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "version":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getVersion());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getUrl().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "url":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getUrl());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getHashcode().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "hashcode":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getHashcode());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getType().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "type":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getType());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "generated_KMF_ID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getRequiredLibs().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "requiredLibs": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getRequiredLibs().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference DeployUnit/requiredLibs ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                var subsubtargetNodeType = selfObject.getTargetNodeType();
-                if (subsubtargetNodeType != null) {
-                  var subsubsubtargetNodeType = addrs.get(subsubtargetNodeType);
-                  if (subsubsubtargetNodeType != null) {
-                    ostream.println(',');
-                    ostream.print(' "targetNodeType":"' + subsubsubtargetNodeType + '"');
-                  }
-                   else {
-                    throw new Error('KMF DeployUnit Serialization error : No address found for reference targetNodeType(id:' + subsubtargetNodeType + ' container:' + subsubtargetNodeType.eContainer() + ')');
-                  }
-                }
-                ostream.println('}');
-              }
-            },
-            getTypeLibraryJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            TypeLibrarytoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:TypeLibrary" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getSubTypes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "subTypes": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getSubTypes().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference TypeLibrary/subTypes ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                ostream.println('}');
-              }
-            },
             getNamedElementJsonAddr: function (selfObject) {
               var subResult = new Kotlin.ComplexHashMap(0);
               if (Kotlin.isType(selfObject, _.org.kevoree.impl.ComponentTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ComponentType)) {
@@ -39722,174 +41566,70 @@ define(
                 ostream.println('}');
               }
             },
-            getIntegrationPatternJsonAddr: function (selfObject) {
+            getComponentTypeJsonAddr: function (selfObject) {
               var subResult = new Kotlin.ComplexHashMap(0);
               var i = 0;
-              {
-                var tmp$0 = selfObject.getExtraFonctionalProperties().iterator();
-                while (tmp$0.hasNext()) {
-                  var sub = tmp$0.next();
-                  var subPath_extraFonctionalProperties = sub.path();
-                  var tmp$1;
-                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
-                  subResult.putAll(this.getExtraFonctionalPropertyJsonAddr(sub));
-                  i = i + 1;
-                }
-              }
-              return subResult;
-            },
-            IntegrationPatterntoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:IntegrationPattern" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getPortTypes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "portTypes": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getPortTypes().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference IntegrationPattern/portTypes ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                if (selfObject.getExtraFonctionalProperties().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"extraFonctionalProperties": [');
-                  var iloop_first_extraFonctionalProperties = true;
-                  {
-                    var tmp$1 = selfObject.getExtraFonctionalProperties().iterator();
-                    while (tmp$1.hasNext()) {
-                      var so = tmp$1.next();
-                      if (!iloop_first_extraFonctionalProperties) {
-                        ostream.println(',');
-                      }
-                      this.ExtraFonctionalPropertytoJson(so, addrs, ostream);
-                      iloop_first_extraFonctionalProperties = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getExtraFonctionalPropertyJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            ExtraFonctionalPropertytoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:ExtraFonctionalProperty" ');
-                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "generated_KMF_ID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getPortTypes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "portTypes": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getPortTypes().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference ExtraFonctionalProperty/portTypes ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getPortTypeMappingJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            PortTypeMappingtoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:PortTypeMapping" ');
-                if (!Kotlin.equals(selfObject.getBeanMethodName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "beanMethodName":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getBeanMethodName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getServiceMethodName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "serviceMethodName":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getServiceMethodName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getParamTypes().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "paramTypes":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getParamTypes());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "generated_KMF_ID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
-                  ostream.print_0('"');
-                }
-                ostream.println('}');
-              }
-            },
-            getChannelJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              var subdictionary = selfObject.getDictionary();
-              if (subdictionary != null) {
+              var subdictionaryType = selfObject.getDictionaryType();
+              if (subdictionaryType != null) {
                 var tmp$0;
-                subResult.put(subdictionary, (tmp$0 = subdictionary.path()) != null ? tmp$0 : Kotlin.throwNPE());
-                subResult.putAll(this.getDictionaryJsonAddr(subdictionary));
+                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
+                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
+              }
+              {
+                var tmp$1 = selfObject.getRequired().iterator();
+                while (tmp$1.hasNext()) {
+                  var sub = tmp$1.next();
+                  var subPath_required = sub.path();
+                  var tmp$2;
+                  subResult.put(sub, (tmp$2 = sub.path()) != null ? tmp$2 : Kotlin.throwNPE());
+                  subResult.putAll(this.getPortTypeRefJsonAddr(sub));
+                  i = i + 1;
+                }
+              }
+              i = 0;
+              {
+                var tmp$3 = selfObject.getIntegrationPatterns().iterator();
+                while (tmp$3.hasNext()) {
+                  var sub_0 = tmp$3.next();
+                  var subPath_integrationPatterns = sub_0.path();
+                  var tmp$4;
+                  subResult.put(sub_0, (tmp$4 = sub_0.path()) != null ? tmp$4 : Kotlin.throwNPE());
+                  subResult.putAll(this.getIntegrationPatternJsonAddr(sub_0));
+                  i = i + 1;
+                }
+              }
+              var subextraFonctionalProperties = selfObject.getExtraFonctionalProperties();
+              if (subextraFonctionalProperties != null) {
+                var tmp$5;
+                subResult.put(subextraFonctionalProperties, (tmp$5 = subextraFonctionalProperties.path()) != null ? tmp$5 : Kotlin.throwNPE());
+                subResult.putAll(this.getExtraFonctionalPropertyJsonAddr(subextraFonctionalProperties));
+              }
+              i = 0;
+              {
+                var tmp$6 = selfObject.getProvided().iterator();
+                while (tmp$6.hasNext()) {
+                  var sub_1 = tmp$6.next();
+                  var subPath_provided = sub_1.path();
+                  var tmp$7;
+                  subResult.put(sub_1, (tmp$7 = sub_1.path()) != null ? tmp$7 : Kotlin.throwNPE());
+                  subResult.putAll(this.getPortTypeRefJsonAddr(sub_1));
+                  i = i + 1;
+                }
+              }
+              if (Kotlin.isType(selfObject, _.org.kevoree.impl.CompositeTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.CompositeType)) {
+                subResult.putAll(this.getCompositeTypeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
+              }
+               else {
               }
               return subResult;
             },
-            ChanneltoJson: function (selfObject, addrs, ostream) {
-              {
+            ComponentTypetoJson: function (selfObject, addrs, ostream) {
+              if (Kotlin.isType(selfObject, _.org.kevoree.impl.CompositeTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.CompositeType)) {
+                this.CompositeTypetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
+              }
+               else {
                 ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:Channel" ');
+                ostream.print(' "eClass":"org.kevoree:ComponentType" ');
                 if (!Kotlin.equals(selfObject.getName().toString(), '')) {
                   ostream.println(',');
                   ostream.print(' "name":');
@@ -39897,35 +41637,52 @@ define(
                   this.escapeJson(ostream, selfObject.getName());
                   ostream.print_0('"');
                 }
-                if (!Kotlin.equals(selfObject.getMetaData().toString(), '')) {
+                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
                   ostream.println(',');
-                  ostream.print(' "metaData":');
+                  ostream.print(' "factoryBean":');
                   ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getMetaData());
+                  this.escapeJson(ostream, selfObject.getFactoryBean());
                   ostream.print_0('"');
                 }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getStarted()), '')) {
+                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
                   ostream.println(',');
-                  ostream.print(' "started":');
-                  ostream.print_1(selfObject.getStarted());
+                  ostream.print(' "bean":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getBean());
+                  ostream.print_0('"');
                 }
-                var subsubtypeDefinition = selfObject.getTypeDefinition();
-                if (subsubtypeDefinition != null) {
-                  var subsubsubtypeDefinition = addrs.get(subsubtypeDefinition);
-                  if (subsubsubtypeDefinition != null) {
-                    ostream.println(',');
-                    ostream.print(' "typeDefinition":"' + subsubsubtypeDefinition + '"');
-                  }
-                   else {
-                    throw new Error('KMF Channel Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
-                  }
-                }
-                if (selfObject.getBindings().size() > 0) {
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
                   ostream.println(',');
-                  ostream.print(' "bindings": [');
+                  ostream.print(' "abstract":');
+                  ostream.print_1(selfObject.getAbstract());
+                }
+                if (!Kotlin.equals(selfObject.getStartMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "startMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getStartMethod());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getStopMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "stopMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getStopMethod());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getUpdateMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "updateMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getUpdateMethod());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getDeployUnits().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "deployUnits": [');
                   var firstItLoop = true;
                   {
-                    var tmp$0 = selfObject.getBindings().iterator();
+                    var tmp$0 = selfObject.getDeployUnits().iterator();
                     while (tmp$0.hasNext()) {
                       var sub = tmp$0.next();
                       if (!firstItLoop) {
@@ -39938,102 +41695,97 @@ define(
                         ostream.print_0('"');
                       }
                        else {
-                        throw new Error('KMF Serialization error : non contained reference Channel/bindings ');
+                        throw new Error('KMF Serialization error : non contained reference ComponentType/deployUnits ');
                       }
                       firstItLoop = false;
                     }
                   }
                   ostream.print(']');
                 }
-                var subdictionary = selfObject.getDictionary();
-                if (subdictionary != null) {
+                if (selfObject.getSuperTypes().size() > 0) {
                   ostream.println(',');
-                  ostream.print('"dictionary":');
-                  this.DictionarytoJson(subdictionary, addrs, ostream);
-                }
-                ostream.println('}');
-              }
-            },
-            getMBindingJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            MBindingtoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:MBinding" ');
-                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "generated_KMF_ID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
-                  ostream.print_0('"');
-                }
-                ostream.println('}');
-              }
-            },
-            getNodeNetworkJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              var i = 0;
-              {
-                var tmp$0 = selfObject.getLink().iterator();
-                while (tmp$0.hasNext()) {
-                  var sub = tmp$0.next();
-                  var subPath_link = sub.path();
-                  var tmp$1;
-                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
-                  subResult.putAll(this.getNodeLinkJsonAddr(sub));
-                  i = i + 1;
-                }
-              }
-              return subResult;
-            },
-            NodeNetworktoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:NodeNetwork" ');
-                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "generated_KMF_ID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
-                  ostream.print_0('"');
-                }
-                var subsubinitBy = selfObject.getInitBy();
-                if (subsubinitBy != null) {
-                  var subsubsubinitBy = addrs.get(subsubinitBy);
-                  if (subsubsubinitBy != null) {
-                    ostream.println(',');
-                    ostream.print(' "initBy":"' + subsubsubinitBy + '"');
-                  }
-                   else {
-                    throw new Error('KMF NodeNetwork Serialization error : No address found for reference initBy(id:' + subsubinitBy + ' container:' + subsubinitBy.eContainer() + ')');
-                  }
-                }
-                var subsubtarget = selfObject.getTarget();
-                if (subsubtarget != null) {
-                  var subsubsubtarget = addrs.get(subsubtarget);
-                  if (subsubsubtarget != null) {
-                    ostream.println(',');
-                    ostream.print(' "target":"' + subsubsubtarget + '"');
-                  }
-                   else {
-                    throw new Error('KMF NodeNetwork Serialization error : No address found for reference target(id:' + subsubtarget + ' container:' + subsubtarget.eContainer() + ')');
-                  }
-                }
-                if (selfObject.getLink().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"link": [');
-                  var iloop_first_link = true;
+                  ostream.print(' "superTypes": [');
+                  var firstItLoop_0 = true;
                   {
-                    var tmp$0 = selfObject.getLink().iterator();
-                    while (tmp$0.hasNext()) {
-                      var so = tmp$0.next();
-                      if (!iloop_first_link) {
+                    var tmp$1 = selfObject.getSuperTypes().iterator();
+                    while (tmp$1.hasNext()) {
+                      var sub_0 = tmp$1.next();
+                      if (!firstItLoop_0) {
+                        ostream.println_0(',');
+                      }
+                      var subsub_0 = addrs.get(sub_0);
+                      if (subsub_0 != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub_0);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference ComponentType/superTypes ');
+                      }
+                      firstItLoop_0 = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                var subdictionaryType = selfObject.getDictionaryType();
+                if (subdictionaryType != null) {
+                  ostream.println(',');
+                  ostream.print('"dictionaryType":');
+                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
+                }
+                if (selfObject.getRequired().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"required": [');
+                  var iloop_first_required = true;
+                  {
+                    var tmp$2 = selfObject.getRequired().iterator();
+                    while (tmp$2.hasNext()) {
+                      var so = tmp$2.next();
+                      if (!iloop_first_required) {
                         ostream.println(',');
                       }
-                      this.NodeLinktoJson(so, addrs, ostream);
-                      iloop_first_link = false;
+                      this.PortTypeReftoJson(so, addrs, ostream);
+                      iloop_first_required = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                if (selfObject.getIntegrationPatterns().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"integrationPatterns": [');
+                  var iloop_first_integrationPatterns = true;
+                  {
+                    var tmp$3 = selfObject.getIntegrationPatterns().iterator();
+                    while (tmp$3.hasNext()) {
+                      var so_0 = tmp$3.next();
+                      if (!iloop_first_integrationPatterns) {
+                        ostream.println(',');
+                      }
+                      this.IntegrationPatterntoJson(so_0, addrs, ostream);
+                      iloop_first_integrationPatterns = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                var subextraFonctionalProperties = selfObject.getExtraFonctionalProperties();
+                if (subextraFonctionalProperties != null) {
+                  ostream.println(',');
+                  ostream.print('"extraFonctionalProperties":');
+                  this.ExtraFonctionalPropertytoJson(subextraFonctionalProperties, addrs, ostream);
+                }
+                if (selfObject.getProvided().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"provided": [');
+                  var iloop_first_provided = true;
+                  {
+                    var tmp$4 = selfObject.getProvided().iterator();
+                    while (tmp$4.hasNext()) {
+                      var so_1 = tmp$4.next();
+                      if (!iloop_first_provided) {
+                        ostream.println(',');
+                      }
+                      this.PortTypeReftoJson(so_1, addrs, ostream);
+                      iloop_first_provided = false;
                     }
                   }
                   ostream.println(']');
@@ -40041,89 +41793,20 @@ define(
                 ostream.println('}');
               }
             },
-            getNodeLinkJsonAddr: function (selfObject) {
+            getGroupTypeJsonAddr: function (selfObject) {
               var subResult = new Kotlin.ComplexHashMap(0);
-              var i = 0;
-              {
-                var tmp$0 = selfObject.getNetworkProperties().iterator();
-                while (tmp$0.hasNext()) {
-                  var sub = tmp$0.next();
-                  var subPath_networkProperties = sub.path();
-                  var tmp$1;
-                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
-                  subResult.putAll(this.getNetworkPropertyJsonAddr(sub));
-                  i = i + 1;
-                }
+              var subdictionaryType = selfObject.getDictionaryType();
+              if (subdictionaryType != null) {
+                var tmp$0;
+                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
+                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
               }
               return subResult;
             },
-            NodeLinktoJson: function (selfObject, addrs, ostream) {
+            GroupTypetoJson: function (selfObject, addrs, ostream) {
               {
                 ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:NodeLink" ');
-                if (!Kotlin.equals(selfObject.getNetworkType().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "networkType":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getNetworkType());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getEstimatedRate()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "estimatedRate":');
-                  ostream.print('"');
-                  ostream.print_2(selfObject.getEstimatedRate());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getLastCheck().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "lastCheck":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getLastCheck());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getZoneID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "zoneID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getZoneID());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "generated_KMF_ID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getNetworkProperties().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"networkProperties": [');
-                  var iloop_first_networkProperties = true;
-                  {
-                    var tmp$0 = selfObject.getNetworkProperties().iterator();
-                    while (tmp$0.hasNext()) {
-                      var so = tmp$0.next();
-                      if (!iloop_first_networkProperties) {
-                        ostream.println(',');
-                      }
-                      this.NetworkPropertytoJson(so, addrs, ostream);
-                      iloop_first_networkProperties = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getNetworkPropertyJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            NetworkPropertytoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:NetworkProperty" ');
+                ostream.print(' "eClass":"org.kevoree:GroupType" ');
                 if (!Kotlin.equals(selfObject.getName().toString(), '')) {
                   ostream.println(',');
                   ostream.print(' "name":');
@@ -40131,19 +41814,262 @@ define(
                   this.escapeJson(ostream, selfObject.getName());
                   ostream.print_0('"');
                 }
-                if (!Kotlin.equals(selfObject.getValue().toString(), '')) {
+                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
                   ostream.println(',');
-                  ostream.print(' "value":');
+                  ostream.print(' "factoryBean":');
                   ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getValue());
+                  this.escapeJson(ostream, selfObject.getFactoryBean());
                   ostream.print_0('"');
                 }
-                if (!Kotlin.equals(selfObject.getLastCheck().toString(), '')) {
+                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
                   ostream.println(',');
-                  ostream.print(' "lastCheck":');
+                  ostream.print(' "bean":');
                   ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getLastCheck());
+                  this.escapeJson(ostream, selfObject.getBean());
                   ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "abstract":');
+                  ostream.print_1(selfObject.getAbstract());
+                }
+                if (!Kotlin.equals(selfObject.getStartMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "startMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getStartMethod());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getStopMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "stopMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getStopMethod());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getUpdateMethod().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "updateMethod":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getUpdateMethod());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getDeployUnits().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "deployUnits": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getDeployUnits().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference GroupType/deployUnits ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                if (selfObject.getSuperTypes().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "superTypes": [');
+                  var firstItLoop_0 = true;
+                  {
+                    var tmp$1 = selfObject.getSuperTypes().iterator();
+                    while (tmp$1.hasNext()) {
+                      var sub_0 = tmp$1.next();
+                      if (!firstItLoop_0) {
+                        ostream.println_0(',');
+                      }
+                      var subsub_0 = addrs.get(sub_0);
+                      if (subsub_0 != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub_0);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference GroupType/superTypes ');
+                      }
+                      firstItLoop_0 = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                var subdictionaryType = selfObject.getDictionaryType();
+                if (subdictionaryType != null) {
+                  ostream.println(',');
+                  ostream.print('"dictionaryType":');
+                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
+                }
+                ostream.println('}');
+              }
+            },
+            getOperationJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var i = 0;
+              {
+                var tmp$0 = selfObject.getParameters().iterator();
+                while (tmp$0.hasNext()) {
+                  var sub = tmp$0.next();
+                  var subPath_parameters = sub.path();
+                  var tmp$1;
+                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
+                  subResult.putAll(this.getParameterJsonAddr(sub));
+                  i = i + 1;
+                }
+              }
+              return subResult;
+            },
+            OperationtoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:Operation" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                var subsubreturnType = selfObject.getReturnType();
+                if (subsubreturnType != null) {
+                  var subsubsubreturnType = addrs.get(subsubreturnType);
+                  if (subsubsubreturnType != null) {
+                    ostream.println(',');
+                    ostream.print(' "returnType":"' + subsubsubreturnType + '"');
+                  }
+                   else {
+                    throw new Error('KMF Operation Serialization error : No address found for reference returnType(id:' + subsubreturnType + ' container:' + subsubreturnType.eContainer() + ')');
+                  }
+                }
+                if (selfObject.getParameters().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"parameters": [');
+                  var iloop_first_parameters = true;
+                  {
+                    var tmp$0 = selfObject.getParameters().iterator();
+                    while (tmp$0.hasNext()) {
+                      var so = tmp$0.next();
+                      if (!iloop_first_parameters) {
+                        ostream.println(',');
+                      }
+                      this.ParametertoJson(so, addrs, ostream);
+                      iloop_first_parameters = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getDeployUnitJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              return subResult;
+            },
+            DeployUnittoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:DeployUnit" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getGroupName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "groupName":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGroupName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getUnitName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "unitName":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getUnitName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getVersion().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "version":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getVersion());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getUrl().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "url":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getUrl());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getHashcode().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "hashcode":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getHashcode());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getType().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "type":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getType());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "generated_KMF_ID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getRequiredLibs().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "requiredLibs": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getRequiredLibs().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference DeployUnit/requiredLibs ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                var subsubtargetNodeType = selfObject.getTargetNodeType();
+                if (subsubtargetNodeType != null) {
+                  var subsubsubtargetNodeType = addrs.get(subsubtargetNodeType);
+                  if (subsubsubtargetNodeType != null) {
+                    ostream.println(',');
+                    ostream.print(' "targetNodeType":"' + subsubsubtargetNodeType + '"');
+                  }
+                   else {
+                    throw new Error('KMF DeployUnit Serialization error : No address found for reference targetNodeType(id:' + subsubtargetNodeType + ' container:' + subsubtargetNodeType.eContainer() + ')');
+                  }
                 }
                 ostream.println('}');
               }
@@ -40296,6 +42222,279 @@ define(
                 ostream.println('}');
               }
             },
+            getPortTypeRefJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var i = 0;
+              {
+                var tmp$0 = selfObject.getMappings().iterator();
+                while (tmp$0.hasNext()) {
+                  var sub = tmp$0.next();
+                  var subPath_mappings = sub.path();
+                  var tmp$1;
+                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
+                  subResult.putAll(this.getPortTypeMappingJsonAddr(sub));
+                  i = i + 1;
+                }
+              }
+              return subResult;
+            },
+            PortTypeReftoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:PortTypeRef" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getOptional()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "optional":');
+                  ostream.print_1(selfObject.getOptional());
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getNoDependency()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "noDependency":');
+                  ostream.print_1(selfObject.getNoDependency());
+                }
+                var subsubref = selfObject.getRef();
+                if (subsubref != null) {
+                  var subsubsubref = addrs.get(subsubref);
+                  if (subsubsubref != null) {
+                    ostream.println(',');
+                    ostream.print(' "ref":"' + subsubsubref + '"');
+                  }
+                   else {
+                    throw new Error('KMF PortTypeRef Serialization error : No address found for reference ref(id:' + subsubref + ' container:' + subsubref.eContainer() + ')');
+                  }
+                }
+                if (selfObject.getMappings().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"mappings": [');
+                  var iloop_first_mappings = true;
+                  {
+                    var tmp$0 = selfObject.getMappings().iterator();
+                    while (tmp$0.hasNext()) {
+                      var so = tmp$0.next();
+                      if (!iloop_first_mappings) {
+                        ostream.println(',');
+                      }
+                      this.PortTypeMappingtoJson(so, addrs, ostream);
+                      iloop_first_mappings = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getDictionaryTypeJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var i = 0;
+              {
+                var tmp$0 = selfObject.getAttributes().iterator();
+                while (tmp$0.hasNext()) {
+                  var sub = tmp$0.next();
+                  var subPath_attributes = sub.path();
+                  var tmp$1;
+                  subResult.put(sub, (tmp$1 = sub.path()) != null ? tmp$1 : Kotlin.throwNPE());
+                  subResult.putAll(this.getDictionaryAttributeJsonAddr(sub));
+                  i = i + 1;
+                }
+              }
+              i = 0;
+              {
+                var tmp$2 = selfObject.getDefaultValues().iterator();
+                while (tmp$2.hasNext()) {
+                  var sub_0 = tmp$2.next();
+                  var subPath_defaultValues = sub_0.path();
+                  var tmp$3;
+                  subResult.put(sub_0, (tmp$3 = sub_0.path()) != null ? tmp$3 : Kotlin.throwNPE());
+                  subResult.putAll(this.getDictionaryValueJsonAddr(sub_0));
+                  i = i + 1;
+                }
+              }
+              return subResult;
+            },
+            DictionaryTypetoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:DictionaryType" ');
+                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "generated_KMF_ID":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
+                  ostream.print_0('"');
+                }
+                if (selfObject.getAttributes().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"attributes": [');
+                  var iloop_first_attributes = true;
+                  {
+                    var tmp$0 = selfObject.getAttributes().iterator();
+                    while (tmp$0.hasNext()) {
+                      var so = tmp$0.next();
+                      if (!iloop_first_attributes) {
+                        ostream.println(',');
+                      }
+                      this.DictionaryAttributetoJson(so, addrs, ostream);
+                      iloop_first_attributes = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                if (selfObject.getDefaultValues().size() > 0) {
+                  ostream.println(',');
+                  ostream.println_0('"defaultValues": [');
+                  var iloop_first_defaultValues = true;
+                  {
+                    var tmp$1 = selfObject.getDefaultValues().iterator();
+                    while (tmp$1.hasNext()) {
+                      var so_0 = tmp$1.next();
+                      if (!iloop_first_defaultValues) {
+                        ostream.println(',');
+                      }
+                      this.DictionaryValuetoJson(so_0, addrs, ostream);
+                      iloop_first_defaultValues = false;
+                    }
+                  }
+                  ostream.println(']');
+                }
+                ostream.println('}');
+              }
+            },
+            getMessagePortTypeJsonAddr: function (selfObject) {
+              var subResult = new Kotlin.ComplexHashMap(0);
+              var subdictionaryType = selfObject.getDictionaryType();
+              if (subdictionaryType != null) {
+                var tmp$0;
+                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
+                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
+              }
+              return subResult;
+            },
+            MessagePortTypetoJson: function (selfObject, addrs, ostream) {
+              {
+                ostream.print_0('{');
+                ostream.print(' "eClass":"org.kevoree:MessagePortType" ');
+                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "name":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getName());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "factoryBean":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getFactoryBean());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
+                  ostream.println(',');
+                  ostream.print(' "bean":');
+                  ostream.print('"');
+                  this.escapeJson(ostream, selfObject.getBean());
+                  ostream.print_0('"');
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "abstract":');
+                  ostream.print_1(selfObject.getAbstract());
+                }
+                if (!Kotlin.equals(Kotlin.toString(selfObject.getSynchrone()), '')) {
+                  ostream.println(',');
+                  ostream.print(' "synchrone":');
+                  ostream.print_1(selfObject.getSynchrone());
+                }
+                if (selfObject.getDeployUnits().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "deployUnits": [');
+                  var firstItLoop = true;
+                  {
+                    var tmp$0 = selfObject.getDeployUnits().iterator();
+                    while (tmp$0.hasNext()) {
+                      var sub = tmp$0.next();
+                      if (!firstItLoop) {
+                        ostream.println_0(',');
+                      }
+                      var subsub = addrs.get(sub);
+                      if (subsub != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference MessagePortType/deployUnits ');
+                      }
+                      firstItLoop = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                if (selfObject.getSuperTypes().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "superTypes": [');
+                  var firstItLoop_0 = true;
+                  {
+                    var tmp$1 = selfObject.getSuperTypes().iterator();
+                    while (tmp$1.hasNext()) {
+                      var sub_0 = tmp$1.next();
+                      if (!firstItLoop_0) {
+                        ostream.println_0(',');
+                      }
+                      var subsub_0 = addrs.get(sub_0);
+                      if (subsub_0 != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub_0);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference MessagePortType/superTypes ');
+                      }
+                      firstItLoop_0 = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                if (selfObject.getFilters().size() > 0) {
+                  ostream.println(',');
+                  ostream.print(' "filters": [');
+                  var firstItLoop_1 = true;
+                  {
+                    var tmp$2 = selfObject.getFilters().iterator();
+                    while (tmp$2.hasNext()) {
+                      var sub_1 = tmp$2.next();
+                      if (!firstItLoop_1) {
+                        ostream.println_0(',');
+                      }
+                      var subsub_1 = addrs.get(sub_1);
+                      if (subsub_1 != null) {
+                        ostream.print_0('"');
+                        ostream.print(subsub_1);
+                        ostream.print_0('"');
+                      }
+                       else {
+                        throw new Error('KMF Serialization error : non contained reference MessagePortType/filters ');
+                      }
+                      firstItLoop_1 = false;
+                    }
+                  }
+                  ostream.print(']');
+                }
+                var subdictionaryType = selfObject.getDictionaryType();
+                if (subdictionaryType != null) {
+                  ostream.println(',');
+                  ostream.print('"dictionaryType":');
+                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
+                }
+                ostream.println('}');
+              }
+            },
             getTypeDefinitionJsonAddr: function (selfObject) {
               var subResult = new Kotlin.ComplexHashMap(0);
               var subdictionaryType = selfObject.getDictionaryType();
@@ -40433,46 +42632,14 @@ define(
                 ostream.println('}');
               }
             },
-            getInstanceJsonAddr: function (selfObject) {
+            getTypeLibraryJsonAddr: function (selfObject) {
               var subResult = new Kotlin.ComplexHashMap(0);
-              var subdictionary = selfObject.getDictionary();
-              if (subdictionary != null) {
-                var tmp$0;
-                subResult.put(subdictionary, (tmp$0 = subdictionary.path()) != null ? tmp$0 : Kotlin.throwNPE());
-                subResult.putAll(this.getDictionaryJsonAddr(subdictionary));
-              }
-              if (Kotlin.isType(selfObject, _.org.kevoree.impl.ComponentInstanceImpl) || Kotlin.isType(selfObject, _.org.kevoree.ComponentInstance)) {
-                subResult.putAll(this.getComponentInstanceJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ContainerNodeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ContainerNode)) {
-                subResult.putAll(this.getContainerNodeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ChannelImpl) || Kotlin.isType(selfObject, _.org.kevoree.Channel)) {
-                subResult.putAll(this.getChannelJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.GroupImpl) || Kotlin.isType(selfObject, _.org.kevoree.Group)) {
-                subResult.putAll(this.getGroupJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
-              }
-               else {
-              }
               return subResult;
             },
-            InstancetoJson: function (selfObject, addrs, ostream) {
-              if (Kotlin.isType(selfObject, _.org.kevoree.impl.ComponentInstanceImpl) || Kotlin.isType(selfObject, _.org.kevoree.ComponentInstance)) {
-                this.ComponentInstancetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ContainerNodeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ContainerNode)) {
-                this.ContainerNodetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ChannelImpl) || Kotlin.isType(selfObject, _.org.kevoree.Channel)) {
-                this.ChanneltoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.GroupImpl) || Kotlin.isType(selfObject, _.org.kevoree.Group)) {
-                this.GrouptoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
-              }
-               else {
+            TypeLibrarytoJson: function (selfObject, addrs, ostream) {
+              {
                 ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:Instance" ');
+                ostream.print(' "eClass":"org.kevoree:TypeLibrary" ');
                 if (!Kotlin.equals(selfObject.getName().toString(), '')) {
                   ostream.println(',');
                   ostream.print(' "name":');
@@ -40480,131 +42647,12 @@ define(
                   this.escapeJson(ostream, selfObject.getName());
                   ostream.print_0('"');
                 }
-                if (!Kotlin.equals(selfObject.getMetaData().toString(), '')) {
+                if (selfObject.getSubTypes().size() > 0) {
                   ostream.println(',');
-                  ostream.print(' "metaData":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getMetaData());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getStarted()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "started":');
-                  ostream.print_1(selfObject.getStarted());
-                }
-                var subsubtypeDefinition = selfObject.getTypeDefinition();
-                if (subsubtypeDefinition != null) {
-                  var subsubsubtypeDefinition = addrs.get(subsubtypeDefinition);
-                  if (subsubsubtypeDefinition != null) {
-                    ostream.println(',');
-                    ostream.print(' "typeDefinition":"' + subsubsubtypeDefinition + '"');
-                  }
-                   else {
-                    throw new Error('KMF Instance Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
-                  }
-                }
-                var subdictionary = selfObject.getDictionary();
-                if (subdictionary != null) {
-                  ostream.println(',');
-                  ostream.print('"dictionary":');
-                  this.DictionarytoJson(subdictionary, addrs, ostream);
-                }
-                ostream.println('}');
-              }
-            },
-            getLifeCycleTypeDefinitionJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              var subdictionaryType = selfObject.getDictionaryType();
-              if (subdictionaryType != null) {
-                var tmp$0;
-                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
-                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
-              }
-              if (Kotlin.isType(selfObject, _.org.kevoree.impl.ComponentTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ComponentType)) {
-                subResult.putAll(this.getComponentTypeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ChannelTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ChannelType)) {
-                subResult.putAll(this.getChannelTypeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.GroupTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.GroupType)) {
-                subResult.putAll(this.getGroupTypeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.NodeTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.NodeType)) {
-                subResult.putAll(this.getNodeTypeJsonAddr(selfObject != null ? selfObject : Kotlin.throwNPE()));
-              }
-               else {
-              }
-              return subResult;
-            },
-            LifeCycleTypeDefinitiontoJson: function (selfObject, addrs, ostream) {
-              if (Kotlin.isType(selfObject, _.org.kevoree.impl.ComponentTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ComponentType)) {
-                this.ComponentTypetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.ChannelTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.ChannelType)) {
-                this.ChannelTypetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.GroupTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.GroupType)) {
-                this.GroupTypetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
-              }
-               else if (Kotlin.isType(selfObject, _.org.kevoree.impl.NodeTypeImpl) || Kotlin.isType(selfObject, _.org.kevoree.NodeType)) {
-                this.NodeTypetoJson(selfObject != null ? selfObject : Kotlin.throwNPE(), addrs, ostream);
-              }
-               else {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:LifeCycleTypeDefinition" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "factoryBean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getFactoryBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "bean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "abstract":');
-                  ostream.print_1(selfObject.getAbstract());
-                }
-                if (!Kotlin.equals(selfObject.getStartMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "startMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getStartMethod());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getStopMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "stopMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getStopMethod());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getUpdateMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "updateMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getUpdateMethod());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getDeployUnits().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "deployUnits": [');
+                  ostream.print(' "subTypes": [');
                   var firstItLoop = true;
                   {
-                    var tmp$0 = selfObject.getDeployUnits().iterator();
+                    var tmp$0 = selfObject.getSubTypes().iterator();
                     while (tmp$0.hasNext()) {
                       var sub = tmp$0.next();
                       if (!firstItLoop) {
@@ -40617,61 +42665,24 @@ define(
                         ostream.print_0('"');
                       }
                        else {
-                        throw new Error('KMF Serialization error : non contained reference LifeCycleTypeDefinition/deployUnits ');
+                        throw new Error('KMF Serialization error : non contained reference TypeLibrary/subTypes ');
                       }
                       firstItLoop = false;
                     }
                   }
                   ostream.print(']');
                 }
-                if (selfObject.getSuperTypes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "superTypes": [');
-                  var firstItLoop_0 = true;
-                  {
-                    var tmp$1 = selfObject.getSuperTypes().iterator();
-                    while (tmp$1.hasNext()) {
-                      var sub_0 = tmp$1.next();
-                      if (!firstItLoop_0) {
-                        ostream.println_0(',');
-                      }
-                      var subsub_0 = addrs.get(sub_0);
-                      if (subsub_0 != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub_0);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference LifeCycleTypeDefinition/superTypes ');
-                      }
-                      firstItLoop_0 = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                var subdictionaryType = selfObject.getDictionaryType();
-                if (subdictionaryType != null) {
-                  ostream.println(',');
-                  ostream.print('"dictionaryType":');
-                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
-                }
                 ostream.println('}');
               }
             },
-            getGroupJsonAddr: function (selfObject) {
+            getNetworkPropertyJsonAddr: function (selfObject) {
               var subResult = new Kotlin.ComplexHashMap(0);
-              var subdictionary = selfObject.getDictionary();
-              if (subdictionary != null) {
-                var tmp$0;
-                subResult.put(subdictionary, (tmp$0 = subdictionary.path()) != null ? tmp$0 : Kotlin.throwNPE());
-                subResult.putAll(this.getDictionaryJsonAddr(subdictionary));
-              }
               return subResult;
             },
-            GrouptoJson: function (selfObject, addrs, ostream) {
+            NetworkPropertytoJson: function (selfObject, addrs, ostream) {
               {
                 ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:Group" ');
+                ostream.print(' "eClass":"org.kevoree:NetworkProperty" ');
                 if (!Kotlin.equals(selfObject.getName().toString(), '')) {
                   ostream.println(',');
                   ostream.print(' "name":');
@@ -40679,407 +42690,19 @@ define(
                   this.escapeJson(ostream, selfObject.getName());
                   ostream.print_0('"');
                 }
-                if (!Kotlin.equals(selfObject.getMetaData().toString(), '')) {
+                if (!Kotlin.equals(selfObject.getValue().toString(), '')) {
                   ostream.println(',');
-                  ostream.print(' "metaData":');
+                  ostream.print(' "value":');
                   ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getMetaData());
+                  this.escapeJson(ostream, selfObject.getValue());
                   ostream.print_0('"');
                 }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getStarted()), '')) {
+                if (!Kotlin.equals(selfObject.getLastCheck().toString(), '')) {
                   ostream.println(',');
-                  ostream.print(' "started":');
-                  ostream.print_1(selfObject.getStarted());
-                }
-                var subsubtypeDefinition = selfObject.getTypeDefinition();
-                if (subsubtypeDefinition != null) {
-                  var subsubsubtypeDefinition = addrs.get(subsubtypeDefinition);
-                  if (subsubsubtypeDefinition != null) {
-                    ostream.println(',');
-                    ostream.print(' "typeDefinition":"' + subsubsubtypeDefinition + '"');
-                  }
-                   else {
-                    throw new Error('KMF Group Serialization error : No address found for reference typeDefinition(id:' + subsubtypeDefinition + ' container:' + subsubtypeDefinition.eContainer() + ')');
-                  }
-                }
-                if (selfObject.getSubNodes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "subNodes": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getSubNodes().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference Group/subNodes ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                var subdictionary = selfObject.getDictionary();
-                if (subdictionary != null) {
-                  ostream.println(',');
-                  ostream.print('"dictionary":');
-                  this.DictionarytoJson(subdictionary, addrs, ostream);
-                }
-                ostream.println('}');
-              }
-            },
-            getGroupTypeJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              var subdictionaryType = selfObject.getDictionaryType();
-              if (subdictionaryType != null) {
-                var tmp$0;
-                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
-                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
-              }
-              return subResult;
-            },
-            GroupTypetoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:GroupType" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
+                  ostream.print(' "lastCheck":');
                   ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
+                  this.escapeJson(ostream, selfObject.getLastCheck());
                   ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "factoryBean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getFactoryBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "bean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "abstract":');
-                  ostream.print_1(selfObject.getAbstract());
-                }
-                if (!Kotlin.equals(selfObject.getStartMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "startMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getStartMethod());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getStopMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "stopMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getStopMethod());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getUpdateMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "updateMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getUpdateMethod());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getDeployUnits().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "deployUnits": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getDeployUnits().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference GroupType/deployUnits ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                if (selfObject.getSuperTypes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "superTypes": [');
-                  var firstItLoop_0 = true;
-                  {
-                    var tmp$1 = selfObject.getSuperTypes().iterator();
-                    while (tmp$1.hasNext()) {
-                      var sub_0 = tmp$1.next();
-                      if (!firstItLoop_0) {
-                        ostream.println_0(',');
-                      }
-                      var subsub_0 = addrs.get(sub_0);
-                      if (subsub_0 != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub_0);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference GroupType/superTypes ');
-                      }
-                      firstItLoop_0 = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                var subdictionaryType = selfObject.getDictionaryType();
-                if (subdictionaryType != null) {
-                  ostream.println(',');
-                  ostream.print('"dictionaryType":');
-                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
-                }
-                ostream.println('}');
-              }
-            },
-            getNodeTypeJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              var i = 0;
-              var subdictionaryType = selfObject.getDictionaryType();
-              if (subdictionaryType != null) {
-                var tmp$0;
-                subResult.put(subdictionaryType, (tmp$0 = subdictionaryType.path()) != null ? tmp$0 : Kotlin.throwNPE());
-                subResult.putAll(this.getDictionaryTypeJsonAddr(subdictionaryType));
-              }
-              {
-                var tmp$1 = selfObject.getManagedPrimitiveTypeRefs().iterator();
-                while (tmp$1.hasNext()) {
-                  var sub = tmp$1.next();
-                  var subPath_managedPrimitiveTypeRefs = sub.path();
-                  var tmp$2;
-                  subResult.put(sub, (tmp$2 = sub.path()) != null ? tmp$2 : Kotlin.throwNPE());
-                  subResult.putAll(this.getAdaptationPrimitiveTypeRefJsonAddr(sub));
-                  i = i + 1;
-                }
-              }
-              return subResult;
-            },
-            NodeTypetoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:NodeType" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getFactoryBean().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "factoryBean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getFactoryBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getBean().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "bean":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getBean());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(Kotlin.toString(selfObject.getAbstract()), '')) {
-                  ostream.println(',');
-                  ostream.print(' "abstract":');
-                  ostream.print_1(selfObject.getAbstract());
-                }
-                if (!Kotlin.equals(selfObject.getStartMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "startMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getStartMethod());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getStopMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "stopMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getStopMethod());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getUpdateMethod().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "updateMethod":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getUpdateMethod());
-                  ostream.print_0('"');
-                }
-                if (selfObject.getDeployUnits().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "deployUnits": [');
-                  var firstItLoop = true;
-                  {
-                    var tmp$0 = selfObject.getDeployUnits().iterator();
-                    while (tmp$0.hasNext()) {
-                      var sub = tmp$0.next();
-                      if (!firstItLoop) {
-                        ostream.println_0(',');
-                      }
-                      var subsub = addrs.get(sub);
-                      if (subsub != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference NodeType/deployUnits ');
-                      }
-                      firstItLoop = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                if (selfObject.getSuperTypes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "superTypes": [');
-                  var firstItLoop_0 = true;
-                  {
-                    var tmp$1 = selfObject.getSuperTypes().iterator();
-                    while (tmp$1.hasNext()) {
-                      var sub_0 = tmp$1.next();
-                      if (!firstItLoop_0) {
-                        ostream.println_0(',');
-                      }
-                      var subsub_0 = addrs.get(sub_0);
-                      if (subsub_0 != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub_0);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference NodeType/superTypes ');
-                      }
-                      firstItLoop_0 = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                if (selfObject.getManagedPrimitiveTypes().size() > 0) {
-                  ostream.println(',');
-                  ostream.print(' "managedPrimitiveTypes": [');
-                  var firstItLoop_1 = true;
-                  {
-                    var tmp$2 = selfObject.getManagedPrimitiveTypes().iterator();
-                    while (tmp$2.hasNext()) {
-                      var sub_1 = tmp$2.next();
-                      if (!firstItLoop_1) {
-                        ostream.println_0(',');
-                      }
-                      var subsub_1 = addrs.get(sub_1);
-                      if (subsub_1 != null) {
-                        ostream.print_0('"');
-                        ostream.print(subsub_1);
-                        ostream.print_0('"');
-                      }
-                       else {
-                        throw new Error('KMF Serialization error : non contained reference NodeType/managedPrimitiveTypes ');
-                      }
-                      firstItLoop_1 = false;
-                    }
-                  }
-                  ostream.print(']');
-                }
-                var subdictionaryType = selfObject.getDictionaryType();
-                if (subdictionaryType != null) {
-                  ostream.println(',');
-                  ostream.print('"dictionaryType":');
-                  this.DictionaryTypetoJson(subdictionaryType, addrs, ostream);
-                }
-                if (selfObject.getManagedPrimitiveTypeRefs().size() > 0) {
-                  ostream.println(',');
-                  ostream.println_0('"managedPrimitiveTypeRefs": [');
-                  var iloop_first_managedPrimitiveTypeRefs = true;
-                  {
-                    var tmp$3 = selfObject.getManagedPrimitiveTypeRefs().iterator();
-                    while (tmp$3.hasNext()) {
-                      var so = tmp$3.next();
-                      if (!iloop_first_managedPrimitiveTypeRefs) {
-                        ostream.println(',');
-                      }
-                      this.AdaptationPrimitiveTypeReftoJson(so, addrs, ostream);
-                      iloop_first_managedPrimitiveTypeRefs = false;
-                    }
-                  }
-                  ostream.println(']');
-                }
-                ostream.println('}');
-              }
-            },
-            getAdaptationPrimitiveTypeJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            AdaptationPrimitiveTypetoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:AdaptationPrimitiveType" ');
-                if (!Kotlin.equals(selfObject.getName().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "name":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getName());
-                  ostream.print_0('"');
-                }
-                ostream.println('}');
-              }
-            },
-            getAdaptationPrimitiveTypeRefJsonAddr: function (selfObject) {
-              var subResult = new Kotlin.ComplexHashMap(0);
-              return subResult;
-            },
-            AdaptationPrimitiveTypeReftoJson: function (selfObject, addrs, ostream) {
-              {
-                ostream.print_0('{');
-                ostream.print(' "eClass":"org.kevoree:AdaptationPrimitiveTypeRef" ');
-                if (!Kotlin.equals(selfObject.getMaxTime().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "maxTime":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getMaxTime());
-                  ostream.print_0('"');
-                }
-                if (!Kotlin.equals(selfObject.getGenerated_KMF_ID().toString(), '')) {
-                  ostream.println(',');
-                  ostream.print(' "generated_KMF_ID":');
-                  ostream.print('"');
-                  this.escapeJson(ostream, selfObject.getGenerated_KMF_ID());
-                  ostream.print_0('"');
-                }
-                var subsubref = selfObject.getRef();
-                if (subsubref != null) {
-                  var subsubsubref = addrs.get(subsubref);
-                  if (subsubsubref != null) {
-                    ostream.println(',');
-                    ostream.print(' "ref":"' + subsubsubref + '"');
-                  }
-                   else {
-                    throw new Error('KMF AdaptationPrimitiveTypeRef Serialization error : No address found for reference ref(id:' + subsubref + ' container:' + subsubref.eContainer() + ')');
-                  }
                 }
                 ostream.println('}');
               }
@@ -41803,20 +43426,20 @@ define(
             },
             exportToString: function () {
               var buffer = new _.java.lang.StringBuilder();
-              buffer.append_0('[');
+              buffer.append('[');
               var isFirst = true;
               {
                 var tmp$0 = this.get_traces().iterator();
                 while (tmp$0.hasNext()) {
                   var trace = tmp$0.next();
                   if (!isFirst) {
-                    buffer.append_0(',');
+                    buffer.append(',');
                   }
-                  buffer.append_0(trace.toString());
+                  buffer.append(trace.toString());
                   isFirst = false;
                 }
               }
-              buffer.append_0(']');
+              buffer.append(']');
               return buffer.toString();
             },
             applyOn: function (target) {
@@ -41849,10 +43472,10 @@ define(
           set_content: function (tmp$0) {
             this.$content = tmp$0;
           },
-          append_0: function (sub) {
+          append: function (sub) {
             this.set_content(this.get_content() + sub);
           },
-          append: function (sub) {
+          append_0: function (sub) {
             this.set_content(this.get_content() + sub);
           },
           toString: function () {
@@ -42098,6 +43721,473 @@ define(
       }
     });
   }.call(_.org.kevoree.modeling.api.util));
+  (function () {
+    this.Log = Kotlin.createObject(null, {
+      initialize: function () {
+        this.$LEVEL_NONE = 6;
+        this.$LEVEL_ERROR = 5;
+        this.$LEVEL_WARN = 4;
+        this.$LEVEL_INFO = 3;
+        this.$LEVEL_DEBUG = 2;
+        this.$LEVEL_TRACE = 1;
+        this.$level = this.get_LEVEL_INFO();
+        this.$ERROR = this.get_level() <= this.get_LEVEL_ERROR();
+        this.$WARN = this.get_level() <= this.get_LEVEL_WARN();
+        this.$INFO = this.get_level() <= this.get_LEVEL_INFO();
+        this.$DEBUG = this.get_level() <= this.get_LEVEL_DEBUG();
+        this.$TRACE = this.get_level() <= this.get_LEVEL_TRACE();
+        this.$logger = new _.org.kevoree.log.Logger();
+        this.$beginParam = '{';
+        this.$endParam = '}';
+      },
+      get_LEVEL_NONE: function () {
+        return this.$LEVEL_NONE;
+      },
+      get_LEVEL_ERROR: function () {
+        return this.$LEVEL_ERROR;
+      },
+      get_LEVEL_WARN: function () {
+        return this.$LEVEL_WARN;
+      },
+      get_LEVEL_INFO: function () {
+        return this.$LEVEL_INFO;
+      },
+      get_LEVEL_DEBUG: function () {
+        return this.$LEVEL_DEBUG;
+      },
+      get_LEVEL_TRACE: function () {
+        return this.$LEVEL_TRACE;
+      },
+      get_level: function () {
+        return this.$level;
+      },
+      set_level: function (tmp$0) {
+        this.$level = tmp$0;
+      },
+      get_ERROR: function () {
+        return this.$ERROR;
+      },
+      set_ERROR: function (tmp$0) {
+        this.$ERROR = tmp$0;
+      },
+      get_WARN: function () {
+        return this.$WARN;
+      },
+      set_WARN: function (tmp$0) {
+        this.$WARN = tmp$0;
+      },
+      get_INFO: function () {
+        return this.$INFO;
+      },
+      set_INFO: function (tmp$0) {
+        this.$INFO = tmp$0;
+      },
+      get_DEBUG: function () {
+        return this.$DEBUG;
+      },
+      set_DEBUG: function (tmp$0) {
+        this.$DEBUG = tmp$0;
+      },
+      get_TRACE: function () {
+        return this.$TRACE;
+      },
+      set_TRACE: function (tmp$0) {
+        this.$TRACE = tmp$0;
+      },
+      set: function (level) {
+        _.org.kevoree.log.Log.set_level(level);
+        this.set_ERROR(level <= this.get_LEVEL_ERROR());
+        this.set_WARN(level <= this.get_LEVEL_WARN());
+        this.set_INFO(level <= this.get_LEVEL_INFO());
+        this.set_DEBUG(level <= this.get_LEVEL_DEBUG());
+        this.set_TRACE(level <= this.get_LEVEL_TRACE());
+      },
+      NONE: function () {
+        this.set(this.get_LEVEL_NONE());
+      },
+      ERROR: function () {
+        this.set(this.get_LEVEL_ERROR());
+      },
+      WARN: function () {
+        this.set(this.get_LEVEL_WARN());
+      },
+      INFO: function () {
+        this.set(this.get_LEVEL_INFO());
+      },
+      DEBUG: function () {
+        this.set(this.get_LEVEL_DEBUG());
+      },
+      TRACE: function () {
+        this.set(this.get_LEVEL_TRACE());
+      },
+      setLogger: function (logger) {
+        _.org.kevoree.log.Log.set_logger(logger);
+      },
+      get_logger: function () {
+        return this.$logger;
+      },
+      set_logger: function (tmp$0) {
+        this.$logger = tmp$0;
+      },
+      get_beginParam: function () {
+        return this.$beginParam;
+      },
+      get_endParam: function () {
+        return this.$endParam;
+      },
+      processMessage: function (message, p1, p2, p3, p4, p5) {
+        if (p1 == null) {
+          return message;
+        }
+        var buffer = new _.java.lang.StringBuilder();
+        var previousCharfound = false;
+        var param = 0;
+        var i = 0;
+        while (i < message.length) {
+          var currentChar = message.charAt(i);
+          if (previousCharfound) {
+            if (currentChar === this.get_endParam()) {
+              param++;
+              if (param === 1) {
+                buffer = new _.java.lang.StringBuilder();
+                buffer.append(message.substring(0, i - 1));
+                buffer.append(Kotlin.toString(p1 != null ? p1 : Kotlin.throwNPE()));
+              }
+               else if (param === 2) {
+                buffer.append(Kotlin.toString(p2 != null ? p2 : Kotlin.throwNPE()));
+              }
+               else if (param === 3) {
+                buffer.append(Kotlin.toString(p3 != null ? p3 : Kotlin.throwNPE()));
+              }
+               else if (param === 4) {
+                buffer.append(Kotlin.toString(p4 != null ? p4 : Kotlin.throwNPE()));
+              }
+               else if (param === 5) {
+                buffer.append(Kotlin.toString(p5 != null ? p5 : Kotlin.throwNPE()));
+              }
+               else {
+              }
+              previousCharfound = false;
+            }
+             else {
+              if (buffer != null) {
+                message.charAt(i - 1);
+                buffer.append_0(currentChar);
+              }
+              previousCharfound = false;
+            }
+          }
+           else {
+            if (currentChar === this.get_beginParam()) {
+              previousCharfound = true;
+            }
+             else {
+              if (buffer != null) {
+                buffer.append_0(currentChar);
+              }
+            }
+          }
+          i = i + 1;
+        }
+        if (buffer != null) {
+          return buffer.toString();
+        }
+         else {
+          return message;
+        }
+      },
+      error: function (message) {
+        if (this.get_ERROR())
+          this.get_logger().log(this.get_LEVEL_ERROR(), message, null);
+      },
+      error_0: function (message, ex) {
+        if (this.get_ERROR())
+          this.get_logger().log(this.get_LEVEL_ERROR(), message, ex);
+      },
+      error_1: function (message, ex, p1) {
+        if (this.get_ERROR()) {
+          this.error_0(this.processMessage(message, p1, null, null, null, null), ex);
+        }
+      },
+      error_2: function (message, ex, p1, p2) {
+        if (this.get_ERROR()) {
+          this.error_0(this.processMessage(message, p1, p2, null, null, null), ex);
+        }
+      },
+      error_3: function (message, ex, p1, p2, p3) {
+        if (this.get_ERROR()) {
+          this.error_0(this.processMessage(message, p1, p2, p3, null, null), ex);
+        }
+      },
+      error_4: function (message, ex, p1, p2, p3, p4) {
+        if (this.get_ERROR()) {
+          this.error_0(this.processMessage(message, p1, p2, p3, p4, null), ex);
+        }
+      },
+      error_5: function (message, ex, p1, p2, p3, p4, p5) {
+        if (this.get_ERROR()) {
+          this.error_0(this.processMessage(message, p1, p2, p3, p4, p5), ex);
+        }
+      },
+      error_6: function (message, p1) {
+        if (this.get_ERROR()) {
+          this.error_0(this.processMessage(message, p1, null, null, null, null), null);
+        }
+      },
+      error_7: function (message, p1, p2) {
+        if (this.get_ERROR()) {
+          this.error_0(this.processMessage(message, p1, p2, null, null, null), null);
+        }
+      },
+      error_8: function (message, p1, p2, p3) {
+        if (this.get_ERROR()) {
+          this.error_0(this.processMessage(message, p1, p2, p3, null, null), null);
+        }
+      },
+      error_9: function (message, p1, p2, p3, p4) {
+        if (this.get_ERROR()) {
+          this.error_0(this.processMessage(message, p1, p2, p3, p4, null), null);
+        }
+      },
+      error_10: function (message, p1, p2, p3, p4, p5) {
+        if (this.get_ERROR()) {
+          this.error_0(this.processMessage(message, p1, p2, p3, p4, p5), null);
+        }
+      },
+      warn: function (message, ex) {
+        if (this.get_WARN())
+          this.get_logger().log(this.get_LEVEL_WARN(), message, ex);
+      },
+      warn_0: function (message) {
+        if (this.get_WARN())
+          this.get_logger().log(this.get_LEVEL_WARN(), message, null);
+      },
+      warn_1: function (message, ex, p1) {
+        if (this.get_WARN()) {
+          this.warn(this.processMessage(message, p1, null, null, null, null), ex);
+        }
+      },
+      warn_2: function (message, ex, p1, p2) {
+        if (this.get_WARN()) {
+          this.warn(this.processMessage(message, p1, p2, null, null, null), ex);
+        }
+      },
+      warn_3: function (message, ex, p1, p2, p3) {
+        if (this.get_WARN()) {
+          this.warn(this.processMessage(message, p1, p2, p3, null, null), ex);
+        }
+      },
+      warn_4: function (message, ex, p1, p2, p3, p4) {
+        if (this.get_WARN()) {
+          this.warn(this.processMessage(message, p1, p2, p3, p4, null), ex);
+        }
+      },
+      warn_5: function (message, ex, p1, p2, p3, p4, p5) {
+        if (this.get_WARN()) {
+          this.warn(this.processMessage(message, p1, p2, p3, p4, p5), ex);
+        }
+      },
+      warn_6: function (message, p1) {
+        if (this.get_WARN()) {
+          this.warn(this.processMessage(message, p1, null, null, null, null), null);
+        }
+      },
+      warn_7: function (message, p1, p2) {
+        if (this.get_WARN()) {
+          this.warn(this.processMessage(message, p1, p2, null, null, null), null);
+        }
+      },
+      warn_8: function (message, p1, p2, p3) {
+        if (this.get_WARN()) {
+          this.warn(this.processMessage(message, p1, p2, p3, null, null), null);
+        }
+      },
+      warn_9: function (message, p1, p2, p3, p4) {
+        if (this.get_WARN()) {
+          this.warn(this.processMessage(message, p1, p2, p3, p4, null), null);
+        }
+      },
+      warn_10: function (message, p1, p2, p3, p4, p5) {
+        if (this.get_WARN()) {
+          this.warn(this.processMessage(message, p1, p2, p3, p4, p5), null);
+        }
+      },
+      info: function (message, ex) {
+        if (this.get_INFO())
+          this.get_logger().log(this.get_LEVEL_INFO(), message, ex);
+      },
+      info_0: function (message) {
+        if (this.get_INFO())
+          this.get_logger().log(this.get_LEVEL_INFO(), message, null);
+      },
+      info_1: function (message, ex, p1) {
+        if (this.get_INFO()) {
+          this.info(this.processMessage(message, p1, null, null, null, null), ex);
+        }
+      },
+      info_2: function (message, ex, p1, p2) {
+        if (this.get_INFO()) {
+          this.info(this.processMessage(message, p1, p2, null, null, null), ex);
+        }
+      },
+      info_3: function (message, ex, p1, p2, p3) {
+        if (this.get_INFO()) {
+          this.info(this.processMessage(message, p1, p2, p3, null, null), ex);
+        }
+      },
+      info_4: function (message, ex, p1, p2, p3, p4) {
+        if (this.get_INFO()) {
+          this.info(this.processMessage(message, p1, p2, p3, p4, null), ex);
+        }
+      },
+      info_5: function (message, ex, p1, p2, p3, p4, p5) {
+        if (this.get_INFO()) {
+          this.info(this.processMessage(message, p1, p2, p3, p4, p5), ex);
+        }
+      },
+      info_6: function (message, p1) {
+        if (this.get_INFO()) {
+          this.info(this.processMessage(message, p1, null, null, null, null), null);
+        }
+      },
+      info_7: function (message, p1, p2) {
+        if (this.get_INFO()) {
+          this.info(this.processMessage(message, p1, p2, null, null, null), null);
+        }
+      },
+      info_8: function (message, p1, p2, p3) {
+        if (this.get_INFO()) {
+          this.info(this.processMessage(message, p1, p2, p3, null, null), null);
+        }
+      },
+      info_9: function (message, p1, p2, p3, p4) {
+        if (this.get_INFO()) {
+          this.info(this.processMessage(message, p1, p2, p3, p4, null), null);
+        }
+      },
+      info_10: function (message, p1, p2, p3, p4, p5) {
+        if (this.get_INFO()) {
+          this.info(this.processMessage(message, p1, p2, p3, p4, p5), null);
+        }
+      },
+      debug: function (message, ex) {
+        if (this.get_DEBUG())
+          this.get_logger().log(this.get_LEVEL_DEBUG(), message, ex);
+      },
+      debug_0: function (message) {
+        if (this.get_DEBUG())
+          this.get_logger().log(this.get_LEVEL_DEBUG(), message, null);
+      },
+      debug_1: function (message, ex, p1) {
+        if (this.get_DEBUG()) {
+          this.debug(this.processMessage(message, p1, null, null, null, null), ex);
+        }
+      },
+      debug_2: function (message, ex, p1, p2) {
+        if (this.get_DEBUG()) {
+          this.debug(this.processMessage(message, p1, p2, null, null, null), ex);
+        }
+      },
+      debug_3: function (message, ex, p1, p2, p3) {
+        if (this.get_DEBUG()) {
+          this.debug(this.processMessage(message, p1, p2, p3, null, null), ex);
+        }
+      },
+      debug_4: function (message, ex, p1, p2, p3, p4) {
+        if (this.get_DEBUG()) {
+          this.debug(this.processMessage(message, p1, p2, p3, p4, null), ex);
+        }
+      },
+      debug_5: function (message, ex, p1, p2, p3, p4, p5) {
+        if (this.get_DEBUG()) {
+          this.debug(this.processMessage(message, p1, p2, p3, p4, p5), ex);
+        }
+      },
+      debug_6: function (message, p1) {
+        if (this.get_DEBUG()) {
+          this.debug(this.processMessage(message, p1, null, null, null, null), null);
+        }
+      },
+      debug_7: function (message, p1, p2) {
+        if (this.get_DEBUG()) {
+          this.debug(this.processMessage(message, p1, p2, null, null, null), null);
+        }
+      },
+      debug_8: function (message, p1, p2, p3) {
+        if (this.get_DEBUG()) {
+          this.debug(this.processMessage(message, p1, p2, p3, null, null), null);
+        }
+      },
+      debug_9: function (message, p1, p2, p3, p4) {
+        if (this.get_DEBUG()) {
+          this.debug(this.processMessage(message, p1, p2, p3, p4, null), null);
+        }
+      },
+      debug_10: function (message, p1, p2, p3, p4, p5) {
+        if (this.get_DEBUG()) {
+          this.debug(this.processMessage(message, p1, p2, p3, p4, p5), null);
+        }
+      },
+      trace: function (message, ex) {
+        if (this.get_TRACE())
+          this.get_logger().log(this.get_LEVEL_TRACE(), message, ex);
+      },
+      trace_0: function (message) {
+        if (this.get_TRACE())
+          this.get_logger().log(this.get_LEVEL_TRACE(), message, null);
+      },
+      trace_1: function (message, ex, p1) {
+        if (this.get_TRACE()) {
+          this.trace(this.processMessage(message, p1, null, null, null, null), ex);
+        }
+      },
+      trace_2: function (message, ex, p1, p2) {
+        if (this.get_TRACE()) {
+          this.trace(this.processMessage(message, p1, p2, null, null, null), ex);
+        }
+      },
+      trace_3: function (message, ex, p1, p2, p3) {
+        if (this.get_TRACE()) {
+          this.trace(this.processMessage(message, p1, p2, p3, null, null), ex);
+        }
+      },
+      trace_4: function (message, ex, p1, p2, p3, p4) {
+        if (this.get_TRACE()) {
+          this.trace(this.processMessage(message, p1, p2, p3, p4, null), ex);
+        }
+      },
+      trace_5: function (message, ex, p1, p2, p3, p4, p5) {
+        if (this.get_TRACE()) {
+          this.trace(this.processMessage(message, p1, p2, p3, p4, p5), ex);
+        }
+      },
+      trace_6: function (message, p1) {
+        if (this.get_TRACE()) {
+          this.trace(this.processMessage(message, p1, null, null, null, null), null);
+        }
+      },
+      trace_7: function (message, p1, p2) {
+        if (this.get_TRACE()) {
+          this.trace(this.processMessage(message, p1, p2, null, null, null), null);
+        }
+      },
+      trace_8: function (message, p1, p2, p3) {
+        if (this.get_TRACE()) {
+          this.trace(this.processMessage(message, p1, p2, p3, null, null), null);
+        }
+      },
+      trace_9: function (message, p1, p2, p3, p4) {
+        if (this.get_TRACE()) {
+          this.trace(this.processMessage(message, p1, p2, p3, p4, null), null);
+        }
+      },
+      trace_10: function (message, p1, p2, p3, p4, p5) {
+        if (this.get_TRACE()) {
+          this.trace(this.processMessage(message, p1, p2, p3, p4, p5), null);
+        }
+      }
+    });
+  }.call(_.org.kevoree.log));
   (function () {
     this.Package = Kotlin.createObject(null, {
       initialize: function () {

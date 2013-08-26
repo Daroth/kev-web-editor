@@ -136,6 +136,13 @@ define(
             this._lockedModel = true;
             this._instanceVisitor.visitEditor(this);
             this._lockedModel = false;
+
+            // add model checker
+            this._model.addModelTreeListener({
+                elementChanged : function (event) {
+                    // TODO check model integrity
+                }
+            });
         }
 
         KEditor.prototype.mergeModel = function (model) {
