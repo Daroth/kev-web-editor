@@ -172,6 +172,12 @@ define(
             });
         }
 
+        $('body').off('show.corelib-popup');
+        $('body').on('show.corelib-popup', '#load-corelib-popup', function () {
+            if ($('.corelib-item:checked').size() == 0) {
+                $('#load-corelib').addClass('disabled');
+            }
+        });
 
         // ========================================
         // Listeners that trigger XXXCommand.execute(...)

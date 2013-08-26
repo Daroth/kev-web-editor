@@ -19,8 +19,8 @@ define(
             }, TIMEOUT);
 
             var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
-            console.log("model", model);
             var jsonModel = JSON.parse(serializer.serialize(model));
+
             $.ajax({
                 url: '/push',
                 type: 'POST',
@@ -32,8 +32,6 @@ define(
                 },
                 dataType: 'json',
                 success: function (data) {
-                    console.log("PUSH REQUEST ANSWER", data);
-
                     switch (data.result) {
                         case 1:
                             if (callbacks.success && typeof(callbacks.success) == "function") {

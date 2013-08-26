@@ -33,15 +33,13 @@ exports.load = function (req, res) {
                             for (var i=0; i < artifacts.length; i++) {
                                 var rawArt = artifacts[i]['artifactId'][0].split('.');
 
-                                var resURI  = artifacts[i]['resourceURI'][0],
-                                    grpId   = artifacts[i]['groupId'][0],
+                                var grpId   = artifacts[i]['groupId'][0],
                                     artId   = artifacts[i]['artifactId'][0],
                                     name    = rawArt[rawArt.length-1],
                                     version = artifacts[i]['version'][0];
 
                                 if (artifacts[i]['classifier'] == undefined) { // XXX Warning, this could be really bad
                                     libraries.push({
-                                        resourceURI:    resURI,
                                         groupID:        grpId,
                                         artifactID:     artId,
                                         simpleName:     name,

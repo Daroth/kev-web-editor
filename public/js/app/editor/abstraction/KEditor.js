@@ -138,6 +138,17 @@ define(
             this._lockedModel = false;
         }
 
+        KEditor.prototype.mergeModel = function (model) {
+            if (this._model != null) {
+                // merge needed because there is a model currently set in the editor
+                var compare = new Kevoree.org.kevoree.compare.DefaultModelCompare(),
+                    diffSeq = compare.merge(model, this._model);
+                diffSeq.applyOn(model);
+            }
+
+            this.setModel(model);
+        }
+
         KEditor.prototype.updateModel = function (entity) {
             if (!this._lockedModel) entity.accept(this._updateVisitor);
         }

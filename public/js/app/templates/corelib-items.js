@@ -1,7 +1,8 @@
 define(['jadeRuntime'], function(jade) {
 return function anonymous(locals) {
 var buf = [];
-var locals_ = (locals || {}),items = locals_.items,platform = locals_.platform;// iterate items
+var locals_ = (locals || {}),items = locals_.items,platform = locals_.platform;buf.push("<label class=\"checkbox\"><input id=\"corelib-selectall\" type=\"checkbox\"/><strong>Select all</strong></label>");
+// iterate items
 ;(function(){
   var $$obj = items;
   if ('number' == typeof $$obj.length) {

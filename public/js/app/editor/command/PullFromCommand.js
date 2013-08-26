@@ -21,7 +21,6 @@ define(
             var serializer = new Kevoree.org.kevoree.serializer.JSONModelSerializer();
             var jsonModel = JSON.parse(serializer.serialize(model));
 
-            // TODO push model
             $.ajax({
                 url: '/pull',
                 type: 'POST',
@@ -51,7 +50,7 @@ define(
                             if (callbacks.error && typeof(callbacks.error) == "function") {
                                 callbacks.error.call(
                                     this,
-                                    'Something went wrong while pushing model to '+node.getName()+' via '+grp.getName()
+                                    'Something went wrong while pulling model to '+node.getName()+' via '+grp.getName()
                                 );
                             }
                             clearTimeout(that._id);

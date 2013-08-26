@@ -37,10 +37,38 @@ define(
                             items: data.libraries
                         })
                     );
+                    // register listener to enable/disable Load button
+                    $('.corelib-item').off('click');
+                    $('.corelib-item').on('click', function () {
+                        if ($(this).prop('checked') == true) {
+                            // if there is at least one item selected = enable button
+                            $('#load-corelib').removeClass('disabled');
+                        } else {
+                            if ($('.corelib-item:checked').size() == 0) {
+                                // no item are checked = disable button
+                                $('#load-corelib').addClass('disabled');
+                            }
+                        }
+                    });
+
+                    // register listener for 'select all' checkbox
+                    $('#corelib-selectall').off('click');
+                    $('#corelib-selectall').on('click', function () {
+                        if ($(this).prop('checked')) {
+                            $('.corelib-item[data-library-platform='+platform+']').prop('checked', true);
+                            $('#load-corelib').removeClass('disabled');
+                        } else {
+                            $('.corelib-item[data-library-platform='+platform+']').prop('checked', false);
+                            if ($('.corelib-item:checked').size() == 0) {
+                                $('#load-corelib').addClass('disabled');
+                            }
+                        }
+                    });
                 },
                 error: function (err) {
                     // fail
-                    console.log("javase error", err);
+                    console.log(platform+" libraries load error", err);
+                    $('#corelib-'+platform).html('<p>Something went wrong while loading libraries :-(</p>');
                 }
             });
         }
