@@ -2,9 +2,10 @@ define(
     [
         'jquery',
         'util/ModelHelper',
-        'util/AlertPopupHelper'
+        'util/AlertPopupHelper',
+        'kevoree'
     ],
-    function ($, ModelHelper, AlertPopupHelper) {
+    function ($, ModelHelper, AlertPopupHelper, Kevoree) {
         var NAMESPACE = '.merge-file-command';
 
         function MergeCommand () {}
@@ -57,6 +58,8 @@ define(
 
                 // reset input field
                 $(this).val('');
+
+                $('#file').off(NAMESPACE);
             });
         }
 

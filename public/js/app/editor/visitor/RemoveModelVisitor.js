@@ -28,8 +28,10 @@ define(
 
         RemoveModelVisitor.prototype.visitChannel = function (chan) {
             var instance = this._model.findHubsByID(chan._name);
-            this._model.removeHubs(instance);
-            this._listener.call(this);
+            if (instance != null) {
+                this._model.removeHubs(instance);
+                this._listener.call(this);
+            }
         }
 
         RemoveModelVisitor.prototype.visitNode = function (node) {
@@ -43,14 +45,18 @@ define(
         RemoveModelVisitor.prototype.visitComponent = function (comp) {
             var node = this._model.findNodesByID(comp._parent.getName()),
                 instance = node.findComponentsByID(comp._name);
-            node.removeComponents(instance);
-            this._listener.call(this);
+            if (node != null && instance != null) {
+                node.removeComponents(instance);
+                this._listener.call(this);
+            }
         }
 
         RemoveModelVisitor.prototype.visitGroup = function (grp) {
             var instance = this._model.findGroupsByID(grp._name);
-            this._model.removeGroups(instance);
-            this._listener.call(this);
+            if (instance != null) {
+                this._model.removeGroups(instance);
+                this._listener.call(this);
+            }
         }
 
         RemoveModelVisitor.prototype.visitOutputPort = function (port) {}
@@ -58,8 +64,10 @@ define(
         RemoveModelVisitor.prototype.visitInputPort = function (port) {}
 
         RemoveModelVisitor.prototype.visitWire = function (wire) {
-            this._model.removeMBindings(wire._instance);
-            this._listener.call(this);
+            if (wire._instance != null) {
+                this._model.removeMBindings(wire._instance);
+                this._listener.call(this);
+            }
         }
 
         RemoveModelVisitor.prototype.visitNodeProperties = function (nodeProps) {

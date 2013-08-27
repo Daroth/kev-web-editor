@@ -19,14 +19,15 @@ define(
 
                 for (var i=0; i < dicAttrs.size(); i++) {
                     var dicAttr = dicAttrs.get(i),
+                        datatype = dicAttr.getDatatype() || '',
                         factory = require('factory/CFactory').getInstance(),
                         attr = factory.newAttribute(this);
 
                     // set attribute fields
                     attr.setName(dicAttr.getName());
                     // if ENUM set possible values into attribute's enum
-                    if (dicAttr.getDatatype().substr(0, ENUM.length) == ENUM) { // attr.getDatatype() starts with "enum="
-                        var str = dicAttr.getDatatype().substr(ENUM.length, dicAttr.getDatatype().length);
+                    if (datatype.substr(0, ENUM.length) == ENUM) { // attr.getDatatype() starts with "enum="
+                        var str = datatype.substr(ENUM.length, datatype.length);
                         attr.setEnum(str.split(','));
                     }
                     attr.setFragmentDependant(Util.parseBoolean(dicAttr.getFragmentDependant()));

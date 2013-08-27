@@ -135,7 +135,6 @@ define(
 
                     var update = (wire._instance) ? true : false;
                     wire._instance = wire._instance || this._factory.createMBinding();
-
                     wire._instance.setPort(wire.getOrigin()._instance);
                     wire._instance.setHub(hub);
 
@@ -167,7 +166,6 @@ define(
 
             var update = (port._instance) ? true : false;
             port._instance = port._instance || this._factory.createPort();
-
             if (!update) comp.addProvided(port._instance);
             port._instance.setPortTypeRef(portRef);
 

@@ -165,9 +165,11 @@ define(
                         }
                     }
 
-                    function addPortToEditor(port, component, chan) {
-                        port.setComponent(component);
-                        var wire = port.createWire();
+                    function addPortToEditor(portEntity, component, chan) {
+                        portEntity.setComponent(component);
+                        portEntity._instance = port;
+                        var wire = portEntity.createWire();
+                        wire._instance = bindings.get(i);
                         wire.setTarget(chan);
                         chan.addWire(wire);
                     }

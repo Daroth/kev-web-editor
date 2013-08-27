@@ -86,6 +86,8 @@ define(
 
                     // reset input field
                     $(this).val('');
+
+                    $('#file').off(NAMESPACE);
                 });
             }
 
