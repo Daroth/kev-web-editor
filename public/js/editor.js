@@ -189,6 +189,17 @@ define(
             }
         });
 
+//        // drop listener to load file automatically
+//        $(document).on('dragenter', function (e) {
+//            console.log("DRAG ENTER", e);
+//        });
+//
+//        $('#editor').on('drop', function (e) {
+//            console.log("DROP", e.originalEvent.dataTransfer);
+//            e.stopPropagation();
+//            e.preventDefault();
+//        });
+
         // ========================================
         // Listeners that trigger XXXCommand.execute(...)
         $('#load').click(function (e) {
