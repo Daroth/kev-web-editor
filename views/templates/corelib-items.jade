@@ -3,7 +3,7 @@
     otherwise your pre-compiled Javascript template in public/js/app/templates won't be up-to-date
 
 label.checkbox
-  input#corelib-selectall(type='checkbox')
+  input(id='corelib-selectall-'+platform, type='checkbox')
   strong Select all
 each item, i in items
   label.corelib-item-label.checkbox

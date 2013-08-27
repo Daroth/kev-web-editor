@@ -25,7 +25,7 @@ define(
         function loadLibs(platform, editor) {
             $.ajax({
                 url: '/load',
-                timeout: 10000, // 10 seconds timeout
+                //timeout: 10000, // 10 seconds timeout
                 data: {platform: platform},
                 dataType: 'json',
                 success: function (data) {
@@ -52,8 +52,8 @@ define(
                     });
 
                     // register listener for 'select all' checkbox
-                    $('#corelib-selectall').off('click');
-                    $('#corelib-selectall').on('click', function () {
+                    $('#corelib-selectall-'+platform).off('click');
+                    $('#corelib-selectall-'+platform).on('click', function () {
                         if ($(this).prop('checked')) {
                             $('.corelib-item[data-library-platform='+platform+']').prop('checked', true);
                             $('#load-corelib').removeClass('disabled');

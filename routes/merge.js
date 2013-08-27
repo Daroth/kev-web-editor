@@ -3,7 +3,8 @@
  */
 
 var java = require('java');
-java.classpath.push("jars/org.kevoree.tools.modelsync-2.0.0-SNAPSHOT.jar");
+var config = require('../config');
+java.classpath.push(config.KEV_JAR);
 
 exports.merge = function(req, res) {
     if (req.xhr) {

@@ -3,8 +3,8 @@
  */
 
 var java = require('java');
-
-java.classpath.push("jars/org.kevoree.tools.modelsync-2.0.0-SNAPSHOT.jar");
+var config = require('../config');
+java.classpath.push(config.KEV_JAR);
 // node-java module uses the 'Sync' syntax for methods executed directly, otherwise
 // you need to use callbacks to handle results (this has nothing to do with ModelSync sync keyword)
 var modelSync   = java.newInstanceSync('org.kevoree.tools.modelsync.ModelSyncBean'),
