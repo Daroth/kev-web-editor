@@ -53,8 +53,12 @@ define(
         }
 
         KWire.prototype.disconnect = function() {
-            if (this._origin) this._origin.disconnect(this);
-            if (this._target) this._target.disconnect(this);
+            if (this._origin != null) {
+                this._origin.disconnect(this);
+            }
+            if (this._target != null) {
+                this._target.disconnect(this);
+            }
             this._origin = null;
             this._target = null;
         }

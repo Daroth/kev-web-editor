@@ -42,7 +42,7 @@ define(
                     });
                 } catch (err) {
                     $('#save-popup-text').html("Something went wrong while uploading your model.. :(");
-                    console.error(err);
+                    console.error("SaveCommand ERROR: "+err.message, editor.getModel());
                 }
             } else {
                 AlertPopupHelper.setType(AlertPopupHelper.WARN);

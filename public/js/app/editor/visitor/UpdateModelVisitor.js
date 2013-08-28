@@ -125,8 +125,7 @@ define(
                     var node = this._model.findNodesByID(wire.getTarget().getName()),
                         grp = this._model.findGroupsByID(wire.getOrigin().getName());
 
-                    var update = (wire._instance) ? true : false;
-                    if (node && grp && !update) grp.addSubNodes(node);
+                    if (node && grp) grp.addSubNodes(node);
                     break;
 
                 case KInputPort.ENTITY_TYPE:
@@ -253,6 +252,7 @@ define(
                 value.setTargetNode(node);
 
                 val.getAttribute().getDictionary()._instance.addValues(value);
+                val._instance = value;
 
                 this._listener.call(this);
             }

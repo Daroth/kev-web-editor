@@ -1,9 +1,10 @@
 define(
     [
+        'abstraction/KGroup',
         'kevoree'
     ],
 
-    function (Kevoree) {
+    function (KGroup, Kevoree) {
 
         /**
          * Visit editor entities list in order to remove instances from model
@@ -29,6 +30,8 @@ define(
         RemoveModelVisitor.prototype.visitChannel = function (chan) {
             var instance = this._model.findHubsByID(chan._name);
             if (instance != null) {
+                // TODO remove wires and opposite ref in frag dep attributes
+
                 this._model.removeHubs(instance);
                 this._listener.call(this);
             }
@@ -36,7 +39,24 @@ define(
 
         RemoveModelVisitor.prototype.visitNode = function (node) {
             var instance = this._model.findNodesByID(node._name);
-            if (node) {
+            if (instance != null) {
+                var wires = node.getWires();
+                for (var i in wires) {
+                    var grp = this._model.findGroupsByID(wires[i].getOrigin().getName()),
+                        dic = wires[i].getOrigin().getDictionary(),
+                        values = dic.getValues();
+                    for (var j in values) {
+                        var targetNode = values[j].getTargetNode();
+                        if (targetNode != null && targetNode.getName() == node.getName()) {
+                            if (values[j]._instance != null) {
+                                dic._instance.removeValues(values[j]._instance);
+                            }
+                        }
+                    }
+
+                    grp.removeSubNodes(instance);
+                }
+
                 this._model.removeNodes(instance);
                 this._listener.call(this);
             }
@@ -65,6 +85,8 @@ define(
 
         RemoveModelVisitor.prototype.visitWire = function (wire) {
             if (wire._instance != null) {
+                var chan = this._model.findHubsByID(wire.getTarget().getName());
+                chan.removeBindings(wire._instance);
                 this._model.removeMBindings(wire._instance);
                 this._listener.call(this);
             }

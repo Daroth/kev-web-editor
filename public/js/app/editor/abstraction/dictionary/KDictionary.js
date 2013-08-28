@@ -88,7 +88,6 @@ define(
                 // this value has not been added to this._values yet
                 if (val.getAttribute().getFragmentDependant()) {
                     // this value is fragment dependant
-                    console.log("addValue", val);
                     var kVal = this.getValue(val.getAttribute().getName(), val.getTargetNode().getName());
                     if (kVal) {
                         // there is already a value for this attr name & targetNode => update it

@@ -266,8 +266,6 @@ define(
                         attr.setFragmentDependant(false);
                     }
 
-//                    console.log("loadgin attribute value", attr, dicVal, entity);
-
                     kValue = factory.newValue(attr);
                     kValue.setValue(dicVal.getValue());
                     kValue._instance = dicVal;
