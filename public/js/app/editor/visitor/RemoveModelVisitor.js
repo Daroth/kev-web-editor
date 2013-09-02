@@ -1,10 +1,12 @@
 define(
     [
         'abstraction/KGroup',
+        'abstraction/KInputPort',
+        'abstraction/KOutputPort',
         'kevoree'
     ],
 
-    function (KGroup, Kevoree) {
+    function (KGroup, KInputPort, KOutputPort, Kevoree) {
 
         /**
          * Visit editor entities list in order to remove instances from model
@@ -85,8 +87,11 @@ define(
 
         RemoveModelVisitor.prototype.visitWire = function (wire) {
             if (wire._instance != null) {
-                var chan = this._model.findHubsByID(wire.getTarget().getName());
+                var port = wire.getOrigin()._instance,
+                    chan = wire.getTarget()._instance;
+                port.removeBindings(wire._instance);
                 chan.removeBindings(wire._instance);
+
                 this._model.removeMBindings(wire._instance);
                 this._listener.call(this);
             }
