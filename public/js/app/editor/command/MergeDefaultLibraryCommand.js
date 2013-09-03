@@ -17,6 +17,8 @@ define(
             $('body').on('hidden'+NAMESPACE, '#load-corelib-popup', function () {
                 $('#loading-corelib').hide();
                 $('#load-corelib').show();
+                $('#load-corelib-popup-error-content').html("");
+                $('#load-corelib-popup-error').addClass('hide');
             });
 
             if ($('.corelib-item:checked').size() > 0) {
@@ -44,21 +46,38 @@ define(
                     success: function (data) {
                         switch (data.result) {
                             case 1:
-                                var loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
-                                    receivedModel = loader.loadModelFromString(JSON.stringify(data.model)).get(0);
+                                try {
+                                    var loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
+                                        receivedModel = loader.loadModelFromString(JSON.stringify(data.model)).get(0);
 
-                                editor.mergeModel(receivedModel);
-                                $('#loading-corelib').hide();
-                                $('#load-corelib').show();
+                                    editor.mergeModel(receivedModel);
+                                    $('#loading-corelib').hide();
+                                    $('#load-corelib').show();
+                                } catch (err) {
+                                    $('#loading-corelib').hide();
+                                    $('#load-corelib').show();
+
+                                    $('#load-corelib-popup-error-content').html("Unable to load received model.");
+                                    $('#load-corelib-popup-error').removeClass('hide');
+                                }
                                 break;
 
                             default:
-                                console.error(data);
+                                $('#loading-corelib').hide();
+                                $('#load-corelib').show();
+
+                                $('#load-corelib-popup-error-content').html(data.message);
+                                $('#load-corelib-popup-error').removeClass('hide');
                                 break;
                         }
                     },
                     error: function (err) {
                         console.error(err);
+                        $('#loading-corelib').hide();
+                        $('#load-corelib').show();
+
+                        $('#load-corelib-popup-error-content').html(err.message);
+                        $('#load-corelib-popup-error').removeClass('hide');
                     }
                 });
             }
