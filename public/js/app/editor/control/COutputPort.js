@@ -1,12 +1,13 @@
 define(
     [
         'abstraction/KOutputPort',
+        'abstraction/KInputPort',
         'control/CPort',
         'presentation/UIOutputPort',
         'util/Pooffs'
     ],
 
-    function (KOutputPort, CPort, UIOutputPort, Pooffs) {
+    function (KOutputPort, KInputPort, CPort, UIOutputPort, Pooffs) {
 
         Pooffs.extends(COutputPort, CPort);
         Pooffs.extends(COutputPort, KOutputPort);
@@ -16,6 +17,11 @@ define(
 
             // instantiate ui
             this._ui = new UIOutputPort(this);
+        }
+
+        // Override CPort.isConnectable(KWire)
+        COutputPort.prototype.isConnectable = function (wire) {
+            return (wire.getOrigin() != this && wire.getOrigin().getEntityType() == KInputPort.ENTITY_TYPE);
         }
 
         return COutputPort;

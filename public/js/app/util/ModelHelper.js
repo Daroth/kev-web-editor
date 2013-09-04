@@ -1,13 +1,9 @@
 define(
     [
         'kevoree',
-        'kotlin/kotlin-lib-ecma3',
-        'abstraction/KComponent',
-        'abstraction/KGroup',
-        'abstraction/KNode',
-        'abstraction/KChannel'
+        'kotlin/kotlin-lib-ecma3'
     ],
-    function (Kevoree, Kotlin, KComponent, KGroup, KNode, KChannel) {
+    function (Kevoree, Kotlin) {
 
         function ModelHelper () {
             this._factory = new Kevoree.org.kevoree.impl.DefaultKevoreeFactory();

@@ -67,6 +67,11 @@ define(
                     }
                     var stop = Date.now();
                     break;
+
+                case 'merge':
+                    console.log('Starting merge bench');
+                    // TODO
+                    break;
             }
 
             $('#results').append('<div class="row-fluid">Took me '+(stop-start)+'ms to <b>'+action+'</b> '+count+' times !</li>');

@@ -17,7 +17,7 @@ exports.save = function(req, res) {
                 case 'json':
                 default:
                     var data = JSON.stringify(req.body.model, null, 4),
-                        type = 'xmi',
+                        type = 'json',
                         filename = '/saved/model'+Math.floor((Math.random()*42424242)+1)+'.json',
                         fullpath = 'public' + filename;
 

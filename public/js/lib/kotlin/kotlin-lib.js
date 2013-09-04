@@ -1,7 +1,7 @@
 define(
     ['kotlin/kotlin-lib-ecma3'],
     function (Kotlin) {
-        /**
+                /**
          * Copyright 2010 Tim Down.
          *
          * Licensed under the Apache License, Version 2.0 (the "License");
@@ -610,6 +610,7 @@ define(
           f.o = o;
           return f;
         };
+
 
         return Kotlin;
     }

@@ -250,7 +250,7 @@ define(
 
         function loadDictionaryValues(entity, instance, factory) {
             var dictionary = instance.getDictionary();
-            if (dictionary) {
+            if (dictionary != null && dictionary != undefined) {
                 var values = dictionary.getValues();
                 for (var i=0; i < values.size(); i++) {
                     var dicVal = values.get(i),

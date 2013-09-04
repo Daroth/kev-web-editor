@@ -30,7 +30,7 @@ define(
             this._scale = 1;
         }
 
-        UIEditor.prototype.create = function(width, height) {
+        UIEditor.prototype.create = function (width, height) {
             // init stage
             this._stage = new Kinetic.Stage({
                 container: this._id,

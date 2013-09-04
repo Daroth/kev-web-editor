@@ -74,7 +74,7 @@ define(
                     this.getEditor().abortWireCreationTask();
                 }
             } else {
-                // user is just hovering the shape
+                // user as just released the mouse over the channel
                 this._ui.c2pPointerOverShape();
             }
         }

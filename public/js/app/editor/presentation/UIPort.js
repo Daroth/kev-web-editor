@@ -66,6 +66,13 @@ define(
             this._ctrl.getComponent().getUI().setDraggable(false, true, true);
         }
 
+        UIPort.prototype.c2pWireCreationPossible = function (wire/*, channels*/) {
+            // if we endup here, it means that the user tries to bind
+            // directly a port with another, so we need to display a list of channels
+            // and ask him to choose one
+            // TODO show popup to select a channel to connect the two ports
+        }
+
         UIPort.prototype.setDraggable = function (isDraggable, parentsToo, childrenToo) {
             this._ctrl.getComponent().getUI().setDraggable(isDraggable, parentsToo, childrenToo);
         }

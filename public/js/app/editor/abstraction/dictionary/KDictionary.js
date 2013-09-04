@@ -14,7 +14,7 @@ define(
             // create attributes and default values
             var dicType = entity.getEditor().getModel().findTypeDefinitionsByID(entity.getType()).getDictionaryType();
 
-            if (dicType) {
+            if (dicType != null && dicType != undefined) {
                 var dicAttrs = dicType.getAttributes();
 
                 for (var i=0; i < dicAttrs.size(); i++) {

@@ -38,8 +38,16 @@ exports.merge = function(req, res) {
                             var model       = xmiLoader.loadModelFromStreamSync(jar.getInputStreamSync(jarEntry)).getSync(0),
                                 mergeSeq    = compare.mergeSync(fullModel, model);
 
+//                            var td = model.findTypeDefinitionsByIDSync("FakeConsole");
+//                            var values = td.getDictionaryTypeSync().getDefaultValuesSync();
+//                            console.log("value: "+values.getSync(0).getAttributeSync().toStringSync());
+
                             try {
                                 mergeSeq.applyOnSync(fullModel);
+
+//                                var td = fullModel.findTypeDefinitionsByIDSync("FakeConsole");
+//                                var values = td.getDictionaryTypeSync().getDefaultValuesSync();
+//                                console.log("value after merge: "+values.getSync(0).getAttributeSync().toStringSync());
                             } catch (err) {
                                 console.error("mergeSeq.applyOn error");
                                 console.error(err);
@@ -62,10 +70,13 @@ exports.merge = function(req, res) {
 
             // all librairies have been merge into fullModel
             // sending this model back to client
+            var jsonStrModel = serializer.serializeSync(fullModel);
+//            console.log("\n\n");
+//            console.log(jsonStrModel);
             res.json({
                 result: 1,
                 message: 'Model loaded successfully',
-                model: JSON.parse(serializer.serializeSync(fullModel))
+                model: JSON.parse(jsonStrModel)
             });
 
         } else {
