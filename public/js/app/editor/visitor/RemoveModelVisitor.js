@@ -86,11 +86,11 @@ define(
         RemoveModelVisitor.prototype.visitInputPort = function (port) {}
 
         RemoveModelVisitor.prototype.visitWire = function (wire) {
-            if (wire._instance != null) {
+            if (wire._instance) {
                 var port = wire.getOrigin()._instance,
                     chan = wire.getTarget()._instance;
-                port.removeBindings(wire._instance);
-                chan.removeBindings(wire._instance);
+                if (port) port.removeBindings(wire._instance);
+                if (chan) chan.removeBindings(wire._instance);
 
                 this._model.removeMBindings(wire._instance);
                 this._listener.call(this);

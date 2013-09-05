@@ -1,5 +1,10 @@
 define(
-    function () {
+    [
+        'util/AlertPopupHelper',
+        'templates/select-channel-list'
+    ],
+
+    function (AlertPopupHelper, channelListTemplate) {
         var RADIUS = 12;
 
         function UIPort (ctrl) {
@@ -38,9 +43,12 @@ define(
             //==========================
             // Event handling
             //==========================
-            var that = this;
             this._shape.on('mousedown touchstart', function () {
-                that._ctrl.p2cMouseDown();
+                ctrl.p2cMouseDown();
+            });
+
+            this._shape.on('mouseup touchend', function () {
+                ctrl.p2cMouseUp();
             });
         }
 
@@ -66,11 +74,26 @@ define(
             this._ctrl.getComponent().getUI().setDraggable(false, true, true);
         }
 
-        UIPort.prototype.c2pWireCreationPossible = function (wire/*, channels*/) {
-            // if we endup here, it means that the user tries to bind
-            // directly a port with another, so we need to display a list of channels
-            // and ask him to choose one
-            // TODO show popup to select a channel to connect the two ports
+        UIPort.prototype.c2pWireCreationPossible = function (originPort, channels) {
+            // if we endup here, it means that the user is trying to bind directly a port with another,
+            // so we need to display a list of channels and ask him to choose one
+            $('#select-channel-popup').modal('show');
+
+            var that = this;
+            $('#select-channel-list').html(channelListTemplate({channels: channels}));
+            $('#selected-channel').off('click');
+            $('#selected-channel').on('click', function () {
+                var checkedChannel = $('.channel-type-item:checked'),
+                    id = checkedChannel.attr('data-channel-id');
+                that._ctrl.p2cChannelSelectedForWireCreation(originPort, channels[id]);
+                $('#select-channel-popup').modal('hide');
+            });
+        }
+
+        UIPort.prototype.c2pWireCreationImpossibleNoChannel = function () {
+            AlertPopupHelper.setHTML("<p>There is no channel in the current model.<br/>Binding port is not possible.<br/></p>");
+            AlertPopupHelper.setType(AlertPopupHelper.WARN);
+            AlertPopupHelper.show(5000);
         }
 
         UIPort.prototype.setDraggable = function (isDraggable, parentsToo, childrenToo) {

@@ -236,7 +236,19 @@ html
         button#loading-corelib.btn.disabled.hide(aria-hidden='true')
           img(src='/img/ajax-loader-small.gif', alt='Loading')
           | &nbsp;Loading
+    //- ===============
 
+    //- ===============
+    //- SELECT CHANNEL POPUP
+    div#select-channel-popup.modal.hide.fade(tabindex='-1', role="dialog")
+      div.modal-header
+        button.close(href='#', type='button', data-dismiss='modal') &times;
+        h3 Select channel type
+      div.modal-body
+        div#select-channel-list
+      div.modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Cancel
+        button#selected-channel.btn.btn-primary(aria-hidden='true') Confirm
     //- ===============
 
     //- ===============

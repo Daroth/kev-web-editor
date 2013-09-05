@@ -46,22 +46,20 @@ define(
                     success: function (data) {
                         switch (data.result) {
                             case 1:
-                                console.log("raw model: \n", data.model);
-//                                try {
+                                try {
                                     var loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
                                         receivedModel = loader.loadModelFromString(JSON.stringify(data.model)).get(0);
-                                    console.log("received model", receivedModel);
                                     editor.mergeModel(receivedModel);
                                     $('#loading-corelib').hide();
                                     $('#load-corelib').show();
-//                                } catch (err) {
-//                                    console.log("Caught error: ", err);
-//                                    $('#loading-corelib').hide();
-//                                    $('#load-corelib').show();
-//
-//                                    $('#load-corelib-popup-error-content').html("Unable to load received model.");
-//                                    $('#load-corelib-popup-error').removeClass('hide');
-//                                }
+                                } catch (err) {
+                                    console.log("MergeDefaultLib cmd caught error: ", err);
+                                    $('#loading-corelib').hide();
+                                    $('#load-corelib').show();
+
+                                    $('#load-corelib-popup-error-content').html("Unable to load received model.");
+                                    $('#load-corelib-popup-error').removeClass('hide');
+                                }
                                 break;
 
                             default:
