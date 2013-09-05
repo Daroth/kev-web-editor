@@ -51,4 +51,4 @@ Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side 
 
 So an usage could be something like that:
 
-http://kevoree.org/editor?corelib=all&zoom=1.5&menu=hide
+http://kevoree.org/editor?zoom=1.5&menu=hide
