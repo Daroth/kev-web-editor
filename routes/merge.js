@@ -38,16 +38,8 @@ exports.merge = function(req, res) {
                             var model       = xmiLoader.loadModelFromStreamSync(jar.getInputStreamSync(jarEntry)).getSync(0),
                                 mergeSeq    = compare.mergeSync(fullModel, model);
 
-//                            var td = model.findTypeDefinitionsByIDSync("FakeConsole");
-//                            var values = td.getDictionaryTypeSync().getDefaultValuesSync();
-//                            console.log("value: "+values.getSync(0).getAttributeSync().toStringSync());
-
                             try {
                                 mergeSeq.applyOnSync(fullModel);
-
-//                                var td = fullModel.findTypeDefinitionsByIDSync("FakeConsole");
-//                                var values = td.getDictionaryTypeSync().getDefaultValuesSync();
-//                                console.log("value after merge: "+values.getSync(0).getAttributeSync().toStringSync());
                             } catch (err) {
                                 console.error("mergeSeq.applyOn error");
                                 console.error(err);
@@ -68,11 +60,9 @@ exports.merge = function(req, res) {
                 }
             }
 
-            // all librairies have been merge into fullModel
+            // all libraries have been merge into fullModel
             // sending this model back to client
             var jsonStrModel = serializer.serializeSync(fullModel);
-//            console.log("\n\n");
-//            console.log(jsonStrModel);
             res.json({
                 result: 1,
                 message: 'Model loaded successfully',
@@ -93,55 +83,3 @@ exports.merge = function(req, res) {
         });
     }
 };
-
-//var artID   = req.query.artifactID,
-//    grpID   = req.query.groupID,
-//    version = req.query.version;
-//
-//if (artID && grpID && version) {
-//    var resolver    = java.newInstanceSync('org.kevoree.resolver.MavenResolver'),
-//        list        = java.newInstanceSync('java.util.ArrayList');
-//
-//    list.addSync("http://oss.sonatype.org/content/groups/public");
-//
-//    var file        = resolver.resolveSync(grpID, artID, version, 'jar', list);
-//    if (file == null) {
-//        console.log("Jar file is null :/");
-//        res.json({
-//            result: -1,
-//            message: 'JarFile is null'
-//        });
-//
-//    } else {
-//        var jar         = java.newInstanceSync('java.util.jar.JarFile', file),
-//            jarEntry    = jar.getJarEntrySync("KEV-INF/lib.kev"),
-//            xmiLoader   = java.newInstanceSync('org.kevoree.loader.XMIModelLoader');
-//
-//        if (jarEntry != null) {
-//            var model       = xmiLoader.loadModelFromStreamSync(jar.getInputStreamSync(jarEntry)).getSync(0),
-//                serializer  = java.newInstanceSync('org.kevoree.serializer.JSONModelSerializer'),
-//                baos        = java.newInstanceSync('java.io.ByteArrayOutputStream');
-//
-//            serializer.serializeSync(model, baos);
-//
-//            res.json({
-//                result: 1,
-//                message: 'Model loaded successfully',
-//                model: JSON.parse(baos.toStringSync())
-//            });
-//
-//        } else {
-//            console.log("JarEntry KEV-INF/lib.kev doesn't exist :/");
-//            res.json({
-//                result: -1,
-//                message: "JarEntry KEV-INF/lib.kev doesn't exist :/"
-//            });
-//        }
-//    }
-//
-//} else {
-//    res.json({
-//        result: -1,
-//        message: 'You are supposed to give artifactID, groupID and version as parameters.'
-//    });
-//}

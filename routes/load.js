@@ -56,7 +56,11 @@ exports.load = function (req, res) {
                     });
                 });
                 request.on('error', function (e) {
-                    console.log(e.message);
+                    console.log('Unable to reach '+options.host+': ' + e.message);
+                    res.json({
+                        result: -1,
+                        message: 'Unable to reach '+options.host
+                    });
                 });
                 request.end();
 
