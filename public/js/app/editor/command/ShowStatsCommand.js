@@ -10,13 +10,17 @@ define(
         ShowStatsCommand.prototype.execute = function (editor) {
             var model = editor.getModel();
 
-            var nbGrps = 0,
-                nbComps = 0,
-                nbNodes = 0,
-                nbChans = 0;
+            var nbGrps              = 0,
+                nbGrpInstances      = 0,
+                nbComps             = 0,
+                nbCompsInstances    = 0,
+                nbNodes             = 0,
+                nbNodesInstances    = 0,
+                nbChans             = 0,
+                nbChansInstances    = 0;
 
             // get model statistics
-            if (model) {
+            if (model != null && model != undefined) {
                 var libz = ModelHelper.getLibraries(model);
                 for (var i=0; i < libz.length; i++) {
                     var compz = libz[i].components;
@@ -39,11 +43,17 @@ define(
                         }
                     }
                 }
+
+                // retrieve instances count from model
+                nbGrpInstances      = model.getGroups().size();
+                nbCompsInstances    = getComponentInstancesCount(model);
+                nbNodesInstances    = model.getNodes().size();
+                nbChansInstances    = model.getHubs().size();
             }
 
             // set popup content
             $('#stats-popup-content').html(
-                "<h6>Metamodel types:</h6>" +
+                "<h6>Type definitions:</h6>" +
                 "<table class='table'>" +
                 createHTMLRow("Group Type", nbGrps) +
                 createHTMLRow("Component Type", nbComps) +
@@ -53,10 +63,10 @@ define(
 
                 "<h6>Instances:</h6>" +
                 "<table class='table'>" +
-                createHTMLRow("Group Instances", model.getGroups().size()) +
-                createHTMLRow("Component Instances", getComponentInstancesCount(model)) +
-                createHTMLRow("Node Instances", model.getNodes().size()) +
-                createHTMLRow("Channel Instances", model.getHubs().size()) +
+                createHTMLRow("Group Instances", nbGrpInstances) +
+                createHTMLRow("Component Instances", nbCompsInstances) +
+                createHTMLRow("Node Instances", nbNodesInstances) +
+                createHTMLRow("Channel Instances", nbChansInstances) +
                 "</table>"
             );
 
