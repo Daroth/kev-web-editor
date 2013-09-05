@@ -104,5 +104,5 @@ exports.load = function (req, res) {
     setInterval(function () {
         console.log("Automatically cleared core libraries cache.");
         libraries = {}; // clear cache
-    }, 1000*15); // do this every 15 minutes
+    }, 1000*60*15); // do this every 15 minutes
 })();

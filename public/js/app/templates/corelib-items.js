@@ -1,7 +1,7 @@
 define(['jadeRuntime'], function(jade) {
 return function anonymous(locals) {
 var buf = [];
-var locals_ = (locals || {}),platform = locals_.platform,items = locals_.items;buf.push("<label class=\"checkbox\"><input" + (jade.attrs({ 'id':('corelib-selectall-'+platform), 'type':('checkbox') }, {"id":true,"type":true})) + "/><strong>Select all</strong></label>");
+var locals_ = (locals || {}),platform = locals_.platform,items = locals_.items;buf.push("<div class=\"well vertical-scroll corelibrary-items-list\"><label class=\"checkbox\"><input" + (jade.attrs({ 'id':('corelib-selectall-'+platform), 'type':('checkbox') }, {"id":true,"type":true})) + "/><strong>Select all</strong></label>");
 // iterate items
 ;(function(){
   var $$obj = items;
@@ -23,6 +23,7 @@ buf.push("<label class=\"corelib-item-label checkbox\"><input" + (jade.attrs({ '
 
   }
 }).call(this);
-;return buf.join("");
+
+buf.push("</div>");;return buf.join("");
 };
 });

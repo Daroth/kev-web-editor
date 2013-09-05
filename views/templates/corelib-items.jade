@@ -2,10 +2,11 @@
     jade-amd --from views/templates --to public/js/app/templates
     otherwise your pre-compiled Javascript template in public/js/app/templates won't be up-to-date
 
-label.checkbox
-  input(id='corelib-selectall-'+platform, type='checkbox')
-  strong Select all
-each item, i in items
-  label.corelib-item-label.checkbox
-    input.corelib-item(type='checkbox', data-library-platform=platform , data-library-id=i)
-    | #{item.simpleName+'-'+item.version}
+div.well.vertical-scroll.corelibrary-items-list
+  label.checkbox
+    input(id='corelib-selectall-'+platform, type='checkbox')
+    strong Select all
+  each item, i in items
+    label.corelib-item-label.checkbox
+      input.corelib-item(type='checkbox', data-library-platform=platform , data-library-id=i)
+      | #{item.simpleName+'-'+item.version}

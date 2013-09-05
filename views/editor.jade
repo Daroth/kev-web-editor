@@ -214,7 +214,7 @@ html
         button.close(href='#', type='button', data-dismiss='modal') &times;
         h3 Load core libraries
       div.modal-body
-        ul.nav.nav-tabs
+        ul.nav.nav-tabs(style='margin-bottom: 5px')
           li.active: a(href='#corelib-javase', data-toggle='tab') JavaSE
           li: a(href='#corelib-android', data-toggle='tab') Android
           li: a(href='#corelib-sky', data-toggle='tab') SKY
@@ -226,9 +226,9 @@ html
           button.close(href="#", type='button', data-dismiss='alert') &times;
           p#load-corelib-popup-error-content
         div.tab-content
-          div#corelib-javase.tab-pane.active.well.vertical-scroll.corelibrary-items-list
-          div#corelib-android.tab-pane.well.vertical-scroll.corelibrary-items-list
-          div#corelib-sky.tab-pane.well.vertical-scroll.corelibrary-items-list
+          div#corelib-javase.tab-pane.active
+          div#corelib-android.tab-pane
+          div#corelib-sky.tab-pane
         div#load-corelib-popup-content
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
