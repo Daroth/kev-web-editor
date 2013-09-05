@@ -56,6 +56,8 @@ exports.load = function (req, res) {
                     });
                 });
                 request.on('error', function (e) {
+                    // TODO handle unreachable event on oss.sonatype and try to get the libs from a local cache
+                    // if a connection to sonatype as already been made
                     console.log('Unable to reach '+options.host+': ' + e.message);
                     res.json({
                         result: -1,

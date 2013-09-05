@@ -52,6 +52,9 @@ define(
                                     editor.mergeModel(receivedModel);
                                     $('#loading-corelib').hide();
                                     $('#load-corelib').show();
+
+                                    // close popup
+                                    $('#load-corelib-popup').modal('hide');
                                 } catch (err) {
                                     console.log("MergeDefaultLib cmd caught error: ", err);
                                     $('#loading-corelib').hide();
