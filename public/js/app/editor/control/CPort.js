@@ -58,6 +58,7 @@ define(
                 } else {
                     // it is impossible to connect this wire to this target
                     // TODO
+                    this.getComponent().getEditor().endWireCreationTask();
                 }
 
             } else {

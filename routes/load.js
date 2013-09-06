@@ -103,6 +103,6 @@ exports.load = function (req, res) {
 (function () {
     setInterval(function () {
         console.log("Automatically cleared core libraries cache.");
-        libraries = {}; // clear cache
+        libraries = {}; // clear cache !!! CARE THIS CAN BE DANGEROUS
     }, 1000*60*15); // do this every 15 minutes
 })();

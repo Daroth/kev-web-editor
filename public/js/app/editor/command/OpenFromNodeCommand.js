@@ -12,7 +12,8 @@ define(
             this._timeoutID = null;
         };
 
-        OpenFromNodeCommand.prototype.execute = function (protocol, uri, editor) {
+        OpenFromNodeCommand.prototype.execute = function (protocol, uri, editor, popupShown) {
+            console.log("popupShown: "+popupShown);
             clearTimeout(this._timeoutID);
 
             // hide alert when popup is closed
@@ -20,13 +21,8 @@ define(
             $('body').on('hidden'+NAMESPACE, '#open-node-popup', function () {
                 $('#open-node-alert').removeClass('in');
                 $('#open-node-alert').hide();
-            });
-
-            // jquery hide() alert when .close button clicked
-            $('#open-node-alert .close').off('click'+NAMESPACE);
-            $('#open-node-alert .close').on('click'+NAMESPACE, function () {
-                $('#open-node-alert').removeClass('in');
-                $('#open-node-alert').hide();
+                $('#open-from-node').removeClass('disabled');
+                popupShown = false;
             });
 
             // prevent user from clicking 'open' button when disabled
@@ -38,7 +34,7 @@ define(
                     // display loading alert
                     var message = "<img src='/img/ajax-loader-small.gif'/> Loading in progress, please wait...";
 
-                    if ($('#open-node-popup').hasClass('hide')) {
+                    if (!popupShown) {
                         AlertPopupHelper.setHTML(message);
                         AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
                         AlertPopupHelper.show();
@@ -73,7 +69,7 @@ define(
                                         default:
                                             // something went wrong server-side, check data.message for the 'why?'
                                             console.warn('Unable to open from node ('+uri+'): '+ data.message);
-                                            loadFailed(protocol, uri, timeoutID);
+                                            loadFailed(popupShown, uri, timeoutID);
                                             break;
 
                                         case 1:
@@ -86,7 +82,7 @@ define(
                                     }
                                 },
                                 error: function () {
-                                    loadFailed(protocol, uri, timeoutID);
+                                    loadFailed(popupShown, uri, timeoutID);
                                 }
                             });
                             break;
@@ -105,7 +101,7 @@ define(
                                     loadSucceed(timeoutID);
                                 },
                                 error: function () {
-                                    loadFailed(protocol, uri, timeoutID);
+                                    loadFailed(popupShown, uri, timeoutID);
                                 }
                             });
                             break;
@@ -115,12 +111,18 @@ define(
                             var ws = new WebSocket(uri);
                             ws.binaryType = "arraybuffer";
                             ws.onmessage = function (event) {
-                                var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
-                                // TODO this will work only if model is in JSON
-                                var model = loader.loadModelFromString(String.fromCharCode.apply(null, new Uint8Array(event.data))).get(0);
-                                editor.setModel(model);
-                                loadSucceed(timeoutID);
-                                ws.close();
+                                try {
+                                    var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
+                                    // TODO this will work only if model is in JSON
+                                    var modelStr = String.fromCharCode.apply(null, new Uint8Array(event.data));
+                                    var model = loader.loadModelFromString(modelStr).get(0);
+                                    editor.setModel(model);
+                                    loadSucceed(timeoutID);
+                                } catch (err) {
+                                    loadFailed(popupShown, uri, timeoutID);
+                                } finally {
+                                    ws.close();
+                                }
                             }
 
                             ws.onopen = function () {
@@ -130,12 +132,8 @@ define(
                                 ws.send(byteArray.buffer);
                             }
 
-                            ws.onclose = function () {
-//                                loadFailed(uri, timeoutID);
-                            }
-
                             ws.onerror = function () {
-                                loadFailed(protocol, uri, timeoutID);
+                                loadFailed(popupShown, uri, timeoutID);
                             }
                             break;
 
@@ -166,22 +164,23 @@ define(
             AlertPopupHelper.show(5000);
         }
 
-        function loadFailed(protocol, uri, timeoutID) {
+        function loadFailed(popupShown, uri, timeoutID) {
             // clear timeout
             clearTimeout(timeoutID);
 
-            var message = "Unable to get model from "+uri+" ("+protocol+"). Are you sure that your model is a valid JSON Kevoree model ? Or that the remote target is reachable ?";
+            var message = "Unable to get model from <strong>"+uri+"</strong><br/><small>Are you sure that your model is valid ? Is remote target reachable ?</small>";
 
-            if ($('#open-node-popup').hasClass('hide')) {
-                AlertPopupHelper.setText(message);
+            if (!popupShown) {
+                AlertPopupHelper.setHTML(message);
                 AlertPopupHelper.setType(AlertPopupHelper.ERROR);
                 AlertPopupHelper.show(5000);
 
             } else {
+                AlertPopupHelper.hide();
                 $('#open-from-node').removeClass('disabled');
                 $('#open-node-alert').removeClass('alert-success');
                 $('#open-node-alert').addClass('alert-error');
-                $('#open-node-alert-content').text(message);
+                $('#open-node-alert-content').html(message);
                 $('#open-node-alert').show();
                 $('#open-node-alert').addClass('in');
             }

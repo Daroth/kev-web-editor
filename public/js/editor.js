@@ -114,7 +114,7 @@ define(
                     else if (protocolVal.indexOf('http') == 0)  protocolVal = Config.HTTP;
 
                     var cmd = new OpenFromNodeCommand();
-                    cmd.execute(protocolVal, openVal, editor);
+                    cmd.execute(protocolVal, openVal, editor, false);
                 },
                 missDep: function (missField) {
                     console.warn("Open from node impossible: '"+missField+"' field value required in URL with 'open' (http://example.com/?open=localhost:8000&protocol=tcp)");
@@ -185,7 +185,7 @@ define(
                 var protocol = $('#open-node-protocol option:selected').val();
                 var uri = $(this).val();
 
-                cmd.execute(protocol, uri, editor);
+                cmd.execute(protocol, uri, editor, false);
             }
         });
 
@@ -249,7 +249,7 @@ define(
             var protocol = $('#open-node-protocol option:selected').val();
             var uri = $('#open-node-uri').val();
 
-            cmd.execute(protocol, uri, editor);
+            cmd.execute(protocol, uri, editor, true);
             e.preventDefault();
         });
 

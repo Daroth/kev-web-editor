@@ -1,11 +1,11 @@
-define(
+define (
   ['kotlin/kotlin-maps'],
   function (Kotlin) {
 (function () {
   'use strict';
   var classes = function () {
-    var cg = Kotlin.createTrait()
-    , c0 = Kotlin.createTrait(cg, /** @lends _.org.kevoree.DeployUnit.prototype */ {
+    var ci = Kotlin.createTrait()
+    , c0 = Kotlin.createTrait(ci, /** @lends _.org.kevoree.DeployUnit.prototype */ {
       get_name: function () {
         return this.$name;
       },
@@ -67,7 +67,7 @@ define(
         this.$targetNodeType = tmp$0;
       }
     })
-    , cj = Kotlin.createTrait(cg, /** @lends _.org.kevoree.NamedElement.prototype */ {
+    , cl = Kotlin.createTrait(ci, /** @lends _.org.kevoree.NamedElement.prototype */ {
       get_name: function () {
         return this.$name;
       },
@@ -75,7 +75,7 @@ define(
         this.$name = tmp$0;
       }
     })
-    , c11 = Kotlin.createTrait([cg, cj], /** @lends _.org.kevoree.Instance.prototype */ {
+    , c13 = Kotlin.createTrait([ci, cl], /** @lends _.org.kevoree.Instance.prototype */ {
       get_metaData: function () {
         return this.$metaData;
       },
@@ -101,7 +101,7 @@ define(
         this.$dictionary = tmp$0;
       }
     })
-    , c1 = Kotlin.createTrait([cg, cj, c11], /** @lends _.org.kevoree.ContainerNode.prototype */ {
+    , c1 = Kotlin.createTrait([ci, cl, c13], /** @lends _.org.kevoree.ContainerNode.prototype */ {
       get_components: function () {
         return this.$components;
       },
@@ -121,7 +121,7 @@ define(
         this.$host = tmp$0;
       }
     })
-    , c13 = Kotlin.createTrait([cg, cj], /** @lends _.org.kevoree.TypeDefinition.prototype */ {
+    , c15 = Kotlin.createTrait([ci, cl], /** @lends _.org.kevoree.TypeDefinition.prototype */ {
       get_factoryBean: function () {
         return this.$factoryBean;
       },
@@ -159,7 +159,7 @@ define(
         this.$superTypes = tmp$0;
       }
     })
-    , cz = Kotlin.createTrait([cg, c13], /** @lends _.org.kevoree.PortType.prototype */ {
+    , c11 = Kotlin.createTrait([ci, c15], /** @lends _.org.kevoree.PortType.prototype */ {
       get_synchrone: function () {
         return this.$synchrone;
       },
@@ -167,7 +167,7 @@ define(
         this.$synchrone = tmp$0;
       }
     })
-    , c2 = Kotlin.createTrait([cg, cz], /** @lends _.org.kevoree.MessagePortType.prototype */ {
+    , c2 = Kotlin.createTrait([ci, c11], /** @lends _.org.kevoree.MessagePortType.prototype */ {
       get_filters: function () {
         return this.$filters;
       },
@@ -175,7 +175,7 @@ define(
         this.$filters = tmp$0;
       }
     })
-    , cl = Kotlin.createTrait([cg, c13], /** @lends _.org.kevoree.LifeCycleTypeDefinition.prototype */ {
+    , cn = Kotlin.createTrait([ci, c15], /** @lends _.org.kevoree.LifeCycleTypeDefinition.prototype */ {
       get_startMethod: function () {
         return this.$startMethod;
       },
@@ -195,10 +195,363 @@ define(
         this.$updateMethod = tmp$0;
       }
     })
-    , c3 = Kotlin.createTrait([cg, cl])
+    , c3 = Kotlin.createTrait([ci, cn])
     , c4 = Kotlin.createTrait()
     , c5 = Kotlin.createTrait()
-    , c6 = Kotlin.createTrait(/** @lends _.org.kevoree.modeling.api.ModelCloner.prototype */ {
+    , c6 = Kotlin.createClass(c4, /** @lends _.org.kevoree.modeling.api.xmi.XMIModelLoader.prototype */ {
+      initialize: function () {
+        this.$LOADER_XMI_LOCAL_NAME = 'type';
+        this.$LOADER_XMI_XSI = 'xsi';
+        this.$factory = null;
+        this.$attributesHashmap = new Kotlin.PrimitiveHashMap(0);
+        this.$referencesHashmap = new Kotlin.PrimitiveHashMap(0);
+        this.$attributeVisitor = _.org.kevoree.modeling.api.xmi.XMIModelLoader.f1(this);
+        this.$referencesVisitor = _.org.kevoree.modeling.api.xmi.XMIModelLoader.f3(this);
+      },
+      get_LOADER_XMI_LOCAL_NAME: function () {
+        return this.$LOADER_XMI_LOCAL_NAME;
+      },
+      get_LOADER_XMI_XSI: function () {
+        return this.$LOADER_XMI_XSI;
+      },
+      get_factory: function () {
+        return this.$factory;
+      },
+      set_factory: function (tmp$0) {
+        this.$factory = tmp$0;
+      },
+      get_attributesHashmap: function () {
+        return this.$attributesHashmap;
+      },
+      get_referencesHashmap: function () {
+        return this.$referencesHashmap;
+      },
+      get_attributeVisitor: function () {
+        return this.$attributeVisitor;
+      },
+      get_referencesVisitor: function () {
+        return this.$referencesVisitor;
+      },
+      unescapeXml: function (src) {
+        var builder = null;
+        var i = 0;
+        while (i < src.length) {
+          var c = src.charAt(i);
+          if (c === '&') {
+            if (builder == null) {
+              builder = new _.java.lang.StringBuilder();
+              (builder != null ? builder : Kotlin.throwNPE()).append(src.substring(0, i));
+            }
+            if (src.charAt(i + 1) === 'a') {
+              if (src.charAt(i + 2) === 'm') {
+                builder != null ? builder.append('&') : null;
+                i = i + 5;
+              }
+               else if (src.charAt(i + 2) === 'p') {
+                builder != null ? builder.append("'") : null;
+                i = i + 6;
+              }
+               else {
+                Kotlin.println('Could not unescaped chain:' + src.charAt(i) + src.charAt(i + 1) + src.charAt(i + 2));
+              }
+            }
+             else if (src.charAt(i + 1) === 'q') {
+              builder != null ? builder.append('"') : null;
+              i = i + 6;
+            }
+             else if (src.charAt(i + 1) === 'l') {
+              builder != null ? builder.append('<') : null;
+              i = i + 4;
+            }
+             else if (src.charAt(i + 1) === 'g') {
+              builder != null ? builder.append('>') : null;
+              i = i + 4;
+            }
+             else {
+              Kotlin.println('Could not unescaped chain:' + src.charAt(i) + src.charAt(i + 1));
+            }
+          }
+           else {
+            if (builder != null) {
+              builder != null ? builder.append_0(c) : null;
+            }
+            i++;
+          }
+        }
+        if (builder != null) {
+          return Kotlin.toString(builder);
+        }
+         else {
+          return src;
+        }
+      },
+      loadModelFromString: function (str) {
+        var reader = new _.org.kevoree.modeling.api.xmi.XmlParser(_.org.kevoree.modeling.api.util.ByteConverter.byteArrayInputStreamFromString(str));
+        if (reader.hasNext()) {
+          return this.deserialize(reader);
+        }
+         else {
+          Kotlin.println('Loader::Noting in the String !');
+          return null;
+        }
+      },
+      loadModelFromStream: function (inputStream) {
+        var reader = new _.org.kevoree.modeling.api.xmi.XmlParser(inputStream);
+        if (reader.hasNext()) {
+          return this.deserialize(reader);
+        }
+         else {
+          Kotlin.println('Loader::Noting in the file !');
+          return null;
+        }
+      },
+      loadObject: function (ctx, xmiAddress, objectType) {
+        var tmp$0, tmp$12, tmp$13, tmp$14, tmp$15, tmp$16, tmp$17, tmp$18;
+        var elementTagName = ((tmp$0 = ctx.get_xmiReader()) != null ? tmp$0 : Kotlin.throwNPE()).getLocalName();
+        var modelElem;
+        if (objectType != null) {
+          var tmp$1;
+          modelElem = (tmp$1 = this.get_factory()) != null ? tmp$1.create(objectType) : null;
+          if (modelElem == null) {
+            var xsiType = null;
+            var tmp$2, tmp$3, tmp$4, tmp$5, tmp$6;
+            {
+              tmp$3 = new Kotlin.NumberRange(0, ((tmp$2 = ctx.get_xmiReader()) != null ? tmp$2 : Kotlin.throwNPE()).getAttributeCount() - 1), tmp$4 = tmp$3.get_start(), tmp$5 = tmp$3.get_end(), tmp$6 = tmp$3.get_increment();
+              for (var i = tmp$4; i <= tmp$5; i += tmp$6) {
+                var tmp$7, tmp$8;
+                var localName = ((tmp$7 = ctx.get_xmiReader()) != null ? tmp$7 : Kotlin.throwNPE()).getAttributeLocalName(i);
+                var xsi = ((tmp$8 = ctx.get_xmiReader()) != null ? tmp$8 : Kotlin.throwNPE()).getAttributePrefix(i);
+                if (Kotlin.equals(localName, this.get_LOADER_XMI_LOCAL_NAME()) && Kotlin.equals(xsi, this.get_LOADER_XMI_XSI())) {
+                  var tmp$9;
+                  xsiType = ((tmp$9 = ctx.get_xmiReader()) != null ? tmp$9 : Kotlin.throwNPE()).getAttributeValue(i);
+                  break;
+                }
+              }
+            }
+            if (xsiType != null) {
+              var tmp$10;
+              modelElem = (tmp$10 = this.get_factory()) != null ? tmp$10.create((xsiType != null ? xsiType : Kotlin.throwNPE()).substring((xsiType != null ? xsiType : Kotlin.throwNPE()).lastIndexOf(':') + 1, (xsiType != null ? xsiType : Kotlin.throwNPE()).length)) : null;
+            }
+          }
+        }
+         else {
+          var tmp$11;
+          modelElem = (tmp$11 = this.get_factory()) != null ? tmp$11.create(elementTagName != null ? elementTagName : Kotlin.throwNPE()) : null;
+        }
+        if (modelElem == null) {
+          Kotlin.println('Could not create an object for local name ' + elementTagName);
+        }
+        ctx.get_map().put(xmiAddress, modelElem != null ? modelElem : Kotlin.throwNPE());
+        if (!this.get_attributesHashmap().containsKey((modelElem != null ? modelElem : Kotlin.throwNPE()).metaClassName())) {
+          modelElem != null ? modelElem.visitAttributes(this.get_attributeVisitor()) : null;
+        }
+        var elemAttributesMap = (tmp$12 = this.get_attributesHashmap().get((modelElem != null ? modelElem : Kotlin.throwNPE()).metaClassName())) != null ? tmp$12 : Kotlin.throwNPE();
+        if (!this.get_referencesHashmap().containsKey((modelElem != null ? modelElem : Kotlin.throwNPE()).metaClassName())) {
+          modelElem != null ? modelElem.visit(this.get_referencesVisitor(), false, true, false) : null;
+        }
+        var elemReferencesMap = (tmp$13 = this.get_referencesHashmap().get((modelElem != null ? modelElem : Kotlin.throwNPE()).metaClassName())) != null ? tmp$13 : Kotlin.throwNPE();
+        {
+          tmp$15 = new Kotlin.NumberRange(0, ((tmp$14 = ctx.get_xmiReader()) != null ? tmp$14 : Kotlin.throwNPE()).getAttributeCount() - 1), tmp$16 = tmp$15.get_start(), tmp$17 = tmp$15.get_end(), tmp$18 = tmp$15.get_increment();
+          for (var i_0 = tmp$16; i_0 <= tmp$17; i_0 += tmp$18) {
+            var tmp$19;
+            var prefix = ((tmp$19 = ctx.get_xmiReader()) != null ? tmp$19 : Kotlin.throwNPE()).getAttributePrefix(i_0);
+            if (prefix == null || Kotlin.equals(prefix, '')) {
+              var tmp$20, tmp$21;
+              var attrName = ((tmp$20 = ctx.get_xmiReader()) != null ? tmp$20 : Kotlin.throwNPE()).getAttributeLocalName(i_0);
+              var valueAtt = ((tmp$21 = ctx.get_xmiReader()) != null ? tmp$21 : Kotlin.throwNPE()).getAttributeValue(i_0);
+              if (valueAtt != null) {
+                if (elemAttributesMap.containsKey(attrName)) {
+                  modelElem != null ? modelElem.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_ADD(), attrName != null ? attrName : Kotlin.throwNPE(), this.unescapeXml(valueAtt), false, false) : null;
+                }
+                 else {
+                  var tmp$22, tmp$23, tmp$24;
+                  {
+                    tmp$22 = Kotlin.splitString(valueAtt, ' '), tmp$23 = tmp$22.length;
+                    for (var tmp$24 = 0; tmp$24 !== tmp$23; ++tmp$24) {
+                      var xmiRef = tmp$22[tmp$24];
+                      {
+                        var tmp$25, tmp$26;
+                        if (xmiRef.startsWith('#')) {
+                          tmp$25 = xmiRef.substring(1);
+                        }
+                         else {
+                          tmp$25 = xmiRef;
+                        }
+                        var adjustedRef = tmp$25;
+                        if (adjustedRef.startsWith('//')) {
+                          tmp$26 = '/0' + adjustedRef.substring(1);
+                        }
+                         else {
+                          tmp$26 = adjustedRef;
+                        }
+                        adjustedRef = tmp$26;
+                        adjustedRef = adjustedRef.replace('.0', '');
+                        var ref = ctx.get_map().get(adjustedRef);
+                        if (ref != null) {
+                          modelElem != null ? modelElem.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_ADD(), attrName != null ? attrName : Kotlin.throwNPE(), ref, false, false) : null;
+                        }
+                         else {
+                          ctx.get_resolvers().add(new _.org.kevoree.modeling.api.xmi.XMIResolveCommand(ctx, modelElem != null ? modelElem : Kotlin.throwNPE(), _.org.kevoree.modeling.api.util.ActionType.get_ADD(), attrName != null ? attrName : Kotlin.throwNPE(), adjustedRef));
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        var done = false;
+        while (!done) {
+          var tmp$27;
+          var tmp$28 = ((tmp$27 = ctx.get_xmiReader()) != null ? tmp$27 : Kotlin.throwNPE()).next();
+          if (tmp$28 === _.org.kevoree.modeling.api.xmi.Token.get_START_TAG()) {
+            var tmp$29, tmp$31;
+            var subElemName = ((tmp$29 = ctx.get_xmiReader()) != null ? tmp$29 : Kotlin.throwNPE()).getLocalName();
+            var i_1 = ctx.get_elementsCount().get(xmiAddress + '/@' + subElemName) !== null ? ctx.get_elementsCount().get(xmiAddress + '/@' + subElemName) : 0;
+            var tmp$30 = xmiAddress + '/@' + subElemName;
+            if (i_1 !== 0) {
+              tmp$31 = '.' + i_1;
+            }
+             else {
+              tmp$31 = '';
+            }
+            var subElementId = tmp$30 + tmp$31;
+            var containedElement = this.loadObject(ctx, subElementId, elemReferencesMap.get(subElemName));
+            modelElem != null ? modelElem.reflexiveMutator(_.org.kevoree.modeling.api.util.ActionType.get_ADD(), subElemName != null ? subElemName : Kotlin.throwNPE(), containedElement, false, false) : null;
+            ctx.get_elementsCount().put(xmiAddress + '/@' + subElemName, i_1 + 1);
+          }
+           else if (tmp$28 === _.org.kevoree.modeling.api.xmi.Token.get_END_TAG()) {
+            var tmp$32;
+            if (Kotlin.equals(((tmp$32 = ctx.get_xmiReader()) != null ? tmp$32 : Kotlin.throwNPE()).getLocalName(), elementTagName)) {
+              done = true;
+            }
+          }
+           else {
+          }
+        }
+        return modelElem != null ? modelElem : Kotlin.throwNPE();
+      },
+      deserialize: function (reader) {
+        var context = new _.org.kevoree.modeling.api.xmi.LoadingContext();
+        context.set_xmiReader(reader);
+        while (reader.hasNext()) {
+          var nextTag = reader.next();
+          if (nextTag === _.org.kevoree.modeling.api.xmi.Token.get_START_TAG()) {
+            var localName = reader.getLocalName();
+            if (localName != null) {
+              var loadedRootsSize = context.get_loadedRoots().size();
+              context.get_loadedRoots().add(this.loadObject(context, '/' + loadedRootsSize, null));
+            }
+             else {
+              Kotlin.println('Tried to read a tag with null tag_name.');
+            }
+          }
+           else if (nextTag === _.org.kevoree.modeling.api.xmi.Token.get_END_TAG()) {
+            break;
+          }
+           else if (nextTag === _.org.kevoree.modeling.api.xmi.Token.get_END_DOCUMENT()) {
+            break;
+          }
+           else {
+          }
+        }
+        {
+          var tmp$0 = context.get_resolvers().iterator();
+          while (tmp$0.hasNext()) {
+            var res = tmp$0.next();
+            res.run();
+          }
+        }
+        return context.get_loadedRoots();
+      }
+    }, /** @lends _.org.kevoree.modeling.api.xmi.XMIModelLoader */ {
+      f0: function () {
+        return new Kotlin.PrimitiveHashMap(0);
+      },
+      f1: function ($outer) {
+        return Kotlin.createObject(_.org.kevoree.modeling.api.util.ModelAttributeVisitor, {
+          initialize: function () {
+          },
+          visit: function (value, name, parent) {
+            _.kotlin.getOrPut($outer.get_attributesHashmap(), parent.metaClassName(), _.org.kevoree.modeling.api.xmi.XMIModelLoader.f0).put(name, true);
+          }
+        });
+      },
+      f2: function () {
+        return new Kotlin.PrimitiveHashMap(0);
+      },
+      f3: function ($outer) {
+        return Kotlin.createObject(_.org.kevoree.modeling.api.util.ModelVisitor, {
+          initialize: function () {
+            this.super_init();
+            this.$refMap = null;
+          },
+          get_refMap: function () {
+            return this.$refMap;
+          },
+          set_refMap: function (tmp$0) {
+            this.$refMap = tmp$0;
+          },
+          beginVisitElem: function (elem) {
+            this.set_refMap(_.kotlin.getOrPut($outer.get_referencesHashmap(), elem.metaClassName(), _.org.kevoree.modeling.api.xmi.XMIModelLoader.f2));
+          },
+          endVisitElem: function (elem) {
+            this.set_refMap(null);
+          },
+          beginVisitRef: function (refName, refType) {
+            var tmp$0;
+            ((tmp$0 = this.get_refMap()) != null ? tmp$0 : Kotlin.throwNPE()).put(refName, refType);
+          },
+          visit: function (elem, refNameInParent, parent) {
+          }
+        });
+      }
+    })
+    , ca = Kotlin.createTrait()
+    , c7 = Kotlin.createClass(ca, /** @lends _.org.kevoree.modeling.api.xmi.XMIModelSerializer.prototype */ {
+      initialize: function () {
+      },
+      serialize: function (oMS) {
+        var oo = new _.java.io.ByteArrayOutputStream();
+        this.serialize_0(oMS, oo);
+        oo.flush();
+        return oo.toString();
+      },
+      serialize_0: function (oMS, ostream) {
+        var wt = new _.java.io.PrintStream(new _.java.io.BufferedOutputStream(ostream), false);
+        var addressTable = new Kotlin.ComplexHashMap(0);
+        var packageList = new Kotlin.ArrayList(0);
+        addressTable.put(oMS, '/');
+        var elementsCount = new Kotlin.PrimitiveHashMap(0);
+        var addressBuilderVisitor = new _.org.kevoree.modeling.api.xmi.ModelAddressVisitor(addressTable, elementsCount, packageList);
+        oMS.visit(addressBuilderVisitor, true, true, false);
+        var masterVisitor = new _.org.kevoree.modeling.api.xmi.ModelSerializationVisitor(wt, addressTable, elementsCount);
+        wt.println('<?xml version="1.0" encoding="UTF-8"?>');
+        wt.print('<' + this.formatMetaClassName(oMS.metaClassName()).replace('.', '_'));
+        wt.print(' xmlns:xsi="http://wwww.w3.org/2001/XMLSchema-instance"');
+        wt.print(' xmi:version="2.0"');
+        wt.print(' xmlns:xmi="http://www.omg.org/XMI"');
+        var index = 0;
+        while (index < _.kotlin.get_size(packageList)) {
+          wt.print(' xmlns:' + packageList.get(index).replace('.', '_') + '="http://' + packageList.get(index) + '"');
+          index++;
+        }
+        oMS.visitAttributes(new _.org.kevoree.modeling.api.xmi.AttributesVisitor(wt));
+        oMS.visit(new _.org.kevoree.modeling.api.xmi.ReferencesVisitor(wt, addressTable, elementsCount), false, false, true);
+        wt.println('>');
+        oMS.visit(masterVisitor, false, true, false);
+        wt.println('<\/' + this.formatMetaClassName(oMS.metaClassName()).replace('.', '_') + '>');
+        wt.flush();
+      },
+      formatMetaClassName: function (metaClassName) {
+        var lastPoint = _.js.lastIndexOf_0(metaClassName, '.');
+        var pack = metaClassName.substring(0, lastPoint);
+        var cls = metaClassName.substring(lastPoint + 1);
+        return pack + ':' + cls;
+      }
+    })
+    , c8 = Kotlin.createTrait(/** @lends _.org.kevoree.modeling.api.ModelCloner.prototype */ {
       get_mainFactory: function () {
         return this.$mainFactory;
       },
@@ -301,7 +654,7 @@ define(
         });
       }
     })
-    , c7 = Kotlin.createTrait(/** @lends _.org.kevoree.modeling.api.compare.ModelCompare.prototype */ {
+    , c9 = Kotlin.createTrait(/** @lends _.org.kevoree.modeling.api.compare.ModelCompare.prototype */ {
       diff: function (origin, target) {
         return this.createSequence().populate(this.internal_diff(origin, target, false, false));
       },
@@ -403,8 +756,7 @@ define(
         });
       }
     })
-    , c8 = Kotlin.createTrait()
-    , c9 = Kotlin.createClass(c4, /** @lends _.org.kevoree.modeling.api.json.JSONModelLoader.prototype */ {
+    , cb = Kotlin.createClass(c4, /** @lends _.org.kevoree.modeling.api.json.JSONModelLoader.prototype */ {
       initialize: function () {
         this.$factory = null;
       },
@@ -415,14 +767,7 @@ define(
         this.$factory = tmp$0;
       },
       loadModelFromString: function (str) {
-        var bytes = Kotlin.numberArrayOfSize(str.length);
-        var i = 0;
-        while (i < str.length) {
-          var tmp$0;
-          bytes[i] = (tmp$0 = str.charAt(i)) != null ? tmp$0 : Kotlin.throwNPE();
-          i = i + 1;
-        }
-        return this.deserialize(new _.java.io.ByteArrayInputStream(bytes));
+        return this.deserialize(_.org.kevoree.modeling.api.util.ByteConverter.byteArrayInputStreamFromString(str));
       },
       loadModelFromStream: function (inputStream) {
         return this.deserialize(inputStream);
@@ -554,7 +899,7 @@ define(
         }
       }
     })
-    , ca = Kotlin.createClass(c8, /** @lends _.org.kevoree.modeling.api.json.JSONModelSerializer.prototype */ {
+    , cc = Kotlin.createClass(ca, /** @lends _.org.kevoree.modeling.api.json.JSONModelSerializer.prototype */ {
       initialize: function () {
       },
       serialize: function (model) {
@@ -564,7 +909,7 @@ define(
         return outstream.toString();
       },
       serialize_0: function (model, raw) {
-        var out = new _.java.io.PrintStream(raw);
+        var out = new _.java.io.PrintStream(new _.java.io.BufferedOutputStream(raw), false);
         var internalReferenceVisitor = new _.org.kevoree.modeling.api.json.ModelReferenceVisitor(out);
         var masterVisitor = _.org.kevoree.modeling.api.json.JSONModelSerializer.f0(this, out, internalReferenceVisitor);
         model.visit(masterVisitor, true, true, false);
@@ -647,11 +992,11 @@ define(
         });
       }
     })
-    , cb = Kotlin.createTrait()
-    , cc = Kotlin.createTrait(cb)
     , cd = Kotlin.createTrait()
-    , ce = Kotlin.createTrait()
-    , cf = Kotlin.createTrait(/** @lends _.org.kevoree.modeling.api.trace.TraceSequence.prototype */ {
+    , ce = Kotlin.createTrait(cd)
+    , cf = Kotlin.createTrait()
+    , cg = Kotlin.createTrait()
+    , ch = Kotlin.createTrait(/** @lends _.org.kevoree.modeling.api.trace.TraceSequence.prototype */ {
       get_traces: function () {
         return this.$traces;
       },
@@ -669,14 +1014,7 @@ define(
         return this;
       },
       populateFromString: function (addtracesTxt) {
-        var bytes = Kotlin.numberArrayOfSize(addtracesTxt.length);
-        var i = 0;
-        while (i < addtracesTxt.length) {
-          var tmp$0;
-          bytes[i] = (tmp$0 = addtracesTxt.charAt(i)) != null ? tmp$0 : Kotlin.throwNPE();
-          i = i + 1;
-        }
-        return this.populateFromStream(new _.java.io.ByteArrayInputStream(bytes));
+        return this.populateFromStream(_.org.kevoree.modeling.api.util.ByteConverter.byteArrayInputStreamFromString(addtracesTxt));
       },
       populateFromStream: function (inputStream) {
         var lexer = new _.org.kevoree.modeling.api.json.Lexer(inputStream);
@@ -726,6 +1064,7 @@ define(
              else if (tmp$1 === Kotlin.toString(_.org.kevoree.modeling.api.util.ActionType.get_RENEW_INDEX())) {
             }
              else {
+              Kotlin.println('Trace lost !!!');
             }
           }
           currentToken = lexer.nextToken();
@@ -757,7 +1096,7 @@ define(
         return true;
       }
     })
-    , ch = Kotlin.createClass(null, /** @lends _.org.kevoree.modeling.api.util.ModelVisitor.prototype */ {
+    , cj = Kotlin.createClass(null, /** @lends _.org.kevoree.modeling.api.util.ModelVisitor.prototype */ {
       initialize: function () {
         this.$visitStopped = false;
         this.$visitChildren = true;
@@ -796,8 +1135,8 @@ define(
       endVisitRef: function (refName) {
       }
     })
-    , ci = Kotlin.createTrait()
-    , ck = Kotlin.createTrait(cg, /** @lends _.org.kevoree.Wire.prototype */ {
+    , ck = Kotlin.createTrait()
+    , cm = Kotlin.createTrait(ci, /** @lends _.org.kevoree.Wire.prototype */ {
       get_generated_KMF_ID: function () {
         return this.$generated_KMF_ID;
       },
@@ -811,7 +1150,7 @@ define(
         this.$ports = tmp$0;
       }
     })
-    , cm = Kotlin.createTrait(cg, /** @lends _.org.kevoree.Repository.prototype */ {
+    , co = Kotlin.createTrait(ci, /** @lends _.org.kevoree.Repository.prototype */ {
       get_url: function () {
         return this.$url;
       },
@@ -825,7 +1164,7 @@ define(
         this.$units = tmp$0;
       }
     })
-    , cn = Kotlin.createTrait([cg, cj], /** @lends _.org.kevoree.NetworkProperty.prototype */ {
+    , cp = Kotlin.createTrait([ci, cl], /** @lends _.org.kevoree.NetworkProperty.prototype */ {
       get_value: function () {
         return this.$value;
       },
@@ -839,7 +1178,7 @@ define(
         this.$lastCheck = tmp$0;
       }
     })
-    , co = Kotlin.createTrait([cg, cz], /** @lends _.org.kevoree.ServicePortType.prototype */ {
+    , cq = Kotlin.createTrait([ci, c11], /** @lends _.org.kevoree.ServicePortType.prototype */ {
       get_interface: function () {
         return this.$interface;
       },
@@ -853,7 +1192,7 @@ define(
         this.$operations = tmp$0;
       }
     })
-    , cp = Kotlin.createTrait([cg, cl], /** @lends _.org.kevoree.ChannelType.prototype */ {
+    , cr = Kotlin.createTrait([ci, cn], /** @lends _.org.kevoree.ChannelType.prototype */ {
       get_lowerBindings: function () {
         return this.$lowerBindings;
       },
@@ -879,7 +1218,7 @@ define(
         this.$upperFragments = tmp$0;
       }
     })
-    , cq = Kotlin.createTrait(cg, /** @lends _.org.kevoree.AdaptationPrimitiveTypeRef.prototype */ {
+    , cs = Kotlin.createTrait(ci, /** @lends _.org.kevoree.AdaptationPrimitiveTypeRef.prototype */ {
       get_maxTime: function () {
         return this.$maxTime;
       },
@@ -899,7 +1238,7 @@ define(
         this.$ref = tmp$0;
       }
     })
-    , cr = Kotlin.createTrait(cg, /** @lends _.org.kevoree.ContainerRoot.prototype */ {
+    , ct = Kotlin.createTrait(ci, /** @lends _.org.kevoree.ContainerRoot.prototype */ {
       get_generated_KMF_ID: function () {
         return this.$generated_KMF_ID;
       },
@@ -973,7 +1312,7 @@ define(
         this.$adaptationPrimitiveTypes = tmp$0;
       }
     })
-    , cs = Kotlin.createTrait([cg, cj, c11], /** @lends _.org.kevoree.Channel.prototype */ {
+    , cu = Kotlin.createTrait([ci, cl, c13], /** @lends _.org.kevoree.Channel.prototype */ {
       get_bindings: function () {
         return this.$bindings;
       },
@@ -981,7 +1320,7 @@ define(
         this.$bindings = tmp$0;
       }
     })
-    , ct = Kotlin.createTrait(cg, /** @lends _.org.kevoree.container.KMFContainerImpl.prototype */ {
+    , cv = Kotlin.createTrait(ci, /** @lends _.org.kevoree.container.KMFContainerImpl.prototype */ {
       get_internal_eContainer: function () {
         return this.$internal_eContainer;
       },
@@ -1449,7 +1788,7 @@ define(
         });
       }
     })
-    , cu = Kotlin.createTrait([cg, cj], /** @lends _.org.kevoree.TypedElement.prototype */ {
+    , cw = Kotlin.createTrait([ci, cl], /** @lends _.org.kevoree.TypedElement.prototype */ {
       get_genericTypes: function () {
         return this.$genericTypes;
       },
@@ -1457,7 +1796,7 @@ define(
         this.$genericTypes = tmp$0;
       }
     })
-    , cv = Kotlin.createTrait([cg, cj], /** @lends _.org.kevoree.Parameter.prototype */ {
+    , cx = Kotlin.createTrait([ci, cl], /** @lends _.org.kevoree.Parameter.prototype */ {
       get_order: function () {
         return this.$order;
       },
@@ -1471,7 +1810,7 @@ define(
         this.$type = tmp$0;
       }
     })
-    , cw = Kotlin.createTrait(cg, /** @lends _.org.kevoree.NodeNetwork.prototype */ {
+    , cy = Kotlin.createTrait(ci, /** @lends _.org.kevoree.NodeNetwork.prototype */ {
       get_generated_KMF_ID: function () {
         return this.$generated_KMF_ID;
       },
@@ -1497,7 +1836,7 @@ define(
         this.$target = tmp$0;
       }
     })
-    , cx = Kotlin.createTrait(cg, /** @lends _.org.kevoree.NodeLink.prototype */ {
+    , cz = Kotlin.createTrait(ci, /** @lends _.org.kevoree.NodeLink.prototype */ {
       get_networkType: function () {
         return this.$networkType;
       },
@@ -1535,7 +1874,7 @@ define(
         this.$networkProperties = tmp$0;
       }
     })
-    , cy = Kotlin.createTrait(cg, /** @lends _.org.kevoree.MBinding.prototype */ {
+    , c10 = Kotlin.createTrait(ci, /** @lends _.org.kevoree.MBinding.prototype */ {
       get_generated_KMF_ID: function () {
         return this.$generated_KMF_ID;
       },
@@ -1555,7 +1894,7 @@ define(
         this.$hub = tmp$0;
       }
     })
-    , c10 = Kotlin.createTrait([cg, cj], /** @lends _.org.kevoree.Operation.prototype */ {
+    , c12 = Kotlin.createTrait([ci, cl], /** @lends _.org.kevoree.Operation.prototype */ {
       get_parameters: function () {
         return this.$parameters;
       },
@@ -1569,7 +1908,7 @@ define(
         this.$returnType = tmp$0;
       }
     })
-    , c12 = Kotlin.createTrait([cg, cl], /** @lends _.org.kevoree.NodeType.prototype */ {
+    , c14 = Kotlin.createTrait([ci, cn], /** @lends _.org.kevoree.NodeType.prototype */ {
       get_managedPrimitiveTypes: function () {
         return this.$managedPrimitiveTypes;
       },
@@ -1583,7 +1922,7 @@ define(
         this.$managedPrimitiveTypeRefs = tmp$0;
       }
     })
-    , c14 = Kotlin.createTrait([cg, cj], /** @lends _.org.kevoree.PortTypeRef.prototype */ {
+    , c16 = Kotlin.createTrait([ci, cl], /** @lends _.org.kevoree.PortTypeRef.prototype */ {
       get_optional: function () {
         return this.$optional;
       },
@@ -1609,7 +1948,7 @@ define(
         this.$mappings = tmp$0;
       }
     })
-    , c15 = Kotlin.createTrait([cg, cu], /** @lends _.org.kevoree.DictionaryAttribute.prototype */ {
+    , c17 = Kotlin.createTrait([ci, cw], /** @lends _.org.kevoree.DictionaryAttribute.prototype */ {
       get_optional: function () {
         return this.$optional;
       },
@@ -1635,7 +1974,7 @@ define(
         this.$fragmentDependant = tmp$0;
       }
     })
-    , c1e = Kotlin.createTrait([cg, cl], /** @lends _.org.kevoree.ComponentType.prototype */ {
+    , c1g = Kotlin.createTrait([ci, cn], /** @lends _.org.kevoree.ComponentType.prototype */ {
       get_required: function () {
         return this.$required;
       },
@@ -1661,7 +2000,7 @@ define(
         this.$provided = tmp$0;
       }
     })
-    , c16 = Kotlin.createTrait([cg, c1e], /** @lends _.org.kevoree.CompositeType.prototype */ {
+    , c18 = Kotlin.createTrait([ci, c1g], /** @lends _.org.kevoree.CompositeType.prototype */ {
       get_childs: function () {
         return this.$childs;
       },
@@ -1675,8 +2014,8 @@ define(
         this.$wires = tmp$0;
       }
     })
-    , c17 = Kotlin.createTrait(c5)
-    , c18 = Kotlin.createTrait(cg, /** @lends _.org.kevoree.DictionaryValue.prototype */ {
+    , c19 = Kotlin.createTrait(c5)
+    , c1a = Kotlin.createTrait(ci, /** @lends _.org.kevoree.DictionaryValue.prototype */ {
       get_value: function () {
         return this.$value;
       },
@@ -1702,7 +2041,7 @@ define(
         this.$targetNode = tmp$0;
       }
     })
-    , c19 = Kotlin.createTrait(cg, /** @lends _.org.kevoree.PortTypeMapping.prototype */ {
+    , c1b = Kotlin.createTrait(ci, /** @lends _.org.kevoree.PortTypeMapping.prototype */ {
       get_beanMethodName: function () {
         return this.$beanMethodName;
       },
@@ -1728,7 +2067,7 @@ define(
         this.$generated_KMF_ID = tmp$0;
       }
     })
-    , c1a = Kotlin.createTrait([cg, c11], /** @lends _.org.kevoree.Group.prototype */ {
+    , c1c = Kotlin.createTrait([ci, c13], /** @lends _.org.kevoree.Group.prototype */ {
       get_subNodes: function () {
         return this.$subNodes;
       },
@@ -1736,7 +2075,7 @@ define(
         this.$subNodes = tmp$0;
       }
     })
-    , c1b = Kotlin.createTrait(cg, /** @lends _.org.kevoree.ExtraFonctionalProperty.prototype */ {
+    , c1d = Kotlin.createTrait(ci, /** @lends _.org.kevoree.ExtraFonctionalProperty.prototype */ {
       get_generated_KMF_ID: function () {
         return this.$generated_KMF_ID;
       },
@@ -1750,7 +2089,7 @@ define(
         this.$portTypes = tmp$0;
       }
     })
-    , c1c = Kotlin.createTrait(cg, /** @lends _.org.kevoree.DictionaryType.prototype */ {
+    , c1e = Kotlin.createTrait(ci, /** @lends _.org.kevoree.DictionaryType.prototype */ {
       get_generated_KMF_ID: function () {
         return this.$generated_KMF_ID;
       },
@@ -1770,7 +2109,7 @@ define(
         this.$defaultValues = tmp$0;
       }
     })
-    , c1d = Kotlin.createTrait([cg, cj], /** @lends _.org.kevoree.Namespace.prototype */ {
+    , c1f = Kotlin.createTrait([ci, cl], /** @lends _.org.kevoree.Namespace.prototype */ {
       get_childs: function () {
         return this.$childs;
       },
@@ -1784,8 +2123,8 @@ define(
         this.$parent = tmp$0;
       }
     })
-    , c1f = Kotlin.createTrait([cg, cj])
-    , c1g = Kotlin.createTrait([cg, cj], /** @lends _.org.kevoree.TypeLibrary.prototype */ {
+    , c1h = Kotlin.createTrait([ci, cl])
+    , c1i = Kotlin.createTrait([ci, cl], /** @lends _.org.kevoree.TypeLibrary.prototype */ {
       get_subTypes: function () {
         return this.$subTypes;
       },
@@ -1793,7 +2132,7 @@ define(
         this.$subTypes = tmp$0;
       }
     })
-    , c1h = Kotlin.createTrait(cg, /** @lends _.org.kevoree.Port.prototype */ {
+    , c1j = Kotlin.createTrait(ci, /** @lends _.org.kevoree.Port.prototype */ {
       get_generated_KMF_ID: function () {
         return this.$generated_KMF_ID;
       },
@@ -1813,7 +2152,7 @@ define(
         this.$portTypeRef = tmp$0;
       }
     })
-    , c1i = Kotlin.createTrait([cg, cj], /** @lends _.org.kevoree.IntegrationPattern.prototype */ {
+    , c1k = Kotlin.createTrait([ci, cl], /** @lends _.org.kevoree.IntegrationPattern.prototype */ {
       get_extraFonctionalProperties: function () {
         return this.$extraFonctionalProperties;
       },
@@ -1827,7 +2166,7 @@ define(
         this.$portTypes = tmp$0;
       }
     })
-    , c1j = Kotlin.createTrait(cg, /** @lends _.org.kevoree.Dictionary.prototype */ {
+    , c1l = Kotlin.createTrait(ci, /** @lends _.org.kevoree.Dictionary.prototype */ {
       get_generated_KMF_ID: function () {
         return this.$generated_KMF_ID;
       },
@@ -1841,7 +2180,7 @@ define(
         this.$values = tmp$0;
       }
     })
-    , c1k = Kotlin.createTrait([cg, cj, c11], /** @lends _.org.kevoree.ComponentInstance.prototype */ {
+    , c1m = Kotlin.createTrait([ci, cl, c13], /** @lends _.org.kevoree.ComponentInstance.prototype */ {
       get_provided: function () {
         return this.$provided;
       },
@@ -1861,15 +2200,15 @@ define(
         this.$namespace = tmp$0;
       }
     })
-    , c1l = Kotlin.createTrait()
-    , c1m = Kotlin.createTrait()
-    , c1n = Kotlin.createTrait(/** @lends _.org.w3c.dom.events.EventListener.prototype */ {
+    , c1n = Kotlin.createTrait()
+    , c1o = Kotlin.createTrait()
+    , c1p = Kotlin.createTrait(/** @lends _.org.w3c.dom.events.EventListener.prototype */ {
       handleEvent: function (arg1) {
         noImpl;
       }
     })
-    , c1o = Kotlin.createTrait()
-    , c1p = Kotlin.createClass(Kotlin.Iterator, /** @lends _.kotlin.support.AbstractIterator.prototype */ {
+    , c1q = Kotlin.createTrait()
+    , c1r = Kotlin.createClass(Kotlin.Iterator, /** @lends _.kotlin.support.AbstractIterator.prototype */ {
       initialize: function () {
         this.$state = _.kotlin.support.State.get_NotReady();
         this.$nextValue = null;
@@ -1923,7 +2262,7 @@ define(
         this.set_state(_.kotlin.support.State.get_Done());
       }
     });
-    return {cg: cg, c0: c0, cj: cj, c11: c11, c1: c1, c13: c13, cz: cz, c2: c2, cl: cl, c3: c3, c4: c4, c5: c5, c6: c6, c7: c7, c8: c8, c9: c9, ca: ca, cb: cb, cc: cc, cd: cd, ce: ce, cf: cf, ch: ch, ci: ci, ck: ck, cm: cm, cn: cn, co: co, cp: cp, cq: cq, cr: cr, cs: cs, ct: ct, cu: cu, cv: cv, cw: cw, cx: cx, cy: cy, c10: c10, c12: c12, c14: c14, c15: c15, c1e: c1e, c16: c16, c17: c17, c18: c18, c19: c19, c1a: c1a, c1b: c1b, c1c: c1c, c1d: c1d, c1f: c1f, c1g: c1g, c1h: c1h, c1i: c1i, c1j: c1j, c1k: c1k, c1l: c1l, c1m: c1m, c1n: c1n, c1o: c1o, c1p: c1p};
+    return {ci: ci, c0: c0, cl: cl, c13: c13, c1: c1, c15: c15, c11: c11, c2: c2, cn: cn, c3: c3, c4: c4, c5: c5, c6: c6, ca: ca, c7: c7, c8: c8, c9: c9, cb: cb, cc: cc, cd: cd, ce: ce, cf: cf, cg: cg, ch: ch, cj: cj, ck: ck, cm: cm, co: co, cp: cp, cq: cq, cr: cr, cs: cs, ct: ct, cu: cu, cv: cv, cw: cw, cx: cx, cy: cy, cz: cz, c10: c10, c12: c12, c14: c14, c16: c16, c17: c17, c1g: c1g, c18: c18, c19: c19, c1a: c1a, c1b: c1b, c1c: c1c, c1d: c1d, c1e: c1e, c1f: c1f, c1h: c1h, c1i: c1i, c1j: c1j, c1k: c1k, c1l: c1l, c1m: c1m, c1n: c1n, c1o: c1o, c1p: c1p, c1q: c1q, c1r: c1r};
   }()
   , _ = {
     kotlin: Kotlin.definePackage({
@@ -4225,7 +4564,7 @@ define(
         set_asserter: function (tmp$0) {
           this.$asserter = tmp$0;
         },
-        QUnitAsserter: Kotlin.createClass(classes.c1o, /** @lends _.kotlin.test.QUnitAsserter.prototype */ {
+        QUnitAsserter: Kotlin.createClass(classes.c1q, /** @lends _.kotlin.test.QUnitAsserter.prototype */ {
           initialize: function () {
           },
           assertTrue: function (message, actual) {
@@ -4302,7 +4641,7 @@ define(
             return e;
           }
         },
-        Asserter: classes.c1o
+        Asserter: classes.c1q
       }),
       filter_4: function ($receiver, predicate) {
         return new _.kotlin.FilterIterator($receiver, predicate);
@@ -4829,7 +5168,7 @@ define(
         eventHandler: function (handler) {
           return new _.kotlin.dom.EventListenerHandler(handler);
         },
-        EventListenerHandler: Kotlin.createClass(classes.c1n, /** @lends _.kotlin.dom.EventListenerHandler.prototype */ {
+        EventListenerHandler: Kotlin.createClass(classes.c1p, /** @lends _.kotlin.dom.EventListenerHandler.prototype */ {
           initialize: function (handler) {
             this.$handler = handler;
           },
@@ -5123,7 +5462,7 @@ define(
         nextSiblings: function ($receiver) {
           return new _.kotlin.dom.NextSiblingIterator($receiver);
         },
-        NextSiblingIterator: Kotlin.createClass(classes.c1p, /** @lends _.kotlin.dom.NextSiblingIterator.prototype */ {
+        NextSiblingIterator: Kotlin.createClass(classes.c1r, /** @lends _.kotlin.dom.NextSiblingIterator.prototype */ {
           initialize: function (node) {
             this.$node = node;
             this.super_init();
@@ -5148,7 +5487,7 @@ define(
         previousSiblings: function ($receiver) {
           return new _.kotlin.dom.PreviousSiblingIterator($receiver);
         },
-        PreviousSiblingIterator: Kotlin.createClass(classes.c1p, /** @lends _.kotlin.dom.PreviousSiblingIterator.prototype */ {
+        PreviousSiblingIterator: Kotlin.createClass(classes.c1r, /** @lends _.kotlin.dom.PreviousSiblingIterator.prototype */ {
           initialize: function (node) {
             this.$node = node;
             this.super_init();
@@ -5917,7 +6256,7 @@ define(
       iterate: function (nextFunction) {
         return new _.kotlin.FunctionIterator(nextFunction);
       },
-      FilterIterator: Kotlin.createClass(classes.c1p, /** @lends _.kotlin.FilterIterator.prototype */ {
+      FilterIterator: Kotlin.createClass(classes.c1r, /** @lends _.kotlin.FilterIterator.prototype */ {
         initialize: function (iterator, predicate) {
           this.$iterator = iterator;
           this.$predicate = predicate;
@@ -5940,7 +6279,7 @@ define(
           this.done();
         }
       }),
-      FilterNotNullIterator: Kotlin.createClass(classes.c1p, /** @lends _.kotlin.FilterNotNullIterator.prototype */ {
+      FilterNotNullIterator: Kotlin.createClass(classes.c1r, /** @lends _.kotlin.FilterNotNullIterator.prototype */ {
         initialize: function (iterator) {
           this.$iterator = iterator;
           this.super_init();
@@ -5961,7 +6300,7 @@ define(
           this.done();
         }
       }),
-      MapIterator: Kotlin.createClass(classes.c1p, /** @lends _.kotlin.MapIterator.prototype */ {
+      MapIterator: Kotlin.createClass(classes.c1r, /** @lends _.kotlin.MapIterator.prototype */ {
         initialize: function (iterator, transform) {
           this.$iterator = iterator;
           this.$transform = transform;
@@ -5982,7 +6321,7 @@ define(
           }
         }
       }),
-      FlatMapIterator: Kotlin.createClass(classes.c1p, /** @lends _.kotlin.FlatMapIterator.prototype */ {
+      FlatMapIterator: Kotlin.createClass(classes.c1r, /** @lends _.kotlin.FlatMapIterator.prototype */ {
         initialize: function (iterator, transform) {
           this.$iterator = iterator;
           this.$transform = transform;
@@ -6019,7 +6358,7 @@ define(
           }
         }
       }),
-      TakeWhileIterator: Kotlin.createClass(classes.c1p, /** @lends _.kotlin.TakeWhileIterator.prototype */ {
+      TakeWhileIterator: Kotlin.createClass(classes.c1r, /** @lends _.kotlin.TakeWhileIterator.prototype */ {
         initialize: function (iterator, predicate) {
           this.$iterator = iterator;
           this.$predicate = predicate;
@@ -6042,7 +6381,7 @@ define(
           this.done();
         }
       }),
-      FunctionIterator: Kotlin.createClass(classes.c1p, /** @lends _.kotlin.FunctionIterator.prototype */ {
+      FunctionIterator: Kotlin.createClass(classes.c1r, /** @lends _.kotlin.FunctionIterator.prototype */ {
         initialize: function (nextFunction) {
           this.$nextFunction = nextFunction;
           this.super_init();
@@ -6060,7 +6399,7 @@ define(
           }
         }
       }),
-      CompositeIterator: Kotlin.createClass(classes.c1p, /** @lends _.kotlin.CompositeIterator.prototype */ {
+      CompositeIterator: Kotlin.createClass(classes.c1r, /** @lends _.kotlin.CompositeIterator.prototype */ {
         initialize: function (iterators) {
           this.super_init();
           this.$iteratorsIter = Kotlin.arrayIterator(iterators);
@@ -6099,7 +6438,7 @@ define(
           }
         }
       }),
-      SingleIterator: Kotlin.createClass(classes.c1p, /** @lends _.kotlin.SingleIterator.prototype */ {
+      SingleIterator: Kotlin.createClass(classes.c1r, /** @lends _.kotlin.SingleIterator.prototype */ {
         initialize: function (value) {
           this.$value = value;
           this.super_init();
@@ -6922,13 +7261,25 @@ define(
         return f($receiver);
       },
       support: Kotlin.definePackage({
-        AbstractIterator: classes.c1p
+        AbstractIterator: classes.c1r
       })
     }),
     org: Kotlin.definePackage({
       kevoree: Kotlin.definePackage({
         loader: Kotlin.definePackage({
-          JSONModelLoader: Kotlin.createClass(classes.c9, /** @lends _.org.kevoree.loader.JSONModelLoader.prototype */ {
+          JSONModelLoader: Kotlin.createClass(classes.cb, /** @lends _.org.kevoree.loader.JSONModelLoader.prototype */ {
+            initialize: function () {
+              this.super_init();
+              this.$factory = new _.org.kevoree.factory.MainFactory();
+            },
+            get_factory: function () {
+              return this.$factory;
+            },
+            set_factory: function (tmp$0) {
+              this.$factory = tmp$0;
+            }
+          }),
+          XMIModelLoader: Kotlin.createClass(classes.c6, /** @lends _.org.kevoree.loader.XMIModelLoader.prototype */ {
             initialize: function () {
               this.super_init();
               this.$factory = new _.org.kevoree.factory.MainFactory();
@@ -6945,45 +7296,45 @@ define(
         ContainerNode: classes.c1,
         MessagePortType: classes.c2,
         GroupType: classes.c3,
-        NamedElement: classes.cj,
-        Wire: classes.ck,
-        LifeCycleTypeDefinition: classes.cl,
-        Repository: classes.cm,
-        NetworkProperty: classes.cn,
-        ServicePortType: classes.co,
-        ChannelType: classes.cp,
-        AdaptationPrimitiveTypeRef: classes.cq,
-        ContainerRoot: classes.cr,
-        Channel: classes.cs,
-        TypedElement: classes.cu,
-        Parameter: classes.cv,
-        NodeNetwork: classes.cw,
-        NodeLink: classes.cx,
-        MBinding: classes.cy,
-        PortType: classes.cz,
-        Operation: classes.c10,
-        Instance: classes.c11,
-        NodeType: classes.c12,
-        TypeDefinition: classes.c13,
-        PortTypeRef: classes.c14,
-        DictionaryAttribute: classes.c15,
-        CompositeType: classes.c16,
-        KevoreeFactory: classes.c17,
-        DictionaryValue: classes.c18,
-        PortTypeMapping: classes.c19,
-        Group: classes.c1a,
-        ExtraFonctionalProperty: classes.c1b,
-        DictionaryType: classes.c1c,
-        Namespace: classes.c1d,
-        ComponentType: classes.c1e,
-        AdaptationPrimitiveType: classes.c1f,
-        TypeLibrary: classes.c1g,
-        Port: classes.c1h,
-        IntegrationPattern: classes.c1i,
-        Dictionary: classes.c1j,
-        ComponentInstance: classes.c1k,
+        NamedElement: classes.cl,
+        Wire: classes.cm,
+        LifeCycleTypeDefinition: classes.cn,
+        Repository: classes.co,
+        NetworkProperty: classes.cp,
+        ServicePortType: classes.cq,
+        ChannelType: classes.cr,
+        AdaptationPrimitiveTypeRef: classes.cs,
+        ContainerRoot: classes.ct,
+        Channel: classes.cu,
+        TypedElement: classes.cw,
+        Parameter: classes.cx,
+        NodeNetwork: classes.cy,
+        NodeLink: classes.cz,
+        MBinding: classes.c10,
+        PortType: classes.c11,
+        Operation: classes.c12,
+        Instance: classes.c13,
+        NodeType: classes.c14,
+        TypeDefinition: classes.c15,
+        PortTypeRef: classes.c16,
+        DictionaryAttribute: classes.c17,
+        CompositeType: classes.c18,
+        KevoreeFactory: classes.c19,
+        DictionaryValue: classes.c1a,
+        PortTypeMapping: classes.c1b,
+        Group: classes.c1c,
+        ExtraFonctionalProperty: classes.c1d,
+        DictionaryType: classes.c1e,
+        Namespace: classes.c1f,
+        ComponentType: classes.c1g,
+        AdaptationPrimitiveType: classes.c1h,
+        TypeLibrary: classes.c1i,
+        Port: classes.c1j,
+        IntegrationPattern: classes.c1k,
+        Dictionary: classes.c1l,
+        ComponentInstance: classes.c1m,
         impl: Kotlin.definePackage({
-          CompositeTypeImpl: Kotlin.createClass([classes.ct, classes.c16], /** @lends _.org.kevoree.impl.CompositeTypeImpl.prototype */ {
+          CompositeTypeImpl: Kotlin.createClass([classes.cv, classes.c18], /** @lends _.org.kevoree.impl.CompositeTypeImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -8604,7 +8955,7 @@ define(
               this.set_wires(internal_p);
             }
           }),
-          DictionaryTypeImpl: Kotlin.createClass([classes.ct, classes.c1c], /** @lends _.org.kevoree.impl.DictionaryTypeImpl.prototype */ {
+          DictionaryTypeImpl: Kotlin.createClass([classes.cv, classes.c1e], /** @lends _.org.kevoree.impl.DictionaryTypeImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -9083,7 +9434,7 @@ define(
               this.set_defaultValues(internal_p);
             }
           }),
-          ChannelImpl: Kotlin.createClass([classes.ct, classes.cs], /** @lends _.org.kevoree.impl.ChannelImpl.prototype */ {
+          ChannelImpl: Kotlin.createClass([classes.cv, classes.cu], /** @lends _.org.kevoree.impl.ChannelImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -9561,7 +9912,7 @@ define(
               this.set_bindings(internal_p);
             }
           }),
-          NamespaceImpl: Kotlin.createClass([classes.ct, classes.c1d], /** @lends _.org.kevoree.impl.NamespaceImpl.prototype */ {
+          NamespaceImpl: Kotlin.createClass([classes.cv, classes.c1f], /** @lends _.org.kevoree.impl.NamespaceImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -9918,7 +10269,7 @@ define(
               this.set_parent(internal_p);
             }
           }),
-          ContainerNodeImpl: Kotlin.createClass([classes.ct, classes.c1], /** @lends _.org.kevoree.impl.ContainerNodeImpl.prototype */ {
+          ContainerNodeImpl: Kotlin.createClass([classes.cv, classes.c1], /** @lends _.org.kevoree.impl.ContainerNodeImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -10635,7 +10986,7 @@ define(
               this.set_host(internal_p);
             }
           }),
-          ComponentInstanceImpl: Kotlin.createClass([classes.ct, classes.c1k], /** @lends _.org.kevoree.impl.ComponentInstanceImpl.prototype */ {
+          ComponentInstanceImpl: Kotlin.createClass([classes.cv, classes.c1m], /** @lends _.org.kevoree.impl.ComponentInstanceImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -11340,7 +11691,7 @@ define(
               this.set_namespace(internal_p);
             }
           }),
-          MessagePortTypeImpl: Kotlin.createClass([classes.ct, classes.c2], /** @lends _.org.kevoree.impl.MessagePortTypeImpl.prototype */ {
+          MessagePortTypeImpl: Kotlin.createClass([classes.cv, classes.c2], /** @lends _.org.kevoree.impl.MessagePortTypeImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -12135,7 +12486,7 @@ define(
               this.set_filters(internal_p);
             }
           }),
-          ParameterImpl: Kotlin.createClass([classes.ct, classes.cv], /** @lends _.org.kevoree.impl.ParameterImpl.prototype */ {
+          ParameterImpl: Kotlin.createClass([classes.cv, classes.cx], /** @lends _.org.kevoree.impl.ParameterImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -12341,7 +12692,7 @@ define(
               this.set_type(internal_p);
             }
           }),
-          DictionaryAttributeImpl: Kotlin.createClass([classes.ct, classes.c15], /** @lends _.org.kevoree.impl.DictionaryAttributeImpl.prototype */ {
+          DictionaryAttributeImpl: Kotlin.createClass([classes.cv, classes.c17], /** @lends _.org.kevoree.impl.DictionaryAttributeImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -12745,7 +13096,7 @@ define(
               this.set_genericTypes(internal_p);
             }
           }),
-          InstanceImpl: Kotlin.createClass([classes.ct, classes.c11], /** @lends _.org.kevoree.impl.InstanceImpl.prototype */ {
+          InstanceImpl: Kotlin.createClass([classes.cv, classes.c13], /** @lends _.org.kevoree.impl.InstanceImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -13042,7 +13393,7 @@ define(
               this.set_dictionary(internal_p);
             }
           }),
-          TypedElementImpl: Kotlin.createClass([classes.ct, classes.cu], /** @lends _.org.kevoree.impl.TypedElementImpl.prototype */ {
+          TypedElementImpl: Kotlin.createClass([classes.cv, classes.cw], /** @lends _.org.kevoree.impl.TypedElementImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -13330,7 +13681,7 @@ define(
               this.set_genericTypes(internal_p);
             }
           }),
-          NodeTypeImpl: Kotlin.createClass([classes.ct, classes.c12], /** @lends _.org.kevoree.impl.NodeTypeImpl.prototype */ {
+          NodeTypeImpl: Kotlin.createClass([classes.cv, classes.c14], /** @lends _.org.kevoree.impl.NodeTypeImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -14360,7 +14711,7 @@ define(
               this.set_managedPrimitiveTypeRefs(internal_p);
             }
           }),
-          DeployUnitImpl: Kotlin.createClass([classes.ct, classes.c0], /** @lends _.org.kevoree.impl.DeployUnitImpl.prototype */ {
+          DeployUnitImpl: Kotlin.createClass([classes.cv, classes.c0], /** @lends _.org.kevoree.impl.DeployUnitImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -14904,7 +15255,7 @@ define(
               this.set_targetNodeType(internal_p);
             }
           }),
-          GroupTypeImpl: Kotlin.createClass([classes.ct, classes.c3], /** @lends _.org.kevoree.impl.GroupTypeImpl.prototype */ {
+          GroupTypeImpl: Kotlin.createClass([classes.cv, classes.c3], /** @lends _.org.kevoree.impl.GroupTypeImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -15594,7 +15945,7 @@ define(
               this.set_superTypes(internal_p);
             }
           }),
-          AdaptationPrimitiveTypeRefImpl: Kotlin.createClass([classes.ct, classes.cq], /** @lends _.org.kevoree.impl.AdaptationPrimitiveTypeRefImpl.prototype */ {
+          AdaptationPrimitiveTypeRefImpl: Kotlin.createClass([classes.cv, classes.cs], /** @lends _.org.kevoree.impl.AdaptationPrimitiveTypeRefImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -15800,7 +16151,7 @@ define(
               this.set_ref(internal_p);
             }
           }),
-          IntegrationPatternImpl: Kotlin.createClass([classes.ct, classes.c1i], /** @lends _.org.kevoree.impl.IntegrationPatternImpl.prototype */ {
+          IntegrationPatternImpl: Kotlin.createClass([classes.cv, classes.c1k], /** @lends _.org.kevoree.impl.IntegrationPatternImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -16267,7 +16618,7 @@ define(
               this.set_portTypes(internal_p);
             }
           }),
-          ChannelTypeImpl: Kotlin.createClass([classes.ct, classes.cp], /** @lends _.org.kevoree.impl.ChannelTypeImpl.prototype */ {
+          ChannelTypeImpl: Kotlin.createClass([classes.cv, classes.cr], /** @lends _.org.kevoree.impl.ChannelTypeImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -17073,7 +17424,7 @@ define(
               this.set_superTypes(internal_p);
             }
           }),
-          ServicePortTypeImpl: Kotlin.createClass([classes.ct, classes.co], /** @lends _.org.kevoree.impl.ServicePortTypeImpl.prototype */ {
+          ServicePortTypeImpl: Kotlin.createClass([classes.cv, classes.cq], /** @lends _.org.kevoree.impl.ServicePortTypeImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -17911,7 +18262,7 @@ define(
               this.set_operations(internal_p);
             }
           }),
-          NamedElementImpl: Kotlin.createClass([classes.ct, classes.cj], /** @lends _.org.kevoree.impl.NamedElementImpl.prototype */ {
+          NamedElementImpl: Kotlin.createClass([classes.cv, classes.cl], /** @lends _.org.kevoree.impl.NamedElementImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -18033,7 +18384,7 @@ define(
               this.set_name(internal_p);
             }
           }),
-          GroupImpl: Kotlin.createClass([classes.ct, classes.c1a], /** @lends _.org.kevoree.impl.GroupImpl.prototype */ {
+          GroupImpl: Kotlin.createClass([classes.cv, classes.c1c], /** @lends _.org.kevoree.impl.GroupImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -18494,7 +18845,7 @@ define(
               this.set_subNodes(internal_p);
             }
           }),
-          NodeNetworkImpl: Kotlin.createClass([classes.ct, classes.cw], /** @lends _.org.kevoree.impl.NodeNetworkImpl.prototype */ {
+          NodeNetworkImpl: Kotlin.createClass([classes.cv, classes.cy], /** @lends _.org.kevoree.impl.NodeNetworkImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -18904,7 +19255,7 @@ define(
               this.set_target(internal_p);
             }
           }),
-          NetworkPropertyImpl: Kotlin.createClass([classes.ct, classes.cn], /** @lends _.org.kevoree.impl.NetworkPropertyImpl.prototype */ {
+          NetworkPropertyImpl: Kotlin.createClass([classes.cv, classes.cp], /** @lends _.org.kevoree.impl.NetworkPropertyImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -19084,7 +19435,7 @@ define(
               this.set_lastCheck(internal_p);
             }
           }),
-          AdaptationPrimitiveTypeImpl: Kotlin.createClass([classes.ct, classes.c1f], /** @lends _.org.kevoree.impl.AdaptationPrimitiveTypeImpl.prototype */ {
+          AdaptationPrimitiveTypeImpl: Kotlin.createClass([classes.cv, classes.c1h], /** @lends _.org.kevoree.impl.AdaptationPrimitiveTypeImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -19206,7 +19557,7 @@ define(
               this.set_name(internal_p);
             }
           }),
-          NodeLinkImpl: Kotlin.createClass([classes.ct, classes.cx], /** @lends _.org.kevoree.impl.NodeLinkImpl.prototype */ {
+          NodeLinkImpl: Kotlin.createClass([classes.cv, classes.cz], /** @lends _.org.kevoree.impl.NodeLinkImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -19624,7 +19975,7 @@ define(
               this.set_networkProperties(internal_p);
             }
           }),
-          DictionaryValueImpl: Kotlin.createClass([classes.ct, classes.c18], /** @lends _.org.kevoree.impl.DictionaryValueImpl.prototype */ {
+          DictionaryValueImpl: Kotlin.createClass([classes.cv, classes.c1a], /** @lends _.org.kevoree.impl.DictionaryValueImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -19883,7 +20234,7 @@ define(
               this.set_targetNode(internal_p);
             }
           }),
-          OperationImpl: Kotlin.createClass([classes.ct, classes.c10], /** @lends _.org.kevoree.impl.OperationImpl.prototype */ {
+          OperationImpl: Kotlin.createClass([classes.cv, classes.c12], /** @lends _.org.kevoree.impl.OperationImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -20240,7 +20591,7 @@ define(
               this.set_returnType(internal_p);
             }
           }),
-          DefaultKevoreeFactory: Kotlin.createClass(classes.c17, /** @lends _.org.kevoree.impl.DefaultKevoreeFactory.prototype */ {
+          DefaultKevoreeFactory: Kotlin.createClass(classes.c19, /** @lends _.org.kevoree.impl.DefaultKevoreeFactory.prototype */ {
             initialize: function () {
             },
             getVersion: function () {
@@ -20585,7 +20936,7 @@ define(
               }
             }
           }),
-          ContainerRootImpl: Kotlin.createClass([classes.ct, classes.cr], /** @lends _.org.kevoree.impl.ContainerRootImpl.prototype */ {
+          ContainerRootImpl: Kotlin.createClass([classes.cv, classes.ct], /** @lends _.org.kevoree.impl.ContainerRootImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -22657,7 +23008,7 @@ define(
               this.set_adaptationPrimitiveTypes(internal_p);
             }
           }),
-          PortImpl: Kotlin.createClass([classes.ct, classes.c1h], /** @lends _.org.kevoree.impl.PortImpl.prototype */ {
+          PortImpl: Kotlin.createClass([classes.cv, classes.c1j], /** @lends _.org.kevoree.impl.PortImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -23015,7 +23366,7 @@ define(
               this.set_portTypeRef(internal_p);
             }
           }),
-          RepositoryImpl: Kotlin.createClass([classes.ct, classes.cm], /** @lends _.org.kevoree.impl.RepositoryImpl.prototype */ {
+          RepositoryImpl: Kotlin.createClass([classes.cv, classes.co], /** @lends _.org.kevoree.impl.RepositoryImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -23303,7 +23654,7 @@ define(
               this.set_units(internal_p);
             }
           }),
-          DictionaryImpl: Kotlin.createClass([classes.ct, classes.c1j], /** @lends _.org.kevoree.impl.DictionaryImpl.prototype */ {
+          DictionaryImpl: Kotlin.createClass([classes.cv, classes.c1l], /** @lends _.org.kevoree.impl.DictionaryImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -23605,7 +23956,7 @@ define(
               this.set_values(internal_p);
             }
           }),
-          TypeLibraryImpl: Kotlin.createClass([classes.ct, classes.c1g], /** @lends _.org.kevoree.impl.TypeLibraryImpl.prototype */ {
+          TypeLibraryImpl: Kotlin.createClass([classes.cv, classes.c1i], /** @lends _.org.kevoree.impl.TypeLibraryImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -23893,7 +24244,7 @@ define(
               this.set_subTypes(internal_p);
             }
           }),
-          PortTypeMappingImpl: Kotlin.createClass([classes.ct, classes.c19], /** @lends _.org.kevoree.impl.PortTypeMappingImpl.prototype */ {
+          PortTypeMappingImpl: Kotlin.createClass([classes.cv, classes.c1b], /** @lends _.org.kevoree.impl.PortTypeMappingImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -24102,7 +24453,7 @@ define(
               this.set_beanMethodName(internal_p);
             }
           }),
-          WireImpl: Kotlin.createClass([classes.ct, classes.ck], /** @lends _.org.kevoree.impl.WireImpl.prototype */ {
+          WireImpl: Kotlin.createClass([classes.cv, classes.cm], /** @lends _.org.kevoree.impl.WireImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -24393,7 +24744,7 @@ define(
               this.set_ports(internal_p);
             }
           }),
-          MBindingImpl: Kotlin.createClass([classes.ct, classes.cy], /** @lends _.org.kevoree.impl.MBindingImpl.prototype */ {
+          MBindingImpl: Kotlin.createClass([classes.cv, classes.c10], /** @lends _.org.kevoree.impl.MBindingImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -24641,7 +24992,7 @@ define(
               this.set_hub(internal_p);
             }
           }),
-          ComponentTypeImpl: Kotlin.createClass([classes.ct, classes.c1e], /** @lends _.org.kevoree.impl.ComponentTypeImpl.prototype */ {
+          ComponentTypeImpl: Kotlin.createClass([classes.cv, classes.c1g], /** @lends _.org.kevoree.impl.ComponentTypeImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -25922,7 +26273,7 @@ define(
               this.set_provided(internal_p);
             }
           }),
-          ExtraFonctionalPropertyImpl: Kotlin.createClass([classes.ct, classes.c1b], /** @lends _.org.kevoree.impl.ExtraFonctionalPropertyImpl.prototype */ {
+          ExtraFonctionalPropertyImpl: Kotlin.createClass([classes.cv, classes.c1d], /** @lends _.org.kevoree.impl.ExtraFonctionalPropertyImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -26210,7 +26561,7 @@ define(
               this.set_portTypes(internal_p);
             }
           }),
-          PortTypeRefImpl: Kotlin.createClass([classes.ct, classes.c14], /** @lends _.org.kevoree.impl.PortTypeRefImpl.prototype */ {
+          PortTypeRefImpl: Kotlin.createClass([classes.cv, classes.c16], /** @lends _.org.kevoree.impl.PortTypeRefImpl.prototype */ {
             initialize: function () {
               this.$internal_eContainer = null;
               this.$internal_containmentRefName = null;
@@ -26630,10 +26981,272 @@ define(
           api: Kotlin.definePackage({
             ModelLoader: classes.c4,
             KMFFactory: classes.c5,
-            ModelCloner: classes.c6,
-            ModelSerializer: classes.c8,
-            KMFContainer: classes.cg,
+            ModelCloner: classes.c8,
+            ModelSerializer: classes.ca,
+            KMFContainer: classes.ci,
             xmi: Kotlin.definePackage({
+              XMIModelLoader: classes.c6,
+              LoadingContext: Kotlin.createClass(null, /** @lends _.org.kevoree.modeling.api.xmi.LoadingContext.prototype */ {
+                initialize: function () {
+                  this.$xmiReader = null;
+                  this.$loadedRoots = new Kotlin.ArrayList(0);
+                  this.$map = new Kotlin.PrimitiveHashMap(0);
+                  this.$elementsCount = new Kotlin.PrimitiveHashMap(0);
+                  this.$resolvers = new Kotlin.ArrayList(0);
+                  this.$stats = new Kotlin.PrimitiveHashMap(0);
+                  this.$oppositesAlreadySet = new Kotlin.PrimitiveHashMap(0);
+                },
+                get_xmiReader: function () {
+                  return this.$xmiReader;
+                },
+                set_xmiReader: function (tmp$0) {
+                  this.$xmiReader = tmp$0;
+                },
+                get_loadedRoots: function () {
+                  return this.$loadedRoots;
+                },
+                set_loadedRoots: function (tmp$0) {
+                  this.$loadedRoots = tmp$0;
+                },
+                get_map: function () {
+                  return this.$map;
+                },
+                get_elementsCount: function () {
+                  return this.$elementsCount;
+                },
+                get_resolvers: function () {
+                  return this.$resolvers;
+                },
+                get_stats: function () {
+                  return this.$stats;
+                },
+                get_oppositesAlreadySet: function () {
+                  return this.$oppositesAlreadySet;
+                },
+                isOppositeAlreadySet: function (localRef, oppositeRef) {
+                  var res = this.get_oppositesAlreadySet().get(oppositeRef + '_' + localRef) != null || this.get_oppositesAlreadySet().get(localRef + '_' + oppositeRef) != null;
+                  return res;
+                },
+                storeOppositeRelation: function (localRef, oppositeRef) {
+                  this.get_oppositesAlreadySet().put(localRef + '_' + oppositeRef, true);
+                }
+              }),
+              XMIResolveCommand: Kotlin.createClass(null, /** @lends _.org.kevoree.modeling.api.xmi.XMIResolveCommand.prototype */ {
+                initialize: function (context, target, mutatorType, refName, ref) {
+                  this.$context = context;
+                  this.$target = target;
+                  this.$mutatorType = mutatorType;
+                  this.$refName = refName;
+                  this.$ref = ref;
+                },
+                get_context: function () {
+                  return this.$context;
+                },
+                get_target: function () {
+                  return this.$target;
+                },
+                get_mutatorType: function () {
+                  return this.$mutatorType;
+                },
+                get_refName: function () {
+                  return this.$refName;
+                },
+                get_ref: function () {
+                  return this.$ref;
+                },
+                run: function () {
+                  var referencedElement = this.get_context().get_map().get(this.get_ref());
+                  if (referencedElement != null) {
+                    this.get_target().reflexiveMutator(this.get_mutatorType(), this.get_refName(), referencedElement, false, false);
+                    return;
+                  }
+                  if (Kotlin.equals(this.get_ref(), '/0/') || Kotlin.equals(this.get_ref(), '/')) {
+                    referencedElement = this.get_context().get_map().get('/0');
+                    if (referencedElement != null) {
+                      this.get_target().reflexiveMutator(this.get_mutatorType(), this.get_refName(), referencedElement, false, false);
+                      return;
+                    }
+                  }
+                  throw new Error('KMF Load error : reference ' + this.get_ref() + ' not found in map when trying to  ' + this.get_mutatorType() + ' ' + this.get_refName() + '  on ' + Kotlin.toString(this.get_target()));
+                }
+              }),
+              ReferencesVisitor: Kotlin.createClass(classes.cj, /** @lends _.org.kevoree.modeling.api.xmi.ReferencesVisitor.prototype */ {
+                initialize: function (ostream, addressTable, elementsCount) {
+                  this.$ostream = ostream;
+                  this.$addressTable = addressTable;
+                  this.$elementsCount = elementsCount;
+                  this.super_init();
+                  this.$value = null;
+                },
+                get_ostream: function () {
+                  return this.$ostream;
+                },
+                get_addressTable: function () {
+                  return this.$addressTable;
+                },
+                get_elementsCount: function () {
+                  return this.$elementsCount;
+                },
+                get_value: function () {
+                  return this.$value;
+                },
+                set_value: function (tmp$0) {
+                  this.$value = tmp$0;
+                },
+                beginVisitElem: function (elem) {
+                },
+                endVisitElem: function (elem) {
+                },
+                beginVisitRef: function (refName, refType) {
+                },
+                endVisitRef: function (refName) {
+                  if (this.get_value() != null) {
+                    this.get_ostream().print(' ' + refName + '="' + Kotlin.toString(this.get_value()) + '"');
+                    this.set_value(null);
+                  }
+                },
+                visit: function (elem, refNameInParent, parent) {
+                  var adjustedAddress = this.get_addressTable().get(elem);
+                  if (this.get_value() == null) {
+                    this.set_value(adjustedAddress);
+                  }
+                   else {
+                    this.set_value(_.jet.plus(this.get_value(), ' ' + adjustedAddress));
+                  }
+                }
+              }),
+              AttributesVisitor: Kotlin.createClass(classes.ck, /** @lends _.org.kevoree.modeling.api.xmi.AttributesVisitor.prototype */ {
+                initialize: function (ostream) {
+                  this.$ostream = ostream;
+                },
+                get_ostream: function () {
+                  return this.$ostream;
+                },
+                visit: function (value, name, parent) {
+                  if (value != null) {
+                    this.get_ostream().print(' ' + name + '="');
+                    this.escapeXml(this.get_ostream(), Kotlin.toString(value));
+                    this.get_ostream().print('"');
+                  }
+                },
+                escapeXml: function (ostream, chain) {
+                  if (chain == null) {
+                    return;
+                  }
+                  var i = 0;
+                  var max = chain.length;
+                  while (i < max) {
+                    var c = chain.charAt(i);
+                    if (c === '"') {
+                      ostream.print('&quot;');
+                    }
+                     else if (c === '&') {
+                      ostream.print('&amp;');
+                    }
+                     else if (c === "'") {
+                      ostream.print('&apos;');
+                    }
+                     else if (c === '<') {
+                      ostream.print('&lt;');
+                    }
+                     else if (c === '>') {
+                      ostream.print('&gt;');
+                    }
+                     else {
+                      ostream.print_0(c);
+                    }
+                    i = i + 1;
+                  }
+                }
+              }),
+              ModelSerializationVisitor: Kotlin.createClass(classes.cj, /** @lends _.org.kevoree.modeling.api.xmi.ModelSerializationVisitor.prototype */ {
+                initialize: function (ostream, addressTable, elementsCount) {
+                  this.$ostream = ostream;
+                  this.$addressTable = addressTable;
+                  this.$elementsCount = elementsCount;
+                  this.super_init();
+                  this.$attributeVisitor = new _.org.kevoree.modeling.api.xmi.AttributesVisitor(this.get_ostream());
+                  this.$referenceVisitor = new _.org.kevoree.modeling.api.xmi.ReferencesVisitor(this.get_ostream(), this.get_addressTable(), this.get_elementsCount());
+                },
+                get_ostream: function () {
+                  return this.$ostream;
+                },
+                get_addressTable: function () {
+                  return this.$addressTable;
+                },
+                get_elementsCount: function () {
+                  return this.$elementsCount;
+                },
+                get_attributeVisitor: function () {
+                  return this.$attributeVisitor;
+                },
+                get_referenceVisitor: function () {
+                  return this.$referenceVisitor;
+                },
+                beginVisitElem: function (elem) {
+                },
+                endVisitElem: function (elem) {
+                },
+                beginVisitRef: function (refName, refType) {
+                },
+                endVisitRef: function (refName) {
+                },
+                visit: function (elem, refNameInParent, parent) {
+                  this.get_ostream().print_0('<');
+                  this.get_ostream().print(refNameInParent);
+                  this.get_ostream().print(' xsi:type="' + this.formatMetaClassName(elem.metaClassName()) + '"');
+                  elem.visitAttributes(this.get_attributeVisitor());
+                  elem.visit(this.get_referenceVisitor(), false, false, true);
+                  this.get_ostream().println_0('>');
+                  elem.visit(this, false, true, false);
+                  this.get_ostream().print('<\/');
+                  this.get_ostream().print(refNameInParent);
+                  this.get_ostream().print_0('>');
+                  this.get_ostream().println_1();
+                },
+                formatMetaClassName: function (metaClassName) {
+                  var lastPoint = _.js.lastIndexOf_0(metaClassName, '.');
+                  var pack = metaClassName.substring(0, lastPoint);
+                  var cls = metaClassName.substring(lastPoint + 1);
+                  return pack + ':' + cls;
+                }
+              }),
+              ModelAddressVisitor: Kotlin.createClass(classes.cj, /** @lends _.org.kevoree.modeling.api.xmi.ModelAddressVisitor.prototype */ {
+                initialize: function (addressTable, elementsCount, packageList) {
+                  this.$addressTable = addressTable;
+                  this.$elementsCount = elementsCount;
+                  this.$packageList = packageList;
+                  this.super_init();
+                },
+                get_addressTable: function () {
+                  return this.$addressTable;
+                },
+                get_elementsCount: function () {
+                  return this.$elementsCount;
+                },
+                get_packageList: function () {
+                  return this.$packageList;
+                },
+                beginVisitElem: function (elem) {
+                },
+                endVisitElem: function (elem) {
+                },
+                beginVisitRef: function (refName, refType) {
+                },
+                endVisitRef: function (refName) {
+                },
+                visit: function (elem, refNameInParent, parent) {
+                  var tmp$0;
+                  var parentXmiAddress = (tmp$0 = this.get_addressTable().get(parent)) != null ? tmp$0 : Kotlin.throwNPE();
+                  var i = this.get_elementsCount().get(parentXmiAddress + '/@' + refNameInParent) !== null ? this.get_elementsCount().get(parentXmiAddress + '/@' + refNameInParent) : 0;
+                  this.get_addressTable().put(elem, parentXmiAddress + '/@' + refNameInParent + '.' + i);
+                  this.get_elementsCount().put(parentXmiAddress + '/@' + refNameInParent, i + 1);
+                  var pack = elem.metaClassName().substring(0, _.js.lastIndexOf_0(elem.metaClassName(), '.'));
+                  if (!this.get_packageList().contains(pack))
+                    this.get_packageList().add(pack);
+                }
+              }),
+              XMIModelSerializer: classes.c7,
               XmlParser: Kotlin.createClass(null, /** @lends _.org.kevoree.modeling.api.xmi.XmlParser.prototype */ {
                 initialize: function (inputStream) {
                   this.$inputStream = inputStream;
@@ -26755,7 +27368,7 @@ define(
                   return this.get_attributesValues().get(i);
                 },
                 readChar: function () {
-                  return this.get_bytes()[this.set_index(this.get_index() + 1), this.get_index()].toChar();
+                  return _.org.kevoree.modeling.api.util.ByteConverter.toChar(this.get_bytes()[this.set_index(this.get_index() + 1), this.get_index()]);
                 },
                 next: function () {
                   if (this.get_readSingleton()) {
@@ -26882,7 +27495,7 @@ define(
               })
             }),
             compare: Kotlin.definePackage({
-              ModelCompare: classes.c7
+              ModelCompare: classes.c9
             }),
             json: Kotlin.definePackage({
               Token: Kotlin.createClass(null, /** @lends _.org.kevoree.modeling.api.json.Token.prototype */ {
@@ -26937,12 +27550,11 @@ define(
                   return c === ' ' || c === '\r' || c === '\n' || c === '\t';
                 },
                 nextChar: function () {
-                  var tmp$0, tmp$1, tmp$2;
-                  return (tmp$2 = this.get_bytes()[tmp$0 = this.get_index(), tmp$1 = tmp$0, this.set_index(tmp$0 + 1), tmp$1]) != null ? tmp$2 : Kotlin.throwNPE();
+                  var tmp$0, tmp$1;
+                  return _.org.kevoree.modeling.api.util.ByteConverter.toChar(this.get_bytes()[tmp$0 = this.get_index(), tmp$1 = tmp$0, this.set_index(tmp$0 + 1), tmp$1]);
                 },
                 peekChar: function () {
-                  var tmp$0;
-                  return (tmp$0 = this.get_bytes()[this.get_index()]) != null ? tmp$0 : Kotlin.throwNPE();
+                  return _.org.kevoree.modeling.api.util.ByteConverter.toChar(this.get_bytes()[this.get_index()]);
                 },
                 isDone: function () {
                   return this.get_index() >= this.get_bytes().length;
@@ -27071,7 +27683,7 @@ define(
                   return new _.org.kevoree.modeling.api.json.Token(tokenType, jsonValue);
                 }
               }),
-              JSONModelLoader: classes.c9,
+              JSONModelLoader: classes.cb,
               ResolveCommand: Kotlin.createClass(null, /** @lends _.org.kevoree.modeling.api.json.ResolveCommand.prototype */ {
                 initialize: function (roots, ref, currentRootElem, refName) {
                   this.$roots = roots;
@@ -27105,7 +27717,7 @@ define(
                   }
                 }
               }),
-              ModelReferenceVisitor: Kotlin.createClass(classes.ch, /** @lends _.org.kevoree.modeling.api.json.ModelReferenceVisitor.prototype */ {
+              ModelReferenceVisitor: Kotlin.createClass(classes.cj, /** @lends _.org.kevoree.modeling.api.json.ModelReferenceVisitor.prototype */ {
                 initialize: function (out) {
                   this.$out = out;
                   this.super_init();
@@ -27137,10 +27749,10 @@ define(
                   this.get_out().print('"' + elem.path() + '"');
                 }
               }),
-              JSONModelSerializer: classes.ca
+              JSONModelSerializer: classes.cc
             }),
             events: Kotlin.definePackage({
-              ModelElementListener: classes.cb,
+              ModelElementListener: classes.cd,
               ModelEvent: Kotlin.createClass(null, /** @lends _.org.kevoree.modeling.api.events.ModelEvent.prototype */ {
                 initialize: function (internal_sourcePath, internal_etype, internal_elementAttributeType, internal_elementAttributeName, internal_value) {
                   this.$internal_sourcePath = internal_sourcePath;
@@ -27183,12 +27795,12 @@ define(
                   return 'ModelEvent[src:' + this.getSourcePath() + ', type:' + this.getType() + ', elementAttributeType:' + this.getElementAttributeType() + ', elementAttributeName:' + this.getElementAttributeName() + ', value:' + this.getValue() + ']';
                 }
               }),
-              ModelTreeListener: classes.cc
+              ModelTreeListener: classes.ce
             }),
             trace: Kotlin.definePackage({
-              TraceConverter: classes.cd,
-              ModelTrace: classes.ce,
-              ModelAddTrace: Kotlin.createClass(classes.ce, /** @lends _.org.kevoree.modeling.api.trace.ModelAddTrace.prototype */ {
+              TraceConverter: classes.cf,
+              ModelTrace: classes.cg,
+              ModelAddTrace: Kotlin.createClass(classes.cg, /** @lends _.org.kevoree.modeling.api.trace.ModelAddTrace.prototype */ {
                 initialize: function (srcPath, refName, previousPath, typeName) {
                   this.$srcPath = srcPath;
                   this.$refName = refName;
@@ -27220,7 +27832,7 @@ define(
                   return buffer.toString();
                 }
               }),
-              ModelAddAllTrace: Kotlin.createClass(classes.ce, /** @lends _.org.kevoree.modeling.api.trace.ModelAddAllTrace.prototype */ {
+              ModelAddAllTrace: Kotlin.createClass(classes.cg, /** @lends _.org.kevoree.modeling.api.trace.ModelAddAllTrace.prototype */ {
                 initialize: function (srcPath, refName, previousPath, typeName) {
                   this.$srcPath = srcPath;
                   this.$refName = refName;
@@ -27271,7 +27883,7 @@ define(
                   return buffer.toString();
                 }
               }),
-              ModelRemoveTrace: Kotlin.createClass(classes.ce, /** @lends _.org.kevoree.modeling.api.trace.ModelRemoveTrace.prototype */ {
+              ModelRemoveTrace: Kotlin.createClass(classes.cg, /** @lends _.org.kevoree.modeling.api.trace.ModelRemoveTrace.prototype */ {
                 initialize: function (srcPath, refName, objPath) {
                   this.$srcPath = srcPath;
                   this.$refName = refName;
@@ -27290,7 +27902,7 @@ define(
                   return '{ "traceType" : ' + _.org.kevoree.modeling.api.util.ActionType.get_REMOVE() + ' , "src" : "' + this.get_srcPath() + '", "refname" : "' + this.get_refName() + '", "objpath" : "' + this.get_objPath() + '" }';
                 }
               }),
-              ModelRemoveAllTrace: Kotlin.createClass(classes.ce, /** @lends _.org.kevoree.modeling.api.trace.ModelRemoveAllTrace.prototype */ {
+              ModelRemoveAllTrace: Kotlin.createClass(classes.cg, /** @lends _.org.kevoree.modeling.api.trace.ModelRemoveAllTrace.prototype */ {
                 initialize: function (srcPath, refName) {
                   this.$srcPath = srcPath;
                   this.$refName = refName;
@@ -27305,7 +27917,7 @@ define(
                   return '{ "traceType" : ' + _.org.kevoree.modeling.api.util.ActionType.get_REMOVE_ALL() + ' , "src" : "' + this.get_srcPath() + '", "refname" : "' + this.get_refName() + '" }';
                 }
               }),
-              ModelSetTrace: Kotlin.createClass(classes.ce, /** @lends _.org.kevoree.modeling.api.trace.ModelSetTrace.prototype */ {
+              ModelSetTrace: Kotlin.createClass(classes.cg, /** @lends _.org.kevoree.modeling.api.trace.ModelSetTrace.prototype */ {
                 initialize: function (srcPath, refName, objPath, content, typeName) {
                   this.$srcPath = srcPath;
                   this.$refName = refName;
@@ -27344,7 +27956,7 @@ define(
                   return buffer.toString();
                 }
               }),
-              DefaultTraceConverter: Kotlin.createClass(classes.cd, /** @lends _.org.kevoree.modeling.api.trace.DefaultTraceConverter.prototype */ {
+              DefaultTraceConverter: Kotlin.createClass(classes.cf, /** @lends _.org.kevoree.modeling.api.trace.DefaultTraceConverter.prototype */ {
                 initialize: function () {
                   this.$metaClassNameEquivalence_1 = new Kotlin.PrimitiveHashMap(0);
                   this.$metaClassNameEquivalence_2 = new Kotlin.PrimitiveHashMap(0);
@@ -27661,11 +28273,11 @@ define(
                   return this.get_compare().createSequence().populate(result);
                 }
               }),
-              TraceSequence: classes.cf
+              TraceSequence: classes.ch
             }),
             util: Kotlin.definePackage({
-              ModelVisitor: classes.ch,
-              ModelAttributeVisitor: classes.ci
+              ModelVisitor: classes.cj,
+              ModelAttributeVisitor: classes.ck
             })
           })
         }),
@@ -27754,7 +28366,7 @@ define(
           })
         }),
         container: Kotlin.definePackage({
-          KMFContainerImpl: classes.ct,
+          KMFContainerImpl: classes.cv,
           RemoveFromContainerCommand: Kotlin.createClass(null, /** @lends _.org.kevoree.container.RemoveFromContainerCommand.prototype */ {
             initialize: function (target, mutatorType, refName, element) {
               this.$target = target;
@@ -27780,14 +28392,19 @@ define(
           })
         }),
         serializer: Kotlin.definePackage({
-          JSONModelSerializer: Kotlin.createClass(classes.ca, /** @lends _.org.kevoree.serializer.JSONModelSerializer.prototype */ {
+          XMIModelSerializer: Kotlin.createClass(classes.c7, /** @lends _.org.kevoree.serializer.XMIModelSerializer.prototype */ {
+            initialize: function () {
+              this.super_init();
+            }
+          }),
+          JSONModelSerializer: Kotlin.createClass(classes.cc, /** @lends _.org.kevoree.serializer.JSONModelSerializer.prototype */ {
             initialize: function () {
               this.super_init();
             }
           })
         }),
         cloner: Kotlin.definePackage({
-          DefaultModelCloner: Kotlin.createClass(classes.c6, /** @lends _.org.kevoree.cloner.DefaultModelCloner.prototype */ {
+          DefaultModelCloner: Kotlin.createClass(classes.c8, /** @lends _.org.kevoree.cloner.DefaultModelCloner.prototype */ {
             initialize: function () {
               this.$mainFactory = new _.org.kevoree.factory.MainFactory();
             },
@@ -27803,7 +28420,7 @@ define(
           })
         }),
         compare: Kotlin.definePackage({
-          DefaultModelCompare: Kotlin.createClass(classes.c7, /** @lends _.org.kevoree.compare.DefaultModelCompare.prototype */ {
+          DefaultModelCompare: Kotlin.createClass(classes.c9, /** @lends _.org.kevoree.compare.DefaultModelCompare.prototype */ {
             initialize: function () {
             },
             createSequence: function () {
@@ -27859,7 +28476,7 @@ define(
           })
         }),
         trace: Kotlin.definePackage({
-          DefaultTraceSequence: Kotlin.createClass(classes.cf, /** @lends _.org.kevoree.trace.DefaultTraceSequence.prototype */ {
+          DefaultTraceSequence: Kotlin.createClass(classes.ch, /** @lends _.org.kevoree.trace.DefaultTraceSequence.prototype */ {
             initialize: function () {
               this.$traces = new Kotlin.ArrayList(0);
               this.$factory = new _.org.kevoree.factory.MainFactory();
@@ -27884,10 +28501,37 @@ define(
       w3c: Kotlin.definePackage({
         dom: Kotlin.definePackage({
           events: Kotlin.definePackage({
-            EventListener: classes.c1n
+            EventListener: classes.c1p
           })
         })
       })
+    }),
+    js: Kotlin.definePackage({
+      toChar: function ($receiver) {
+        return $receiver != null ? $receiver : Kotlin.throwNPE();
+      },
+      lastIndexOf: function ($receiver, ch, fromIndex) {
+        return $receiver.lastIndexOf(Kotlin.toString(ch), fromIndex);
+      },
+      lastIndexOf_0: function ($receiver, ch) {
+        return $receiver.lastIndexOf(Kotlin.toString(ch));
+      },
+      indexOf: function ($receiver, ch) {
+        return $receiver.indexOf(Kotlin.toString(ch));
+      },
+      indexOf_0: function ($receiver, ch, fromIndex) {
+        return $receiver.indexOf(Kotlin.toString(ch), fromIndex);
+      },
+      matches: function ($receiver, regex) {
+        var result = $receiver.match(regex);
+        return result != null && result.length > 0;
+      },
+      capitalize: function ($receiver) {
+        return _.kotlin.isNotEmpty($receiver) ? $receiver.substring(0, 1).toUpperCase() + $receiver.substring(1) : $receiver;
+      },
+      decapitalize: function ($receiver) {
+        return _.kotlin.isNotEmpty($receiver) ? $receiver.substring(0, 1).toLowerCase() + $receiver.substring(1) : $receiver;
+      }
     }),
     java: Kotlin.definePackage({
       lang: Kotlin.definePackage({
@@ -27919,9 +28563,21 @@ define(
         })
       }),
       io: Kotlin.definePackage({
-        InputStream: classes.c1l,
-        OutputStream: classes.c1m,
-        ByteArrayInputStream: Kotlin.createClass(classes.c1l, /** @lends _.java.io.ByteArrayInputStream.prototype */ {
+        InputStream: classes.c1n,
+        OutputStream: classes.c1o,
+        BufferedOutputStream: Kotlin.createClass(classes.c1o, /** @lends _.java.io.BufferedOutputStream.prototype */ {
+          initialize: function (oo) {
+            this.$oo = oo;
+          },
+          get_oo: function () {
+            return this.$oo;
+          },
+          write: function (s) {
+            var tmp$0;
+            ((tmp$0 = this.get_oo()) != null ? tmp$0 : Kotlin.throwNPE()).set_result(s);
+          }
+        }),
+        ByteArrayInputStream: Kotlin.createClass(classes.c1n, /** @lends _.java.io.ByteArrayInputStream.prototype */ {
           initialize: function (inputBytes) {
             this.$inputBytes = inputBytes;
           },
@@ -27932,7 +28588,7 @@ define(
             return this.get_inputBytes();
           }
         }),
-        ByteArrayOutputStream: Kotlin.createClass(classes.c1m, /** @lends _.java.io.ByteArrayOutputStream.prototype */ {
+        ByteArrayOutputStream: Kotlin.createClass(classes.c1o, /** @lends _.java.io.ByteArrayOutputStream.prototype */ {
           initialize: function () {
             this.$result = '';
           },
@@ -27951,7 +28607,7 @@ define(
           }
         }),
         PrintStream: Kotlin.createClass(null, /** @lends _.java.io.PrintStream.prototype */ {
-          initialize: function (oo) {
+          initialize: function (oo, autoflush) {
             this.$oo = oo;
             this.$result = '';
           },
@@ -27964,7 +28620,7 @@ define(
           set_result: function (tmp$0) {
             this.$result = tmp$0;
           },
-          println_0: function () {
+          println_1: function () {
             this.set_result(this.get_result() + '\n');
           },
           print: function (s) {
@@ -27972,7 +28628,7 @@ define(
           },
           println: function (s) {
             this.print(s);
-            this.println_0();
+            this.println_1();
           },
           print_0: function (s) {
             this.set_result(this.get_result() + s);
@@ -27991,13 +28647,13 @@ define(
               this.set_result(this.get_result() + 'false');
             }
           },
-          println_1: function (s) {
+          println_0: function (s) {
             this.print_0(s);
-            this.println_0();
+            this.println_1();
           },
           flush: function () {
             var tmp$0;
-            ((tmp$0 = this.get_oo()) != null ? tmp$0 : Kotlin.throwNPE()).set_result(this.get_result());
+            ((tmp$0 = this.get_oo()) != null ? tmp$0 : Kotlin.throwNPE()).write(this.get_result());
           },
           close: function () {
           }
@@ -28007,30 +28663,6 @@ define(
         Collections: Kotlin.definePackage({
         })
       })
-    }),
-    js: Kotlin.definePackage({
-      lastIndexOf: function ($receiver, ch, fromIndex) {
-        return $receiver.lastIndexOf(Kotlin.toString(ch), fromIndex);
-      },
-      lastIndexOf_0: function ($receiver, ch) {
-        return $receiver.lastIndexOf(Kotlin.toString(ch));
-      },
-      indexOf: function ($receiver, ch) {
-        return $receiver.indexOf(Kotlin.toString(ch));
-      },
-      indexOf_0: function ($receiver, ch, fromIndex) {
-        return $receiver.indexOf(Kotlin.toString(ch), fromIndex);
-      },
-      matches: function ($receiver, regex) {
-        var result = $receiver.match(regex);
-        return result != null && result.length > 0;
-      },
-      capitalize: function ($receiver) {
-        return _.kotlin.isNotEmpty($receiver) ? $receiver.substring(0, 1).toUpperCase() + $receiver.substring(1) : $receiver;
-      },
-      decapitalize: function ($receiver) {
-        return _.kotlin.isNotEmpty($receiver) ? $receiver.substring(0, 1).toLowerCase() + $receiver.substring(1) : $receiver;
-      }
     })
   };
   (function () {
@@ -28144,6 +28776,26 @@ define(
       },
       get_RENEW_INDEX: function () {
         return this.$RENEW_INDEX;
+      }
+    });
+    this.ByteConverter = Kotlin.createObject(null, {
+      initialize: function () {
+      },
+      toChar: function (b) {
+        return b != null ? b : Kotlin.throwNPE();
+      },
+      fromChar: function (b) {
+        return b != null ? b : Kotlin.throwNPE();
+      },
+      byteArrayInputStreamFromString: function (str) {
+        var bytes = Kotlin.numberArrayOfSize(str.length);
+        var i = 0;
+        while (i < str.length) {
+          var tmp$0;
+          bytes[i] = (tmp$0 = str.charAt(i)) != null ? tmp$0 : Kotlin.throwNPE();
+          i = i + 1;
+        }
+        return new _.java.io.ByteArrayInputStream(bytes);
       }
     });
   }.call(_.org.kevoree.modeling.api.util));
