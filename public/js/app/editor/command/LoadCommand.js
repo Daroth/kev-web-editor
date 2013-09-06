@@ -64,12 +64,12 @@ define(
                     }
                     var fReader = new FileReader();
                     fReader.onload = function (event) {
-                        // retrieve data from selected file
-                        var jsonModel = JSON.parse(event.target.result),
-                            strModel = JSON.stringify(jsonModel);
                         try {
-                            var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
-                            var model = loader.loadModelFromString(strModel).get(0);
+                            // retrieve data from selected file
+                            var jsonModel = JSON.parse(event.target.result),
+                                strModel = JSON.stringify(jsonModel),
+                                loader = new Kevoree.org.kevoree.loader.JSONModelLoader(),
+                                model = loader.loadModelFromString(strModel).get(0);
                             editor.setModel(model);
 
                             AlertPopupHelper.setText("Model \""+file.name+"\" loaded successfully");
@@ -77,7 +77,7 @@ define(
                             AlertPopupHelper.show(5000);
 
                         } catch (err) {
-                            AlertPopupHelper.setText(err.message);
+                            AlertPopupHelper.setHTML("Unable to load model <strong>"+file.name+"</strong><br/><small>Error: "+err.message+"</small>");
                             AlertPopupHelper.setType(AlertPopupHelper.ERROR);
                             AlertPopupHelper.show(5000);
                         }

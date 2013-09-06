@@ -50,7 +50,7 @@ app.post('/push', routes.push);
 app.post('/pull', routes.pull);
 app.post('/open', routes.open);
 app.post('/save/:type', routes.save);
-app.get('/saved/:model', routes.saved);
+app.get('/saved/:type/:id', routes.saved);
 app.get('/runtime', routes.runtime);
 app.get('/bench', routes.bench);
 

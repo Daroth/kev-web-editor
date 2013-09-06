@@ -13,7 +13,6 @@ define(
         };
 
         OpenFromNodeCommand.prototype.execute = function (protocol, uri, editor, popupShown) {
-            console.log("popupShown: "+popupShown);
             clearTimeout(this._timeoutID);
 
             // hide alert when popup is closed
@@ -26,7 +25,7 @@ define(
             });
 
             // prevent user from clicking 'open' button when disabled
-            if ($('#open-node-popup').hasClass('hide') || !$('#open-from-node').hasClass('disabled')) {
+            if (!$('#open-from-node').hasClass('disabled')) {
                 // check uri
                 // TODO check it better maybe ?
                 if (uri && uri.length != 0) {
@@ -49,7 +48,7 @@ define(
                     }
 
                     var timeoutID = this._timeoutID = setTimeout(function () {
-                        loadTimeout(protocol, uri);
+                        loadTimeout(popupShown, uri);
                     }, 10000);
 
                     // use TCP or HTTP or WebSocket
@@ -73,11 +72,15 @@ define(
                                             break;
 
                                         case 1:
-                                            // open from node: ok, model is in data.model (string)
-                                            var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
-                                            var model = loader.loadModelFromString(data.model).get(0);
-                                            editor.setModel(model);
-                                            loadSucceed(timeoutID);
+                                            try {
+                                                // open from node: ok, model is in data.model (string)
+                                                var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
+                                                var model = loader.loadModelFromString(data.model).get(0);
+                                                editor.setModel(model);
+                                                loadSucceed(timeoutID);
+                                            } catch (err) {
+                                                loadFailed(popupShown, uri, timeoutID);
+                                            }
                                             break;
                                     }
                                 },
@@ -94,11 +97,15 @@ define(
                                 timeout: 10000, // 10 seconds timeout
                                 dataType: 'json',
                                 success: function (data) {
-                                    // load model into editor
-                                    var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
-                                    var model = loader.loadModelFromString(JSON.stringify(data)).get(0);
-                                    editor.setModel(model);
-                                    loadSucceed(timeoutID);
+                                    try {
+                                        // load model into editor
+                                        var loader = new Kevoree.org.kevoree.loader.JSONModelLoader();
+                                        var model = loader.loadModelFromString(JSON.stringify(data)).get(0);
+                                        editor.setModel(model);
+                                        loadSucceed(timeoutID);
+                                    } catch (err) {
+                                        loadFailed(popupShown, uri, timeoutID);
+                                    }
                                 },
                                 error: function () {
                                     loadFailed(popupShown, uri, timeoutID);
@@ -186,11 +193,11 @@ define(
             }
         }
 
-        function loadTimeout(protocol, uri) {
-            var message = "Unable to get model from "+uri+" ("+protocol+"). Request timed out (10 seconds).";
+        function loadTimeout(popupShown, uri) {
+            var message = "Unable to get model from <strong>"+uri+"</strong><br/><small>Request timed out (10 seconds).</small>";
 
-            if ($('#open-node-popup').hasClass('hide')) {
-                AlertPopupHelper.setText(message);
+            if (!popupShown) {
+                AlertPopupHelper.setHTML(message);
                 AlertPopupHelper.setType(AlertPopupHelper.ERROR);
                 AlertPopupHelper.show(5000);
 
@@ -198,7 +205,7 @@ define(
                 $('#open-from-node').removeClass('disabled');
                 $('#open-node-alert').removeClass('alert-success');
                 $('#open-node-alert').addClass('alert-error');
-                $('#open-node-alert-content').text(message);
+                $('#open-node-alert-content').html(message);
                 $('#open-node-alert').show();
                 $('#open-node-alert').addClass('in');
             }
