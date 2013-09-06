@@ -26,11 +26,6 @@ define(
                 },
                 server: function (ip) {
                     runtime.setServerIP(ip);
-                },
-                debug: function (enabled) {
-                    if (enabled == "true" || enabled == "on" || enabled == "show") {
-                        $('#debug-menu').show();
-                    }
                 }
             });
         }

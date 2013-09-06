@@ -35,13 +35,6 @@ html.fill
                     b.caret
                   ul.dropdown-menu
                     li: a#action-clear-log(href="#") Clear logs
-                //- Debug menu hidden by default (url?debug=on to show it)
-                li#debug-menu.dropdown.hide
-                  a.dropdown-toggle(href='#', data-toggle='dropdown') Debug&nbsp;
-                    b.caret
-                  ul.dropdown-menu
-                    li: a(href="#", onclick="require('runtime-main').addTab('New tab', 'Tab content')") Add new tab
-                    li: a(href="#", onclick="require('runtime-main').removeTab()") Remove last tab
               form.navbar-form.pull-right
                 input#node-name.span2(type='text', placeholder='Node name')
                 select#node-grp.span2
