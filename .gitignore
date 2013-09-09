@@ -1,6 +1,6 @@
 *iml
 node_modules/
-public/saved/
+**public/saved/
 .idea/
 lib-cov
 *.seed

@@ -1,0 +1,3393 @@
+{
+    "eClass": "org.kevoree.ContainerRoot",
+    "generated_KMF_ID": "85468701378461252735",
+    "nodes": [
+        {
+            "eClass": "org.kevoree.ContainerNode",
+            "name": "node0",
+            "started": "true",
+            "metaData": "x=329,y=114",
+            "typeDefinition": [
+                "typeDefinitions[JavaSENode]"
+            ],
+            "dictionary": [
+                {
+                    "eClass": "org.kevoree.Dictionary",
+                    "generated_KMF_ID": "0.24692319682799281378720312575",
+                    "values": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "0.84076195210218431378720327501",
+                            "value": "WARN",
+                            "attribute": [
+                                "typeDefinitions[JavaSENode]/dictionaryType[313116901378461125995]/attributes[coreLogLevel]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "0.336206180043518541378720327501",
+                            "value": "INFO",
+                            "attribute": [
+                                "typeDefinitions[JavaSENode]/dictionaryType[313116901378461125995]/attributes[logLevel]"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "components": [
+                {
+                    "eClass": "org.kevoree.ComponentInstance",
+                    "name": "comp0",
+                    "started": "true",
+                    "metaData": "x=250,y=95",
+                    "typeDefinition": [
+                        "typeDefinitions[FakeConsole]"
+                    ],
+                    "dictionary": [
+                        {
+                            "eClass": "org.kevoree.Dictionary",
+                            "generated_KMF_ID": "0.74703737464733421378720326521",
+                            "values": [
+                                {
+                                    "eClass": "org.kevoree.DictionaryValue",
+                                    "generated_KMF_ID": "0.89217748329974711378720327501",
+                                    "value": "true",
+                                    "attribute": [
+                                        "typeDefinitions[FakeConsole]/dictionaryType[201725301378461252746]/attributes[singleFrame]"
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "provided": [
+                        {
+                            "eClass": "org.kevoree.Port",
+                            "generated_KMF_ID": "0.86925467406399551378720326523",
+                            "bindings": [
+                                "mBindings[0.202038701856508851378720329976]"
+                            ],
+                            "portTypeRef": [
+                                "typeDefinitions[FakeConsole]/provided[showText]"
+                            ]
+                        }
+                    ],
+                    "required": [
+                        {
+                            "eClass": "org.kevoree.Port",
+                            "generated_KMF_ID": "0.222913710400462151378720326524",
+                            "portTypeRef": [
+                                "typeDefinitions[FakeConsole]/required[textEntered]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "typeDefinitions": [
+        {
+            "eClass": "org.kevoree.NodeType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.defaultNodeTypes.StatefulJavaSENode",
+            "name": "StatefulJavaSENode",
+            "factoryBean": "org.kevoree.library.defaultNodeTypes.StatefulJavaSENodeFactory",
+            "deployUnits": [
+                "deployUnits[9194637791376380901404]",
+                "deployUnits[241760211378461252736]",
+                "deployUnits[41165411378457328478]"
+            ],
+            "superTypes": [
+                "typeDefinitions[JavaSENode]"
+            ],
+            "managedPrimitiveTypes": [
+                "adaptationPrimitiveTypes[UpdateFragmentBinding]",
+                "adaptationPrimitiveTypes[UpdateBinding]",
+                "adaptationPrimitiveTypes[UpdateDictionaryInstance]",
+                "adaptationPrimitiveTypes[RemoveThirdParty]",
+                "adaptationPrimitiveTypes[RemoveType]",
+                "adaptationPrimitiveTypes[RemoveInstance]",
+                "adaptationPrimitiveTypes[StartInstance]",
+                "adaptationPrimitiveTypes[UpdateType]",
+                "adaptationPrimitiveTypes[AddFragmentBinding]",
+                "adaptationPrimitiveTypes[StartThirdParty]",
+                "adaptationPrimitiveTypes[AddBinding]",
+                "adaptationPrimitiveTypes[RemoveBinding]",
+                "adaptationPrimitiveTypes[StopInstance]",
+                "adaptationPrimitiveTypes[UpdateDeployUnit]",
+                "adaptationPrimitiveTypes[UpdateInstance]",
+                "adaptationPrimitiveTypes[RemoveFragmentBinding]",
+                "adaptationPrimitiveTypes[RemoveDeployUnit]",
+                "adaptationPrimitiveTypes[AddDeployUnit]",
+                "adaptationPrimitiveTypes[AddThirdParty]",
+                "adaptationPrimitiveTypes[AddInstance]",
+                "adaptationPrimitiveTypes[AddType]"
+            ],
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "16227861378461125952",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "coreLogLevel",
+                            "state": "false",
+                            "datatype": "enum=INFO,WARN,DEBUG,ERROR,FINE"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "logLevel",
+                            "state": "false",
+                            "datatype": "enum=INFO,WARN,DEBUG,ERROR,FINE"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "storageLocation",
+                            "state": "false"
+                        }
+                    ],
+                    "defaultValues": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "86988431378461125959",
+                            "value": "WARN",
+                            "attribute": [
+                                "typeDefinitions[StatefulJavaSENode]/dictionaryType[16227861378461125952]/attributes[coreLogLevel]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "259811131378461125993",
+                            "attribute": [
+                                "typeDefinitions[StatefulJavaSENode]/dictionaryType[16227861378461125952]/attributes[storageLocation]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "256912151378461125958",
+                            "value": "INFO",
+                            "attribute": [
+                                "typeDefinitions[StatefulJavaSENode]/dictionaryType[16227861378461125952]/attributes[logLevel]"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "managedPrimitiveTypeRefs": [
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "3083696191376379669304",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[AddDeployUnit]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "8901463221376379669304",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[UpdateDeployUnit]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "117745871378461125989",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[AddDeployUnit]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "129314651378457010448",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[AddDeployUnit]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "16325391378457010450",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[UpdateDeployUnit]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "35959401378461125992",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[UpdateDeployUnit]"
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.GroupType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.AutoBasicGroup",
+            "name": "AutoBasicGroup",
+            "factoryBean": "org.kevoree.library.AutoBasicGroupFactory",
+            "deployUnits": [
+                "deployUnits[5738840081376380901404]"
+            ],
+            "superTypes": [
+                "typeDefinitions[BasicGroup]"
+            ],
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "17779352291376379968354",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "true",
+                            "optional": "true",
+                            "name": "port",
+                            "state": "false"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "false",
+                            "name": "ssl",
+                            "state": "false",
+                            "datatype": "enum=true,false"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "true",
+                            "optional": "true",
+                            "name": "ip",
+                            "state": "false"
+                        }
+                    ],
+                    "defaultValues": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "11820720301376379968354",
+                            "value": "false",
+                            "attribute": [
+                                "typeDefinitions[AutoBasicGroup]/dictionaryType[17779352291376379968354]/attributes[ssl]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "16699294451376379968354",
+                            "value": "8000",
+                            "attribute": [
+                                "typeDefinitions[AutoBasicGroup]/dictionaryType[17779352291376379968354]/attributes[port]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "10403994721376379968354",
+                            "value": "0.0.0.0",
+                            "attribute": [
+                                "typeDefinitions[AutoBasicGroup]/dictionaryType[17779352291376379968354]/attributes[ip]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.GroupType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.javase.basicGossiper.group.BasicGossiperGroup",
+            "name": "BasicGossiperGroup",
+            "factoryBean": "org.kevoree.library.javase.basicGossiper.group.BasicGossiperGroupFactory",
+            "deployUnits": [
+                "deployUnits[2755465601376380901387]"
+            ],
+            "superTypes": [
+                "typeDefinitions[BasicGroup]"
+            ],
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "5125045431376380901414",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "true",
+                            "optional": "true",
+                            "name": "port",
+                            "state": "false"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "interval",
+                            "state": "false"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "false",
+                            "name": "ssl",
+                            "state": "false",
+                            "datatype": "enum=true,false"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "true",
+                            "optional": "true",
+                            "name": "ip",
+                            "state": "false"
+                        }
+                    ],
+                    "defaultValues": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "1069460841376380901414",
+                            "value": "8000",
+                            "attribute": [
+                                "typeDefinitions[BasicGossiperGroup]/dictionaryType[5125045431376380901414]/attributes[port]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "10297193021376380901419",
+                            "value": "20000",
+                            "attribute": [
+                                "typeDefinitions[BasicGossiperGroup]/dictionaryType[5125045431376380901414]/attributes[interval]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "7300011191376380901414",
+                            "value": "false",
+                            "attribute": [
+                                "typeDefinitions[BasicGossiperGroup]/dictionaryType[5125045431376380901414]/attributes[ssl]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "21465048961376380901414",
+                            "value": "0.0.0.0",
+                            "attribute": [
+                                "typeDefinitions[BasicGossiperGroup]/dictionaryType[5125045431376380901414]/attributes[ip]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.NodeType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.defaultNodeTypes.JavaSENode",
+            "name": "JavaSENode",
+            "factoryBean": "org.kevoree.library.defaultNodeTypes.JavaSENodeFactory",
+            "deployUnits": [
+                "deployUnits[9194637791376380901404]",
+                "deployUnits[241760211378461252736]",
+                "deployUnits[41165411378457328478]"
+            ],
+            "managedPrimitiveTypes": [
+                "adaptationPrimitiveTypes[UpdateFragmentBinding]",
+                "adaptationPrimitiveTypes[UpdateBinding]",
+                "adaptationPrimitiveTypes[UpdateDictionaryInstance]",
+                "adaptationPrimitiveTypes[RemoveThirdParty]",
+                "adaptationPrimitiveTypes[RemoveType]",
+                "adaptationPrimitiveTypes[RemoveInstance]",
+                "adaptationPrimitiveTypes[StartInstance]",
+                "adaptationPrimitiveTypes[UpdateType]",
+                "adaptationPrimitiveTypes[AddFragmentBinding]",
+                "adaptationPrimitiveTypes[StartThirdParty]",
+                "adaptationPrimitiveTypes[AddBinding]",
+                "adaptationPrimitiveTypes[RemoveBinding]",
+                "adaptationPrimitiveTypes[StopInstance]",
+                "adaptationPrimitiveTypes[UpdateDeployUnit]",
+                "adaptationPrimitiveTypes[UpdateInstance]",
+                "adaptationPrimitiveTypes[RemoveFragmentBinding]",
+                "adaptationPrimitiveTypes[RemoveDeployUnit]",
+                "adaptationPrimitiveTypes[AddDeployUnit]",
+                "adaptationPrimitiveTypes[AddThirdParty]",
+                "adaptationPrimitiveTypes[AddInstance]",
+                "adaptationPrimitiveTypes[AddType]"
+            ],
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "313116901378461125995",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "coreLogLevel",
+                            "state": "false",
+                            "datatype": "enum=INFO,WARN,DEBUG,ERROR,FINE"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "logLevel",
+                            "state": "false",
+                            "datatype": "enum=INFO,WARN,DEBUG,ERROR,FINE"
+                        }
+                    ],
+                    "defaultValues": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "235633931378461125995",
+                            "value": "WARN",
+                            "attribute": [
+                                "typeDefinitions[JavaSENode]/dictionaryType[313116901378461125995]/attributes[coreLogLevel]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "214293611378461125995",
+                            "value": "INFO",
+                            "attribute": [
+                                "typeDefinitions[JavaSENode]/dictionaryType[313116901378461125995]/attributes[logLevel]"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "managedPrimitiveTypeRefs": [
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "12649149941376379669294",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[AddDeployUnit]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "10498478601376379669297",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[UpdateDeployUnit]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "170560411378461125996",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[UpdateDeployUnit]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "235703951378457010455",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[AddDeployUnit]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "40152611378457010455",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[UpdateDeployUnit]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.AdaptationPrimitiveTypeRef",
+                    "generated_KMF_ID": "205485371378461125996",
+                    "maxTime": "120000",
+                    "ref": [
+                        "adaptationPrimitiveTypes[AddDeployUnit]"
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.GroupType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.BasicGroup",
+            "name": "BasicGroup",
+            "factoryBean": "org.kevoree.library.BasicGroupFactory",
+            "deployUnits": [
+                "deployUnits[5738840081376380901404]"
+            ],
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "12926328001376379968361",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "true",
+                            "optional": "true",
+                            "name": "port",
+                            "state": "false"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "false",
+                            "name": "ssl",
+                            "state": "false",
+                            "datatype": "enum=true,false"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "true",
+                            "optional": "true",
+                            "name": "ip",
+                            "state": "false"
+                        }
+                    ],
+                    "defaultValues": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "8446220271376379968361",
+                            "value": "0.0.0.0",
+                            "attribute": [
+                                "typeDefinitions[BasicGroup]/dictionaryType[12926328001376379968361]/attributes[ip]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "13348965481376379968361",
+                            "value": "8000",
+                            "attribute": [
+                                "typeDefinitions[BasicGroup]/dictionaryType[12926328001376379968361]/attributes[port]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "6955011191376379968361",
+                            "value": "false",
+                            "attribute": [
+                                "typeDefinitions[BasicGroup]/dictionaryType[12926328001376379968361]/attributes[ssl]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ChannelType",
+            "upperFragments": "0",
+            "abstract": "false",
+            "upperBindings": "0",
+            "lowerBindings": "0",
+            "bean": "org.kevoree.library.javase.basicGossiper.channel.BasicGossiperChannel",
+            "lowerFragments": "0",
+            "name": "BasicGossiperChannel",
+            "factoryBean": "org.kevoree.library.javase.basicGossiper.channel.BasicGossiperChannelFactory",
+            "deployUnits": [
+                "deployUnits[2755465601376380901387]"
+            ],
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "16177067681376380901373",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "interval",
+                            "state": "false"
+                        }
+                    ],
+                    "defaultValues": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "4228058101376380901380",
+                            "value": "30000",
+                            "attribute": [
+                                "typeDefinitions[BasicGossiperChannel]/dictionaryType[16177067681376380901373]/attributes[interval]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.ui.fileExplorer.FileExplorer",
+            "name": "FileExplorer",
+            "factoryBean": "org.kevoree.library.ui.fileExplorer.FileExplorerFactory",
+            "deployUnits": [
+                "deployUnits[322266901378461252735]",
+                "deployUnits[25781161378457328478]",
+                "deployUnits[10082722151378205659070]"
+            ],
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "32865471378461144113",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "basedir",
+                            "state": "false"
+                        }
+                    ]
+                }
+            ],
+            "required": [
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "true",
+                    "optional": "true",
+                    "name": "fileurl",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort1378461144118]"
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378457168407",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "334676791378457168407",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "height",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "bytes",
+                            "state": "false",
+                            "datatype": "byte[]"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "fps",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "width",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "chroma",
+                            "state": "false",
+                            "datatype": "java.lang.String"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378457168406",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "304468711378457168406",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "image",
+                            "state": "false",
+                            "datatype": "java.awt.image.BufferedImage"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.FakeReasoner",
+            "name": "FakeReasoner",
+            "factoryBean": "org.kevoree.library.FakeReasonerFactory",
+            "deployUnits": [
+                "deployUnits[192939011378457328477]",
+                "deployUnits[17854344781378205659069]",
+                "deployUnits[68617391378461252735]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378205420926",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "20574171771378205420932",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "url",
+                            "state": "false",
+                            "datatype": "java.lang.String"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "true",
+            "name": "AbstractFakeStuffComponent",
+            "deployUnits": [
+                "deployUnits[192939011378457328477]",
+                "deployUnits[17854344781378205659069]",
+                "deployUnits[68617391378461252735]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.FakeSimpleLight",
+            "name": "FakeSimpleLight",
+            "factoryBean": "org.kevoree.library.FakeSimpleLightFactory",
+            "deployUnits": [
+                "deployUnits[192939011378457328477]",
+                "deployUnits[17854344781378205659069]",
+                "deployUnits[68617391378461252735]"
+            ],
+            "superTypes": [
+                "typeDefinitions[AbstractFakeStuffComponent]"
+            ],
+            "provided": [
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "false",
+                    "optional": "false",
+                    "name": "toggle",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.library.ToggleLightService]"
+                    ],
+                    "mappings": [
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "105818821378461252743",
+                            "serviceMethodName": "toggle",
+                            "beanMethodName": "toogle"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "18473135121378205659081",
+                            "serviceMethodName": "toggle",
+                            "beanMethodName": "toogle"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "16271115051378205659081",
+                            "serviceMethodName": "toggle",
+                            "beanMethodName": "toogle"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "289263961378457328485",
+                            "serviceMethodName": "toggle",
+                            "beanMethodName": "toogle"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "112044081378461252743",
+                            "serviceMethodName": "toggle",
+                            "beanMethodName": "toogle"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "293406381378457328485",
+                            "serviceMethodName": "toggle",
+                            "beanMethodName": "toogle"
+                        }
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "false",
+                    "optional": "false",
+                    "name": "off",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort]"
+                    ],
+                    "mappings": [
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "6247028281378205659083",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOff"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "43510061378461252744",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOff"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "220406041378457328486",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOff"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "290659431378457328486",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOff"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "122518611378461252744",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOff"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "3328800131378205659083",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOff"
+                        }
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "false",
+                    "optional": "false",
+                    "name": "on",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort]"
+                    ],
+                    "mappings": [
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "23508771378461252744",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOn"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "10316661031378205659083",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOn"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "270442621378457328486",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOn"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "4292272431378205659083",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOn"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "176369491378461252744",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOn"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "45891661378457328486",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "lightOn"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378461144110",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "21240741378461144111",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "image",
+                            "state": "false",
+                            "datatype": "java.awt.image.BufferedImage"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378461144111",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "157705971378461144112",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "height",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "bytes",
+                            "state": "false",
+                            "datatype": "byte[]"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "fps",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "width",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "chroma",
+                            "state": "false",
+                            "datatype": "java.lang.String"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.ui.player.VideoViewerImageRecorder",
+            "name": "VideoViewerImageRecorder",
+            "factoryBean": "org.kevoree.library.ui.player.VideoViewerImageRecorderFactory",
+            "deployUnits": [
+                "deployUnits[322266901378461252735]",
+                "deployUnits[25781161378457328478]",
+                "deployUnits[10082722151378205659070]"
+            ],
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "30217241378461144082",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "image_folder",
+                            "state": "false"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "FPS",
+                            "state": "false",
+                            "datatype": "enum=1,10,15,24,30"
+                        }
+                    ],
+                    "defaultValues": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "182754321378461144082",
+                            "value": "10",
+                            "attribute": [
+                                "typeDefinitions[VideoViewerImageRecorder]/dictionaryType[30217241378461144082]/attributes[FPS]"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "provided": [
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "false",
+                    "optional": "false",
+                    "name": "image",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort1378461144091]"
+                    ],
+                    "mappings": [
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "2608138761378205420966",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "3800129221378205420966",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "267084001378457168404",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "301252361378461144106",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "203819431378461144108",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "111801191378457168403",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.FakeConsole",
+            "name": "FakeConsole",
+            "factoryBean": "org.kevoree.library.FakeConsoleFactory",
+            "deployUnits": [
+                "deployUnits[192939011378457328477]",
+                "deployUnits[17854344781378205659069]",
+                "deployUnits[68617391378461252735]"
+            ],
+            "superTypes": [
+                "typeDefinitions[AbstractFakeStuffComponent]"
+            ],
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "201725301378461252746",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "singleFrame",
+                            "state": "false"
+                        }
+                    ],
+                    "defaultValues": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "57312021378461252746",
+                            "value": "true",
+                            "attribute": [
+                                "typeDefinitions[FakeConsole]/dictionaryType[201725301378461252746]/attributes[singleFrame]"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "required": [
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "true",
+                    "optional": "true",
+                    "name": "textEntered",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort]"
+                    ]
+                }
+            ],
+            "provided": [
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "false",
+                    "optional": "false",
+                    "name": "showText",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort]"
+                    ],
+                    "mappings": [
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "5479386131378205659075",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "212892811378461252747",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "15941306551378205659075",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "165243751378457328489",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "129303141378461252747",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "286938851378457328489",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ServicePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.library.ToggleLightService",
+            "operations": [
+                {
+                    "eClass": "org.kevoree.Operation",
+                    "name": "toggle",
+                    "returnType": [
+                        "dataTypes[java.lang.String]"
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378205420954",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "17232940611378205420955",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "image",
+                            "state": "false",
+                            "datatype": "java.awt.image.BufferedImage"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378461144118",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "136001921378461144119",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "url",
+                            "state": "false",
+                            "datatype": "java.lang.String"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378205420956",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "8602615371378205420957",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "height",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "bytes",
+                            "state": "false",
+                            "datatype": "byte[]"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "fps",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "width",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "chroma",
+                            "state": "false",
+                            "datatype": "java.lang.String"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.ui.player.VideoViewer",
+            "name": "VideoViewer",
+            "factoryBean": "org.kevoree.library.ui.player.VideoViewerFactory",
+            "deployUnits": [
+                "deployUnits[322266901378461252735]",
+                "deployUnits[25781161378457328478]",
+                "deployUnits[10082722151378205659070]"
+            ],
+            "provided": [
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "false",
+                    "optional": "false",
+                    "name": "image",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort1378461144110]"
+                    ],
+                    "mappings": [
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "143458631378461144112",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "6190802951378205420961",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "5702321871378205420962",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "334630331378457168407",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "99731501378461144112",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "183394371378457168407",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImage"
+                        }
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "false",
+                    "optional": "false",
+                    "name": "image_bytes",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort1378461144111]"
+                    ],
+                    "mappings": [
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "223374501378461144113",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImageBytes"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "185486631378461144113",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImageBytes"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "25480141378457168408",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImageBytes"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "73750591378457168408",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImageBytes"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "13014188031378205420963",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImageBytes"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "18203339951378205420962",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "onReceiveImageBytes"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378461144091",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "113220101378461144095",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "image",
+                            "state": "false",
+                            "datatype": "java.awt.image.BufferedImage"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378205659085",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "13466621371378205659085",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "percent",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.FakeSimpleSwitch",
+            "name": "FakeSimpleSwitch",
+            "factoryBean": "org.kevoree.library.FakeSimpleSwitchFactory",
+            "deployUnits": [
+                "deployUnits[192939011378457328477]",
+                "deployUnits[17854344781378205659069]",
+                "deployUnits[68617391378461252735]"
+            ],
+            "superTypes": [
+                "typeDefinitions[AbstractFakeStuffComponent]"
+            ],
+            "required": [
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "false",
+                    "optional": "true",
+                    "name": "toggle",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.library.ToggleLightService]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "true",
+                    "optional": "true",
+                    "name": "off",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort]"
+                    ]
+                },
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "true",
+                    "optional": "true",
+                    "name": "on",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort]"
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.FakeConsoleWithStdMessage",
+            "name": "FakeConsoleWithStdMessage",
+            "factoryBean": "org.kevoree.library.FakeConsoleWithStdMessageFactory",
+            "deployUnits": [
+                "deployUnits[192939011378457328477]",
+                "deployUnits[17854344781378205659069]",
+                "deployUnits[68617391378461252735]"
+            ],
+            "superTypes": [
+                "typeDefinitions[AbstractFakeStuffComponent]"
+            ],
+            "required": [
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "true",
+                    "optional": "true",
+                    "name": "textEntered",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort]"
+                    ]
+                }
+            ],
+            "provided": [
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "false",
+                    "optional": "false",
+                    "name": "showText",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort]"
+                    ],
+                    "mappings": [
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "324995431378457328482",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "13514361378461252740",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "307974961378461252740",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "207908531378457328482",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "7943903551378205659077",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        },
+                        {
+                            "eClass": "org.kevoree.PortTypeMapping",
+                            "generated_KMF_ID": "4128630861378205659077",
+                            "serviceMethodName": "process",
+                            "beanMethodName": "appendIncoming"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.FakeSimpleSlider",
+            "name": "FakeSimpleSlider",
+            "factoryBean": "org.kevoree.library.FakeSimpleSliderFactory",
+            "deployUnits": [
+                "deployUnits[192939011378457328477]",
+                "deployUnits[17854344781378205659069]",
+                "deployUnits[68617391378461252735]"
+            ],
+            "superTypes": [
+                "typeDefinitions[AbstractFakeStuffComponent]"
+            ],
+            "required": [
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "false",
+                    "optional": "true",
+                    "name": "send",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort1378461252741]"
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.ui.kevScript.KevScriptEditor",
+            "name": "KevScriptEditor",
+            "factoryBean": "org.kevoree.library.ui.kevScript.KevScriptEditorFactory",
+            "deployUnits": [
+                "deployUnits[322266901378461252735]",
+                "deployUnits[25781161378457328478]",
+                "deployUnits[10082722151378205659070]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378457168412",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "1669041378457168412",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "url",
+                            "state": "false",
+                            "datatype": "java.lang.String"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378205420965",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "8387256901378205420966",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "image",
+                            "state": "false",
+                            "datatype": "java.awt.image.BufferedImage"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378461252741",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "310095801378461252741",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "percent",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378457328483",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "269079551378457328483",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "percent",
+                            "state": "false",
+                            "datatype": "java.lang.Integer"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort1378457168389",
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "307593711378457168392",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "image",
+                            "state": "false",
+                            "datatype": "java.awt.image.BufferedImage"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.ComponentType",
+            "abstract": "false",
+            "bean": "org.kevoree.library.Random",
+            "name": "Random",
+            "factoryBean": "org.kevoree.library.RandomFactory",
+            "deployUnits": [
+                "deployUnits[192939011378457328477]",
+                "deployUnits[17854344781378205659069]",
+                "deployUnits[68617391378461252735]"
+            ],
+            "dictionaryType": [
+                {
+                    "eClass": "org.kevoree.DictionaryType",
+                    "generated_KMF_ID": "82274671378461252745",
+                    "attributes": [
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "range_min",
+                            "state": "false"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "refresh_speed",
+                            "state": "false"
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryAttribute",
+                            "fragmentDependant": "false",
+                            "optional": "true",
+                            "name": "range_max",
+                            "state": "false"
+                        }
+                    ],
+                    "defaultValues": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "103987321378461252745",
+                            "value": "0",
+                            "attribute": [
+                                "typeDefinitions[Random]/dictionaryType[82274671378461252745]/attributes[range_min]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "200116761378461252745",
+                            "value": "50",
+                            "attribute": [
+                                "typeDefinitions[Random]/dictionaryType[82274671378461252745]/attributes[range_max]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "12344281378461252745",
+                            "value": "2000",
+                            "attribute": [
+                                "typeDefinitions[Random]/dictionaryType[82274671378461252745]/attributes[refresh_speed]"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "required": [
+                {
+                    "eClass": "org.kevoree.PortTypeRef",
+                    "noDependency": "true",
+                    "optional": "true",
+                    "name": "out",
+                    "ref": [
+                        "typeDefinitions[org.kevoree.framework.MessagePort]"
+                    ]
+                }
+            ]
+        },
+        {
+            "eClass": "org.kevoree.MessagePortType",
+            "abstract": "false",
+            "synchrone": "false",
+            "name": "org.kevoree.framework.MessagePort"
+        }
+    ],
+    "repositories": [
+        {
+            "eClass": "org.kevoree.Repository",
+            "url": "http://repo.maven.apache.org/maven2"
+        },
+        {
+            "eClass": "org.kevoree.Repository",
+            "url": "https://oss.sonatype.org/content/groups/public/"
+        },
+        {
+            "eClass": "org.kevoree.Repository",
+            "url": "https://oss.sonatype.org/content/repositories/snapshots"
+        },
+        {
+            "eClass": "org.kevoree.Repository",
+            "url": "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+        },
+        {
+            "eClass": "org.kevoree.Repository",
+            "url": "http://maven.kevoree.org/release"
+        }
+    ],
+    "dataTypes": [
+        {
+            "eClass": "org.kevoree.TypedElement",
+            "name": "java.lang.String"
+        }
+    ],
+    "libraries": [
+        {
+            "eClass": "org.kevoree.TypeLibrary",
+            "name": "Android",
+            "subTypes": [
+                "typeDefinitions[AutoBasicGroup]",
+                "typeDefinitions[BasicGossiperGroup]",
+                "typeDefinitions[BasicGroup]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.TypeLibrary",
+            "name": "JavaSE",
+            "subTypes": [
+                "typeDefinitions[AutoBasicGroup]",
+                "typeDefinitions[StatefulJavaSENode]",
+                "typeDefinitions[BasicGossiperGroup]",
+                "typeDefinitions[JavaSENode]",
+                "typeDefinitions[BasicGossiperChannel]",
+                "typeDefinitions[BasicGroup]",
+                "typeDefinitions[FileExplorer]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378457168407]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378457168406]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378205420926]",
+                "typeDefinitions[FakeReasoner]",
+                "typeDefinitions[FakeSimpleLight]",
+                "typeDefinitions[AbstractFakeStuffComponent]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378461144110]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378461144111]",
+                "typeDefinitions[VideoViewerImageRecorder]",
+                "typeDefinitions[org.kevoree.library.ToggleLightService]",
+                "typeDefinitions[FakeConsole]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378205420954]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378461144118]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378205420956]",
+                "typeDefinitions[VideoViewer]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378461144091]",
+                "typeDefinitions[FakeSimpleSwitch]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378205659085]",
+                "typeDefinitions[FakeConsoleWithStdMessage]",
+                "typeDefinitions[KevScriptEditor]",
+                "typeDefinitions[FakeSimpleSlider]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378457168412]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378205420965]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378461252741]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378457328483]",
+                "typeDefinitions[org.kevoree.framework.MessagePort1378457168389]",
+                "typeDefinitions[Random]",
+                "typeDefinitions[org.kevoree.framework.MessagePort]"
+            ]
+        }
+    ],
+    "hubs": [
+        {
+            "eClass": "org.kevoree.Channel",
+            "name": "chan0",
+            "started": "true",
+            "metaData": "x=339,y=276",
+            "typeDefinition": [
+                "typeDefinitions[BasicGossiperChannel]"
+            ],
+            "bindings": [
+                "mBindings[0.202038701856508851378720329976]"
+            ],
+            "dictionary": [
+                {
+                    "eClass": "org.kevoree.Dictionary",
+                    "generated_KMF_ID": "0.90051559451967481378720328744",
+                    "values": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "0.040294665843248371378720330670",
+                            "value": "30000",
+                            "attribute": [
+                                "typeDefinitions[BasicGossiperChannel]/dictionaryType[16177067681376380901373]/attributes[interval]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "mBindings": [
+        {
+            "eClass": "org.kevoree.MBinding",
+            "generated_KMF_ID": "0.202038701856508851378720329976",
+            "port": [
+                "nodes[node0]/components[comp0]/provided[0.86925467406399551378720326523]"
+            ],
+            "hub": [
+                "hubs[chan0]"
+            ]
+        }
+    ],
+    "deployUnits": [
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.jetbrains.kotlin",
+            "unitName": "kotlin-stdlib",
+            "generated_KMF_ID": "12597269111376380901403",
+            "type": "jar",
+            "version": "0.5.998",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.model.context",
+            "generated_KMF_ID": "17655354131376380901403",
+            "type": "jar",
+            "version": "2.0.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.log",
+            "generated_KMF_ID": "2457827561376380901403",
+            "type": "jar",
+            "version": "2.0.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.modeling",
+            "unitName": "org.kevoree.modeling.microframework",
+            "generated_KMF_ID": "9962368771376380901404",
+            "type": "jar",
+            "version": "1.4.4",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.model",
+            "generated_KMF_ID": "11539787621376380901403",
+            "type": "jar",
+            "version": "2.0.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.jgrapht",
+            "unitName": "jgrapht-jdk1.5",
+            "generated_KMF_ID": "21001484391376380901404",
+            "type": "jar",
+            "version": "0.7.3",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.scala-lang",
+            "unitName": "scala-library",
+            "generated_KMF_ID": "11535921811376380901405",
+            "type": "jar",
+            "version": "2.9.2",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "com.google.protobuf",
+            "unitName": "protobuf-java",
+            "generated_KMF_ID": "3566374421376380901402",
+            "type": "jar",
+            "version": "2.5.0",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.corelibrary.javase",
+            "unitName": "org.kevoree.library.javase.jexxus",
+            "generated_KMF_ID": "5738840081376380901404",
+            "hashcode": "201308130946266",
+            "type": "jar",
+            "version": "2.0.2",
+            "requiredLibs": [
+                "deployUnits[12597269111376380901403]",
+                "deployUnits[2457827561376380901403]",
+                "deployUnits[17655354131376380901403]",
+                "deployUnits[9962368771376380901404]",
+                "deployUnits[11539787621376380901403]",
+                "deployUnits[21001484391376380901404]",
+                "deployUnits[15721356921376380901403]",
+                "deployUnits[19706797271376380901404]",
+                "deployUnits[16480155141376380901404]",
+                "deployUnits[9414209511376380901405]",
+                "deployUnits[19498960081376380901405]",
+                "deployUnits[6221619581376380901403]",
+                "deployUnits[1354098411376380901404]",
+                "deployUnits[9194637791376380901404]",
+                "deployUnits[5781508631376380901403]",
+                "deployUnits[1889174041376380901403]"
+            ],
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.adaptation.model",
+            "generated_KMF_ID": "15721356921376380901403",
+            "type": "jar",
+            "version": "2.0.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "fr.inria.jfilter",
+            "unitName": "jfilter-library",
+            "generated_KMF_ID": "19706797271376380901404",
+            "type": "jar",
+            "version": "1.3",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.kompare",
+            "generated_KMF_ID": "16480155141376380901404",
+            "type": "jar",
+            "version": "2.0.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.corelibrary.javase",
+            "unitName": "org.kevoree.library.javase.basicGossiper",
+            "generated_KMF_ID": "2755465601376380901387",
+            "hashcode": "201308131001248",
+            "type": "jar",
+            "version": "2.0.2",
+            "requiredLibs": [
+                "deployUnits[12597269111376380901403]",
+                "deployUnits[17655354131376380901403]",
+                "deployUnits[2457827561376380901403]",
+                "deployUnits[9962368771376380901404]",
+                "deployUnits[11539787621376380901403]",
+                "deployUnits[21001484391376380901404]",
+                "deployUnits[11535921811376380901405]",
+                "deployUnits[3566374421376380901402]",
+                "deployUnits[5738840081376380901404]",
+                "deployUnits[15721356921376380901403]",
+                "deployUnits[19706797271376380901404]",
+                "deployUnits[16480155141376380901404]",
+                "deployUnits[9414209511376380901405]",
+                "deployUnits[3786289171376380901402]",
+                "deployUnits[6221619581376380901403]",
+                "deployUnits[19498960081376380901405]",
+                "deployUnits[1354098411376380901404]",
+                "deployUnits[9194637791376380901404]",
+                "deployUnits[5781508631376380901403]",
+                "deployUnits[1889174041376380901403]"
+            ],
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.javase.framework",
+            "generated_KMF_ID": "9414209511376380901405",
+            "type": "jar",
+            "version": "2.0.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.merger",
+            "generated_KMF_ID": "3786289171376380901402",
+            "type": "jar",
+            "version": "2.0.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.framework",
+            "generated_KMF_ID": "6221619581376380901403",
+            "type": "jar",
+            "version": "2.0.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.annotation.api",
+            "generated_KMF_ID": "19498960081376380901405",
+            "type": "jar",
+            "version": "2.0.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.kcl",
+            "generated_KMF_ID": "1354098411376380901404",
+            "type": "jar",
+            "version": "2.0.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.corelibrary.javase",
+            "unitName": "org.kevoree.library.javase.javaseNode",
+            "generated_KMF_ID": "9194637791376380901404",
+            "hashcode": "201308130941703",
+            "type": "jar",
+            "version": "2.0.2",
+            "requiredLibs": [
+                "deployUnits[12597269111376380901403]",
+                "deployUnits[2457827561376380901403]",
+                "deployUnits[17655354131376380901403]",
+                "deployUnits[9962368771376380901404]",
+                "deployUnits[11539787621376380901403]",
+                "deployUnits[21001484391376380901404]",
+                "deployUnits[15721356921376380901403]",
+                "deployUnits[19706797271376380901404]",
+                "deployUnits[16480155141376380901404]",
+                "deployUnits[9414209511376380901405]",
+                "deployUnits[19498960081376380901405]",
+                "deployUnits[6221619581376380901403]",
+                "deployUnits[1354098411376380901404]",
+                "deployUnits[5781508631376380901403]",
+                "deployUnits[1889174041376380901403]"
+            ],
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.api",
+            "generated_KMF_ID": "5781508631376380901403",
+            "type": "jar",
+            "version": "2.0.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.jetbrains.kotlin",
+            "unitName": "kotlin-runtime",
+            "generated_KMF_ID": "1889174041376380901403",
+            "type": "jar",
+            "version": "0.5.998",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.jgrapht",
+            "unitName": "jgrapht-jdk1.5",
+            "generated_KMF_ID": "121706341378457328478",
+            "type": "jar",
+            "version": "0.7.3",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "com.jgoodies",
+            "unitName": "forms",
+            "generated_KMF_ID": "140593321378461252735",
+            "type": "jar",
+            "version": "1.2.1",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.extra",
+            "unitName": "org.kevoree.extra.jsyntaxpane",
+            "generated_KMF_ID": "188313201378457328478",
+            "type": "jar",
+            "version": "0.9.7",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.extra",
+            "unitName": "org.kevoree.extra.jsyntaxpane",
+            "generated_KMF_ID": "267396191378461252735",
+            "type": "jar",
+            "version": "0.9.7",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.corelibrary.javase",
+            "unitName": "org.kevoree.library.javase.swingUI",
+            "generated_KMF_ID": "25781161378457328478",
+            "hashcode": "201309061046275",
+            "type": "jar",
+            "version": "2.0.4",
+            "requiredLibs": [
+                "deployUnits[320125451378457328478]",
+                "deployUnits[121706341378457328478]",
+                "deployUnits[320997391378457328478]",
+                "deployUnits[139632721378457328478]",
+                "deployUnits[188313201378457328478]",
+                "deployUnits[47701531378457328478]",
+                "deployUnits[118202041378457328478]",
+                "deployUnits[199470371378457328478]",
+                "deployUnits[10264971378457328478]",
+                "deployUnits[75219531378457328478]",
+                "deployUnits[41165411378457328478]",
+                "deployUnits[151861051378457328478]",
+                "deployUnits[310268321378457328478]",
+                "deployUnits[201350871378457328478]",
+                "deployUnits[110782891378457328478]",
+                "deployUnits[178725551378457328478]",
+                "deployUnits[53651791378457328478]",
+                "deployUnits[230892551378457328478]",
+                "deployUnits[116260211378457328478]",
+                "deployUnits[40340381378457328478]",
+                "deployUnits[85259861378457328478]",
+                "deployUnits[125935511378457328478]",
+                "deployUnits[219279771378457328478]",
+                "deployUnits[328282291378457328478]"
+            ],
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.slf4j",
+            "unitName": "slf4j-api",
+            "generated_KMF_ID": "16367429131378205659070",
+            "type": "jar",
+            "version": "1.7.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.slf4j",
+            "unitName": "slf4j-api",
+            "generated_KMF_ID": "231822861378461252736",
+            "type": "jar",
+            "version": "1.7.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.kcl",
+            "generated_KMF_ID": "310268321378457328478",
+            "type": "jar",
+            "version": "2.0.12",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.annotation.api",
+            "generated_KMF_ID": "46294961378461252736",
+            "type": "jar",
+            "version": "2.0.13-SNAPSHOT",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.slf4j",
+            "unitName": "slf4j-simple",
+            "generated_KMF_ID": "8469779471378205659070",
+            "type": "jar",
+            "version": "1.7.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.modeling",
+            "unitName": "org.kevoree.modeling.microframework",
+            "generated_KMF_ID": "57794441378461252736",
+            "type": "jar",
+            "version": "1.4.7",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.adaptation.model",
+            "generated_KMF_ID": "35107431378461252736",
+            "type": "jar",
+            "version": "2.0.13-SNAPSHOT",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.slf4j",
+            "unitName": "slf4j-api",
+            "generated_KMF_ID": "230892551378457328478",
+            "type": "jar",
+            "version": "1.7.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.extra",
+            "unitName": "org.kevoree.extra.macwidgets",
+            "generated_KMF_ID": "116260211378457328478",
+            "type": "jar",
+            "version": "0.9.6",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.corelibrary.javase",
+            "unitName": "org.kevoree.library.javase.fakeDomo",
+            "generated_KMF_ID": "68617391378461252735",
+            "hashcode": "201309061154707",
+            "type": "jar",
+            "version": "2.0.5-SNAPSHOT",
+            "requiredLibs": [
+                "deployUnits[97460471378461252736]",
+                "deployUnits[48857781378461252735]",
+                "deployUnits[18370831378461252736]",
+                "deployUnits[140593321378461252735]",
+                "deployUnits[285904581378461252736]",
+                "deployUnits[267396191378461252735]",
+                "deployUnits[203660541378461252736]",
+                "deployUnits[253635531378461252736]",
+                "deployUnits[231822861378461252736]",
+                "deployUnits[304832651378461252736]",
+                "deployUnits[75881221378461252735]",
+                "deployUnits[241760211378461252736]",
+                "deployUnits[163772021378461252736]",
+                "deployUnits[46294961378461252736]",
+                "deployUnits[290738971378461252736]",
+                "deployUnits[57794441378461252736]",
+                "deployUnits[35107431378461252736]",
+                "deployUnits[157680481378461252736]",
+                "deployUnits[322266901378461252735]",
+                "deployUnits[6823371378461252736]",
+                "deployUnits[318982101378461252735]",
+                "deployUnits[259821671378461252736]",
+                "deployUnits[226399171378461252736]",
+                "deployUnits[182773691378461252736]",
+                "deployUnits[49050251378461252736]"
+            ],
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.extra",
+            "unitName": "org.kevoree.extra.macwidgets",
+            "generated_KMF_ID": "318982101378461252735",
+            "type": "jar",
+            "version": "0.9.6",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.kompare",
+            "generated_KMF_ID": "6823371378461252736",
+            "type": "jar",
+            "version": "2.0.13-SNAPSHOT",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.annotation.api",
+            "generated_KMF_ID": "4252154691378205659070",
+            "type": "jar",
+            "version": "2.0.11",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.log",
+            "unitName": "org.kevoree.log",
+            "generated_KMF_ID": "5639207861378205659070",
+            "type": "jar",
+            "version": "1",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.framework",
+            "generated_KMF_ID": "97460471378461252736",
+            "type": "jar",
+            "version": "2.0.13-SNAPSHOT",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.slf4j",
+            "unitName": "slf4j-simple",
+            "generated_KMF_ID": "320125451378457328478",
+            "type": "jar",
+            "version": "1.7.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.kompare",
+            "generated_KMF_ID": "320997391378457328478",
+            "type": "jar",
+            "version": "2.0.12",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.model.context",
+            "generated_KMF_ID": "3948471981378205659070",
+            "type": "jar",
+            "version": "2.0.11",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.modeling",
+            "unitName": "org.kevoree.modeling.microframework",
+            "generated_KMF_ID": "199470371378457328478",
+            "type": "jar",
+            "version": "1.4.7",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.model.context",
+            "generated_KMF_ID": "203660541378461252736",
+            "type": "jar",
+            "version": "2.0.13-SNAPSHOT",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.framework",
+            "generated_KMF_ID": "10264971378457328478",
+            "type": "jar",
+            "version": "2.0.12",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.api",
+            "generated_KMF_ID": "2744532171378205659070",
+            "type": "jar",
+            "version": "2.0.11",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.adaptation.model",
+            "generated_KMF_ID": "151861051378457328478",
+            "type": "jar",
+            "version": "2.0.12",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.marShell",
+            "generated_KMF_ID": "75881221378461252735",
+            "type": "jar",
+            "version": "2.0.13-SNAPSHOT",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "com.jgoodies",
+            "unitName": "forms",
+            "generated_KMF_ID": "110782891378457328478",
+            "type": "jar",
+            "version": "1.2.1",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.extra",
+            "unitName": "org.kevoree.extra.jsyntaxpane",
+            "generated_KMF_ID": "11703758561378205659070",
+            "type": "jar",
+            "version": "0.9.7",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.jetbrains.kotlin",
+            "unitName": "kotlin-stdlib",
+            "generated_KMF_ID": "9713160911378205659070",
+            "type": "jar",
+            "version": "0.6.31",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "fr.inria.jfilter",
+            "unitName": "jfilter-library",
+            "generated_KMF_ID": "9851546241378205659070",
+            "type": "jar",
+            "version": "1.3",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.api",
+            "generated_KMF_ID": "53651791378457328478",
+            "type": "jar",
+            "version": "2.0.12",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.corelibrary.javase",
+            "unitName": "org.kevoree.library.javase.swingUI",
+            "generated_KMF_ID": "322266901378461252735",
+            "hashcode": "201309061152980",
+            "type": "jar",
+            "version": "2.0.5-SNAPSHOT",
+            "requiredLibs": [
+                "deployUnits[97460471378461252736]",
+                "deployUnits[48857781378461252735]",
+                "deployUnits[18370831378461252736]",
+                "deployUnits[140593321378461252735]",
+                "deployUnits[285904581378461252736]",
+                "deployUnits[267396191378461252735]",
+                "deployUnits[203660541378461252736]",
+                "deployUnits[253635531378461252736]",
+                "deployUnits[231822861378461252736]",
+                "deployUnits[304832651378461252736]",
+                "deployUnits[241760211378461252736]",
+                "deployUnits[75881221378461252735]",
+                "deployUnits[163772021378461252736]",
+                "deployUnits[46294961378461252736]",
+                "deployUnits[290738971378461252736]",
+                "deployUnits[57794441378461252736]",
+                "deployUnits[35107431378461252736]",
+                "deployUnits[157680481378461252736]",
+                "deployUnits[318982101378461252735]",
+                "deployUnits[6823371378461252736]",
+                "deployUnits[259821671378461252736]",
+                "deployUnits[226399171378461252736]",
+                "deployUnits[182773691378461252736]",
+                "deployUnits[49050251378461252736]"
+            ],
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.jgrapht",
+            "unitName": "jgrapht-jdk1.5",
+            "generated_KMF_ID": "259821671378461252736",
+            "type": "jar",
+            "version": "0.7.3",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.model.context",
+            "generated_KMF_ID": "219279771378457328478",
+            "type": "jar",
+            "version": "2.0.12",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.jetbrains.kotlin",
+            "unitName": "kotlin-stdlib",
+            "generated_KMF_ID": "49050251378461252736",
+            "type": "jar",
+            "version": "0.5.998",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.jetbrains.kotlin",
+            "unitName": "kotlin-runtime",
+            "generated_KMF_ID": "18863405901378205659070",
+            "type": "jar",
+            "version": "0.6.31",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.marShell",
+            "generated_KMF_ID": "9116034221378205659070",
+            "type": "jar",
+            "version": "2.0.11",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.kcl",
+            "generated_KMF_ID": "1706107331378205659070",
+            "type": "jar",
+            "version": "2.0.11",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.javase.framework",
+            "generated_KMF_ID": "139632721378457328478",
+            "type": "jar",
+            "version": "2.0.12",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.model",
+            "generated_KMF_ID": "18370831378461252736",
+            "type": "jar",
+            "version": "2.0.13-SNAPSHOT",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "fr.inria.jfilter",
+            "unitName": "jfilter-library",
+            "generated_KMF_ID": "285904581378461252736",
+            "type": "jar",
+            "version": "1.3",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.adaptation.model",
+            "generated_KMF_ID": "4723875561378205659070",
+            "type": "jar",
+            "version": "2.0.11",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.annotation.api",
+            "generated_KMF_ID": "47701531378457328478",
+            "type": "jar",
+            "version": "2.0.12",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.corelibrary.javase",
+            "unitName": "org.kevoree.library.javase.fakeDomo",
+            "generated_KMF_ID": "17854344781378205659069",
+            "hashcode": "201309031254007",
+            "type": "jar",
+            "version": "2.0.3",
+            "requiredLibs": [
+                "deployUnits[9116034221378205659070]",
+                "deployUnits[1706107331378205659070]",
+                "deployUnits[4723875561378205659070]",
+                "deployUnits[3948471981378205659070]",
+                "deployUnits[17042889191378205659070]",
+                "deployUnits[2425720901378205659070]",
+                "deployUnits[16367429131378205659070]",
+                "deployUnits[157001761378205659070]",
+                "deployUnits[10082722151378205659070]",
+                "deployUnits[2744532171378205659070]",
+                "deployUnits[2376590281378205659070]",
+                "deployUnits[11489526631378205659070]",
+                "deployUnits[11703758561378205659070]",
+                "deployUnits[16201043681378205659070]",
+                "deployUnits[18798530981378205659070]",
+                "deployUnits[9713160911378205659070]",
+                "deployUnits[8469779471378205659070]",
+                "deployUnits[9851546241378205659070]",
+                "deployUnits[4252154691378205659070]",
+                "deployUnits[20878280101378205659070]",
+                "deployUnits[5639207861378205659070]",
+                "deployUnits[18863405901378205659070]"
+            ],
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.javase.framework",
+            "generated_KMF_ID": "253635531378461252736",
+            "type": "jar",
+            "version": "2.0.13-SNAPSHOT",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.corelibrary.javase",
+            "unitName": "org.kevoree.library.javase.swingUI",
+            "generated_KMF_ID": "10082722151378205659070",
+            "hashcode": "201309031250745",
+            "type": "jar",
+            "version": "2.0.3",
+            "requiredLibs": [
+                "deployUnits[9116034221378205659070]",
+                "deployUnits[1706107331378205659070]",
+                "deployUnits[4723875561378205659070]",
+                "deployUnits[3948471981378205659070]",
+                "deployUnits[17042889191378205659070]",
+                "deployUnits[2425720901378205659070]",
+                "deployUnits[16367429131378205659070]",
+                "deployUnits[157001761378205659070]",
+                "deployUnits[2744532171378205659070]",
+                "deployUnits[2376590281378205659070]",
+                "deployUnits[11703758561378205659070]",
+                "deployUnits[11489526631378205659070]",
+                "deployUnits[18798530981378205659070]",
+                "deployUnits[16201043681378205659070]",
+                "deployUnits[9713160911378205659070]",
+                "deployUnits[8469779471378205659070]",
+                "deployUnits[9851546241378205659070]",
+                "deployUnits[4252154691378205659070]",
+                "deployUnits[20878280101378205659070]",
+                "deployUnits[18863405901378205659070]",
+                "deployUnits[5639207861378205659070]"
+            ],
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.slf4j",
+            "unitName": "slf4j-simple",
+            "generated_KMF_ID": "304832651378461252736",
+            "type": "jar",
+            "version": "1.7.5",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.corelibrary.javase",
+            "unitName": "org.kevoree.library.javase.javaseNode",
+            "generated_KMF_ID": "241760211378461252736",
+            "hashcode": "201309061152488",
+            "type": "jar",
+            "version": "2.0.5-SNAPSHOT",
+            "requiredLibs": [
+                "deployUnits[97460471378461252736]",
+                "deployUnits[18370831378461252736]",
+                "deployUnits[285904581378461252736]",
+                "deployUnits[203660541378461252736]",
+                "deployUnits[253635531378461252736]",
+                "deployUnits[163772021378461252736]",
+                "deployUnits[46294961378461252736]",
+                "deployUnits[290738971378461252736]",
+                "deployUnits[57794441378461252736]",
+                "deployUnits[35107431378461252736]",
+                "deployUnits[157680481378461252736]",
+                "deployUnits[6823371378461252736]",
+                "deployUnits[259821671378461252736]",
+                "deployUnits[226399171378461252736]",
+                "deployUnits[49050251378461252736]"
+            ],
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.log",
+            "unitName": "org.kevoree.log",
+            "generated_KMF_ID": "163772021378461252736",
+            "type": "jar",
+            "version": "1",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.jetbrains.kotlin",
+            "unitName": "kotlin-runtime",
+            "generated_KMF_ID": "201350871378457328478",
+            "type": "jar",
+            "version": "0.5.998",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.framework",
+            "generated_KMF_ID": "11489526631378205659070",
+            "type": "jar",
+            "version": "2.0.11",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.javase.framework",
+            "generated_KMF_ID": "16201043681378205659070",
+            "type": "jar",
+            "version": "2.0.11",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.marShellGUI",
+            "generated_KMF_ID": "18798530981378205659070",
+            "type": "jar",
+            "version": "2.0.11",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.jetbrains.kotlin",
+            "unitName": "kotlin-runtime",
+            "generated_KMF_ID": "290738971378461252736",
+            "type": "jar",
+            "version": "0.5.998",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.jetbrains.kotlin",
+            "unitName": "kotlin-stdlib",
+            "generated_KMF_ID": "40340381378457328478",
+            "type": "jar",
+            "version": "0.5.998",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.scala-lang",
+            "unitName": "scala-library",
+            "generated_KMF_ID": "125935511378457328478",
+            "type": "jar",
+            "version": "2.9.2",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.marShellGUI",
+            "generated_KMF_ID": "328282291378457328478",
+            "type": "jar",
+            "version": "2.0.12",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.model",
+            "generated_KMF_ID": "20878280101378205659070",
+            "type": "jar",
+            "version": "2.0.11",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.marShellGUI",
+            "generated_KMF_ID": "48857781378461252735",
+            "type": "jar",
+            "version": "2.0.13-SNAPSHOT",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.scala-lang",
+            "unitName": "scala-library",
+            "generated_KMF_ID": "17042889191378205659070",
+            "type": "jar",
+            "version": "2.9.2",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.model",
+            "generated_KMF_ID": "118202041378457328478",
+            "type": "jar",
+            "version": "2.0.12",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.modeling",
+            "unitName": "org.kevoree.modeling.microframework",
+            "generated_KMF_ID": "2425720901378205659070",
+            "type": "jar",
+            "version": "1.4.7",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "fr.inria.jfilter",
+            "unitName": "jfilter-library",
+            "generated_KMF_ID": "75219531378457328478",
+            "type": "jar",
+            "version": "1.3",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "com.jgoodies",
+            "unitName": "forms",
+            "generated_KMF_ID": "157001761378205659070",
+            "type": "jar",
+            "version": "1.2.1",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.corelibrary.javase",
+            "unitName": "org.kevoree.library.javase.javaseNode",
+            "generated_KMF_ID": "41165411378457328478",
+            "hashcode": "201309061043966",
+            "type": "jar",
+            "version": "2.0.4",
+            "requiredLibs": [
+                "deployUnits[121706341378457328478]",
+                "deployUnits[320997391378457328478]",
+                "deployUnits[139632721378457328478]",
+                "deployUnits[47701531378457328478]",
+                "deployUnits[118202041378457328478]",
+                "deployUnits[199470371378457328478]",
+                "deployUnits[10264971378457328478]",
+                "deployUnits[75219531378457328478]",
+                "deployUnits[151861051378457328478]",
+                "deployUnits[310268321378457328478]",
+                "deployUnits[201350871378457328478]",
+                "deployUnits[178725551378457328478]",
+                "deployUnits[53651791378457328478]",
+                "deployUnits[40340381378457328478]",
+                "deployUnits[219279771378457328478]"
+            ],
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.extra",
+            "unitName": "org.kevoree.extra.macwidgets",
+            "generated_KMF_ID": "2376590281378205659070",
+            "type": "jar",
+            "version": "0.9.6",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.log",
+            "unitName": "org.kevoree.log",
+            "generated_KMF_ID": "178725551378457328478",
+            "type": "jar",
+            "version": "1",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.corelibrary.javase",
+            "unitName": "org.kevoree.library.javase.fakeDomo",
+            "generated_KMF_ID": "192939011378457328477",
+            "hashcode": "201309061048447",
+            "type": "jar",
+            "version": "2.0.4",
+            "requiredLibs": [
+                "deployUnits[320125451378457328478]",
+                "deployUnits[121706341378457328478]",
+                "deployUnits[139632721378457328478]",
+                "deployUnits[320997391378457328478]",
+                "deployUnits[188313201378457328478]",
+                "deployUnits[47701531378457328478]",
+                "deployUnits[118202041378457328478]",
+                "deployUnits[199470371378457328478]",
+                "deployUnits[25781161378457328478]",
+                "deployUnits[10264971378457328478]",
+                "deployUnits[75219531378457328478]",
+                "deployUnits[41165411378457328478]",
+                "deployUnits[151861051378457328478]",
+                "deployUnits[310268321378457328478]",
+                "deployUnits[110782891378457328478]",
+                "deployUnits[201350871378457328478]",
+                "deployUnits[178725551378457328478]",
+                "deployUnits[53651791378457328478]",
+                "deployUnits[230892551378457328478]",
+                "deployUnits[116260211378457328478]",
+                "deployUnits[40340381378457328478]",
+                "deployUnits[125935511378457328478]",
+                "deployUnits[85259861378457328478]",
+                "deployUnits[219279771378457328478]",
+                "deployUnits[328282291378457328478]"
+            ],
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.kcl",
+            "generated_KMF_ID": "157680481378461252736",
+            "type": "jar",
+            "version": "2.0.13-SNAPSHOT",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree.tools",
+            "unitName": "org.kevoree.tools.marShell",
+            "generated_KMF_ID": "85259861378457328478",
+            "type": "jar",
+            "version": "2.0.12",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.kevoree",
+            "unitName": "org.kevoree.api",
+            "generated_KMF_ID": "226399171378461252736",
+            "type": "jar",
+            "version": "2.0.13-SNAPSHOT",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        },
+        {
+            "eClass": "org.kevoree.DeployUnit",
+            "groupName": "org.scala-lang",
+            "unitName": "scala-library",
+            "generated_KMF_ID": "182773691378461252736",
+            "type": "jar",
+            "version": "2.9.2",
+            "targetNodeType": [
+                "typeDefinitions[JavaSENode]"
+            ]
+        }
+    ],
+    "groups": [
+        {
+            "eClass": "org.kevoree.Group",
+            "name": "group0",
+            "started": "true",
+            "metaData": "x=114,y=97",
+            "typeDefinition": [
+                "typeDefinitions[BasicGroup]"
+            ],
+            "subNodes": [
+                "nodes[node0]"
+            ],
+            "dictionary": [
+                {
+                    "eClass": "org.kevoree.Dictionary",
+                    "generated_KMF_ID": "0.467647643992677331378720323249",
+                    "values": [
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "0.128861798904836181378720327501",
+                            "value": "false",
+                            "attribute": [
+                                "typeDefinitions[BasicGroup]/dictionaryType[12926328001376379968361]/attributes[ssl]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "0.66149912937544291378720327501",
+                            "value": "8000",
+                            "attribute": [
+                                "typeDefinitions[BasicGroup]/dictionaryType[12926328001376379968361]/attributes[port]"
+                            ],
+                            "targetNode": [
+                                "nodes[node0]"
+                            ]
+                        },
+                        {
+                            "eClass": "org.kevoree.DictionaryValue",
+                            "generated_KMF_ID": "0.61968442611396311378720327501",
+                            "value": "0.0.0.0",
+                            "attribute": [
+                                "typeDefinitions[BasicGroup]/dictionaryType[12926328001376379968361]/attributes[ip]"
+                            ],
+                            "targetNode": [
+                                "nodes[node0]"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "adaptationPrimitiveTypes": [
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "UpdateFragmentBinding"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "UpdateDictionaryInstance"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "UpdateBinding"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "RemoveThirdParty"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "RemoveInstance"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "RemoveType"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "StartInstance"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "UpdateType"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "AddFragmentBinding"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "StartThirdParty"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "AddBinding"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "RemoveBinding"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "StopInstance"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "UpdateDeployUnit"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "UpdateInstance"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "RemoveFragmentBinding"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "RemoveDeployUnit"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "AddDeployUnit"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "AddThirdParty"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "AddInstance"
+        },
+        {
+            "eClass": "org.kevoree.AdaptationPrimitiveType",
+            "name": "AddType"
+        }
+    ]
+}
