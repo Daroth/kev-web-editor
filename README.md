@@ -1,7 +1,22 @@
 KevWebEditor
 ==============
 
-Kevoree Web Editor using NodeJS (server-side) and some cool JS libs client-side (KineticJS)
+Kevoree Web Editor is using
+
+*   Server-side
+    *  NodeJS
+    *  Kevoree Modeling Framework
+    *  Express & Jade
+    *  node-java (to wrap Java in nodeJS scripts)
+*   Client-side
+    *  HTML5/CSS3
+    *  jQuery & jQuery UI
+    *  Bootstrap
+    *  KineticJS
+    *  behave.js
+    *  hammer.js
+    *  TinySort
+    *  TouchPunch (jQuery UI plugin)
 
 ## 1. Get started
         git clone git@github.com:maxleiko/kev-web-editor.git
