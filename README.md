@@ -73,4 +73,4 @@ Kevoree Web Editor is using
 
 So an usage could be something like that:
 
-http://kevoree.org/editor?zoom=1.5&menu=hide
+http://localhost:3000/editor?zoom=1.5&menu=hide
