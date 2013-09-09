@@ -5,7 +5,7 @@
     <groupId>org.kevoree.tools</groupId>
     <artifactId>org.kevoree.tools.editor.root</artifactId>
     <packaging>pom</packaging>
-    <name>Kevoree Web Editor</name>
+    <name>Kevoree Web Editor :: Root</name>
     <version>1.0.0-SNAPSHOT</version>
 
     <properties>
@@ -16,7 +16,6 @@
     <modules>
         <module>org.kevoree.tools.editor.mavenplugin</module>
         <module>org.kevoree.model.js</module>
-        <module>org.kevoree.tools.editor.web</module>
     </modules>
 
     <build>
