@@ -68,7 +68,7 @@ Kevoree Web Editor is using
     <td><strong>Deps*</strong>: 'open'<br/>Open from node (you have to specify open param AND protocol param in URL)</td>
     </tr>
 </table>
-*: You **have to** specify deps parameters in order for them to work properly (for instance: **open** needs **protocol** to work properly)
+*: You __have to__ specify deps parameters in order for them to work properly (for instance: **open** needs **protocol** to work properly)
 
 So an usage could be something like that:
 
