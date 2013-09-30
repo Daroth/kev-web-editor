@@ -40,7 +40,7 @@ define(
                 });
 
                 $.ajax({
-                    url: '/merge',
+                    url: 'merge',
                     data: { libz: libraries },
                     dataType: 'json',
                     success: function (data) {

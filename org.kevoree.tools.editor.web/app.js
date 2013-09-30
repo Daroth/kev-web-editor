@@ -57,7 +57,7 @@ app.get(config.ROUTE_PREFIX+'/bench', routes.bench);
 app.use(function(req, res) {
     // if you end-up here, it means that I do not know the given url
     // so for now => redirect to '/' but you can put a custom 404 if you want
-    res.redirect('/');
+    res.redirect(config.ROUTE_PREFIX+'/');
 });
 
 http.createServer(app).listen(app.get('port'), function() {

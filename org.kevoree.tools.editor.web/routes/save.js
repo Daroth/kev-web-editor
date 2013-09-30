@@ -39,7 +39,7 @@ exports.save = function(req, res) {
                         res.json({
                             state: 1,
                             message: 'Your model has been successfully uploaded to the server.',
-                            href: '/saved/'+type+'/'+fileID
+                            href: 'saved/'+type+'/'+fileID
                         });
 
                         // delete this file in 30 minutes if it hasn't been accessed
@@ -100,7 +100,10 @@ exports.saved = function(req, res) {
 
         } else {
             // file does not exist anymore
-            res.redirect('/');
+            res.json({
+                state: -1,
+                message: 'File "'+req.params.id+'.'+req.params.type+'" unknown.'
+            });
         }
     });
 };

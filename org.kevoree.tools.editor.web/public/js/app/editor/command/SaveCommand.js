@@ -28,7 +28,7 @@ define(
 
                     $.ajax({
                         type: 'post',
-                        url: '/save/'+type,
+                        url: 'save/'+type,
                         data: {model: jsonModel},
                         dataType: 'json',
                         success: function (data) {

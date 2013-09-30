@@ -24,7 +24,7 @@ define(
 
         function loadLibs(platform, editor) {
             $.ajax({
-                url: '/load',
+                url: 'load',
                 //timeout: 10000, // 10 seconds timeout
                 data: {platform: platform},
                 dataType: 'json',

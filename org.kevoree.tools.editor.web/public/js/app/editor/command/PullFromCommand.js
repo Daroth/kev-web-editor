@@ -22,7 +22,7 @@ define(
             var jsonModel = JSON.parse(serializer.serialize(model));
 
             $.ajax({
-                url: '/pull',
+                url: 'pull',
                 type: 'POST',
                 timeout: 10000, // 10 seconds timeout
                 data: {
