@@ -13,7 +13,7 @@ var express = require('express'),
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || config.PORT || 3000);
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -43,16 +43,16 @@ fs.readdir('public/saved/', function(err, files) {
     }
 });
 
-app.get('/', routes.index);
-app.get('/load', routes.load);
-app.get('/merge', routes.merge);
-app.post('/push', routes.push);
-app.post('/pull', routes.pull);
-app.post('/open', routes.open);
-app.post('/save/:type', routes.save);
-app.get('/saved/:type/:id', routes.saved);
-app.get('/runtime', routes.runtime);
-app.get('/bench', routes.bench);
+app.get(config.ROUTE_PREFIX+'/', routes.index);
+app.get(config.ROUTE_PREFIX+'/load', routes.load);
+app.get(config.ROUTE_PREFIX+'/merge', routes.merge);
+app.post(config.ROUTE_PREFIX+'/push', routes.push);
+app.post(config.ROUTE_PREFIX+'/pull', routes.pull);
+app.post(config.ROUTE_PREFIX+'/open', routes.open);
+app.post(config.ROUTE_PREFIX+'/save/:type', routes.save);
+app.get(config.ROUTE_PREFIX+'/saved/:type/:id', routes.saved);
+app.get(config.ROUTE_PREFIX+'/runtime', routes.runtime);
+app.get(config.ROUTE_PREFIX+'/bench', routes.bench);
 
 app.use(function(req, res) {
     // if you end-up here, it means that I do not know the given url

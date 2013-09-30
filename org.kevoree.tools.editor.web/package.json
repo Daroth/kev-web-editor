@@ -4,7 +4,7 @@
     "private": true,
     "author": "Leiko",
     "scripts": {
-        "postinstall": "echo 'You should export JAVA_HOME=/path/to/your/jdk in order to properly install KevWebEditor' && rm -rf ./public/js/app/templates && ./node_modules/jade-amd/bin/jade-amd --from ./views/templates --to ./public/js/app/templates && cd ./public && r.js -o ./js/app.build.js && cd ..",
+        "postinstall": "echo 'You should export JAVA_HOME=/path/to/your/jdk in order to properly install KevWebEditor' && rm -rf public/js/app/templates/* && ./node_modules/jade-amd/bin/jade-amd --from views/templates --to public/js/app/templates && cd public && r.js -o js/app.build.js && cd ..",
         "start": "node app.js"
     },
     "dependencies": {
