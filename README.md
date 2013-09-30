@@ -19,15 +19,11 @@ Kevoree Web Editor is using
     *  TouchPunch (jQuery UI plugin)
 
 ## 1. Get started
-        git clone git@github.com:maxleiko/kev-web-editor.git
-        cd kev-web-editor
-        mvn clean && mvn install
-        cp org.kevoree.model.js/target/js/kevoree.js org.kevoree.tools.editor.web/public/js/lib
-        cp org.kevoree.model.js/target/js/org.kevoree.model.js.merged.js org.kevoree.tools.editor.web/public/js/lib/kotlin
-        mv org.kevoree.tools.editor.web/public/js/lib/kotlin/org.kevoree.model.js.merged.js org.kevoree.tools.editor.web/public/js/lib/kotlin/kotlin-merged.js
-        export JAVA_HOME=path/to/your/jdk
-        cd org.kevoree.tools.editor.web
-        npm install && npm start
+    git clone git@github.com:maxleiko/kev-web-editor.git
+    cd kev-web-editor
+    ./install.sh
+    npm start
+
 
 ![Kevoree Web Editor](http://oi44.tinypic.com/35hijk3.jpg)
 
