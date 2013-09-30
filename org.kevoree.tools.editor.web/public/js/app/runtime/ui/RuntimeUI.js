@@ -94,7 +94,7 @@ define(
 
             // using Shadow DOM to encapsulate component's view (own scope for CSS and script)
             var tabRoot = document.getElementById(contentID).createShadowRoot();
-            tabRoot.innerHTML = content
+            tabRoot.innerHTML = content;
 
             $("#"+tabID).effect('highlight', {color: '#fff'}, 500);
             configUI(this);
