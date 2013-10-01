@@ -13,6 +13,7 @@ lib-cov
 **/target/
 
 org.kevoree.tools.editor.web/public/js/build/
+**/public/js/build/
 
 pids
 logs
