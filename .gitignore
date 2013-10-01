@@ -12,6 +12,8 @@ lib-cov
 *.gz
 **/target/
 
+org.kevoree.tools.editor.web/public/js/build/
+
 pids
 logs
 results
