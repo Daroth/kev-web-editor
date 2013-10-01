@@ -7,7 +7,7 @@ define(
         Config.HTTP = 'http://';
         Config.WS = 'ws://';
         Config.TCP = 'tcp';
-        Config.BACKGROUND_IMG = '/img/background.jpg';
+        Config.BACKGROUND_IMG = 'img/background.jpg';
 
         // Local Storage Constants
         Config.LS_ASK_BEFORE_LEAVING = 'askBeforeLeaving';

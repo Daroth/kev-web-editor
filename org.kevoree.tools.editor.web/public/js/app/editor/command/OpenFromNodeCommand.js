@@ -31,7 +31,7 @@ define(
                 if (uri && uri.length != 0) {
                     // seems like we have a good uri
                     // display loading alert
-                    var message = "<img src='/img/ajax-loader-small.gif'/> Loading in progress, please wait...";
+                    var message = "<img src='img/ajax-loader-small.gif'/> Loading in progress, please wait...";
 
                     if (!popupShown) {
                         AlertPopupHelper.setHTML(message);

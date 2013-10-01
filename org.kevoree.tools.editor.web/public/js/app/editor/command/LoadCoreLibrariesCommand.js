@@ -10,7 +10,7 @@ define(
         LoadCoreLibrariesCommand.prototype.execute = function (editor) {
             // reinitializing popup content
             function loadingHTML(platform) {
-                return '<div class="well"><p><img src="/img/ajax-loader-small.gif" alt="Loading"/> Please wait while '+platform+' libraries are loading...</p></div>';
+                return '<div class="well"><p><img src="img/ajax-loader-small.gif" alt="Loading"/> Please wait while '+platform+' libraries are loading...</p></div>';
             }
             $('#corelib-javase').html(loadingHTML('JavaSE'));
             $('#corelib-android').html(loadingHTML('Android'));
