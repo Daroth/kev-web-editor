@@ -2,7 +2,7 @@ var jarPATH = 'target/',
     envDEV  = 'dev',
     envPROD = 'prod';
 
-exports.ROUTE_PREFIX = '/potato/foo';
+exports.ROUTE_PREFIX = '/';
 exports.ENV_PROD     = envPROD;
 exports.ENV_DEV      = envDEV;
 exports.environment  = envDEV;

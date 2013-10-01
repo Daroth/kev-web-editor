@@ -1379,7 +1379,6 @@ define(
         return this.get_internal_recursive_readOnlyElem();
       },
       setEContainer: function (container, unsetCmd, refNameInParent) {
-        this.set_path_cache(null);
         if (this.get_internal_readOnlyElem()) {
           return;
         }
@@ -1391,6 +1390,8 @@ define(
         this.set_internal_eContainer(container);
         this.set_internal_unsetCmd(unsetCmd);
         this.set_internal_containmentRefName(refNameInParent);
+        this.set_path_cache(null);
+        this.visit(_.org.kevoree.container.cleanCacheVisitor, true, true, false);
       },
       selectByQuery: function (query) {
         throw new Error('Not activated, please add selector option in KMF generation plugin');
@@ -7343,7 +7344,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$factoryBean = null;
               this.$bean = null;
@@ -8964,7 +8965,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_attributes = new Kotlin.PrimitiveHashMap(0);
               this.$removeAllAttributesCurrentlyProcessing = false;
@@ -9443,7 +9444,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$metaData = null;
               this.$started = true;
@@ -9921,7 +9922,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$_childs = new Kotlin.PrimitiveHashMap(0);
               this.$removeAllChildsCurrentlyProcessing = false;
@@ -10278,7 +10279,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$metaData = null;
               this.$started = true;
@@ -10995,7 +10996,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$metaData = null;
               this.$started = true;
@@ -11700,7 +11701,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$factoryBean = null;
               this.$bean = null;
@@ -12495,7 +12496,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$order = null;
               this.$type = null;
@@ -12701,7 +12702,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$optional = null;
               this.$state = null;
@@ -13105,7 +13106,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$metaData = null;
               this.$started = true;
@@ -13402,7 +13403,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$_genericTypes = new Kotlin.PrimitiveHashMap(0);
             },
@@ -13690,7 +13691,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$factoryBean = null;
               this.$bean = null;
@@ -14720,7 +14721,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$groupName = null;
               this.$unitName = null;
@@ -15264,7 +15265,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$factoryBean = null;
               this.$bean = null;
@@ -15954,7 +15955,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$maxTime = null;
               this.$generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$ref = null;
@@ -16160,7 +16161,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$_extraFonctionalProperties = new Kotlin.PrimitiveHashMap(0);
               this.$removeAllExtraFonctionalPropertiesCurrentlyProcessing = false;
@@ -16627,7 +16628,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$factoryBean = null;
               this.$bean = null;
@@ -17433,7 +17434,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$factoryBean = null;
               this.$bean = null;
@@ -18271,7 +18272,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
             },
             get_internal_eContainer: function () {
@@ -18393,7 +18394,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$metaData = null;
               this.$started = true;
@@ -18854,7 +18855,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_link = new Kotlin.PrimitiveHashMap(0);
               this.$removeAllLinkCurrentlyProcessing = false;
@@ -19264,7 +19265,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$value = null;
               this.$lastCheck = null;
@@ -19444,7 +19445,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
             },
             get_internal_eContainer: function () {
@@ -19566,7 +19567,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$networkType = null;
               this.$estimatedRate = null;
               this.$lastCheck = null;
@@ -19984,7 +19985,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$value = null;
               this.$generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$attribute = null;
@@ -20243,7 +20244,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$_parameters = new Kotlin.PrimitiveHashMap(0);
               this.$removeAllParametersCurrentlyProcessing = false;
@@ -20945,7 +20946,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_nodes = new Kotlin.PrimitiveHashMap(0);
               this.$removeAllNodesCurrentlyProcessing = false;
@@ -23017,7 +23018,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_bindings = new Kotlin.PrimitiveHashMap(0);
               this.$portTypeRef = null;
@@ -23375,7 +23376,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$url = null;
               this.$_units = new Kotlin.PrimitiveHashMap(0);
             },
@@ -23663,7 +23664,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_values = new Kotlin.PrimitiveHashMap(0);
               this.$removeAllValuesCurrentlyProcessing = false;
@@ -23965,7 +23966,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$_subTypes = new Kotlin.PrimitiveHashMap(0);
             },
@@ -24253,7 +24254,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$beanMethodName = null;
               this.$serviceMethodName = null;
               this.$paramTypes = null;
@@ -24462,7 +24463,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_ports = new Kotlin.PrimitiveHashMap(0);
             },
@@ -24753,7 +24754,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$port = null;
               this.$hub = null;
@@ -25001,7 +25002,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$factoryBean = null;
               this.$bean = null;
@@ -26282,7 +26283,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$generated_KMF_ID = '' + Math.random() + (new Date()).getTime();
               this.$_portTypes = new Kotlin.PrimitiveHashMap(0);
             },
@@ -26570,7 +26571,7 @@ define(
               this.$internal_recursive_readOnlyElem = false;
               this.$internal_modelElementListeners = null;
               this.$internal_modelTreeListeners = null;
-              this.$path_cache = _.org.kevoree.util.Constants.get_STRING_DEFAULTVAL();
+              this.$path_cache = null;
               this.$name = null;
               this.$optional = null;
               this.$noDependency = null;
@@ -29041,6 +29042,16 @@ define(
       }
     });
   }.call(_.org.kevoree.log));
+  (function () {
+    this.cleanCacheVisitor = Kotlin.createObject(_.org.kevoree.modeling.api.util.ModelVisitor, {
+      initialize: function () {
+        this.super_init();
+      },
+      visit: function (elem, refNameInParent, parent) {
+        (elem != null ? elem : Kotlin.throwNPE()).set_path_cache(null);
+      }
+    });
+  }.call(_.org.kevoree.container));
   (function () {
     this.Package = Kotlin.createObject(null, {
       initialize: function () {
