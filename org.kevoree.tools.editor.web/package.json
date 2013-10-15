@@ -16,6 +16,8 @@
     "requirejs": "2.1.8",
     "xml2js": "0.2.8",
     "kevoree-library": "0.0.3",
-    "kevoree-model-sync": "0.0.1"
+    "kevoree-model-sync": "0.0.1",
+    "npm": "~1.3.11",
+    "async": "~0.2.9"
   }
 }

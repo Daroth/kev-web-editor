@@ -31,7 +31,7 @@ exports.pull = function(req, res) {
           return res.json({
             result: 1,
             message: 'Model pulled successfully',
-            model: jsSerializer.serialize(model)
+            model: JSON.parse(jsSerializer.serialize(model))
           });
         });
 

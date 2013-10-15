@@ -32,8 +32,6 @@ define(
                 },
                 dataType: 'json',
                 success: function (data) {
-                    console.log("PULL REQUEST ANSWER", data);
-
                     switch (data.result) {
                         case 1:
                             if (callbacks.success && typeof(callbacks.success) == "function") {
