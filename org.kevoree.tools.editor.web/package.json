@@ -1,11 +1,11 @@
 {
-  "name": "KevWebEditor",
+  "name": "kevoree-web-editor",
   "version": "0.0.1",
   "private": true,
-  "author": "Leiko",
+  "author": "Maxime Tricoire <max.tricoire@gmail.com>",
+  "main": "./app.js",
   "scripts": {
-    "postinstall": "echo 'You should export JAVA_HOME=/path/to/your/jdk in order to properly install KevWebEditor' && rm -rf public/js/app/templates/* && ./node_modules/jade-amd/bin/jade-amd --from views/templates --to public/js/app/templates && cd public && r.js -o js/app.build.js && cd ..",
-    "start": "node app.js"
+    "postinstall": "echo 'You should export JAVA_HOME=/path/to/your/jdk in order to properly install KevWebEditor' && rm -rf public/js/app/templates/* && ./node_modules/jade-amd/bin/jade-amd --from views/templates --to public/js/app/templates && cd public && r.js -o js/app.build.js && cd .."
   },
   "dependencies": {
     "express": "3.1.1",
@@ -19,5 +19,10 @@
     "kevoree-model-sync": "0.0.1",
     "npm": "~1.3.11",
     "async": "~0.2.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxleiko/kev-web-editor.git"
+  },
+  "license": "LGPL3.0"
 }
