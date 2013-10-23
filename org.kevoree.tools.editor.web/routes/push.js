@@ -24,7 +24,7 @@ exports.push = function(req, res) {
       if (kGrp.typeDefinition.deployUnits.get(0).targetNodeType.name == 'JavascriptNode') {
         // Javascript platform push
         pushModel(jsModel, req.body.destNodeName, function (err) {
-          if (err) return res.json({result: -1, message: 'Unable to push model to group '+req.body.destNodeName});
+          if (err) return res.json({result: -1, message: err.message});
 
           return res.json({result: 1, message: 'Model pushed successfully'});
         });
@@ -34,7 +34,7 @@ exports.push = function(req, res) {
         modelSync.pushTo(model, req.body.destNodeName, req.body.grpName, function (err) {
           if (err) {
             console.error(err);
-            res.json({result: -1, message: 'Server-side java exception'});
+            res.json({result: -1, message: err.message});
             return;
           }
 

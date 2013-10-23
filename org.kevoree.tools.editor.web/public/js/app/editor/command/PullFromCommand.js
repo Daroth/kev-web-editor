@@ -24,7 +24,7 @@ define(
             $.ajax({
                 url: 'pull',
                 type: 'POST',
-                timeout: 10000, // 10 seconds timeout
+                timeout: 60000, // 1 minute timeout
                 data: {
                     destNodeName: node.getName(),
                     grpName: grp.getName(),

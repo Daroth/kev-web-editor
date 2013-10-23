@@ -14,7 +14,7 @@ define(
             clearTimeout(this._id);
             this._id = setTimeout(function () {
                 if (callbacks.error && typeof(callbacks.error) == "function") {
-                    callbacks.error.call(this, 'Timeout: '+TIMEOUT+'ms');
+                    callbacks.error('Timeout: '+TIMEOUT+'ms');
                 }
             }, TIMEOUT);
 
@@ -25,7 +25,7 @@ define(
               $.ajax({
                 url: 'push',
                 type: 'POST',
-                timeout: 10000, // 10 seconds timeout
+                timeout: 60000, // 1 minute timeout
                 data: {
                   destNodeName: node.getName(),
                   grpName: grp.getName(),
@@ -36,7 +36,7 @@ define(
                   switch (data.result) {
                     case 1:
                       if (callbacks.success && typeof(callbacks.success) == "function") {
-                        callbacks.success.call(this);
+                        callbacks.success(this);
                       }
                       clearTimeout(that._id);
                       break;
@@ -44,10 +44,7 @@ define(
                     case -1:
                     default:
                       if (callbacks.error && typeof(callbacks.error) == "function") {
-                        callbacks.error.call(
-                          this,
-                          'Something went wrong while pushing model to '+node.getName()+' via '+grp.getName()
-                        );
+                        callbacks.error(data.message);
                       }
                       clearTimeout(that._id);
                       break;
@@ -55,14 +52,14 @@ define(
                 },
                 error: function () {
                   if (callbacks.error && typeof(callbacks.error) == "function") {
-                    callbacks.error.call(this, 'Internal Server Error');
+                    callbacks.error('Internal Server Error');
                   }
                   clearTimeout(that._id);
                 }
               });
             } catch (err) {
                 if (callbacks.error && typeof(callbacks.error) == "function") {
-                    callbacks.error.call(this, err.message);
+                    callbacks.error(err.message);
                 }
                 clearTimeout(that._id);
             }
