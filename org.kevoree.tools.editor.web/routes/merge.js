@@ -64,12 +64,12 @@ exports.merge = function(req, res) {
                     console.error("Jar file for "+artID+" is null :/");
 
                   } else {
-                    var jar         = java.newInstanceSync('java.util.jar.JarFile', file),
-                      jarEntry    = jar.getJarEntrySync("KEV-INF/lib.kev");
+                    var jar      = java.newInstanceSync('java.util.jar.JarFile', file),
+                        jarEntry = jar.getJarEntrySync("KEV-INF/lib.kev");
 
                     if (jarEntry != null) {
-                      var model       = xmiLoader.loadModelFromStreamSync(jar.getInputStreamSync(jarEntry)).getSync(0),
-                        mergeSeq    = compare.mergeSync(fullModel, model);
+                      var model    = xmiLoader.loadModelFromStreamSync(jar.getInputStreamSync(jarEntry)).getSync(0),
+                          mergeSeq = compare.mergeSync(fullModel, model);
 
                       try {
                         mergeSeq.applyOnSync(fullModel);

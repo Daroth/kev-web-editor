@@ -10,8 +10,7 @@ echo "Maven install: success"
 
 # move compiled .js files to kev-web-editor folder
 cp org.kevoree.model.js/target/js/kevoree.js org.kevoree.tools.editor.web/public/js/lib
-cp org.kevoree.model.js/target/js/org.kevoree.model.js.merged.js org.kevoree.tools.editor.web/public/js/lib/kotlin
-mv org.kevoree.tools.editor.web/public/js/lib/kotlin/org.kevoree.model.js.merged.js org.kevoree.tools.editor.web/public/js/lib/kotlin/kotlin-merged.js
+cp org.kevoree.model.js/target/js/kotlin.js org.kevoree.tools.editor.web/public/js/lib/kotlin
 
 echo "Javascript libraries (kevoree.js & kotlin.js) moved to Web app folder: success"
 
@@ -24,6 +23,6 @@ cd org.kevoree.tools.editor.web
 npm install
 
 echo "Kevoree Web Editor installed successfully :)"
-echo "(exec 'npm start' to launch app on default port 3000)"
+echo "(exec 'npm start' in org.kevoree.tools.editor.web/ folder to launch app on default port 3042)"
 
 exit 0

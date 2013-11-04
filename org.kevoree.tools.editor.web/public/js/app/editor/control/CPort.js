@@ -4,7 +4,7 @@ define(
         'control/AController',
         'presentation/UIPort',
         'util/Pooffs',
-        'kotlin/kotlin-lib-ecma3',
+        'kotlin/kotlin',
         'kevoree'
     ],
 

@@ -1,7 +1,7 @@
 define(
     [
         'kevoree',
-        'kotlin/kotlin-lib-ecma3'
+        'kotlin/kotlin'
     ],
     function (Kevoree, Kotlin) {
 

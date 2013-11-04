@@ -2,7 +2,7 @@ define(
     [
         'abstraction/KEntity',
         'util/Pooffs',
-        'kotlin/kotlin-maps'
+        'kotlin/kotlin'
     ],
 
     function(KEntity, Pooffs, Kotlin) {

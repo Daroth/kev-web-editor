@@ -64,7 +64,7 @@ define(
                     }
                     var fReader = new FileReader();
                     fReader.onload = function (event) {
-                        try {
+                        //try {
                             // retrieve data from selected file
                             var jsonModel = JSON.parse(event.target.result),
                                 strModel = JSON.stringify(jsonModel),
@@ -76,11 +76,11 @@ define(
                             AlertPopupHelper.setType(AlertPopupHelper.SUCCESS);
                             AlertPopupHelper.show(5000);
 
-                        } catch (err) {
-                            AlertPopupHelper.setHTML("Unable to load model <strong>"+file.name+"</strong><br/><small>Error: "+err.message+"</small>");
-                            AlertPopupHelper.setType(AlertPopupHelper.ERROR);
-                            AlertPopupHelper.show(5000);
-                        }
+                        //} catch (err) {
+                        //    AlertPopupHelper.setHTML("Unable to load model <strong>"+file.name+"</strong><br/><small>Error: "+err.message+"</small>");
+                        //    AlertPopupHelper.setType(AlertPopupHelper.ERROR);
+                        //    AlertPopupHelper.show(5000);
+                        //}
                     }
                     fReader.readAsText(file);
 

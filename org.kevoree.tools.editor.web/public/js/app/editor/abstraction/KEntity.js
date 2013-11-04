@@ -1,6 +1,6 @@
 define(
     [
-        'kotlin/kotlin-maps'
+        'kotlin/kotlin'
     ],
 
     function(Kotlin) {

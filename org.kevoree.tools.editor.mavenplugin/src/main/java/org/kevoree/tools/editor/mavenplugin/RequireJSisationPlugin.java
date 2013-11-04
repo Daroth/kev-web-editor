@@ -5,7 +5,13 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * @author <a href="mailto:maxime.tricoire@inria.fr">Maxime Tricoire</a>
@@ -30,7 +36,7 @@ public class RequireJSisationPlugin extends AbstractMojo {
      * @parameter
      * @required
      */
-    private String input;
+    private String kevoreeInput;
 
     /**
      * Kotlin JS merged file path
@@ -38,46 +44,60 @@ public class RequireJSisationPlugin extends AbstractMojo {
      * @parameter
      * @required
      */
-    private String kotlinInput;
+    private String[] kotlinInputs;
 
     /**
-     * Generated Kotlin dependence in RequireJS format define(['kotlin/<b>kotlin-merged</b>'], function (Kotlin) {...});
-     *
-     * @parameter default-value="kotlin-merged"
+     * @parameter default-value="${basedir}/target/js/"
      * @required
      */
-    private String rjsKotlinDep;
+    private String outputDir;
+
+    /**
+     * @parameter default-value="kevoree.js"
+     * @required
+     */
+    private String kevOutput;
+
+    /**
+     * @parameter default-value="kotlin.js"
+     * @required
+     */
+    private String kotOutput;
 
 
     @Override
     public void execute() throws MojoExecutionException {
         try {
             // wrap kevoree.js
-            RandomAccessFile kevoreeJS = new RandomAccessFile(input, "rws");
-            byte[] rawKevJS = new byte[(int) kevoreeJS.length()];
-            kevoreeJS.readFully(rawKevJS);
-            kevoreeJS.seek(0);
-            kevoreeJS.writeBytes("define(\n\t['kotlin/" + rjsKotlinDep + "'],\n\tfunction (Kotlin) {\n");
-            kevoreeJS.write(rawKevJS);
-            kevoreeJS.writeBytes("\t\treturn Kotlin.modules['kevoree'];\n\t}\n);");
+            PrintWriter kevoreeJS = new PrintWriter(outputDir+"/"+kevOutput);
+            kevoreeJS.print("define(\n\t['kotlin/" + kotOutput.substring(0, kotOutput.lastIndexOf('.')) + "'],\n\tfunction (Kotlin) {\n");
+            kevoreeJS.println(readFile(kevoreeInput, StandardCharsets.UTF_8));
+            kevoreeJS.print("\t\treturn Kotlin.modules['"+project.getArtifactId()+"'];\n\t}\n);");
             kevoreeJS.close();
 
-        } catch (IOException ioe) {
-            throw new MojoExecutionException(ioe.getMessage(), ioe);
+        } catch (Exception e) {
+            throw new MojoExecutionException(e.getMessage(), e);
         }
 
         try {
             // wrap kotlin.js
-            RandomAccessFile kotlinJS = new RandomAccessFile(kotlinInput, "rws");
-            byte[] rawKotJS = new byte[(int) kotlinJS.length()];
-            kotlinJS.readFully(rawKotJS);
-            kotlinJS.seek(0);
-            kotlinJS.write(rawKotJS);
-            kotlinJS.writeBytes("\ndefine(function () { return Kotlin; });");
+            String[] kotlinFiles = new String[kotlinInputs.length];
+            for (int i=0; i < kotlinInputs.length; i++) {
+                kotlinFiles[i] = readFile(kotlinInputs[i], StandardCharsets.UTF_8);
+            }
+
+            PrintWriter kotlinJS = new PrintWriter(outputDir+"/"+kotOutput);
+            for (String kotlinContent : kotlinFiles) kotlinJS.println(kotlinContent);
+            kotlinJS.print("\ndefine(function () { return Kotlin; });");
             kotlinJS.close();
 
-        } catch (IOException ioe) {
-            throw new MojoExecutionException(ioe.getMessage(), ioe);
+        } catch (Exception e) {
+            throw new MojoExecutionException(e.getMessage(), e);
         }
+    }
+
+    private static String readFile(String path, Charset encoding) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return encoding.decode(ByteBuffer.wrap(encoded)).toString();
     }
 }
