@@ -5,7 +5,6 @@ var serializer = new kevoree.serializer.JSONModelSerializer();
 
 module.exports = function (req, res) {
   if (req.xhr) {
-    console.log('>>>>', req.body.name, req.body.version);
     if (req.body.name) {
       var version = undefined;
       if (req.body.version.length > 0) version = req.body.version;
