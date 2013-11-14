@@ -189,10 +189,13 @@ html
         h3 KevScript Editor
       div.modal-body
         div.row-fluid
+          div#kevs-editor-error.alert.alert-error.hide
+            button.close(href="#", type='button') &times;
+            p#kevs-editor-error-content
           textarea#kev-script.span12(rows='15', autocomplete='off', autocorrect='off', autocapitalize='off', spellcheck='false')
       div.modal-footer
         button.btn(data-dismiss='modal', aria-hidden='true') Close
-        button#run-kevs.btn.btn-primary(data-dismiss='modal') Run
+        button#run-kevs.btn.btn-primary Run
     //- ===============
 
     //- ===============
@@ -224,7 +227,7 @@ html
               input#search-corelib.input-search.input-small.search-query(type='text')
               button#search-corelib-button.btn(type='button'): i.icon-search
         div#load-corelib-popup-error.alert.alert-error.hide
-          button.close(href="#", type='button', data-dismiss='alert') &times;
+          button.close(href="#", type='button') &times;
           p#load-corelib-popup-error-content
         div.tab-content
           div#corelib-javase.tab-pane.active

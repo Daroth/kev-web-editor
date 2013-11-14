@@ -13,6 +13,7 @@ requirejs.config({
         abstraction:    '../app/editor/abstraction',
         visitor:        '../app/editor/visitor',
         control:        '../app/editor/control',
+        resolver:       '../app/editor/resolver',
         presentation:   '../app/editor/presentation',
         factory:        '../app/editor/factory',
         command:        '../app/editor/command',
@@ -126,6 +127,7 @@ define(
             // global behavior for alerts : close will remove 'in' class
             // in order for them to properly hide (with the CSS3 magic)
             $(this).parent().removeClass('in');
+            $(this).parent().addClass('hide');
         });
 
         // safety check because one does not simply like when he loses
@@ -188,17 +190,6 @@ define(
                 cmd.execute(protocol, uri, editor, false);
             }
         });
-
-//        // drop listener to load file automatically
-//        $(document).on('dragenter', function (e) {
-//            console.log("DRAG ENTER", e);
-//        });
-//
-//        $('#editor').on('drop', function (e) {
-//            console.log("DROP", e.originalEvent.dataTransfer);
-//            e.stopPropagation();
-//            e.preventDefault();
-//        });
 
         // ========================================
         // Listeners that trigger XXXCommand.execute(...)

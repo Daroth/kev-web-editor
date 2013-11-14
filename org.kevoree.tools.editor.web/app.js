@@ -49,6 +49,7 @@ app.get('/merge', routes.merge);
 app.post('/push', routes.push);
 app.post('/pull', routes.pull);
 app.post('/open', routes.open);
+app.post('/resolve', routes.resolve);
 app.post('/save/:type', routes.save);
 app.get('/saved/:type/:id', routes.saved);
 app.get('/runtime', routes.runtime);

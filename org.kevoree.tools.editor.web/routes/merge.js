@@ -63,7 +63,7 @@ exports.merge = function(req, res) {
                   if (file == null) {
                     console.error("Jar file for "+artID+" is null :/");
 
-                  } else {
+                  } else {open
                     var jar      = java.newInstanceSync('java.util.jar.JarFile', file),
                         jarEntry = jar.getJarEntrySync("KEV-INF/lib.kev");
 
