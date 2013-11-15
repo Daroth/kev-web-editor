@@ -22,6 +22,8 @@ Kevoree Web Editor is using
     git clone git@github.com:maxleiko/kev-web-editor.git
     cd kev-web-editor
     ./install.sh
+    cd ./org.kevoree.tools.editor.web
+    mvn install
     npm start
 
 
